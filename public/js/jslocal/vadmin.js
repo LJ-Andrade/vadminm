@@ -298,3 +298,19 @@ function toggleLoader(){
 }
 
 
+var get_client = function(route){
+		
+	var output;
+	$.ajax({
+		url: route,
+		type: "GET",
+		async: true,
+		success: function (data) {
+			output = data;
+			return output;
+		},
+		error: function () {}
+	}); // ajax synchronus request 
+	return output;
+
+}

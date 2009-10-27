@@ -44,7 +44,7 @@
 			</div>
 
 			<div class="col-md-12">
-				<button id="GeneratePedidoBtn" class="button buttonOk"> Generar Pedido</button>
+				<button id="GeneratePedidoBtn" class="button buttonOk Hidden"> Generar Pedido</button>
 			</div>
 		</div>
 	</div> 	
@@ -70,30 +70,40 @@
 @section('custom_js')
 	<script>
 
-	$('#ClienteBySelect').on('change', function(e, p){
-		
-		var id    = $(this).chosen().val();
-		var route = "{{ url('vadmin/get_client') }}/"+id+"";
-		console.log(route);
-		get_client(route);
-    	
-		
-		//$('#ClientNameOutput').html(clientname);
+		$('#ClienteBySelect').on('change', function(e, p){
+			
+			var id    = $(this).chosen().val();
+			var route = "{{ url('vadmin/get_client') }}/"+id+"";
+			
+			$.get(route, function(data){
+				var cliente = data.cliente.razonsocial;
+				var codigo  = data.cliente.id;
+				$('#ClientNameOutput').html('Código: ' + id + ' - ' + cliente);
+				$('#GeneratePedidoBtn').removeClass('Hidden');
+			});
+			
+		});
 
-	});
+		$("#CodigoCliente").on( "keydown", function(e) {
+			
+			if(e.which == 13) {
+				var id    = $(this).val();
+				var route = "{{ url('vadmin/get_client') }}/"+id+"";
+				$.get(route, function(data){
+					
+					if(cliente==null){
+						$('#ClientNameOutput').html('El cliente no existe');
+					} else {
+						var cliente = data.cliente.razonsocial;
+						var codigo  = data.cliente.id;
+						$('#ClientNameOutput').html('Código: ' + id + ' - ' + cliente);
+						$('#GeneratePedidoBtn').removeClass('Hidden');
+					}
+				});
+			}
 
-	$("#CodigoCliente").on( "keydown", function(e) {
-		e.preventSubmit();
-		if(e.which == 13) {
-			//var route = "{{ url('vadmin/show_products') }}/"+ids+"";
-			var id    = $(this).val();
-			console.log(id);
-			//getClientById(id, route);
-		}
-	});
-
-
-				
+		});
+			
 
     </script>
 @endsection

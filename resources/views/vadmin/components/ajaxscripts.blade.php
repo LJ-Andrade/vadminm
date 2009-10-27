@@ -69,20 +69,6 @@
 	});
 
 
-	// ProductOutput
-	
-
-	// Get Client By Id
-	function get_client(route){
-
-		$.get(route, function(data){
-			
-			console.log(data);
-			
-		});
-
-	}
-
 
     
 </script>
