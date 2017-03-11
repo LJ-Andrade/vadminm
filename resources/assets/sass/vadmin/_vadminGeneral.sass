@@ -1,0 +1,128 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,300i,400,700')
+
+$fv: 'Lato', sans-serif
+$fvw1: 300
+$fvw2: 400
+$fvw3: 700
+
+html
+  min-height: 100%
+  position: relative
+  font-size: 100%
+
+body
+  height: 100%
+  overflow-x: hidden
+  font-size: 18px
+  background-color: #fff
+  color: #383838
+  font-family: $fv
+  line-height: 25px
+  padding-top: 50px
+a
+  text-decoration: none
+  color: #000
+  &:hover
+    text-decoration: none
+p
+  font-size: 1.2rem
+  font-family: $fv
+  font-weight: $fvw1
+h1
+  font-size: 1.8rem
+  font-weight: $fvw2
+h2
+  font-size: 1.1rem
+  font-weight: $fvw3
+hr
+  border-top: 1px solid $dark2
+
+.brd
+  border: 1px solid red
+.txL
+  text-align: left
+.txR
+  text-align: right
+.txC
+  text-align: center
+.pad0
+  padding: 0
+.mar0
+  margin: 0
+.margTop0
+  margin-top: 0 !important
+.padTop0
+  padding-top: 0 !important
+
+@media (max-width: 900px)
+  .hideMobile900
+    display: none !important
+.Hidden
+  display: none !important
+.floatRight
+  float: right
+.floatLeft
+  float: left
+.centered
+  text-align: center
+
+/////////// FLEXBOX ////////////
+.flexCentVert
+  display: -webkit-box
+  display: -ms-flexbox
+  display: flex
+  -webkit-box-align: center
+  -ms-flex-align: center
+  -ms-grid-row-align: center
+  align-items: center
+  -webkit-box-pack: center
+  -ms-flex-pack: center
+  align-self: center
+  align-content: center
+
+.flexSameH
+  display: flex
+  flex-wrap: wrap
+
+.flexEqual
+  display: -webkit-box
+  display: -ms-flexbox
+  display: flex
+  height: auto
+
+.flexW
+  display: -webkit-box
+  display: -ms-flexbox
+  display: flex
+  -ms-flex-wrap: wrap
+  flex-wrap: wrap
+  align-items: center
+
+.flexV
+  display: -webkit-box
+  display: -ms-flexbox
+  display: flex
+  -webkit-box-align: center
+  -ms-flex-align: center
+  -ms-grid-row-align: center
+  align-items: center
+  -webkit-box-pack: center
+  -ms-flex-pack: center
+  justify-content: center
+  -webkit-box-orient: vertical
+  -webkit-box-direction: normal
+  -ms-flex-direction: column
+  flex-direction: column
+
+.flexCenter
+  display: -webkit-box
+  display: -ms-flexbox
+  display: flex
+  -webkit-box-align: center
+  -ms-flex-align: center
+  -ms-grid-row-align: center
+  align-items: center
+  -webkit-box-pack: center
+  -ms-flex-pack: center
+  justify-content: center
+

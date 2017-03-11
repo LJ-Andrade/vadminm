@@ -1,0 +1,75 @@
+
+// .navbar-default
+//  background: transparent
+//  border: none
+//  transition: 0.2s all linear
+
+// Resets
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form
+	border: 0
+	background-color: $dark
+
+.navbar-default.scrolled
+	background-color: $dark2
+	border: 0
+	@include box-shadow-big-mid
+
+
+.navbar
+	.container-fluid
+		padding-left: 0
+	@include transition(0.3s)
+	.navbar-collapse
+		ul li a
+			color: #fff
+	.navbar-brand
+		display: none
+		@include transition(0.3s)
+		padding: 0
+		img
+			width: 150px
+			max-width: 100%
+	.dropdown-menu
+		i
+			margin-right: 5px
+		a
+			font-size: 1rem
+			color: #000 !important
+
+.navbar
+	@include transition(0.3s)
+	.brand-scrolled
+		img
+			@include transition(0.3s)
+			width: 150px
+	.brand-visible
+		display: block
+
+	.user-menu
+		background-color: $dark2
+		a
+			padding: 10px 25px
+
+
+// // Nav a Height
+// .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover
+//  height: 80px
+
+@media (min-width: 768px)
+	.navbar-brand
+		position: absolute
+		width: 100%
+		left: 0
+		top: 0
+		text-align: center
+		margin: auto
+
+@media (max-width: 768px)
+	.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form
+		padding-left: 25px
+		padding-right: 25px
+
+@media (min-width: 768px)
+	.navbar-inverse
+		background-color: transparent
+		border-color: transparent

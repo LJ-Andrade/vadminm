@@ -1,0 +1,824 @@
+@import url('https://fonts.googleapis.com/css?family=Kadwa:400,700|Roboto:300,400,700')
+$font1: 'Kadwa', serif
+$f1w1: 400
+$f1w2: 700
+$font2: 'Roboto', sans-serif
+$f2w1: 300
+$f2w2: 400
+$f2w3: 700
+
+
+$main-red: #D77777
+$main-color: #F3F3F3
+$color3: #393944
+$color3Hover: #58586A
+
+
+$red1: rgb(235, 87, 87)
+
+
+.productwrap
+	width: 78%
+	float: right
+	background: rgba(245, 243, 243, 0.27)
+	min-height: 800px
+	padding: 2em
+
+.mainTit
+	text-align: center
+	padding: 10px 0
+	margin: 10px 0
+
+
+
+.divider
+	margin: 0 5px
+
+@media (max-width: 475px)
+	.dividernodisplay
+		display: none
+
+
+
+
+//////////////////////////////////////
+//                                  //
+//              BUTTONS             //
+//                                  //
+//////////////////////////////////////
+
+
+.button
+	border: 0
+	border-radius: 50px
+	padding: 7px 20px
+	font-size: 1.2rem
+	white-space: nowrap
+	vertical-align: middle
+	-webkit-user-select: none
+	-moz-user-select: none
+	-ms-user-select: none
+	user-select: none
+	background-image: none
+	line-height: 1.42857143
+	margin: 4px
+	@include transition(0.2s)
+	&:hover
+		cursor: pointer
+
+
+.btnBig
+	border: 0
+	border-radius: 0
+	padding: 7px 20px
+	font-size: 1.2rem
+	white-space: nowrap
+	vertical-align: middle
+	-webkit-user-select: none
+	-moz-user-select: none
+	-ms-user-select: none
+	user-select: none
+	background-image: none
+	line-height: 1.42857143
+	margin: 4px
+	@include transition(0.2s)
+	&:hover
+		cursor: pointer
+
+.btn
+	font-size: 1.2rem
+	white-space: nowrap
+	vertical-align: middle
+	-webkit-user-select: none
+	-moz-user-select: none
+	-ms-user-select: none
+	user-select: none
+	background-image: none
+	line-height: 1.42857143
+	border: 0
+	@include transition(0.3s)
+
+.btnGreen
+	background-color: rgb(73, 164, 98)
+	margin: 2px 2px
+	color: #fff
+	&:hover,&:active,&:focus
+		background-color: rgb(92, 200, 122)
+		color: #fff
+.btnBlue
+	background-color: rgb(76, 126, 185)
+	margin: 2px 2px
+	color: #fff
+	&:hover,&:active,&:focus
+		background-color: rgb(130, 162, 201)
+		color: #fff
+.btnRed
+	background-color: rgb(207, 86, 83)
+	margin: 2px 2px
+	color: #fff
+	&:hover,&:active,&:focus
+		background-color: rgb(205, 115, 113)
+		color: #fff
+
+.btnYellow
+	background-color: rgb(196, 199, 70)
+	margin: 2px 2px
+	color: #fff
+	&:hover,&:active,&:focus
+		background-color: rgb(203, 205, 111)
+		color: #fff
+
+.ButtonLogin
+	border: 0
+	margin-top: 8px
+
+.categorySelectBtn
+	padding: 10px 30px
+
+// Button Container
+.btnGrey
+	background-color: rgb(214, 214, 214)
+	color: #000
+	&:hover,&:active,&:focus
+		background-color: rgb(164, 164, 164)
+		color: #fff
+
+.btnRightMobCent
+	text-align: right
+
+@media (max-width: 765px)
+	.btnRightMobCent
+		text-align: center
+
+.smallBtn
+	padding: 1px 10px
+
+.btnHollow
+	padding: 10px 15px
+	border: 2px solid white
+	font-size: 1.5rem
+	background-color: transparent
+	@include transition(0.2s)
+	&:hover
+		cursor: pointer
+		background-color: #fff
+		color: #000
+
+.btnHollowB
+	padding: 15px 25px
+	border: 2px solid $red1
+	font-size: 1.3rem
+	background-color: transparent
+	@include transition(0.2s)
+	color: #fff
+	&:hover
+		cursor: pointer
+		background-color: $red1
+		color: #fff
+
+.btnHollowRed
+	margin-top: 20px
+	padding: 10px 20px
+	border: 1px solid $red1
+	font-size: 1.3rem
+	background-color: transparent
+	@include transition(0.2s)
+	color: $red1
+	&:hover
+		cursor: pointer
+		background-color: $red1
+		color: #fff
+
+.btnHollowSmall
+	border: 1px solid black
+	padding: 4px 10px
+	margin-bottom: 5px
+	a
+		color: black
+
+.btnHollowPortfolio
+	background-color: transparent
+	border: 1px solid $color3
+	color: $color3
+	position: relative
+	i
+		position: absolute
+		color: $color3
+		font-size: 3rem
+		right: -6px
+		top: -1px
+		@include transition(0.2s)
+	&:hover
+		background-color: $red1
+		border: 0
+		color: #fff
+		padding-right: 55px
+		i
+			color: $red1
+			font-size: 5rem
+			right: -23px
+			top: -19px
+		
+
+//////////////////////////////////////
+//                                  //
+//             TAGS                 //
+//                                  //
+//////////////////////////////////////
+
+.tag
+	padding: 4px 14px
+	margin-left: 1px
+	margin-right: 1px
+	line-height: 35px
+	border-radius: 50px
+	white-space: nowrap
+	font-size: 1.2rem
+	font-family: $font2
+	font-weight: $f2w1
+	@include transition(0.4s)
+
+.blue-tag
+	background-color: #476AEA
+	color: #fff
+	&:hover
+		background-color: #4A3FB8
+		cursor: pointer
+
+.red-tag
+	background-color: $main-red
+	color: #fff
+	&:hover
+		background-color: #E64646
+		cursor: pointer
+
+.badgeRed
+	background-color: #CA5858
+	color: #fff
+	font-size: 1.1rem
+	font-family: $font2
+	font-weight: $f2w1
+	@include transition(0.2s)
+	margin-left: 2px
+	a
+		color: #fff
+	&:hover
+		background-color: #D87575
+		color: #fff
+		cursor: pointer
+		a
+			color: #fff
+		
+
+.badgeGrey
+	background-color: #F8F8F8
+	font-size: 1.2rem
+	font-family: $font2
+	font-weight: $f2w1
+	@include transition(0.2s)
+	margin-left: 2px
+	a
+		color: #fff
+	&:hover
+		background-color: #D9D9D9
+		cursor: pointer
+		a
+			color: #7D7D7D
+
+
+.sqbadge-red
+	border-radius: 0
+	font-size: 1.2rem
+	font-family: $font2
+	font-weight: $f2w1
+	margin: 3px 1px
+	@include transition(0.2s)
+	margin-left: 2px
+	a
+		color: #fff
+	&:hover
+		background-color: #fff
+		a
+			color: #383838
+
+
+
+//////////////////////////////////////
+//                                  //
+//              LISTS               //
+//                                  //
+//////////////////////////////////////
+///// Vertical List ///
+.vertical-list
+	ul
+		padding-left: 0
+		padding: 0
+		margin: 0
+		list-style: none
+		li
+			list-style: none
+			display: block
+			// float: left
+			// width: 100px
+			// line-height: 80px
+			// vertical-align: middle
+
+//// Grid View /////
+.horizontal-list
+	ul
+		padding-left: 0
+		padding: 0
+		margin: 0
+		li
+			display: inline-block
+			list-style: none
+
+
+////////////////// Containers ///////////////////////
+.mainContainer
+	margin-top: 20px
+
+.wrapper
+	position: relative
+	height: 100%
+	padding-bottom: 60px
+
+.row-centered
+	text-align: center
+
+.col-centered
+	display: inline-block
+	float: none
+	text-align: left
+	margin-right: -4px
+
+
+	//////// Heart Decoration Behind Home Slider ////////
+.topDecoration
+	background-image: url(../webimages/home/navback.png)
+	background-repeat: repeat-x
+	min-height: 100px
+	z-index: 2
+	position: relative
+
+
+
+
+//////////// Section Banners //////////////////////
+.topSectionBanner
+	margin-top: -110px
+	height: 100px
+	img
+		min-width: 100%
+		max-width: 100%
+
+
+
+////////////// Filters //////////////////////////
+.filtersSide
+	padding: 0
+
+.filters
+	background-color: #fff
+	text-align: left
+	padding: 10px
+	margin-bottom: 20px
+	min-width: 190px
+	hr
+		margin: 5px 0
+	.fa
+		color: #3E3E3E
+		font-size: 10px
+		font-weight: 100
+
+.filterTit
+	margin-left: 15px
+	font-size: 16px
+	font-weight: 600
+
+.filterSubTit
+	font-size: 14px
+	font-weight: 300
+	
+
+#filterPrice
+	text-align: center
+	label
+		font-size: 14px
+		font-weight: 300
+
+	input[type=text], select
+		width: 70%
+		padding: 5px 10px
+		margin: 8px 0
+		display: inline-block
+		border: 1px solid #ccc
+		border-radius: 4px
+		box-sizing: border-box
+		text-align: center
+	input[type=submit]
+		width: 70%
+		background-color: #4CAF50
+		color: white
+		padding: 5px 20px
+		margin: 8px 0
+		border: none
+		border-radius: 4px
+		cursor: pointer
+
+////////// Checkboxes ///////////////////////////////////////////
+
+.checkbox-custom, .radio-custom
+	opacity: 0
+	position: absolute
+
+.checkbox-custom, .checkbox-custom-label, .radio-custom, .radio-custom-label
+	display: inline-block
+	vertical-align: middle
+	margin: 1px 0
+	cursor: pointer
+	&:active, &:focus
+		outline: none
+
+.checkbox-custom-label, .radio-custom-label
+	position: relative
+
+.checkbox-custom + .checkbox-custom-label:before, .radio-custom + .radio-custom-label:before
+	content: ''
+	background: #fff
+	border: 1px solid #ddd
+	display: inline-block
+	vertical-align: middle
+	width: 20px
+	height: 20px
+	padding: 1px
+	margin-right: 10px
+	text-align: center
+
+.checkbox-custom:checked + .checkbox-custom-label:before
+	background: $red1
+	box-shadow: inset 0px 0px 0px 4px #fff
+
+.radio-custom + .radio-custom-label:before
+	border-radius: 50%
+
+.radio-custom:checked + .radio-custom-label:before
+	background: #ccc
+	box-shadow: inset 0px 0px 0px 4px #fff
+
+.checkbox-custom:focus + .checkbox-custom-label, .radio-custom:focus + .radio-custom-label
+	outline: 1px solid #ddd
+
+
+//////////////// EFFECTS ///////////////////////////////
+/* Radial Out */
+.hvr-radial-out
+	display: inline-block
+	vertical-align: middle
+	-webkit-transform: translateZ(0)
+	transform: translateZ(0)
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0)
+	-webkit-backface-visibility: hidden
+	backface-visibility: hidden
+	-moz-osx-font-smoothing: grayscale
+	position: relative
+	overflow: hidden
+	background: #e1e1e1
+	-webkit-transition-property: color
+	transition-property: color
+	-webkit-transition-duration: 0.3s
+	transition-duration: 0.3s
+
+.hvr-radial-out:before
+	content: ""
+	position: absolute
+	z-index: -1
+	top: 0
+	left: 0
+	right: 0
+	bottom: 0
+	background: #e0726c
+	border-radius: 100%
+	-webkit-transform: scale(0)
+	transform: scale(0)
+	-webkit-transition-property: transform
+	transition-property: transform
+	-webkit-transition-duration: 0.3s
+	transition-duration: 0.3s
+	-webkit-transition-timing-function: ease-out
+	transition-timing-function: ease-out
+
+.hvr-radial-out:hover, .hvr-radial-out:focus, .hvr-radial-out:active
+	color: white
+
+.hvr-radial-out:active:before, .hvr-radial-out:active:before
+	-webkit-transform: scale(2)
+	transform: scale(5)
+
+.transition
+	transition: all 0.8s
+
+.transition2
+	-webkit-transition: all 2s
+	-moz-transition: all 2s
+	-o-transition: all 2s
+	transition: all 2s
+
+
+
+/////////// Details ////////////////////////////////
+.mainTit
+	color: #fff
+
+@media (max-width: 470px)
+	.mainTit h1
+		font-size: 20px
+		color: #000
+
+.catTit
+	font-family: $font1
+	font-size: 2em
+	font-weight: 400
+	font-style: italic
+	opacity: 0
+	transition-delay: 0.1s
+	transition-duration: 0.2s
+
+.catSecTxt
+	font-family:  $font1
+	font-style: normal
+	font-weight: 300
+
+.catSubtit
+	font-family:  $font1
+	font-size: 1em
+	font-weight: 300
+	opacity: 0
+	transition-delay: 0.2s
+	transition-duration: 0.2s
+
+.itembox
+	height: 380px
+	width: 277px
+	cursor: pointer
+	position: relative
+	overflow: hidden
+	margin: 5px 5px
+	max-width: 100%
+	text-align: center
+	img
+		position: absolute
+		left: 0
+		-webkit-transition: all 300ms ease-out
+		-moz-transition: all 300ms ease-out
+		-o-transition: all 300ms ease-out
+		-ms-transition: all 300ms ease-out
+		transition: all 300ms ease-out
+
+	.overbox
+		height: 380px
+		width: 277px
+		background-color: rgba(57,72,103,0.7)
+		position: absolute
+		top: 0
+		left: 0
+		color: #fff
+		z-index: 100
+		-webkit-transition: all 300ms ease-out
+		-moz-transition: all 300ms ease-out
+		-o-transition: all 300ms ease-out
+		-ms-transition: all 300ms ease-out
+		transition: all 300ms ease-out
+		opacity: 0
+
+		padding: 25px 20px
+		max-width: 100%
+
+	&:hover .overbox
+		opacity: 1
+
+	.overtext
+		-webkit-transition: all 300ms ease-out
+		-moz-transition: all 300ms ease-out
+		-o-transition: all 300ms ease-out
+		-ms-transition: all 300ms ease-out
+		transition: all 300ms ease-out
+		transform: translateY(40px)
+		-webkit-transform: translateY(40px)
+
+	&:hover .catTit, &:focus .titcatTitle
+		opacity: 1
+		transform: translateY(0px)
+		-webkit-transform: translateY(0px)
+
+	&:hover .catSubtit, &:focus .catSubtit
+		opacity: 1
+		transform: translateX(0px)
+		-webkit-transform: translateX(0px)
+
+.catSeeMore
+	padding-top: 100px
+	width: 180px
+	margin: 0 auto
+	left: 0
+	right: 0
+
+
+//////////////////////////////////////
+//                                  //
+//           PAGINATION             //
+//                                  //
+//////////////////////////////////////
+
+.pagination>li:first-child>a, .pagination>li:first-child>span
+	border-radius: 0 !important
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover
+	background-color: #ea5050
+	border: 0
+	border-radius: 0 !important
+.pagination > li > a, .pagination > li > span
+	color: #383838
+.pagination > li > a:focus, .pagination > li > a:hover, .pagination > li > span:focus, .pagination > li > span:hover
+	color: #ea5050
+
+
+//////////////////////////////////////
+//                                  //
+//           ELEMENTS               //
+//                                  //
+//////////////////////////////////////
+
+.color-circle
+	width: 20px
+	height: 20px
+	border-radius: 50%
+	margin: 2px
+
+.shorthr
+	width: 50%
+
+
+
+////////////////////////////////////////
+//                                    //
+//            SINGLE ITEM             //
+//                                    //
+////////////////////////////////////////
+ 
+.single-item-category
+	margin-bottom: 5px
+	.badge
+		font-size: 0.9rem
+
+.single-item
+	background-color: rgba(255,255,255,.9)
+	padding: 25px
+	position: relative
+	position: relative
+	.title
+		font-size: 1rem
+	.title-mobile
+		display: none
+	.content
+		padding-top: 25px
+		text-align: center
+		h1
+			font-style: italic
+			margin-bottom: 10px
+		span.code
+			font-size: 1.4rem
+			color: #ed7676
+		.desc
+			margin-top: 15px
+			margin-bottom: 15px
+			p
+				font-size: 1rem
+				font-style: italic
+				color: #000
+		.details
+			span.sub-title
+				font-size: 1.2rem
+				font-weight: 400
+		.sizes
+			.size-circle
+				color: #fff
+				background-color: #ed7676
+				border-radius: 50%
+				width: 40px
+				height: 40px
+				text-align: center
+				padding-top: 7px
+		.colors
+			.color-circle
+				width: 40px
+				height: 40px
+	.article-actions
+		width: 100%
+		position: absolute
+		bottom: 0
+
+// @media (max-width: 991px)
+// 	.single-item
+// 		.title
+// 			display: block
+// 			font-style: italic
+// 			font-size: 1rem
+
+
+@media (max-width: 991px)
+	.single-item
+		.title
+			display: none
+			font-style: italic
+			font-size: 1rem
+		.title-mobile
+			text-align: center
+			display: block
+			h1
+				font-size: 1.6rem
+				font-style: italic
+				margin-bottom: 10px
+
+
+////////////////////////////////////////
+//                                    //
+//              SLIDER                //
+//                                    //
+////////////////////////////////////////
+ 
+
+.swiper-slide
+	text-align: center
+	max-height: 600px
+.swiper-container
+	.swiper-button-prev,.swiper-button-next
+		@include transition(0.2s)
+		background-image: none
+		font-size: 2rem
+		opacity: 0
+	.swiper-scrollbar
+		display: none
+	&:hover
+		.swiper-button-prev,.swiper-button-next
+			opacity: 1
+
+
+
+/////////// Home Slider ////////////////
+
+.simple-slider
+	position: relative
+	overflow: hidden
+	margin: 20px auto 50px auto
+	border-radius: 4px
+	ul
+		position: relative
+		margin: 0
+		padding: 0
+		list-style: none
+		li
+			position: relative
+			display: block
+			float: left
+			margin: 0
+			padding: 0
+			width: 500px
+			background: transparent
+			text-align: center
+			line-height: 50px
+			@include flex-column
+			span.icon
+				font-size: 5rem
+				color: rgb(98, 55, 107)
+			span.text
+				color: #fff
+			a
+				color: #fff
+
+@media (max-width: 520px)
+	.simple-slider
+		width: 100% !important
+		text-align: center
+		margin: 5px
+		height: 250px
+		ul
+			li
+				line-height: 80px
+				width: 100%
+
+
+@media (max-width: 300px)
+	.simple-slider
+		display: none
+
+//////////////////////////////////////
+//                                  //
+//              ALERTS              //
+//                                  //
+//////////////////////////////////////
+
+.mail-error
+	display: none
+
+.mail-success
+	display: none

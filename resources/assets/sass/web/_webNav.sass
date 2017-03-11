@@ -1,0 +1,116 @@
+$nav-back: rgba(57, 57, 68,.8)
+.navbar-default .navbar-toggle
+    border: 0
+    max-width: 100%
+@media (min-width: 765px)
+    .navbar
+        background-color: $nav-back
+        border-bottom: 0
+        height: 60px
+        @include transition(0.5s)
+        .navbar-right
+            margin-right: 15px
+            @include transition(0.5s)
+            li 
+                margin-right: 5px
+                a 
+                    font-family: $font2
+                    font-weight: $f2w1
+                    i
+                        font-family: $font1
+                        margin-right: 5px
+        .navbar-nav > li
+            @include flex-center
+            height: 60px
+            a
+                color: #fff
+                font-size: 1.2rem
+                @include transition(0.5s)
+            &:active,&:focus
+                color: #000
+            &:hover
+                background-color: rgba(255,255,255,.5)
+                cursor: pointer
+                a
+                    color: #000
+        .navbar-brand
+            padding: 12px 12px
+            @include transition(0.5s)
+            img
+                @include transition(0.5s)
+                width: 150px
+
+    .navbar.home-nav
+        background-color: transparent
+        .navbar-nav > li
+            a
+                color: #383838
+            &:hover
+                background-color: rgba(255,255,255,.5)
+                a
+                    color: #000
+
+    .navbar.change-nav
+        background-color: $nav-back
+        height: 60px
+        @include transition(0.5s)
+        // @include box-shadow-down
+        .navbar-right
+            border-bottom: 0
+        .navbar-nav > li
+            @include flex-center
+            height: 60px
+            a
+                color: #fff
+                font-size: 1.3rem
+            &:active,&:focus
+                color: #fff
+            &:hover
+                background-color: rgba(255,255,255,.5)
+                cursor: pointer
+                a
+                    color: #000
+        .navbar-brand
+            @include transition(0.5s)
+            img
+                @include transition(0.5s)
+                width: 150px
+        
+@media (max-width: 765px)
+    .navbar
+        background-color: $nav-back
+        border: 0
+        .navbar-brand
+            img
+                width: 100px
+        // Mobile Sandwich button
+        .navbar-toggle
+            border-radius: 0
+        .navbar-default .navbar-toggle
+            border-color: #fff
+        .navbar-toggle
+            .icon-bar
+                background-color: #fff
+
+@media (max-width: 786px)
+    body
+        padding-top: 0
+    // Text Color
+    .navbar-default .navbar-nav > li > a
+        color: #fff
+        font-family: $font2
+        font-weight: $f2w1
+        &:hover
+            color: #fff
+    // UL Border
+    .navbar-default .navbar-collapse, .navbar-default .navbar-form
+        border: 0
+    // Sandwich focus
+    .navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover
+        background-color: #000
+    .navbar
+        background-color: rgba(0,0,0,.8)
+        border: 0
+        .navbar-brand
+            img
+                width: 100px

@@ -1,0 +1,532 @@
+////////////////////////////////////////
+//                                    //
+//              HOME                  //
+//                                    //
+////////////////////////////////////////
+
+@media (min-width: 765px)
+	.home-intro
+		background-color: #3d4450
+		background-image: url("../../public/webimages/home/back1.jpg")
+		background-attachment: fixed
+		background-size: cover
+		background-position: 50% 100%
+		overflow: hidden
+		padding-top: 80px
+		position: relative
+		height: 100vh
+		.main-logo
+			width: 100%
+			@include flex-column
+			margin-bottom: 100px
+			z-index: 5
+			margin-top: 60px
+
+
+// Mobile Home
+@media (max-width: 765px)
+	.home-intro
+		text-align: center
+		background: url('../../public/webimages/home/back-mobile.jpg') no-repeat center center
+		-webkit-background-size: cover
+		-moz-background-size: cover
+		-o-background-size: cover
+		background-size: cover
+		padding: 80px 0
+		margin: 0 auto
+		margin-bottom: 50px
+		img
+			max-width: 100%
+			width: 250px
+			margin-bottom: 50px
+		h1
+			color: #fff
+			font-size: 1.5rem
+			font-family: $font2
+
+@media (max-width: 300px)
+	.home-intro
+		padding-top: 100px
+
+
+.home-section-2
+	padding: 60px 5px 20px
+	text-align: center
+	color: #505050
+	span.text-logo-small
+		font-size: 2rem
+		font-weight: 300
+		padding-bottom: 15px
+	span.text-logo-bold
+		font-size: 3rem
+		font-weight: 700
+	h3
+		color: #a7b3dd
+	p
+		font-size: 1.2rem
+		color: #595959
+		font-weight: 300
+	.icons
+		margin-top: 30px
+
+@media (max-width: 765px)
+	.home-section-2
+		.power-icons
+			img
+				width: 75px
+
+@media (max-width: 405px)
+	.home-section-2
+		.power-icons
+			img
+				width: 45px
+
+
+
+.service-item
+	padding: 50px 10px
+
+.our-services
+	padding: 40px 0 
+	color: #595959
+	background-color: #fff
+	h1
+		text-align: center
+	.service-item
+		.white-back
+			background-color: #fff
+			border-top: 3px solid #d2d2d2
+			@include box-shadow-floor-big
+			width: auto
+			border-radius: 10px
+			padding: 25px 35px
+	.inner
+		@include flex-column-left
+		padding: 20px
+		margin: 0 auto
+		object,img
+			margin: 0 auto
+			// width: 600px
+			max-width: 100%
+		span.title
+			font-size: 1.5rem
+			font-weight: $f1w1
+			padding: 10px 0
+			margin-bottom: 10px
+			i
+				font-size: 2rem
+		.text-big
+			h1
+				line-height: 40px
+				font-size: 3rem
+				font-weight: 700
+				padding-bottom: 10px
+				color: $main-red
+				text-align: left
+			h1.right
+				text-align: right
+		.action
+			margin-top: 40px
+	.center-item
+		text-align: right
+		background-color: $main-red
+		color: #000
+		padding-left: 0
+		padding-right: 0
+	// .action
+	// 	span
+	// 		padding: 10px
+	// 		border: 1px solid #383838
+	// 		color: #000
+	// 		font-family: $font2
+	// 		font-weight: $f2w1
+	// 		font-size: 1.2rem
+
+
+
+.our-works
+	padding: 40px 5px
+	background-color: $color3
+	color: #fff
+	text-align: center
+	.inner
+		@include flex-column
+		padding: 20px 50px
+		margin: auto
+		object,img
+			max-width: 100%
+		span
+			font-size: 4rem
+		.btn
+			margin-top: 20px
+			font-size: 1.5rem
+
+
+
+////////////////////////////////////////
+//                                    //
+//              PORTFOLIO             //
+//                                    //
+////////////////////////////////////////
+
+.dark-container-top
+	padding: 0
+	padding-top: 60px
+	margin-bottom: 50px
+	background-color: #2D2D36
+	color: #fff
+	h2
+		text-align: center
+
+.container-top
+	padding: 0
+	margin-top: 80px
+	padding-bottom: 50px
+
+.filters
+	.searcher
+		input
+			color: #000
+
+.portfolio-container
+	margin-top: 25px
+	.portfolio-item
+		@include flex-column
+		margin-bottom: 25px
+		.inner
+			// width: auto
+			img
+				max-width: 100%
+				@include transition(0.2s)
+				&:hover
+					filter: brightness(50%)
+					cursor: pointer
+			.info	
+				padding: 15px
+				background-color: #fff
+				position: relative
+				hr
+					margin-top: 10px
+					margin-bottom: 10px
+				.text
+					font-family: $font2
+					font-size: 1rem
+					color: $color3
+					font-weight: 400
+				.title
+					font-size: 1.3rem
+					font-weight: 700
+					margin-top: 10px
+					margin-bottom: 5px
+					margin-left: 5px
+				.cat-title
+					margin-left: 5px
+				.cat-text
+					a
+						color: #9D9D9D
+						&:hover
+							color: #383838
+				.tags
+					margin-top: 5px
+				.date
+					margin-left: 5px
+					margin-top: 5px
+					span.text
+						color: #ABABAB
+
+
+$nav_dark1: #31313A
+$nav_dark2: #3F3F4A
+$nav_dark3: #444450
+@media (min-width: 765px)
+	.portfolio-filter
+		background-color: $nav_dark1
+		border: 0
+		.icons-menu
+			font-size: 1.2rem
+			margin-right: 5px
+		.container-fluid,.navbar-collapse
+			padding-left: 0
+			padding-right: 15px
+		.portfolio-filter-left
+			.title
+				padding: 12px 30px
+				background-color: $nav_dark2
+				color: #fff
+				height: 100%
+			li
+				a
+					padding-left: 10px
+					color: #fff
+					font-size: 1.2rem
+					font-family: $font2
+					font-weight: $f2w1
+				&:hover
+					background-color: $nav_dark2
+					a
+						color: #fff
+				&:focus,&:active
+					background-color: $nav_dark2
+					color: #fff
+					a
+						color: #fff
+			.open > a, .open > a:focus, .open > a:hover
+				background-color: $nav_dark3
+				color: #fff
+			.dropdown-items
+				background-color: $nav_dark1
+				border: 0
+				border-radius: 0
+				.badge
+					font-family: $font2
+					font-weight: $f2w1
+					font-size: 0.8rem
+					margin-right: 5px
+				li
+					a
+						color: #fff
+					&:hover
+						background-color: #fff
+						color: #383838
+						a
+							color: #383838	
+		.portfolio-filter-right
+			form
+				input
+					border: 0
+					border-radius: 0
+			.search-btn
+				border-radius: 0
+				color: #383838
+				@include transition(0.2s)
+				&:hover
+					background-color: #383838
+					color: #fff
+
+@media (max-width: 765px)
+	.portfolio-filter
+		display: none
+
+.portfolio-filter-mobile
+	display: none
+
+@media (max-width: 765px)
+	.portfolio-filter-mobile
+		display: block
+		position: relative
+		padding: 0
+		.inner-main
+			height: 40px
+			padding-left: 15px
+		.title
+			font-size: 1.5rem
+			color: #fff
+		.filterMobileBtn
+			background-color: transparent
+			position: absolute
+			right: 0
+			top: -5px
+			border-radius: 0
+			padding: 5px 15px
+			margin-right: 20px
+			margin-bottom: 10px
+			color: #fff
+			font-family: $font2
+			font-weight: $f2w2
+			font-size: 2rem
+			&:hover
+				color: rgb(229, 231, 252)
+		// Filters
+		.filter-inner
+			text-align: center
+			background-color: #464657
+			padding: 10px
+			hr
+				margin-top: 10px
+				margin-bottom: 20px
+				border: 0
+				border-top: 1px solid rgb(84, 87, 116)
+			.search-input
+				hr
+					margin-top: 20px
+				input
+					width: 70%
+					float: left
+					margin-right: 5px
+					border-radius: 0
+				button
+					color: #000
+					border-radius: 0
+			.search-buttons
+				.title
+					font-size: 1.2rem
+					margin-bottom: 10px
+				.filter-button
+					border-radius: 0
+					padding: 5px
+					margin-right: 5px
+					margin-bottom: 5px
+					color: #000
+					font-size: 1.2rem
+
+
+
+
+
+.single-item
+	background-color: #fff
+	padding: 25px
+	position: relative
+	h1
+		text-align: center
+		margin-bottom: 25px
+	// .image
+	// .content
+	.info
+		width: 100%
+	.date
+		position: absolute
+		right: 5px
+		top: 5px
+	
+
+
+////////////////////////////////////////
+//                                    //
+//              CONTACT               //
+//                                    //
+////////////////////////////////////////
+
+$ph-text: 1.2rem
+$ph-color: #383838
+$ph-font: $font2
+$ph-weight: $f2w1
+
+.contact-section
+	background: url("../../public/webimages/home/back1.jpg") no-repeat center center
+	-webkit-background-size: cover
+	-moz-background-size: cover
+	-o-background-size: cover
+	background-size: cover
+	padding: 80px 5px
+	.inner
+		@include flex-column
+		text-align: center
+		h1
+			color: $main-red
+		form
+			// background-color: rgba(206, 206, 206, 0.2)
+			// @include box-shadow-floor
+			color: #000
+			padding: 20px
+			// Chrome/Opera/Safari
+			::-webkit-input-placeholder 
+				color: $ph-color
+				font-size: $ph-text
+				font-family: $ph-font
+				font-weight: $ph-weight
+			// Firefox 19+
+			::-moz-placeholder
+				color:  $ph-color
+				font-size: $ph-text
+				font-family: $ph-font
+				font-weight: $ph-weight
+			//IE 10+
+			::-ms-input-placeholder
+				color: $ph-color
+				font-size: $ph-text
+				font-family: $ph-font
+				font-weight: $ph-weight
+			//Firefox 18-
+			::-moz-placeholder
+				color:  $ph-color
+				font-size: $ph-text
+				font-family: $ph-font
+				font-weight: $ph-weight
+		input
+			height: 50px
+		input,textarea
+			border: 0
+			border-radius: 0
+			background-color: transparent
+			border: 1px solid #fff
+			color: #000
+			box-shadow: none
+			font-size: 1.5rem
+		input.contactBtn
+			padding: 10px 25px
+			@include transition(0.5s)
+			color: #fff
+			&:hover
+				background-color: #fff
+				color: #383838
+				@include box-shadow-floor-big
+	.social-icons
+		text-align: center
+		margin-top: 25px
+		.title
+			margin-bottom: 15px
+		span
+			font-size: 1.3rem
+			font-family: $font2
+			font-weight: $f2w1
+			color: #fff
+		img
+			border-radius: 100%
+			@include transition(0.5s)
+			&:hover
+				@include box-shadow-down
+				cursor: pointer
+
+
+@media (max-width: 765px)
+	.contact-section
+		.social-icons
+			img
+				width: 75px
+
+@media (max-width: 405px)
+	.contact-section
+		.social-icons
+			img
+				width: 45px
+
+
+footer
+	background-color: $color3
+	padding-left: 0 !important
+	padding-right: 0 !important
+	.footer
+		padding: 20px 10px 40px
+		h2
+			color: #fff
+		.contact-data
+			span
+				font-size: 1.3rem
+				font-family: $font2
+				font-weight: $f2w1
+				color: #fff
+				text-align: center
+			i
+				color: #E7E7E7
+				font-size: 2.5rem
+			span.icon
+				margin-right: 10px
+				width: 50px
+		.social
+			span
+				color: #fff
+			#u_0_3
+				display: none
+
+
+	.copyright
+		background-color: #2E2E36
+		padding: 10px 5px
+		text-align: center
+		color: #fff
+		font-family: $font2
+		font-weight: $f2w1
+		font-size: 1.2rem
+
+

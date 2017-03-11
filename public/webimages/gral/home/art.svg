@@ -1,0 +1,113 @@
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="562.146px" height="500px" viewBox="0 0 562.146 500" enable-background="new 0 0 562.146 500" xml:space="preserve">
+	<defs>
+		<style type="text/css">
+			<![CDATA[
+
+			.linea {
+				stroke-dasharray: 1000;
+				stroke-dashoffset: 1;
+				animation: dash 3s ease;
+			}
+
+			.linea2 {
+				fill:#005366;
+				animation: relleno 1s linear 1s forwards;
+			}
+
+			@keyframes dash {
+				0% {stroke-dashoffset: 1000}
+				100% {stroke-dashoffset: 0}
+			}
+
+			@keyframes relleno {
+				0% {fill:#005366}
+				100% { fill:#84CBD1}
+				}
+
+			]]>
+		</style>
+	</defs>
+
+<!-- LETRA A  -->
+		<polygon class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="6.103,191.786 37.072,173.79
+			27.259,198.355 	"/>
+		<polygon class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="52.801,213.102 81.179,196.611
+			110.198,213.366 76.949,232.688 	"/>
+		<polygon class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="76.949,232.688 110.198,213.366
+			125.531,222.218 76.898,250.482 	"/>
+		<polygon class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="62.96,186.093 81.179,196.611
+			52.801,213.102 	"/>
+		<polygon class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="115.706,255.064 134.767,243.988
+			139.629,263.23 	"/>
+		<polygon class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="69.953,166.378 109.423,143.439
+			123.056,197.036 	"/>
+		<polygon class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="169.074,280.232 219.765,250.772
+			223.487,253.905 223.487,279.017 190.447,298.217 	"/>
+		<polygon class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="190.447,298.217 223.487,279.017
+			223.487,292.469 201.9,304.83 201.887,309.332 190.396,316.01 	"/>
+		<polygon class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="97.262,92.929 109.423,143.439
+			69.953,166.378 	"/>
+		<polygon class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="86.537,49.952 137.229,20.494
+			163.032,33.793 112.341,63.252 	"/>
+		<path class="linea2" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" d="M169.074,280.232l21.374,17.984l-0.051,17.793
+			l-74.741-43.151l0.05-17.794l23.923,8.166l-9.727-38.488L62.96,186.093l-10.159,27.009l24.147,19.586l-0.051,17.794L6.052,209.579
+			l0.051-17.793l21.156,6.569L86.537,49.952l25.804,13.301L169.074,280.232z M69.953,166.378l53.104,30.657L97.262,92.929
+			L69.953,166.378"/>
+		<polygon class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="112.341,63.252 163.032,33.793
+			219.765,250.772 169.074,280.232 	"/>
+		<polygon class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="201.9,304.83 223.487,292.469
+			223.813,311.549 	"/>
+
+
+<!-- letra R -->
+		<polygon class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="272.746,345.732 299.671,330.085
+			304.526,345.026 272.696,363.525 	"/>
+	<polyline class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="299.671,330.085 272.746,345.732
+		250.869,327.171 291.242,303.707 "/>
+	<polyline class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="290.786,303.972 250.869,327.171
+		251.057,260.507 "/>
+		<polygon class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="357.809,394.844 408.502,365.385
+			408.451,383.178 357.76,412.636 	"/>
+		<polygon class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="339.584,379.543 390.275,350.083
+			408.502,365.385 357.809,394.844 	"/>
+	<path class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" d="M370.02,291.318
+		c-4.438-12.424-8.342-22.068-11.707-28.925c0,0-27.21,15.798-37.402,21.457c-5.608,3.114-16.982,1.25-16.982,1.25
+		c4.096,6.507,9.23,18.403,15.4,35.677l20.256,58.766l50.691-29.46L370.02,291.318z"/>
+	<path class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" d="M302.97,208.387l-51.85,29.999l19.378,11.188
+		c12.5,7.218,22.282,9.608,29.354,7.171l3.488-1.776c9.728-6.918,7.969-25.119,4.714-34.894
+		C305.134,211.302,302.97,208.387,302.97,208.387z"/>
+		<path class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" d="M251.321,167.246c0,0,26.34,15.02,34.641,20.77
+			c8.184,5.669,16.05,18.348,16.05,18.348l-0.199,2.564l-50.693,29.458L251.321,167.246z"/>
+	<path class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" d="M384.903,194.222
+		c-2.529-8.476-6.492-16.788-11.888-24.934c-10.213-15.401-24.418-28.357-42.621-38.865l-28.314-16.349l-48.957-26.669l-50.69,29.46
+		l48.956,26.668l28.313,16.346c18.204,10.509,32.408,23.465,42.622,38.866c10.203,15.406,15.281,31.403,15.234,47.982
+		c-0.053,18.518-4.641,30.426-13.76,35.726c12.624-7.337,25.248-14.673,37.873-22.01"/>
+		<path class="linea2" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" d="M339.584,379.543l18.225,15.301l-0.049,17.792
+			l-38.629-22.303l-21.74-67.443c-4.084-12.591-7.672-22.22-10.754-28.873c-3.092-6.667-6.397-11.948-9.919-15.874
+			c-3.511-3.908-8.21-7.564-14.079-10.951l-11.582-6.685l-0.188,66.664l21.877,18.562l-0.05,17.793l-70.848-40.903l0.053-17.792
+			l21.912,6.719l0.452-159.926l-21.878-18.57l0.047-16.188l48.956,26.668l28.313,16.346c18.204,10.509,32.408,23.465,42.622,38.866
+			c10.203,15.406,15.281,31.403,15.234,47.982c-0.082,29.012-11.295,41.797-33.631,38.373c4.096,6.507,9.23,18.403,15.4,35.677
+			L339.584,379.543z M299.852,256.744c7.063-2.437,10.605-9.492,10.639-21.163c0.027-9.826-2.943-19.702-8.922-29.621
+			c-5.979-9.922-13.711-17.621-23.191-23.094l-27.056-15.621l-0.202,71.14l19.378,11.188
+			C282.998,256.791,292.779,259.182,299.852,256.744"/>
+
+<!-- letra T -->
+		<polygon class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="392.545,414.898 418.428,399.857
+			418.359,423.871 	"/>
+		<polygon class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="471.188,460.303 521.879,430.844
+			521.83,448.636 471.137,478.096 	"/>
+		<polygon class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="445.406,439.488 496.1,410.029
+			521.879,430.844 471.188,460.303 	"/>
+		<polygon class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="385.336,244.62 404.462,255.662
+			378.832,270.557 	"/>
+		<polygon class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="445.861,279.563 479.336,298.891
+			485.801,332.315 496.297,338.375 496.1,410.029 445.406,439.488 	"/>
+		<polygon class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="502.686,288.617 553.377,259.159
+			553.227,312.518 502.535,341.977 	"/>
+		<polygon class="linea" fill="none" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="362.121,207.464 412.813,178.005
+			553.377,259.159 502.686,288.617 	"/>
+		<polygon class="linea2" stroke="#F9EBD7" stroke-width="2" stroke-miterlimit="10" points="502.686,288.617 502.535,341.977
+			485.801,332.315 479.336,298.891 445.861,279.563 445.406,439.488 471.188,460.303 471.137,478.096 392.494,432.69
+			392.545,414.898 418.359,423.871 418.813,263.947 385.336,244.62 378.832,270.557 361.971,260.821 362.121,207.464 	"/>
+</svg>

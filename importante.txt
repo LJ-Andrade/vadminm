@@ -1,0 +1,39 @@
+Detalles de instalacion, configuracion y diagramación de Vadmin Vimana
+
+
+Instalar laravel collective
+Instalar
+
+
+
+Para traer las tags y categorías hacia portfolio
+
+Crear un provider
+	php artisan make:provider ComposerServiceProvider
+
+Crear una carpeta en Http llamada ViewComposers
+
+
+
+
+BUSCADOR
+en el modelo poner un scope
+
+  public function scopeSearch($query, $title)
+    {
+        return $query->where('title', 'LIKE', "%$title%");
+    }
+
+En el controlador agregar algo similar a esto
+
+ public function index(Request $request)
+    {
+        $articles = Article::search($request->title)->orderBy('id', 'DESCC')->paginate(5);
+        $articles->each(function($articles){
+            $articles->category;
+            $articles->user;
+        });
+
+        return view('vadmin.articles.index')->with('articles', $articles);
+
+    }
