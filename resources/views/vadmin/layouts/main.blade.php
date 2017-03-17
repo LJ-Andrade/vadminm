@@ -32,7 +32,7 @@
 		{{-- @yield('modal') --}}
 		<section class="main-section">
 			<div class="container">
-				@include('vadmin.users.searcher')
+				@yield('searcher')
 				@include('vadmin.layouts.partials.errors')
 				@include('vadmin.layouts.partials.messages')
 			</div>
@@ -47,6 +47,7 @@
 		<script type="text/javascript" src="{{ asset('plugins/validation/parsley.min.js') }}" ></script>
 		<script type="text/javascript" src="{{ asset('plugins/validation/es/parsley-es.min.js') }}" ></script>
 		<script type="text/javascript" src="{{ asset('plugins/chosen/chosen.jquery.min.js') }}" ></script>
+		<script type="text/javascript" src="{{ asset('plugins/keyshortcut/keyshortcut.js') }}" ></script>
 		@yield('scripts')
 		<script type="text/javascript" src="{{ asset('js/jslocal/vadmin.js') }}" ></script>
 		@yield('custom_js')

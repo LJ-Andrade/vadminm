@@ -5,6 +5,21 @@ $.ajaxSetup({
 });
 
 
+//////////////////////////////
+// 							//
+//  KEY SHORTCUTS ACTIONS   //
+//                          //
+//////////////////////////////
+
+
+// New Item
+
+Mousetrap.bind(['command+k', 'f4'], function(e) {
+	var href = $('#ToNewItem').attr('href');
+	console.log(href);
+	window.location.href = href;
+	return false;
+});
 
 
 //////////////////////////////
@@ -15,7 +30,6 @@ $.ajaxSetup({
 
 //--------------------- NEW AND EDIT AJAX FORMS ------------------------- //
 
-
 	$(document).on("click", ".ShowNewBtn", function(e){
 	// $('.ShowNewBtn').click(function(){
 		// $('#List').addClass('Hidden');
@@ -24,7 +38,6 @@ $.ajaxSetup({
 		$('.ShowListBtn').removeClass('Hidden');
 		$('#EditFormContainer').addClass('Hidden');
 		resetForm('NewForm');		
-	
 	});
 
 	$('.ShowListBtn').click(function(){
@@ -45,9 +58,6 @@ $.ajaxSetup({
 		$('.PasswordSlot').html('');
 	});
 
-
-
-
 	$('.CloseSmallForm').on('click', function(){
 
 		$(this).parents().eq(3).addClass('Hidden');
@@ -56,18 +66,17 @@ $.ajaxSetup({
 
 	});
 
+
 //--------------------- LISTS ------------------------- //
 
 // ----------------- List Actions---------------------- //
 
 $(document).ready(function() {
-
-	// $('.List-Actions').hide();
-
 	// Show Actions
 	$(document).on("click",".Lists-Actions-Trigger",function(e) {
 		e.preventDefault();
 		e.stopPropagation();
+		$('.List-Actions').addClass('Hidden');
 		$(this).parent().siblings('.List-Actions').removeClass('Hidden');
 	});
 
@@ -77,7 +86,6 @@ $(document).ready(function() {
 		e.stopPropagation();
 		$(this).parent().addClass('Hidden');
 	})
-
 });
 
 // ----------------- Batch Delete --------------------- //
@@ -106,6 +114,33 @@ function batch_select(trigger) {
 	}
 
 }
+
+
+//-------------- Create Forms --------------------//
+
+// Add Delivery Address
+$('.OpenDirsEntregaBtn').click(function(){
+	$('.DirsEntregaDiv').toggleClass('Hidden');
+
+	var icon = $(this).children();
+
+	if (icon.hasClass('ion-chevron-right')) {
+		icon.removeClass('ion-chevron-right');
+		icon.addClass('ion-chevron-down');
+	} else {
+		icon.removeClass('ion-chevron-down');
+		icon.addClass('ion-chevron-right');
+	}
+	
+	
+});
+
+$('.CloseDirsEntregaBtn').click(function(){
+	var icon = $('.OpenDirsEntregaBtn').children();
+	$('.DirsEntregaDiv').addClass('Hidden');
+	icon.removeClass('ion-chevron-down');
+	icon.addClass('ion-chevron-right');
+});
 
 
 //////////////////////////////
@@ -189,7 +224,7 @@ function alert_error(bigtext, smalltext){
 //                          //
 //////////////////////////////
 
-$('.btnClose').click(function(){
+$('.btnClose, .btnClose2').click(function(){
 	$(this).parent().fadeOut( 200 );
 });
 

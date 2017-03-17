@@ -24,6 +24,7 @@
 
 {{-- CONTENT --}}
 @section('content')
+	@include('vadmin.users.searcher')
     <div class="container">
 		<div class="row">		
 			@include('vadmin.users.forms')

@@ -37,7 +37,6 @@
 			font-size: 1rem
 		span.date
 			font-size: 0.8rem
-	
 	hr
 		border-top: 1px solid #A2A2A2
 		margin-top: 5px
@@ -56,8 +55,42 @@ $phvFsize: 0.9rem
 .big-form
 	padding: 10px
 	border: 1px solid #ccc
-	border-top: 5px solid $dark4
+	border-top: 10px solid $dark4
+	background-color: #fff
 	@include box-shadow
+	.inner-row
+		label
+			font-size: 1rem
+	.box-container
+		position: relative
+		padding: 10px 20px
+		border: 1px solid #ccc
+		margin-top: 10px
+		.box-inner
+			padding: 10px
+
+	.sub-title
+		.inner-sub-title
+			margin-top: 15px
+			padding: 7px 6px 3px
+			padding-left: 6px
+			background-color: #f5f5f5
+			span
+				font-size: 1rem
+				font-weight: 700
+			i.icon
+				padding-top: 4px
+				font-size: 1.5rem
+				margin-right: 8px
+				margin-left: 8px
+	.multiple-items
+		position: relative
+		.add-another
+			margin-top: 10px
+			position: absolute
+			bottom: -30px
+			left: 0
+			font-size: 1rem
 
 .main-form
 	.form-container
@@ -84,6 +117,37 @@ $phvFsize: 0.9rem
 		position: fixed
 		top: 15px
 		right: 15px
+
+// --------- Centered Form ------------ //
+
+.centered-form
+	@include flex-center
+	hr
+		margin-top: 5px
+		margin-bottom: 5px
+	.inner
+		width: 450px
+		max-width: 100%
+		.login-header
+			padding-top: 10px
+			text-align: center
+			span.title
+				font-size: 2rem
+			span.subtitle
+				font-size: .8rem
+			div.formname
+				margin-top: 15px
+				padding: 10px
+				font-size: 1.4
+				background-color:  rgba(255,255,255,.9)
+		padding: 10px 20px
+		background-color: rgba(255,255,255,.9)
+		.footer
+			text-align: center
+			span
+				font-size: .7rem
+			img
+				width: 100px
 
 
 
@@ -211,6 +275,31 @@ $phvFsize: 0.9rem
 		max-width: 100%
 	
 
+.small-card
+	border: 1px solid #ccc
+	padding: 5px
+	padding-left: 10px
+	position: relative
+	margin: 5px 0
+	margin-top: 10px
+	.btnCloseThis
+		background-color: #f3f3f3
+		padding: 1px 7px
+		border-radius: 50%
+		font-size: 0.8rem
+		width: 25px
+		height: 25px
+		position: absolute
+		right: 4px
+		top: 4px
+		@include transition(0.2s)
+		&:hover
+			cursor: pointer
+
+
+	i
+		color: $red
+		font-size: 1.2rem
 
 //////////////////////////////////////
 //                                  //
@@ -291,6 +380,25 @@ $phvFsize: 0.9rem
 	&:hover
 		cursor: pointer
 
+.transBtn
+	border: 0
+	border-radius: 0
+	padding: 0
+	font-size: 1rem
+	white-space: nowrap
+	vertical-align: middle
+	-webkit-user-select: none
+	-moz-user-select: none
+	-ms-user-select: none
+	user-select: none
+	background-image: none
+	line-height: 1.42857143
+	margin: 0
+	background-color: transparent
+	&:hover
+		background-color: transparent
+
+
 .buttonOk
 	background-color: $ok
 	color: #fff
@@ -314,10 +422,49 @@ $phvFsize: 0.9rem
 	color: #fff
 	&:hover
 		background-color: $otherH
+	&:active,&:focus
+		color: #fff
+
+.buttonGrey
+	background-color: #ccc
+	color: #000
+	&:hover
+		background-color: #f9f9f9
+	&:active,&:focus
+		color: #000
 
 .btnClose
 	background-color: #fff
 	padding: 7px 8px
+	border-radius: 50%
+	font-size: 0.8rem
+	width: 25px
+	height: 25px
+	position: absolute
+	right: 5px
+	top: 5px
+	@include transition(0.2s)
+	&:hover
+		cursor: pointer
+
+.btnCloseDark
+	background-color: #ccc
+	padding: 1px 8px
+	border-radius: 50%
+	font-size: 0.8rem
+	width: 25px
+	height: 25px
+	position: absolute
+	right: 4px
+	top: 4px
+	@include transition(0.2s)
+	&:hover
+		cursor: pointer
+
+
+.btnClose2
+	background-color: #fff
+	padding: 1px 8px
 	border-radius: 50%
 	font-size: 0.8rem
 	width: 25px
@@ -352,6 +499,21 @@ $phvFsize: 0.9rem
 	background-color: #fff
 	color: #000
 	padding: 7px 8px
+	border-radius: 50%
+	font-size: 0.8rem
+	width: 25px
+	height: 25px
+	position: absolute
+	right: 5px
+	top: 5px
+	@include transition(0.2s)
+	&:hover
+		cursor: pointer
+
+.close-btn2
+	background-color: #fff
+	color: #000
+	padding: 1px 8px
 	border-radius: 50%
 	font-size: 0.8rem
 	width: 25px
@@ -422,7 +584,7 @@ $phvFsize: 0.9rem
 	
 .search-filters
 	position: relative
-	background-color: #D0D0D0
+	background-color: $dark3
 	padding: 5px
 	z-index: 999
 	display: none
@@ -434,6 +596,7 @@ $phvFsize: 0.9rem
 	label
 		font-weight: 300
 		margin: 0
+		color: #fff
 	.hide-desk
 		display: none
 
@@ -486,16 +649,17 @@ $phvFsize: 0.9rem
 .main-list
 	.item-row
 		position: relative
-		background-color: #f9f9f9
-		border: 1px solid #ccc
-		margin-bottom: 1px
+		background-color: #fff
+		margin-bottom: 0px
 		padding-right: 30px
-		padding-top: 6px
-		padding-bottom: 6px
+		padding-top: 8px
+		padding-bottom: 8px
 		max-height: 80px
+		border-top: 1px solid #d7d7d7
 		@include transition(0.2s)
+		@include box-shadow
 		div:first-child
-			padding-left: 0
+			// padding-left: 0
 			float: left
 		&:hover, .row-selected
 			cursor: pointer
@@ -506,6 +670,8 @@ $phvFsize: 0.9rem
 			margin-right: 15px
 			img
 				width: 53px
+		.withimg
+			padding-left: 0
 		.content
 			position: relative
 			.inner
@@ -516,10 +682,12 @@ $phvFsize: 0.9rem
 			.inner-tags
 				max-height: 60px
 				overflow-x: hidden
+			.small-text
+				font-size: 0.8rem
 		.lists-actions-trigger
 			position: absolute
 			height: 100%
-			right: 32px
+			right: 30px
 			top: 0
 			.action-btn
 				border: 0
@@ -531,14 +699,18 @@ $phvFsize: 0.9rem
 					color: #fff
 				&:hover
 					background-color: #9FD56B
+		.triggerwithimg
+			.action-btn
+				right: 0px
 		.lists-actions
 			position: absolute
 			top: 0
 			right: 0
 			height: 100%
-			padding: 0 10px
+			padding: 0 20px
 			@include flex-center
-			background-color: #EEEEEE
+			@include box-shadow-left
+			background-color: #fff
 			z-index: 5
 			.form-group
 				margin-right: 10px
@@ -565,11 +737,13 @@ $phvFsize: 0.9rem
 			right: 0
 			top: 0
 			width: 30px
-			background-color: #fff
+			background-color: #efefef
 			height: 100%
 			@include flex-column
 			input[type="checkbox"], input[type="radio"]
 				margin: 0
+		&:nth-child(odd)
+			background-color: #f3f3f3
 
 .main-list
 	.simple-list

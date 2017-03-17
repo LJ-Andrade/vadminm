@@ -14,6 +14,8 @@ Route::get('guest', function () {
     return view('vadmin.guest');
 });
 
+
+
 /////////////////////////////////////////////////
 //                   USERS                     //
 /////////////////////////////////////////////////
@@ -61,79 +63,52 @@ Route::get('/', [
 //               PORTFOLIO                     //
 /////////////////////////////////////////////////
 
-Route::get('portfolio', [
-	'as'   => 'web.portfolio',
-	'uses' => 'WebController@portfolio',
-]);
-
-
-// Show Article / Catalogue
-Route::get('article/{slug}', [
-	'uses' => 'WebController@showWithSlug',
-	'as'   => 'web.portfolio.article'
-])->where('slug', '[\w\d\-\_]+');
-
-// Article Searcher
-Route::get('categories/{name}', [
-	'uses' => 'WebController@searchCategory',
-	'as'   => 'web.search.category'
-]);
-
-Route::get('tag/{name}', [
-	'uses' => 'WebController@searchTag',
-	'as'   => 'web.search.tag'
-]);
 
 Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(){
 
-	// ------ Categories ------- //
-	Route::resource('categories', 'Portfolio\CategoriesController');
-	Route::post('ajax_delete_category/{id}', 'Portfolio\CategoriesController@destroy');
-	Route::post('ajax_batch_delete_categories/{id}', 'Portfolio\CategoriesController@ajax_batch_delete');
-	Route::post('ajax_update_category/{id}', 'Portfolio\CategoriesController@update');
-	
-	Route::get('ajax_list_categories/{page?}', 'Portfolio\CategoriesController@ajax_list');
-	// Searcher
-	// Route::get('ajax_list_search/{search?}', 'UsersController@ajax_list_search');
-	// Route::get('ajax_list_search/{role?}', 'UsersController@ajax_list_search');
+	// ------ Clientes ------- //
+	Route::get('ajax_list_clients/{page?}', 'Clientes\ClientesController@ajax_list');
+	Route::resource('clientes', 'Clientes\ClientesController');
+	Route::post('ajax_delete_cliente/{id}', 'Clientes\ClientesController@destroy');
+	Route::post('ajax_batch_delete_clientes/{id}', 'Clientes\ClientesController@ajax_batch_delete');
 
-	// ------ Tags / Sizes ------- //
-	Route::resource('tags', 'Portfolio\TagsController');
-	Route::post('ajax_delete_tag/{id}', 'Portfolio\TagsController@destroy');
-	Route::post('ajax_batch_delete_tags/{id}', 'Portfolio\TagsController@ajax_batch_delete');
-	Route::post('ajax_update_tag/{id}', 'Portfolio\TagsController@update');
-	
-	Route::get('ajax_list_tags/{page?}', 'Portfolio\TagsController@ajax_list');
+	// ------ Provincias ------- //
+	Route::resource('provincias', 'Provincias\ProvinciasController');
+	Route::post('ajax_delete_provincia/{id}', 'Provincias\ProvinciasController@destroy');
+	Route::post('ajax_batch_delete_provincias/{id}', 'Provincias\ProvinciasController@ajax_batch_delete');
 
+	// ------ Localidades ------- //
+	Route::resource('localidades', 'Localidades\LocalidadesController');
+	Route::post('ajax_delete_localidad/{id}', 'Localidades\LocalidadesController@destroy');
+	Route::post('ajax_batch_delete_localidades/{id}', 'Localidades\LocalidadesController@ajax_batch_delete');
 
+	// ------ Zonas ------- //
+	Route::resource('zonas', 'Zonas\ZonasController');
+	Route::post('ajax_delete_zona/{id}', 'Zonas\ZonasController@destroy');
+	Route::post('ajax_batch_delete_zonas/{id}', 'Zonas\ZonasController@ajax_batch_delete');
 
-	// Route::resource('articles', 'Portfolio\ArticlesController');
-	// Route::get('articles/{id}/destroy', [
-	// 	'uses' => 'ArticlesController@destroy',
-	// 	'as'   => 'articles.destroy'
-	// ]);
+	// ------ Fletes ------- //
+	Route::resource('fletes', 'Fletes\FletesController');
+	Route::post('ajax_delete_flete/{id}', 'Fletes\FletesController@destroy');
+	Route::post('ajax_batch_delete_fletes/{id}', 'Fletes\FletesController@ajax_batch_delete');
 
-	// Route::get('images', [
-	// 	'uses' => 'ImagesController@index',
-	// 	'as'   => 'images.index',
-	// ]);
+	// ------ Iva Categorías ------- //
+	// Route::resource('iva', 'Iva\IvaController');
+	Route::resource('ivas', 'Ivas\IvasController');
+	Route::post('ajax_delete_iva/{id}', 'Ivas\IvasController@destroy');
+	Route::post('ajax_batch_delete_ivas/{id}', 'Ivas\IvasController@ajax_batch_delete');
 
-	
-	// Route::post('deleteArticleImg/{id}', 'ArticlesController@deleteArticleImg');
+	// ------ Condiciones de Venta ------- //
+	Route::resource('condicventas', 'Condicventas\CondicventasController');
+	Route::post('ajax_delete_condicventa/{id}', 'Condicventas\CondicventasController@destroy');
+	Route::post('ajax_batch_delete_condicventas/{id}', 'Condicventas\CondicventasController@ajax_batch_delete');
 
-	Route::resource('portfolio', 'Portfolio\ArticlesController');
-	Route::get('ajax_list_articles/{page?}', 'Portfolio\ArticlesController@ajax_list');
-	Route::post('ajax_batch_delete_article/{id}', 'Portfolio\ArticlesController@ajax_batch_delete');
-	
+	// ------ Listas de Precios ------- //
+	Route::resource('listas', 'Listas\ListasController');
+	Route::post('ajax_delete_lista/{id}', 'Listas\ListasController@destroy');
+	Route::post('ajax_batch_delete_listas/{id}', 'Listas\ListasController@ajax_batch_delete');
 
-});
-
-
-
-Route::group(['middleware' => ['auth', 'admin']], function() 
-{
-
-	Route::post('ajax_delete_article/{id}', 'Portfolio\ArticlesController@ajax_delete');
 
 });
+
 

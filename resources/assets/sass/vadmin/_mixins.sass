@@ -84,6 +84,11 @@
   -moz-box-shadow: $horiz $vert $blur $spread $color !important
   box-shadow: $horiz $vert $blur $spread $color !important
 
+@mixin box-shadow-left( $horiz : -11px , $vert : 4px , $blur : 9px , $spread : -8px , $color : rgba(0, 0, 0, 0.55) )
+  -webkit-box-shadow: $horiz $vert $blur $spread $color !important
+  -moz-box-shadow: $horiz $vert $blur $spread $color !important
+  box-shadow: $horiz $vert $blur $spread $color !important
+
 
 @mixin obscure-back
   background: -moz-radial-gradient(center, ellipse cover, rgba(36,44,51,0) -1%, rgba(36,44,51,0.01) 0%, rgba(32,39,47,0.2) 22%, rgba(19,19,35,0.65) 100%)

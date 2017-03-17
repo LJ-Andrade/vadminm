@@ -14,18 +14,18 @@
 
 		<div class="content">
 			{{-- Column --}}
-			<div class="col-xs-6 col-sm-4 col-md-4 inner">
+			<div class="col-xs-6 col-sm-4 col-md-4 inner withimg">
 				<span><b>{{ $user->name }}</b></span><br>
 				<span class="small">{{ $user->email }}</span>
 			</div>
 			{{-- Column --}}
 			<div class="col-xs-6 col-sm-3 col-md-4 mobile-hide inner-tags">
-				<span class="badge">{{ $user->type}}</span>
+				<span class="small-text">Rol: </span><span class="badge">{{ $user->type}}</span>
 			</div>
 		
 		</div>
 		{{-- Action Button --}}
-		<div class="lists-actions-trigger">
+		<div class="lists-actions-trigger triggerwithimg">
 			<button type="button" class="Lists-Actions-Trigger action-btn" data-toggle="modal" data-target="#Article-Actions{{ $user->id }}">
 				<i class="ion-ios-gear-outline"></i>
 			</button>

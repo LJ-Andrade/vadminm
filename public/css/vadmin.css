@@ -1,4 +1,3 @@
-@import url(https://fonts.googleapis.com/css?family=Playfair+Display:400,400italic,700);
 @import url(https://fonts.googleapis.com/css?family=Work+Sans:400,300,600);
 @import url("https://fonts.googleapis.com/css?family=Lato:300,300i,400,700");
 html {
@@ -11,7 +10,7 @@ body {
   height: 100%;
   overflow-x: hidden;
   font-size: 18px;
-  background-color: #fff;
+  background-color: #fcfcfc;
   color: #383838;
   font-family: "Lato", sans-serif;
   line-height: 25px;
@@ -221,8 +220,55 @@ hr {
 .big-form {
   padding: 10px;
   border: 1px solid #ccc;
-  border-top: 5px solid #ababc5;
+  border-top: 10px solid #ababc5;
+  background-color: #fff;
   box-shadow: 5px 2px 8px -5px rgba(0, 0, 0, 0.55);
+}
+
+.big-form .inner-row label {
+  font-size: 1rem;
+}
+
+.big-form .box-container {
+  position: relative;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+}
+
+.big-form .box-container .box-inner {
+  padding: 10px;
+}
+
+.big-form .sub-title .inner-sub-title {
+  margin-top: 15px;
+  padding: 7px 6px 3px;
+  padding-left: 6px;
+  background-color: #f5f5f5;
+}
+
+.big-form .sub-title .inner-sub-title span {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.big-form .sub-title .inner-sub-title i.icon {
+  padding-top: 4px;
+  font-size: 1.5rem;
+  margin-right: 8px;
+  margin-left: 8px;
+}
+
+.big-form .multiple-items {
+  position: relative;
+}
+
+.big-form .multiple-items .add-another {
+  margin-top: 10px;
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  font-size: 1rem;
 }
 
 .main-form .form-container {
@@ -270,6 +316,63 @@ hr {
   position: fixed;
   top: 15px;
   right: 15px;
+}
+
+.centered-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -ms-grid-row-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.centered-form hr {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.centered-form .inner {
+  width: 450px;
+  max-width: 100%;
+  padding: 10px 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.centered-form .inner .login-header {
+  padding-top: 10px;
+  text-align: center;
+}
+
+.centered-form .inner .login-header span.title {
+  font-size: 2rem;
+}
+
+.centered-form .inner .login-header span.subtitle {
+  font-size: .8rem;
+}
+
+.centered-form .inner .login-header div.formname {
+  margin-top: 15px;
+  padding: 10px;
+  font-size: 1.4;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.centered-form .inner .footer {
+  text-align: center;
+}
+
+.centered-form .inner .footer span {
+  font-size: .7rem;
+}
+
+.centered-form .inner .footer img {
+  width: 100px;
 }
 
 .login-back {
@@ -433,6 +536,38 @@ hr {
   max-width: 100%;
 }
 
+.small-card {
+  border: 1px solid #ccc;
+  padding: 5px;
+  padding-left: 10px;
+  position: relative;
+  margin: 5px 0;
+  margin-top: 10px;
+}
+
+.small-card .btnCloseThis {
+  background-color: #f3f3f3;
+  padding: 1px 7px;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  -webkit-transition: all 0.2s ease 0s;
+  transition: all 0.2s ease 0s;
+}
+
+.small-card .btnCloseThis:hover {
+  cursor: pointer;
+}
+
+.small-card i {
+  color: #C47777;
+  font-size: 1.2rem;
+}
+
 .button {
   border: 0;
   border-radius: 50px;
@@ -520,6 +655,27 @@ hr {
   cursor: pointer;
 }
 
+.transBtn {
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  font-size: 1rem;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  line-height: 1.42857143;
+  margin: 0;
+  background-color: transparent;
+}
+
+.transBtn:hover {
+  background-color: transparent;
+}
+
 .buttonOk {
   background-color: #8DBB61;
   color: #fff;
@@ -556,6 +712,23 @@ hr {
   background-color: #7689C8;
 }
 
+.buttonOther:active, .buttonOther:focus {
+  color: #fff;
+}
+
+.buttonGrey {
+  background-color: #ccc;
+  color: #000;
+}
+
+.buttonGrey:hover {
+  background-color: #f9f9f9;
+}
+
+.buttonGrey:active, .buttonGrey:focus {
+  color: #000;
+}
+
 .btnClose {
   background-color: #fff;
   padding: 7px 8px;
@@ -571,6 +744,42 @@ hr {
 }
 
 .btnClose:hover {
+  cursor: pointer;
+}
+
+.btnCloseDark {
+  background-color: #ccc;
+  padding: 1px 8px;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  -webkit-transition: all 0.2s ease 0s;
+  transition: all 0.2s ease 0s;
+}
+
+.btnCloseDark:hover {
+  cursor: pointer;
+}
+
+.btnClose2 {
+  background-color: #fff;
+  padding: 1px 8px;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  -webkit-transition: all 0.2s ease 0s;
+  transition: all 0.2s ease 0s;
+}
+
+.btnClose2:hover {
   cursor: pointer;
 }
 
@@ -613,6 +822,25 @@ hr {
 }
 
 .close-btn:hover {
+  cursor: pointer;
+}
+
+.close-btn2 {
+  background-color: #fff;
+  color: #000;
+  padding: 1px 8px;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  -webkit-transition: all 0.2s ease 0s;
+  transition: all 0.2s ease 0s;
+}
+
+.close-btn2:hover {
   cursor: pointer;
 }
 
@@ -705,7 +933,7 @@ hr {
 
 .search-filters {
   position: relative;
-  background-color: #D0D0D0;
+  background-color: #59596C;
   padding: 5px;
   z-index: 999;
   display: none;
@@ -723,6 +951,7 @@ hr {
 .search-filters label {
   font-weight: 300;
   margin: 0;
+  color: #fff;
 }
 
 .search-filters .hide-desk {
@@ -777,19 +1006,19 @@ hr {
 
 .main-list .item-row {
   position: relative;
-  background-color: #f9f9f9;
-  border: 1px solid #ccc;
-  margin-bottom: 1px;
+  background-color: #fff;
+  margin-bottom: 0px;
   padding-right: 30px;
-  padding-top: 6px;
-  padding-bottom: 6px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   max-height: 80px;
+  border-top: 1px solid #d7d7d7;
   -webkit-transition: all 0.2s ease 0s;
   transition: all 0.2s ease 0s;
+  box-shadow: 5px 2px 8px -5px rgba(0, 0, 0, 0.55);
 }
 
 .main-list .item-row div:first-child {
-  padding-left: 0;
   float: left;
 }
 
@@ -811,6 +1040,10 @@ hr {
   width: 53px;
 }
 
+.main-list .item-row .withimg {
+  padding-left: 0;
+}
+
 .main-list .item-row .content {
   position: relative;
 }
@@ -827,10 +1060,14 @@ hr {
   overflow-x: hidden;
 }
 
+.main-list .item-row .content .small-text {
+  font-size: 0.8rem;
+}
+
 .main-list .item-row .lists-actions-trigger {
   position: absolute;
   height: 100%;
-  right: 32px;
+  right: 30px;
   top: 0;
 }
 
@@ -850,12 +1087,16 @@ hr {
   background-color: #9FD56B;
 }
 
+.main-list .item-row .triggerwithimg .action-btn {
+  right: 0px;
+}
+
 .main-list .item-row .lists-actions {
   position: absolute;
   top: 0;
   right: 0;
   height: 100%;
-  padding: 0 10px;
+  padding: 0 20px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -866,7 +1107,8 @@ hr {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
-  background-color: #EEEEEE;
+  box-shadow: -11px 4px 9px -8px rgba(0, 0, 0, 0.55) !important;
+  background-color: #fff;
   z-index: 5;
 }
 
@@ -909,7 +1151,7 @@ hr {
   right: 0;
   top: 0;
   width: 30px;
-  background-color: #fff;
+  background-color: #efefef;
   height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -929,6 +1171,10 @@ hr {
 
 .main-list .item-row .status-icon input[type="checkbox"], .main-list .item-row .status-icon input[type="radio"] {
   margin: 0;
+}
+
+.main-list .item-row:nth-child(odd) {
+  background-color: #f3f3f3;
 }
 
 .main-list .simple-list .content {
@@ -1187,10 +1433,4 @@ hr {
 .login-back {
   background: url(../images/loginback.jpg) no-repeat center center fixed;
   background-size: cover;
-}
-
-.login-container .inner {
-  padding: 20px 60px;
-  background-color: rgba(255, 255, 255, 0.7);
-  border: 25px solid rgba(255, 255, 255, 0.9);
 }

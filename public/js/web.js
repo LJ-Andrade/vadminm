@@ -63,11 +63,117 @@
 /******/ 	__webpack_require__.p = "./";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {//////////////////////////////
+// 							//
+//        LOADER            //
+//                          //
+//////////////////////////////
+
+$(document).ready(function () {
+	// Animate loader off screen
+	// $(".Loader").fadeOut("slow");
+	$(".LoaderSolo").fadeOut("slow");
+
+	new WOW().init();
+
+	//////////////////////////////
+	// 							//
+	//        NAVIGATION        //
+	//                          //
+	//////////////////////////////
+
+
+	var section = $('#actual_section').data('section');
+	var logo = $('.navbar .navbar-brand');
+	var navbar = $('.navbar-default');
+
+	function nav_logic() {
+
+		switch (section) {
+
+			//////// HOME /////////
+			case "home":
+				// $('body').css('padding-top','0');
+				logo.css('opacity', '0');
+				$('.navbar .navbar-right').css('border-bottom', '1px solid white');
+				navbar.addClass('home-nav');
+
+				$(window).scroll(function () {
+					var scrollPos = $(window).scrollTop();
+
+					if (scrollPos > 250) {
+						navbar.addClass('change-nav');
+						logo.css('opacity', '100');
+					} else {
+						navbar.removeClass('change-nav');
+						logo.css('opacity', '0');
+					}
+				});
+
+				break;
+
+			//////// PORTFOLIO /////////
+			case "portfolio":
+
+				$(window).scroll(function () {
+
+					navbar = $('.navbar-default');
+
+					if (scrollPos > 250) {
+						navbar.addClass('change-nav');
+					} else {
+						navbar.removeClass('change-nav');
+					}
+				});
+
+				break;
+
+			//////// GENERIC /////////
+			default:
+				$(window).scroll(function () {
+
+					var scrollPos = $(window).scrollTop(),
+					    navbar = $('.navbar-default');
+
+					if (scrollPos > 250) {
+						navbar.addClass('change-nav');
+					} else {
+						navbar.removeClass('change-nav');
+					}
+				});
+		}
+	}
+
+	// ----------- End Navigation Script ------------ //
+
+	//Activate nav effects in desktop
+	if (screen.width > 775) {
+		nav_logic();
+	} else {}
+}); // Document Ready
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed: ModuleBuildError: Module build failed: \r\n@import ../_mixins\r\n^\r\n      File to import not found or unreadable: ../_mixins.\nParent style sheet: C:/Vimana/proyectos/Incubator/VadminMataderos/resources/assets/sass/web/web.sass\r\n      in C:\\Vimana\\proyectos\\Incubator\\VadminMataderos\\resources\\assets\\sass\\web\\web.sass (line 1, column 1)\n    at C:\\Vimana\\proyectos\\Incubator\\VadminMataderos\\node_modules\\webpack\\lib\\NormalModule.js:141:35\n    at C:\\Vimana\\proyectos\\Incubator\\VadminMataderos\\node_modules\\loader-runner\\lib\\LoaderRunner.js:364:11\n    at C:\\Vimana\\proyectos\\Incubator\\VadminMataderos\\node_modules\\loader-runner\\lib\\LoaderRunner.js:230:18\n    at context.callback (C:\\Vimana\\proyectos\\Incubator\\VadminMataderos\\node_modules\\loader-runner\\lib\\LoaderRunner.js:111:13)\n    at Object.asyncSassJobQueue.push [as callback] (C:\\Vimana\\proyectos\\Incubator\\VadminMataderos\\node_modules\\sass-loader\\lib\\loader.js:57:13)\n    at Object.<anonymous> (C:\\Vimana\\proyectos\\Incubator\\VadminMataderos\\node_modules\\sass-loader\\node_modules\\async\\dist\\async.js:2237:31)\n    at apply (C:\\Vimana\\proyectos\\Incubator\\VadminMataderos\\node_modules\\sass-loader\\node_modules\\async\\dist\\async.js:20:25)\n    at Object.<anonymous> (C:\\Vimana\\proyectos\\Incubator\\VadminMataderos\\node_modules\\sass-loader\\node_modules\\async\\dist\\async.js:56:12)\n    at Object.callback (C:\\Vimana\\proyectos\\Incubator\\VadminMataderos\\node_modules\\sass-loader\\node_modules\\async\\dist\\async.js:843:16)\n    at options.error (C:\\Vimana\\proyectos\\Incubator\\VadminMataderos\\node_modules\\node-sass\\lib\\index.js:294:32)");
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10294,120 +10400,12 @@ return jQuery;
 
 
 /***/ }),
-/* 1 */,
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function($) {//////////////////////////////
-// 							//
-//        LOADER            //
-//                          //
-//////////////////////////////
-
-$(document).ready(function () {
-	// Animate loader off screen
-	// $(".Loader").fadeOut("slow");
-	$(".LoaderSolo").fadeOut("slow");
-
-	new WOW().init();
-
-	//////////////////////////////
-	// 							//
-	//        NAVIGATION        //
-	//                          //
-	//////////////////////////////
-
-
-	var section = $('#actual_section').data('section');
-	var logo = $('.navbar .navbar-brand');
-	var navbar = $('.navbar-default');
-
-	function nav_logic() {
-
-		switch (section) {
-
-			//////// HOME /////////
-			case "home":
-				// $('body').css('padding-top','0');
-				logo.css('opacity', '0');
-				$('.navbar .navbar-right').css('border-bottom', '1px solid white');
-				navbar.addClass('home-nav');
-
-				$(window).scroll(function () {
-					var scrollPos = $(window).scrollTop();
-
-					if (scrollPos > 250) {
-						navbar.addClass('change-nav');
-						logo.css('opacity', '100');
-					} else {
-						navbar.removeClass('change-nav');
-						logo.css('opacity', '0');
-					}
-				});
-
-				break;
-
-			//////// PORTFOLIO /////////
-			case "portfolio":
-
-				$(window).scroll(function () {
-
-					navbar = $('.navbar-default');
-
-					if (scrollPos > 250) {
-						navbar.addClass('change-nav');
-					} else {
-						navbar.removeClass('change-nav');
-					}
-				});
-
-				break;
-
-			//////// GENERIC /////////
-			default:
-				$(window).scroll(function () {
-
-					var scrollPos = $(window).scrollTop(),
-					    navbar = $('.navbar-default');
-
-					if (scrollPos > 250) {
-						navbar.addClass('change-nav');
-					} else {
-						navbar.removeClass('change-nav');
-					}
-				});
-		}
-	}
-
-	// ----------- End Navigation Script ------------ //
-
-	//Activate nav effects in desktop
-	if (screen.width > 775) {
-		nav_logic();
-	} else {}
-}); // Document Ready
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
 /* 4 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 5 */,
-/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(2);
-__webpack_require__(3);
-module.exports = __webpack_require__(4);
+__webpack_require__(0);
+__webpack_require__(1);
+module.exports = __webpack_require__(2);
 
 
 /***/ })

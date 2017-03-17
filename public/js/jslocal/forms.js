@@ -11,6 +11,10 @@
 		placeholder_text_single: 'Seleccione una categoría',
 	});
 
+	$('.Select-Chosen').chosen({
+		placeholder_text_single: 'Seleccione una categoría',
+	});
+
 
 	// --------- Slug sanitizer -------- //
 	$(".SlugInput").keyup(function(){
@@ -62,10 +66,38 @@
 	// 	});
 	// });
 
+	//////////////////////////////
+	// 							//
+	//      CREATE FORM         //
+	//                          //
+	//////////////////////////////
+
+
+	// Show Notes Text Area
+	$('.ShowNotesTextArea').click(function(){
+		var notes = $('.NotesTextArea');
+		if (notes.hasClass('Hidden')){
+			notes.removeClass('Hidden');
+		} else {
+			notes.addClass('Hidden');
+		}
+	});
+
+	// Add Another Address
+	$('.AddAnotherAddressBtn').click(function(){
+		var addressInput = "<input class='form-control' placeholder='Ingrese otro teléfono' name='deliveryaddress[]' type='text' style='margin-top:5px'>";
+		var locInput     = "<input class='form-control' placeholder='Ingrese otro teléfono' name='deliveryaddress[]' type='text' style='margin-top:5px'>";
+
+		
+
+		$('.AnotherAddress').append(addressInput);
+		$('.AnotherLoc').append(locInput);
+	});
+
 	
 	//////////////////////////////
 	// 							//
-	//   EDITORS AND FIELSD     //
+	//   EDITORS AND FIELDS     //
 	//                          //
 	//////////////////////////////
 

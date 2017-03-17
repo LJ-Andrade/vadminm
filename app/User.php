@@ -32,4 +32,10 @@ class User extends Authenticatable
     	return $query->where('name','=', $name);
     }
 
+    public function clientes()
+    {
+    	return $this->hasMany('App\Cliente');
+    }
+
+
 }

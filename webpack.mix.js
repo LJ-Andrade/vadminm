@@ -32,9 +32,16 @@ const { mix } = require('laravel-mix');
 // ], 'public/js/web-vendors.js');
   
 
+
+// -------------- Solo estilos ----------------- //
 mix.sass('resources/assets/sass/vadmin/vadmin.sass', 'public/css')
-    .options({
-      processCssUrls: false
-   });
+  .options({
+    processCssUrls: false
+  });
+
+mix.sass('resources/assets/sass/web/web.sass', 'public/css')
+  .options({
+    processCssUrls: false
+  });
 
 // .js('resources/assets/js/vadmin/vadmin.js', 'public/js')

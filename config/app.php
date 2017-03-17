@@ -188,8 +188,7 @@ return [
         Thedevsaddam\LaravelSchema\LaravelSchemaServiceProvider::class,
         // Image Intervention
         Intervention\Image\ImageServiceProvider::class,
-        Laravel\Tinker\TinkerServiceProvider::class,
-
+        Appzcoder\CrudGenerator\CrudGeneratorServiceProvider::class,
 
     ],
 

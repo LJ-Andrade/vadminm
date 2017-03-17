@@ -1,3 +1,5 @@
+@section('searcher')
+
 <div class="row header-options">
     <div class="Search-Filters search-filters">
         {{-- Search --}}
@@ -21,3 +23,4 @@
     </div>
 </div>
 
+@endsection
