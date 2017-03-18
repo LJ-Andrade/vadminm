@@ -71,6 +71,7 @@
 							<li><a href="{{ route('condicventas.index') }}"><i class="ion-clipboard"></i> Condiciones de Vta.</a></li>
 							<li><a href="{{ route('ivas.index') }}"><i class="ion-ios-list-outline"></i> Categorías Iva</a></li>
 							<li><a href="{{ route('fletes.index') }}"><i class="ion-paper-airplane"></i> Fleteros</a></li>
+							<li><a href="{{ route('direntregas.index') }}"><i class="ion-clipboard"></i> Direcciones de Entrega</a></li>
 							<li><a href="{{ route('provincias.index') }}"><i class="ion-map"></i> Provincias</a></li>
 							<li><a href="{{ route('localidades.index') }}"><i class="ion-map"></i> Localidades</a></li>
 							<li><a href="{{ route('zonas.index') }}"><i class="ion-map"></i> Zonas </a></li>

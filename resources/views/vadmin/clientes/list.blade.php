@@ -15,11 +15,13 @@
 			</div>
 			{{-- Column --}}
 			<div class="col-xs-6 col-sm-3 col-md-4 mobile-hide inner-tags">
-				<span>{{ $item->dirfiscal }}</span><br>
-                <span>@if (is_null($item->localidad)) @else {{ $item->localidad->name }} @endif</span>
+				<span class="small-text">{{ $item->dirfiscal }}</span><br>
+				<span class="small-text">@if (is_null($item->provincia)) @else {{ $item->provincia->name }} @endif</span>
+				<span class="small-text">@if (is_null($item->localidad)) @else | {{ $item->localidad->name }} @endif</span>
 			</div>
             <div class="col-md-3">
-            	<span>@if(is_null($item->iva)) @else {{ $item->iva->name }} @endif</span> <br>
+            	<span class="small-text">@if(is_null($item->iva)) @else {{ $item->iva->name }} @endif</span> <br>
+				<span class="small-text">@if(is_null($item->listas)) @else {{ $item->listas->name }} @endif</span>
             </div>
 		</div>
 		{{-- Action Button --}}

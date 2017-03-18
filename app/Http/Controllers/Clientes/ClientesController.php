@@ -16,6 +16,7 @@ use App\User;
 use App\Flete;
 use App\Zona;
 use App\Lista;
+use App\Direntrega;
 
 class ClientesController extends Controller
 {
@@ -78,7 +79,7 @@ class ClientesController extends Controller
         //     'name.unique'      => 'El cliente ya existe',
         // ]);
         
-        dd($request->all());
+        // dd($request->all());
         
         $cliente = new Cliente($request->all());
         // dd($cliente);
@@ -93,11 +94,26 @@ class ClientesController extends Controller
         $cliente->user_id         = $request->vendedor;
         $cliente->zona_id         = $request->zona;
         $cliente->flete_id        = $request->flete;
+        // dd($request->direntrega);
+        
+        // create a new event
+        $calles                   = $request->direntrega;
+        dd($calles);
+        
+        $cliente->direntrega_id   = $calles;
+        
+        // dd($dirEntrega);
+        // $request->direntrega;
+        // $request->locentrega;
+        // $request->telentrega;
+        // $request->proventrega;
+        
+
+
 
 
         $cliente->save();
         
-
         Session::flash('flash_message', 'Cliente ingresado correctamente');
 
         return redirect('vadmin/clientes');

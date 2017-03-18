@@ -1022,9 +1022,14 @@ hr {
   float: left;
 }
 
+.main-list .item-row:nth-child(odd) {
+  background-color: #f3f3f3;
+}
+
 .main-list .item-row:hover, .main-list .item-row .row-selected {
   cursor: pointer;
-  background-color: #E7E7E7;
+  background-color: #DDD;
+  color: #000;
 }
 
 .main-list .item-row:hover img, .main-list .item-row .row-selected img {
@@ -1061,7 +1066,7 @@ hr {
 }
 
 .main-list .item-row .content .small-text {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 .main-list .item-row .lists-actions-trigger {
@@ -1171,10 +1176,6 @@ hr {
 
 .main-list .item-row .status-icon input[type="checkbox"], .main-list .item-row .status-icon input[type="radio"] {
   margin: 0;
-}
-
-.main-list .item-row:nth-child(odd) {
-  background-color: #f3f3f3;
 }
 
 .main-list .simple-list .content {

@@ -2,14 +2,14 @@
 @extends('vadmin.layouts.main')
 
 {{-- PAGE TITLE--}}
-@section('title', 'Vadmin | Condiciones de Ventas')
+@section('title', 'Vadmin | Direntregas')
 
 {{-- HEAD--}}
 @section('header')
-	@section('header_title', 'Condiciones de Ventas') 
+	@section('header_title', 'Listado de Direntregas') 
 	@section('options')
 		<div class="actions">
-            <a id="ToNewItem" href="{{ url('vadmin/condicventas/create') }}" class="btn btnSm buttonOther">Nueva</a>
+            <a href="{{ url('vadmin/direntregas/create') }}" class="btn btnSm buttonOther">Nueva</a>
             <button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button>
 		</div>	
 	@endsection
@@ -23,22 +23,31 @@
 
 {{-- CONTENT --}}
 @section('content')
+
     <div class="container">
 		<div class="row">		
-			@include('vadmin.condicventas.searcher')
+			@include('vadmin.direntregas.searcher')
             <div class="col-md-12 animated fadeIn main-list">
-                @foreach($condicventas as $item)
+                @foreach($direntregas as $item)
                 <div id="Id{{ $item->id }}" class="Item-Row Select-Row-Trigger row item-row simple-list">
                     {{-- Column / Image --}}
                     <div class=""></div>
-
                     <div class="content">
                         {{-- Column --}}
-                        <div class="col-xs-6 col-sm-4 col-md-4 inner">
-                            <div class="col-md-1">{{ $item->id }}</div> | <span><b>{{ $item->name }}</b></span>
+                        <div class="col-xs-6 col-sm-3 col-md-3 mobile-hide inner-tags">
+							<span class=""><b>{{ $item->cliente }}</b></span>
+                        </div>   
+						{{-- Column --}}
+                        <div class="col-xs-6 col-sm-3 col-md-3 inner">
+                        	<span>{{ $item->name }}</span>
+                        </div>
+						{{-- Column --}}
+						<div class="col-xs-6 col-sm-3 col-md-3 inner">
+                        	<span class="small-text">{{ $item->telefono }}</span>
                         </div>
                         {{-- Column --}}
-                        <div class="col-xs-6 col-sm-3 col-md-4 mobile-hide inner-tags">
+                        <div class="col-xs-6 col-sm-3 col-md-3 mobile-hide inner-tags">
+							<span class="small-text">{{ $item->provincia }} | {{ $item->localidad }}</span>
                         </div>                        
                     </div>
 
@@ -51,7 +60,7 @@
 
                     {{-- Hidden Action Buttons --}}
                     <div class="List-Actions lists-actions Hidden">
-						<a href="{{ url('/vadmin/condicventas/' . $item->id . '/edit') }}" class="btnSmall buttonOk" data-id="{{ $item->id }}">
+						<a href="{{ url('/vadmin/direntregas/' . $item->id . '/edit') }}" class="btnSmall buttonOk" data-id="{{ $item->id }}">
 							<i class="ion-ios-compose-outline"></i>
 						</a>
 						<a target="_blank" class="btnSmall buttonOther">
@@ -74,13 +83,13 @@
                 @endforeach
 
                 {{-- If there is no articles published shows this --}}
-                @if(! count($condicventas))
+                @if(! count($direntregas))
                 <div class="Item-Row item-row empty-row">
                     No se han encontrado items
                 </div>
                 @endif
             </div>
-            {!! $condicventas->render(); !!}
+            {!! $direntregas->render(); !!}
             <br>
 
 		</div>
@@ -113,7 +122,7 @@
 
 	function delete_item(id, route) {	
 
-		var route = "{{ url('vadmin/ajax_delete_condicventa') }}/"+id+"";
+		var route = "{{ url('vadmin/ajax_delete_direntrega') }}/"+id+"";
 
 		$.ajax({
 			url: route,
@@ -156,7 +165,7 @@
 	// ---- Delete ---- //
 	function batch_delete_item(id) {
 
-		var route = "{{ url('vadmin/ajax_batch_delete_condicventas') }}/"+id+"";
+		var route = "{{ url('vadmin/ajax_batch_delete_direntregas') }}/"+id+"";
 
 		$.ajax({
 			url: route,

@@ -39,7 +39,7 @@
 					<div class="col-md-4 col-sm-6 col-xs-12">
 						<div class="form-group">
 							{!! Form::label('razonsocial', 'Razón Social') !!}
-							{!! Form::text('razonsocial', null, ['class' => 'form-control', 'placeholder' => 'Ingrese la Razón Social', 'required'=>'']) !!}
+							{!! Form::text('razonsocial', null, ['class' => 'form-control', 'placeholder' => 'Ingrese la Razón Social']) !!}
 						</div>
 					</div>
                     {{-- /// --}}
@@ -53,7 +53,7 @@
 					<div class="col-md-3 col-sm-6 col-xs-12">
 						<div class="form-group">
 							{!! Form::label('cuit', 'N° de CUIT') !!}
-							{!! Form::text('cuit', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el CUIT', 'maxlength' => '11', 'minlength' => '11', 'required'=>'', 'data-mask'=>'00-00000000-0']) !!}
+							{!! Form::text('cuit', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el CUIT', 'maxlength' => '11', 'minlength' => '11', 'data-mask'=>'00-00000000-0']) !!}
 						</div>
 					</div>
 				</div>
@@ -263,15 +263,25 @@
 			if(dirEntrega == '' || locEntrega == '') {
 				alert_error('Ups!','Faltan datos de entrega');
 			} else {
-				var inputDir   = "<input class='Hidden' type='text' name='direntrega[]' value='"+dirEntrega+','+provEntrega+','+locEntrega+','+telEntrega+"'>";
-				console.log(inputDir);
+				//var inputDir   = "<input class='Hidden' type='text' name='direntrega[]' value='"+dirEntrega+','+provEntrega+','+locEntrega+','+telEntrega+"'>";
+
 				var dirCard    = "<div class='col-md-12 small-card'>"
 									+"<span>"+ dirEntrega +"</span> - <span>"+ provEntrega +"</span> - <span>"+ locEntrega +"</span> - <span>"+ telEntrega +"</span>"
 									+"<div class='btnCloseThis'><i class='ion-trash-b'></i></div>"
-								+"</div>";
-				console.log(dirCard);
+								+"</div><br>";
+				var input1		= "<input type='text' class='Hidden' name='direntrega[]' value='"+ dirEntrega +"'>";
+				var input3		= "<input type='text' class='Hidden' name='telentrega[]' value='"+ telEntrega +"'>";
+				var input2		= "<input type='text' class='Hidden' name='locentrega[]' value='"+ locEntrega +"'>";
+				var input4		= "<input type='text' class='Hidden' name='proventrega[]' value='"+ provEntrega +"'>";
 
-				$('#DirEntregaDiv').append(inputDir+'<br>'+dirCard);
+				
+
+
+				console.log(input1);
+				console.log(input2);
+				console.log(input3);
+				console.log(input4);
+				$('#DirEntregaDiv').append(input1 + input2 + input3 + input4 +'<br>'+dirCard);
 			}
 			
 		});

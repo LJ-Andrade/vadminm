@@ -11,7 +11,7 @@ class Cliente extends Model
 
 
     protected $fillable = ['id', 'razonsocial', 'cuit', 'dirfiscal', 'codpostal', 'iva_id', 'provincia_id', 'localidad_id', 
-    'condicventas_id', 'user_id', 'listas_id', 'zona_id', 'flete_id'];
+    'condicventas_id', 'user_id', 'listas_id', 'zona_id', 'flete_id', 'direntrega_id'];
 
     protected $primaryKey = 'id';
 
@@ -45,6 +45,10 @@ class Cliente extends Model
 
     public function flete(){
     	return $this->belongsTo('App\Flete');
+    }
+
+    public function direntrega(){
+    	return $this->hasMany('App\Direntrega');
     }
 
 

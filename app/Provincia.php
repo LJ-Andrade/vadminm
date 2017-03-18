@@ -17,6 +17,10 @@ class Provincia extends Model
     {
     	return $this->hasMany('App\Cliente');
     }
-
+    
+    public function direntregas()
+    {
+    	return $this->hasMany('App\Direntrega');
+    }
 
 }

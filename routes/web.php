@@ -108,6 +108,10 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::post('ajax_delete_lista/{id}', 'Listas\ListasController@destroy');
 	Route::post('ajax_batch_delete_listas/{id}', 'Listas\ListasController@ajax_batch_delete');
 
+	// ------ Direcciones de Entrega ------- //
+	Route::resource('direntregas', 'Direntregas\DirentregasController');
+	Route::post('ajax_delete_direntrega/{id}', 'Direntregas\DirentregasController@destroy');
+	Route::post('ajax_batch_delete_direntregas/{id}', 'Direntregas\DirentregasController@ajax_batch_delete');
 
 });
 
