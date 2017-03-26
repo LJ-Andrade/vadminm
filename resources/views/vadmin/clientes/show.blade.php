@@ -25,29 +25,29 @@
 {{-- CONTENT --}}
 @section('content')
     <div class="container">
-		<div class="row">		
+		<div class="row big-card">		
 
-            <div class="col-md-2"><b>Razón Social:</b></div>        <div class="col-md-3"> {{ $cliente->razonsocial }} </div><br>
-		    <div class="col-md-2"><b>Código de Cliente:</b></div>   <div class="col-md-3"> {{ $cliente->id }} </div> <br>
-            <div class="col-md-2"><b>CUIT:</b></div>                <div class="col-md-3"> {{ $cliente->cuit }} </div><br>
-            <div class="col-md-2"><b>Dirección Fiscal:</b></div>    <div class="col-md-3"> {{ $cliente->dirfiscal }} </div><br>
-            <div class="col-md-2"><b>Provincia:</b></div>           <div class="col-md-3"> {{ $cliente->provincia->name }} </div><br>
-            <div class="col-md-2"><b>Localidad:</b></div>    
+            <div class="col-md-3"><b>Razón Social:</b></div>        <div class="col-md-3"> {{ $cliente->razonsocial }} </div><br>
+		    <div class="col-md-3"><b>Código de Cliente:</b></div>   <div class="col-md-3"> {{ $cliente->id }} </div> <br>
+            <div class="col-md-3"><b>CUIT:</b></div>                <div class="col-md-3"> {{ $cliente->cuit }} </div><br>
+            <div class="col-md-3"><b>Dirección Fiscal:</b></div>    <div class="col-md-3"> {{ $cliente->dirfiscal }} </div><br>
+            <div class="col-md-3"><b>Provincia:</b></div>           <div class="col-md-3"> {{ $cliente->provincia->name }} </div><br>
+            <div class="col-md-3"><b>Localidad:</b></div>    
 			<div class="col-md-3"> @if(is_null($cliente->localidad)) @else {{ $cliente->localidad->name }} @endif </div><br>
 
-			<div class="col-md-2"><b>Condiciones de Vta.:</b></div> 
+			<div class="col-md-3"><b>Condiciones de Vta.:</b></div> 
 			<div class="col-md-3"> @if(is_null($cliente->condicventas)) @else {{ $cliente->condicventas->name }} @endif </div><br>
 
-			<div class="col-md-2"><b>Lista de Precios:</b></div>    
+			<div class="col-md-3"><b>Lista de Precios:</b></div>    
 			<div class="col-md-3"> @if(is_null($cliente->listas)) @else {{ $cliente->listas->name }} @endif </div><br>
 			
-			<div class="col-md-2"><b>Vendedor:</b></div>            
+			<div class="col-md-3"><b>Vendedor:</b></div>            
 			<div class="col-md-3"> @if(is_null($cliente->user)) @else {{ $cliente->user->name }} @endif </div><br>
 			
-			<div class="col-md-2"><b>Zona:</b></div>                
+			<div class="col-md-3"><b>Zona:</b></div>                
 			<div class="col-md-3"> @if(is_null($cliente->zona)) @else {{ $cliente->zona->name }} @endif </div><br>
 
-			<div class="col-md-2"><b>Flete:</b></div>     
+			<div class="col-md-3"><b>Flete:</b></div>     
 			<div class="col-md-3"> @if(is_null($cliente->flete)) @else {{ $cliente->flete->name }} @endif </div><br>
           
 		</div>

@@ -25,7 +25,10 @@
 				{!! Form::label('type', 'Tipo') !!}
 				{!! Form::select('type', ['member' => 'Usuario', 'admin' => 'Administrador'], null, 
 				['class' => 'form-control', 'placeholder' => 'Seleccione una opción...', 'required'])!!}
+				
 			</div>
+
+			
 			<div class="form-group">
 				{!! Form::submit('Agregar Usuario', ['class' => 'btn btn-primary']) !!}
 			</div>

@@ -203,7 +203,8 @@
 		$('#EditName').val(data.name);
 		$('#EditEmail').val(data.email);
 		$('#EditPassword').val(data.password);
-		$('#EditRole').val(data.type).change();
+		$('#EditRole').val(data.role).change();
+		$('#EditType').val(data.type).change();
 	});
 
 

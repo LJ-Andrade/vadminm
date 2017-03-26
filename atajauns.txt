@@ -1,0 +1,38 @@
+
+CD D:\vimana\proyectos\incubator\vadmin\public\css\sass
+sass --watch vadmin.sass:../vadmin.css
+
+
+
+
+cd d:/vimana/proyectos/fascination/skin/css/sass
+sass --watch main.sass:../webstyles.css
+
+
+cd d:/vimana/proyectos/vadmin/skin/css/sass
+sass --watch main.sass:../main.css
+
+
+php artisan crud:generate Clients --fields="name#string; contact#string, email#string, phone#string" --view-path=vadmin/clients --controller-namespace=Client --route-group=vadmin
+
+
+
+
+
+
+
+
+  transition: all 0.5s ease;
+
+
+
+display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+  -webkit-box-align: center
+  -ms-flex-align: center
+  -ms-grid-row-align: center
+  align-items: center
+  -webkit-box-pack: center
+  -ms-flex-pack: center
+  justify-content: center

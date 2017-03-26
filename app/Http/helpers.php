@@ -1,9 +1,8 @@
 <?php
     
-    function roleTrd($role)
+    function typeTrd($type)
     {
-
-       switch ($role) {
+       switch ($type) {
             case 'user':
                 echo 'Usuario';
                 break;
@@ -15,8 +14,22 @@
                 break;
 
             default:
-                echo 'Ninguno';
+                echo '';
                 break;
         }
+    }
 
+    function roleTrd($role)
+    {
+        switch ($role) {
+            case 'seller':
+                echo 'Vendedor';
+                break;
+            case 'none':
+                echo '';
+                break;
+            default:
+                echo '';
+                break;
+        }
     }

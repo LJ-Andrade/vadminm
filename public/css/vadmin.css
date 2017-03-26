@@ -1,5 +1,3 @@
-@import url(https://fonts.googleapis.com/css?family=Work+Sans:400,300,600);
-@import url("https://fonts.googleapis.com/css?family=Lato:300,300i,400,700");
 html {
   min-height: 100%;
   position: relative;
@@ -170,6 +168,12 @@ hr {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+}
+
+.big-card {
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 5px 2px 8px -5px rgba(0, 0, 0, 0.55);
 }
 
 .big-list {
@@ -1004,18 +1008,21 @@ hr {
   background-color: #C47777;
 }
 
+.main-list {
+  box-shadow: 5px 2px 8px -5px rgba(0, 0, 0, 0.55);
+}
+
 .main-list .item-row {
   position: relative;
   background-color: #fff;
-  margin-bottom: 0px;
   padding-right: 30px;
   padding-top: 8px;
   padding-bottom: 8px;
   max-height: 80px;
-  border-top: 1px solid #d7d7d7;
+  border: 1px solid #d7d7d7;
+  border-bottom: 0;
   -webkit-transition: all 0.2s ease 0s;
   transition: all 0.2s ease 0s;
-  box-shadow: 5px 2px 8px -5px rgba(0, 0, 0, 0.55);
 }
 
 .main-list .item-row div:first-child {

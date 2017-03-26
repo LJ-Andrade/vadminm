@@ -86,6 +86,37 @@
 	});
 
 
+	// By Name or Email
+	$(document).on("keyup", "#SearchForm", function(e){
+		e.preventDefault();
+		var name  = $('#SearchByName').val();
+		var id    = $('#SearchById').val();
+		// var role  = $(this).find('option:selected').val();
+		console.log(id);
+		if( name.length == 0 ){
+			ajax_list();
+		} else {
+			var url = "{{ url('vadmin/ajax_list_search_clientes') }}/search?id="+id+"&name="+name+"";
+			// var url = "{{ url('vadmin/ajax_list_search_clients') }}/search?name="+name+"";
+			console.log(url);
+			$.ajax({
+				type: 'get',
+				url: url,
+				complete: function(data){
+					$('#Error').html(data.responseText);		
+				},
+				success: function(data){
+					$('#List').empty().html(data);
+				},
+				error: function(data){
+					// console.log(data)
+					$('#Error').html(data.responseText);
+				}
+			});
+		}		
+	});
+
+
 	/////////////////////////////////////////////////
     //                     DELETE                  //
     /////////////////////////////////////////////////

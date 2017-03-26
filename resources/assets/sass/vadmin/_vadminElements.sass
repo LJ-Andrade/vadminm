@@ -5,8 +5,10 @@
 //////////////////////////////////////
 
 
-
-
+.big-card
+	background-color: #fff
+	padding: 20px
+	@include box-shadow
 
 //////////////////////////////////////
 //                                  //
@@ -148,7 +150,6 @@ $phvFsize: 0.9rem
 				font-size: .7rem
 			img
 				width: 100px
-
 
 
 .login-back
@@ -647,17 +648,17 @@ $phvFsize: 0.9rem
 //////////////////////////////////////
 
 .main-list
+	@include box-shadow
 	.item-row
 		position: relative
 		background-color: #fff
-		margin-bottom: 0px
 		padding-right: 30px
 		padding-top: 8px
 		padding-bottom: 8px
 		max-height: 80px
-		border-top: 1px solid #d7d7d7
+		border: 1px solid #d7d7d7
+		border-bottom: 0
 		@include transition(0.2s)
-		@include box-shadow
 		div:first-child
 			// padding-left: 0
 			float: left

@@ -1,4 +1,3 @@
-
 @extends('vadmin.layouts.main')
 
 {{-- PAGE TITLE--}}
@@ -9,7 +8,7 @@
 	@section('header_title', 'Listado de Fletes') 
 	@section('options')
 		<div class="actions">
-            <a href="{{ url('vadmin/fletes/create') }}" class="btn btnSm buttonOther">Nueva</a>
+            <a  id="ToNewItem" href="{{ url('vadmin/fletes/create') }}" class="btn btnSm buttonOther">Nueva</a>
             <button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button>
 		</div>	
 	@endsection
@@ -19,7 +18,6 @@
 @section('styles')
 	{{-- Include Styles Here --}}
 @endsection
-
 
 {{-- CONTENT --}}
 @section('content')

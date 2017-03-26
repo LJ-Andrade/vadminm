@@ -9,7 +9,7 @@
 	@section('header_title', 'Listado de Zonas') 
 	@section('options')
 		<div class="actions">
-            <a href="{{ url('vadmin/zonas/create') }}" class="btn btnSm buttonOther">Nueva</a>
+            <a id="ToNewItem" href="{{ url('vadmin/zonas/create') }}" class="btn btnSm buttonOther">Nueva</a>
             <button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button>
 		</div>	
 	@endsection

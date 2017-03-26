@@ -37,24 +37,77 @@ class ClientesController extends Controller
         return view('vadmin.clientes.index')->with('clientes', $clientes);
     }
 
+    //////////////////////////////////////////////////
+    //                  LIST                        //
+    //////////////////////////////////////////////////
+
     public function ajax_list(Request $request)
     {
         $clientes = Cliente::orderBy('id', 'DESC')->paginate(10);
         return view('vadmin/clientes/list')->with('clientes', $clientes);   
     }
 
+    //////////////////////////////////////////////////
+    //                  SEARCH                      //
+    //////////////////////////////////////////////////
+
+
+    public function ajax_list_search(Request $request)
+    {   
+       
+        if ($request->ajax())
+        {
+
+            if (isset($_GET['name'])){
+                $name = $_GET['name'];
+            } 
+
+             if (isset($_GET['id'])){
+                $id = $_GET['id'];
+            }
+
+            $clientes = Cliente::where('id', 'LIKE', '%'.$id.'%' )->paginate(20);
+
+            // if ($name != '' and $id != ''){
+            //     // Search User AND Role
+            //     $clientes = Cliente::where('razonsocial', 'LIKE', '%'.$name.'%' )
+            //     ->where('id', 'LIKE', '%'.$id.'%')->paginate(20);
+            // } else if($name != '') {
+            //     // Search by name
+            //      $clientes = Cliente::where('razonsocial', 'LIKE', '%'.$name.'%' )->paginate(20);
+           
+            // } else if ($id !='') {
+            //     // Search by Name or Email
+            //     $clientes = Cliente::where('id', 'LIKE', '%'.$id.'%' )->paginate(20);
+            // } else {
+            //     // Seatch All
+            //     $clientes = Cliente::orderBy('id', 'DESC')->paginate(12);
+            // }
+
+            return view('vadmin/clientes/list')->with('clientes', $clientes);  
+        }
+
+    }
+
+
+    //////////////////////////////////////////////////
+    //                  CREATE                      //
+    //////////////////////////////////////////////////
+
 
     public function create()
     {
+        $cliente_id   = Cliente::orderBy('id','DESC')->first();
         $provincias   = Provincia::orderBy('name', 'ASC')->pluck('name', 'id');
         $localidades  = Localidade::orderBy('name', 'ASC')->pluck('name', 'id');
         $iva          = Iva::orderBy('name', 'ASC')->pluck('name', 'id');
         $condicventas = Condicventa::orderBy('name', 'ASC')->pluck('name', 'id');
-        $users        = User::orderBy('name', 'ASC')->pluck('name', 'id');
+        $users        = User::where('role', '=', 'seller')->pluck('name', 'id');
         $flete        = Flete::orderBy('name', 'ASC')->pluck('name', 'id');
         $zona         = Zona::orderBy('name', 'ASC')->pluck('name', 'id');
         $lista        = Lista::orderBy('name', 'ASC')->pluck('name', 'id');
         return view('vadmin.clientes.create')
+            ->with('cliente_id', $cliente_id)
             ->with('provincias', $provincias)
             ->with('localidades', $localidades)
             ->with('iva', $iva)
@@ -66,8 +119,8 @@ class ClientesController extends Controller
 
     }
 
-     //////////////////////////////////////////////////
-    //                  STORE                        //
+    //////////////////////////////////////////////////
+    //                  STORE                       //
     //////////////////////////////////////////////////
 
     public function store(Request $request)
@@ -84,11 +137,10 @@ class ClientesController extends Controller
         $cliente = new Cliente($request->all());
         // dd($cliente);
 
-
         $cliente->iva_id          = $request->iva;
         $cliente->provincia_id    = $request->provincia;
         $cliente->localidad_id    = $request->localidad;
-        $cliente->iva_id          = $request->iva;
+        $cliente->limitcred       = $request->limitcred;
         $cliente->condicventas_id = $request->condicventas;
         $cliente->listas_id       = $request->listas;
         $cliente->user_id         = $request->vendedor;
@@ -97,10 +149,10 @@ class ClientesController extends Controller
         // dd($request->direntrega);
         
         // create a new event
-        $calles                   = $request->direntrega;
-        dd($calles);
+        // $calles                   = $request->direntrega;
+        // dd($request->direntrega);
         
-        $cliente->direntrega_id   = $calles;
+        // $cliente->direntrega_id   = $calles;
         
         // dd($dirEntrega);
         // $request->direntrega;
@@ -110,7 +162,7 @@ class ClientesController extends Controller
         
 
 
-
+        // dd($cliente);
 
         $cliente->save();
         

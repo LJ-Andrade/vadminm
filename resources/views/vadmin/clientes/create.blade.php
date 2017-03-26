@@ -22,7 +22,7 @@
 	<div class="container">
 	    <div class="row">
 	        {!! Form::open(['route' => 'clientes.store', 'method' => 'POST', 'files' => true, 'id' => 'NewItemForm', 'class' => 'big-form', 'data-parsley-validate' => '']) !!}	
-                {{-- //-------------------------------------------------// --}}
+                {{-- //---------------Datos Principales---------------// --}}
                 {{-- SubTitle --}}
 				<div class="row sub-title"><div class="col-md-12">
                     <div class="inner-sub-title"><i class="ion-clipboard icon"></i><span> Datos Principales</span></div>
@@ -32,14 +32,14 @@
 					<div class="col-md-2 col-sm-6 col-xs-12">
 						<div class="form-group">
 							{!! Form::label('id', 'Código') !!}
-							{!! Form::text('id', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el código']) !!}
+							{!! Form::text('id', $cliente_id->id+1, ['id'=>'Cliente_Id','class' => 'form-control', 'disabled'=>'', 'placeholder' => 'Ingrese el código', 'id'=>'Client_Id']) !!}
 						</div>
 					</div>
 					{{-- /// --}}
 					<div class="col-md-4 col-sm-6 col-xs-12">
 						<div class="form-group">
 							{!! Form::label('razonsocial', 'Razón Social') !!}
-							{!! Form::text('razonsocial', null, ['class' => 'form-control', 'placeholder' => 'Ingrese la Razón Social']) !!}
+							{!! Form::text('razonsocial', null, ['class' => 'form-control', 'placeholder' => 'Ingrese la Razón Social', 'id'=>'RazonSocial']) !!}
 						</div>
 					</div>
                     {{-- /// --}}
@@ -53,7 +53,7 @@
 					<div class="col-md-3 col-sm-6 col-xs-12">
 						<div class="form-group">
 							{!! Form::label('cuit', 'N° de CUIT') !!}
-							{!! Form::text('cuit', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el CUIT', 'maxlength' => '11', 'minlength' => '11', 'data-mask'=>'00-00000000-0']) !!}
+							{!! Form::text('cuit', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el CUIT', 'value'=>'', 'maxlength' => '11', 'minlength' => '11', 'data-mask'=>'00-00000000-0']) !!}
 						</div>
 					</div>
 				</div>
@@ -88,7 +88,8 @@
 						</div>
 					</div>
 				</div>
-                   {{-- //-------------------------------------------------// --}}
+              
+     			{{-- //------------------ Ventas ----------------// --}}
                 {{-- SubTitle --}}
 				<div class="row sub-title"><div class="col-md-12">
                     <div class="inner-sub-title"><i class="ion-ios-calculator-outline icon"></i><span> Ventas</span></div>
@@ -139,8 +140,6 @@
 						</div>
 					</div>
 				</div>
-                {{-- Resto del Form Acá--}}
-
 				 {{-- //-------------------------------------------------// --}}
                 {{-- Datos de contacto y entrega --}}
 				<div class="row sub-title"><div class="col-md-12">
@@ -152,7 +151,7 @@
 						<div class="form-group multiple-items">
 							{!! Form::label('telefonos', 'Teléfonos') !!}
                             <div class="TelInputs">
-							{!! Form::text('telefonos', null, ['class' => 'form-control', 'placeholder' => 'Ingrese un teléfono', 'data-mask'=>'0000-0000 | 0000-0000 | 0000-0000']) !!}
+							{!! Form::text('telefono', null, ['class' => 'form-control', 'placeholder' => 'Ingrese un teléfono', 'data-mask'=>'0000-0000 | 0000-0000 | 0000-0000']) !!}
                             </div>
                          {{--<div class="AddAnother add-another"><button type="button" class="AddAnotherTelBtn transBtn">
                                 <i class="ion-ios-plus-outline"></i> Agregar otro teléfono</button>
@@ -162,8 +161,8 @@
                      {{-- Teléfonos --}}
 					<div class="col-md-4 col-sm-6 col-xs-12">
 						<div class="form-group multiple-items">
-							{!! Form::label('cell', 'Celular') !!}
-							{!! Form::text('cell', null, ['class' => 'form-control', 'placeholder' => 'Ingrese un celular', 'data-mask'=>'(00)0000-0000 | (00)0000-0000 | (00)0000-0000']) !!}
+							{!! Form::label('celular', 'Celular') !!}
+							{!! Form::text('celular', null, ['class' => 'form-control', 'placeholder' => 'Ingrese un celular', 'data-mask'=>'(00)0000-0000 | (00)0000-0000 | (00)0000-0000']) !!}
 						</div>
 					</div>
 					{{-- E-Mail --}}
@@ -255,6 +254,8 @@
 
 	
 		$('.AddDirsEntregaBtn').click(function(){
+			var clientId    = $('#Client_Id').val();
+			var clientName  = $('#RazonSocial').val();
 			var dirEntrega  = $('#DirEntrega').val();
 			var locEntrega  = $('#LocEntrega option:selected').text();
 			var telEntrega  = $('#TelEntrega').val();
@@ -265,26 +266,29 @@
 			} else {
 				//var inputDir   = "<input class='Hidden' type='text' name='direntrega[]' value='"+dirEntrega+','+provEntrega+','+locEntrega+','+telEntrega+"'>";
 
-				var dirCard    = "<div class='col-md-12 small-card'>"
-									+"<span>"+ dirEntrega +"</span> - <span>"+ provEntrega +"</span> - <span>"+ locEntrega +"</span> - <span>"+ telEntrega +"</span>"
-									+"<div class='btnCloseThis'><i class='ion-trash-b'></i></div>"
-								+"</div><br>";
-				var input1		= "<input type='text' class='Hidden' name='direntrega[]' value='"+ dirEntrega +"'>";
-				var input3		= "<input type='text' class='Hidden' name='telentrega[]' value='"+ telEntrega +"'>";
-				var input2		= "<input type='text' class='Hidden' name='locentrega[]' value='"+ locEntrega +"'>";
-				var input4		= "<input type='text' class='Hidden' name='proventrega[]' value='"+ provEntrega +"'>";
+				var dirCard ="<div class='col-md-12 small-card'>"
+						 	+"<span>"+ dirEntrega +"</span> - <span>"+ provEntrega +"</span> - <span>"+ locEntrega +"</span> - <span>"+ telEntrega +"</span>"
+						 	+"<div class='btnCloseThis'><i class='ion-trash-b'></i></div>"
+						    +"</div><br>";
+
+				// var dirEntrega = array('cliente' => clientId, 'name'=> clientName);
+				// console.log(dirEntrega);
+
+				// var input1 = "<input type='text' class='Hidden' name='direntrega[]'  value='"+ dirEntrega  +"'>";
+				// var input3 = "<input type='text' class='Hidden' name='telentrega[]'  value='"+ telEntrega  +"'>";
+				// var input2 = "<input type='text' class='Hidden' name='locentrega[]'  value='"+ locEntrega  +"'>";
+				// var input4 = "<input type='text' class='Hidden' name='proventrega[]' value='"+ provEntrega +"'>";
 
 				
-
-
-				console.log(input1);
-				console.log(input2);
-				console.log(input3);
-				console.log(input4);
 				$('#DirEntregaDiv').append(input1 + input2 + input3 + input4 +'<br>'+dirCard);
 			}
 			
 		});
+
+		// Remove Disabled on click
+		$('#Cliente_Id').click(function(){
+			// $(this).attr('disabled','');
+		})
 
 	</script>
 

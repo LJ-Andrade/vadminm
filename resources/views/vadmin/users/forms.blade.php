@@ -15,8 +15,13 @@
             <div class="col-md-6">
                 {!! Form::label('password', 'Contraseña:') !!}
                 <input class="form-control" name="password" type="password" value="" required="">
-                {!! Form::label('type', 'Rol:') !!}
+                {!! Form::label('type', 'Permisos:') !!}
                 {!! Form::select('type', ['user' => 'Usuario','admin' => 'Admin', 'superadmin' => 'SuperAdmin'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion', 'required' => '']) !!}
+            </div>
+            <div class="col-md-6">
+                {!! Form::label('role', 'Rol') !!}
+				{!! Form::select('role', ['seller' => 'Vendedor', 'none' => 'Ninguno'], null, 
+				['class' => 'form-control', 'placeholder' => 'Seleccione una opción...', 'required'])!!}
             </div>
         </div>
             {{-- Error --}}
@@ -47,8 +52,16 @@
                     {!! Form::text('email', null, ['id' => 'EditEmail', 'class' => 'form-control', 'placeholder' => 'Ingrese su email', 'required' => '']) !!}
                 </div>
                 <div class="col-md-6">
-                    {!! Form::label('type', 'Rol:') !!}
-                    {!! Form::select('type', ['user' => 'Usuario','admin' => 'Admin', 'superadmin' => 'SuperAdmin'], null, ['id' => 'EditRole', 'class' => 'form-control', 'placeholder' => 'Seleccione una opcion', 'required' => '']) !!}
+                    {!! Form::label('password', 'Contraseña:') !!}
+                    <input class="form-control" name="password" type="password" value="" required="">
+                    {!! Form::label('type', 'Permisos:') !!}
+                    {!! Form::select('type', ['user' => 'Usuario','admin' => 'Admin', 'superadmin' => 'SuperAdmin'], null, ['id' => 'EditType', 'class' => 'form-control', 'placeholder' => 'Seleccione una opcion', 'required' => '']) !!}
+                    
+                </div>
+                 <div class="col-md-6">
+                    {!! Form::label('role', 'Rol') !!}
+                    {!! Form::select('role', ['seller' => 'Vendedor', 'none' => 'Ninguno'], null, 
+                    ['id' => 'EditRole', 'class' => 'form-control', 'placeholder' => 'Seleccione una opción...', 'required'])!!}
                 </div>
             </div>
             {{-- Error --}}

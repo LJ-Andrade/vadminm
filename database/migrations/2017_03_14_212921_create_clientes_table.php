@@ -20,6 +20,9 @@ class CreateClientesTable extends Migration
             $table->integer('codpostal');
             $table->integer('limitcred');
             $table->integer('direntrega_id');
+            $table->string('telefono');
+            $table->string('celular');
+            $table->string('email');
             
             $table->integer('iva_id')->unsigned();
             $table->integer('provincia_id')->unsigned()->nullable();;

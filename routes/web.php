@@ -72,6 +72,10 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::post('ajax_delete_cliente/{id}', 'Clientes\ClientesController@destroy');
 	Route::post('ajax_batch_delete_clientes/{id}', 'Clientes\ClientesController@ajax_batch_delete');
 
+	// Searcher
+	Route::get('ajax_list_search_clientes/{name?}', 'Clientes\ClientesController@ajax_list_search');
+	Route::get('ajax_list_search_clientes/{id?}', 'Clientes\ClientesController@ajax_list_search');
+
 	// ------ Provincias ------- //
 	Route::resource('provincias', 'Provincias\ProvinciasController');
 	Route::post('ajax_delete_provincia/{id}', 'Provincias\ProvinciasController@destroy');
