@@ -11,7 +11,7 @@ Bienvenido <b>{{ Auth::user()->name }}</b>
 	 <div class="container">
 		<div class="row">
 		
-		<span>Tu rol en el sistema es: <b>{{ roleTrd(Auth::user()->type) }}</b></span> <br>
+		<span>Tu rol en el sistema es: <b>{{ typeTrd(Auth::user()->type) }}</b></span> <br>
         <hr>
         Al momento no puedes realizar tareas en el sistema. <br>
         Para hacerlo debes solicitar a los administradores del sistema que te den los permisos acordes a tu función.

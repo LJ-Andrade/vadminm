@@ -1,5 +1,5 @@
 @extends('web.layouts.main')
-@section('title', 'StudioVimana | Inicio')
+@section('title', 'Mataderos Distribuciones | Inicio')
 
 @section('styles')
 <style>
