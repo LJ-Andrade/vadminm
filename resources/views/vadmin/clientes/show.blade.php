@@ -7,8 +7,7 @@
 {{-- HEAD--}}
 @section('header')
 	@section('header_title')
-		
-        Cliente: {{ $cliente->razonsocial }}
+		Hoja de Cliente
     @endsection 
 	@section('options')
 		<div class="actions">
@@ -21,36 +20,74 @@
 @section('styles')
 	{{-- Include Styles Here --}}
 @endsection
-
 {{-- CONTENT --}}
 @section('content')
     <div class="container">
 		<div class="row big-card">		
+			<h1>Cliente: @if(is_null($cliente->razonsocial)) @else {{ $cliente->razonsocial }} @endif </h1>
+			<hr class="softhr">
+			<div class="col-md-6">
+				<b>Razón Social:</b>
+				Cliente: @if(is_null($cliente->razonsocial)) @else {{ $cliente->razonsocial }} @endif 
+				<br>
+				<b>Código de Cliente:</b>
+				@if(is_null($cliente->id)) @else {{ $cliente->id }} @endif <br>
+				<b>CUIT:</b>            
+				@if(is_null($cliente->cuit)) @else {{ $cliente->cuit }} @endif
+				<hr class="softhr">
+			</div>
 
-            <div class="col-md-3"><b>Razón Social:</b></div>        <div class="col-md-3"> {{ $cliente->razonsocial }} </div><br>
-		    <div class="col-md-3"><b>Código de Cliente:</b></div>   <div class="col-md-3"> {{ $cliente->id }} </div> <br>
-            <div class="col-md-3"><b>CUIT:</b></div>                <div class="col-md-3"> {{ $cliente->cuit }} </div><br>
-            <div class="col-md-3"><b>Dirección Fiscal:</b></div>    <div class="col-md-3"> {{ $cliente->dirfiscal }} </div><br>
-            <div class="col-md-3"><b>Provincia:</b></div>           <div class="col-md-3"> {{ $cliente->provincia->name }} </div><br>
-            <div class="col-md-3"><b>Localidad:</b></div>    
-			<div class="col-md-3"> @if(is_null($cliente->localidad)) @else {{ $cliente->localidad->name }} @endif </div><br>
+			<div class="col-md-6">
+ 				<b>Dirección Fiscal:</b>   
+				@if(is_null($cliente->dirfiscal)) @else {{ $cliente->dirfiscal }} @endif <br>
+     			<b>Provincia:</b>      
+				@if(is_null($cliente->provincia)) @else {{ $cliente->provincia->name }} @endif <br>
+				<b>Localidad:</b>    
+				@if(is_null($cliente->localidad)) @else {{ $cliente->localidad->name }} @endif <br>
+				<hr class="softhr">
+			</div>
 
-			<div class="col-md-3"><b>Condiciones de Vta.:</b></div> 
-			<div class="col-md-3"> @if(is_null($cliente->condicventas)) @else {{ $cliente->condicventas->name }} @endif </div><br>
+			<div class="col-md-6">
+				<b>Condiciones de Vta.:</b>
+				@if(is_null($cliente->condicventas)) @else {{ $cliente->condicventas->name }} @endif <br>
+				<b>Lista de Precios:</b>    
+				@if(is_null($cliente->listas)) @else {{ $cliente->listas->name }} @endif  
+			</div>
 
-			<div class="col-md-3"><b>Lista de Precios:</b></div>    
-			<div class="col-md-3"> @if(is_null($cliente->listas)) @else {{ $cliente->listas->name }} @endif </div><br>
+			<div class="col-md-6">
+				<b>Vendedor:</b>          
+				@if(is_null($cliente->user)) @else {{ $cliente->user->name }} @endif <br>
+
+				<b>Zona:</b>                
+				@if(is_null($cliente->zona)) @else {{ $cliente->zona->name }} @endif <br>
+
+				<b>Flete:</b>
+				@if(is_null($cliente->flete)) @else {{ $cliente->flete->name }} @endif
+			</div>
 			
-			<div class="col-md-3"><b>Vendedor:</b></div>            
-			<div class="col-md-3"> @if(is_null($cliente->user)) @else {{ $cliente->user->name }} @endif </div><br>
+			@if(count($cliente->direntregas)==0)
+			@else
+			<div class="row">
+				<div class="col-md-12">
+					<hr class="softhr">
+					<div class="col-md-12">
+						Direcciones de entrega:
+					</div>
+					@foreach($cliente->direntregas as $direntrega)	
+					<div class="col-md-3 small-card-filled">
+						<b>{{ $direntrega->name }} </b><br>
+						{{ $direntrega->provincia->name }} <br>
+						{{ $direntrega->localidad->name }} <br>
+						{{ $direntrega->telefono }} <br>
+					</div>
+					@endforeach
+				</div>
+			</div>
+			@endif
 			
-			<div class="col-md-3"><b>Zona:</b></div>                
-			<div class="col-md-3"> @if(is_null($cliente->zona)) @else {{ $cliente->zona->name }} @endif </div><br>
-
-			<div class="col-md-3"><b>Flete:</b></div>     
-			<div class="col-md-3"> @if(is_null($cliente->flete)) @else {{ $cliente->flete->name }} @endif </div><br>
-          
+			
 		</div>
+		
 		<button id="BatchDeleteBtn" class="button buttonCancel batchDeleteBtn Hidden"><i class="ion-ios-trash-outline"></i> Eliminar seleccionados</button>
 	</div>  
 	<div id="Error"></div>	

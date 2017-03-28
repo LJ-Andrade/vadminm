@@ -10,7 +10,7 @@ class Cliente extends Model
     protected $table = 'clientes';
 
 
-    protected $fillable = ['id', 'razonsocial', 'cuit', 'dirfiscal', 'codpostal', 'limitcred', 'telefono', 'celular', 'email', 'iva_id', 'provincia_id', 'localidad_id', 'condicventas_id', 'user_id', 'listas_id', 'zona_id', 'flete_id', 'direntrega_id'];
+    protected $fillable = ['id', 'razonsocial', 'cuit', 'dirfiscal', 'codpostal', 'limitcred', 'telefono', 'celular', 'email', 'iva_id', 'provincia_id', 'localidad_id', 'condicventas_id', 'user_id', 'listas_id', 'zona_id', 'flete_id'];
 
     protected $primaryKey = 'id';
 
@@ -46,7 +46,7 @@ class Cliente extends Model
     	return $this->belongsTo('App\Flete');
     }
 
-    public function direntrega(){
+    public function direntregas(){
     	return $this->hasMany('App\Direntrega');
     }
 

@@ -35,7 +35,7 @@
                     <div class="content">
                         {{-- Column --}}
                         <div class="col-xs-6 col-sm-4 col-md-4 inner">
-                            <div class="col-md-1">{{ $item->id }}</div> | <span><b>{{ $item->name }}</b></span>
+                        	<span><b>{{ $item->name }}</b></span>
                         </div>
                         {{-- Column --}}
                         <div class="col-xs-6 col-sm-3 col-md-4 mobile-hide inner-tags">

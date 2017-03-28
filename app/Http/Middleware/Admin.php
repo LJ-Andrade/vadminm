@@ -18,7 +18,7 @@ class Admin
     {
         $user = Auth::user();
         // dd($user->type);
-        if ($user->type == 'superadmin') {
+        if ($user->type == 'superadmin' || $user->type == 'admin') {
             return $next($request);
         } else {
             return redirect()->guest('guest');

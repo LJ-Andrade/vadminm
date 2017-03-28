@@ -43,8 +43,8 @@ class DirentregasController extends Controller
     public function create()
     {
         $clientes     = Cliente::orderBy('razonsocial', 'ASC')->pluck('razonsocial', 'id');
-        $provincias   = Provincia::orderBy('name', 'ASC')->pluck('name', 'name');
-        $localidades  = Localidade::orderBy('name', 'ASC')->pluck('name', 'name');
+        $provincias   = Provincia::orderBy('name', 'ASC')->pluck('name', 'id');
+        $localidades  = Localidade::orderBy('name', 'ASC')->pluck('name', 'id');
 
         return view('vadmin.direntregas.create')
             ->with('clientes', $clientes) 
@@ -67,11 +67,12 @@ class DirentregasController extends Controller
             'name.required'     => 'Debe ingresar un nombre',
             'name.unique'      => 'El item ya existe',
         ]);
-
-
+        
         $dirEntrega = new Direntrega($request->all());
-
-        $dirEntrega->cliente  = $request->cliente;
+        
+        $dirEntrega->cliente_id    = $request->cliente_id;
+        $dirEntrega->provincia_id  = $request->provincia_id;
+        $dirEntrega->localidad_id  = $request->localidad_id;
 
         $dirEntrega->save();
 

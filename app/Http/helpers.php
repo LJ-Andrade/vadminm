@@ -26,7 +26,7 @@
                 echo 'Vendedor';
                 break;
             case 'none':
-                echo '';
+                echo 'Sin Rol';
                 break;
             default:
                 echo '';

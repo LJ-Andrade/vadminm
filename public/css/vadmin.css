@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:300,300i,400,700");
 html {
   min-height: 100%;
   position: relative;
@@ -174,6 +175,61 @@ hr {
   background-color: #fff;
   padding: 20px;
   box-shadow: 5px 2px 8px -5px rgba(0, 0, 0, 0.55);
+}
+
+.big-card h1 {
+  margin-left: 15px;
+}
+
+.profile-card {
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -ms-grid-row-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+.profile-card .inner {
+  border-top: 5px solid #ababc5;
+  border-radius: 10px;
+  box-shadow: 0px 25px 14px -24px rgba(0, 0, 0, 0.4);
+  padding: 20px 10px 20px;
+  background-color: #f3f3f3;
+  width: 450px;
+}
+
+.profile-card .inner .title {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.profile-card .inner .text {
+  margin-top: 15px;
+}
+
+.profile-card .inner .text .data {
+  background-color: #5D76C9;
+  color: #fff;
+  border-radius: 40px;
+  padding: 2px 10px;
+}
+
+.profile-card img {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  max-width: 100%;
 }
 
 .big-list {
@@ -570,6 +626,13 @@ hr {
 .small-card i {
   color: #C47777;
   font-size: 1.2rem;
+}
+
+.small-card-filled {
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
 }
 
 .button {
@@ -978,6 +1041,21 @@ hr {
   }
 }
 
+.custom-badge {
+  display: inline-block;
+  min-width: 10px;
+  padding: 3px 7px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+
 .small-form {
   margin-bottom: 25px;
 }
@@ -1132,7 +1210,7 @@ hr {
   margin: 5px;
   padding: 0 10px;
   font-size: 1rem;
-  font-family: "Work Sans", sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: 300;
 }
 
@@ -1345,6 +1423,31 @@ hr {
   color: #000;
 }
 
+.loader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -ms-grid-row-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-transition: all 0.2s ease 0s;
+  transition: all 0.2s ease 0s;
+  position: absolute;
+  top: 5px;
+  width: 100%;
+  z-index: 9999;
+}
+
+.loader img {
+  background-color: #342b39;
+  border-radius: 50%;
+  width: 40px;
+}
+
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
   border: 0;
   background-color: #393944;
@@ -1388,6 +1491,34 @@ hr {
 .navbar .dropdown-menu a {
   font-size: 1rem;
   color: #000 !important;
+}
+
+@media (min-width: 768px) {
+  .navbar .dropdown-menu a {
+    font-size: 1rem;
+    color: #000 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar li {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .navbar li:hover {
+    background-color: #505063;
+  }
+  .navbar .dropdown-menu li {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .navbar .dropdown-menu li a {
+    font-size: 1rem;
+    color: #fff  !important;
+  }
+  .navbar .dropdown-menu li:hover {
+    background-color: #505063;
+  }
 }
 
 .navbar {

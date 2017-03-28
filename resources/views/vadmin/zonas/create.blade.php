@@ -27,7 +27,7 @@
                 </div>
                 <div class=" col-md-12 form-group">
                     {!! Form::label('name', 'Nombre:') !!}
-                    {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el nombre del item', 'required' => '', 'maxlength' => '120', 'minlength' => '4']) !!} 
+                    {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el nombre del item', 'required' => '']) !!} 
                 </div>
                 <div class="col-md-12 actions">
                     {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Crear', ['class' => 'animated fadeIn button buttonOk pull-right']) !!}

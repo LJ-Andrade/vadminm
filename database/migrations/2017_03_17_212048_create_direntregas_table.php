@@ -14,13 +14,14 @@ class CreateDirentregasTable extends Migration
     {
         Schema::create('direntregas', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('cliente');
             $table->string('name');
-            $table->string('provincia');
-            $table->string('localidad');
             $table->string('telefono');
-
+            $table->integer('localidad_id')->unsigned();
+            $table->integer('provincia_id')->unsigned();
             $table->integer('cliente_id')->unsigned();
+
+            $table->foreign('localidad_id')->references('id')->on('localidades');
+            $table->foreign('provincia_id')->references('id')->on('provincias');
             $table->foreign('cliente_id')->references('id')->on('clientes');
             
             $table->timestamps();

@@ -9,6 +9,35 @@
 	background-color: #fff
 	padding: 20px
 	@include box-shadow
+	h1
+		margin-left: 15px
+
+.profile-card
+	text-align: center
+	@include flex-column
+	margin-top: 50px
+	.inner
+		border-top: 5px solid $dark4
+		border-radius: 10px
+		@include box-shadow-floor
+		padding: 20px 10px 20px 
+		background-color: #f3f3f3
+		width: 450px
+		.title
+			font-size: 1.5rem
+			margin-bottom: 15px
+		.text
+			margin-top: 15px
+			.data
+				background-color: $other
+				color: #fff
+				border-radius: 40px
+				padding: 2px 10px
+	img
+		border-radius: 50%
+		width: 200px
+		height: 200px
+		max-width: 100%
 
 //////////////////////////////////////
 //                                  //
@@ -296,11 +325,17 @@ $phvFsize: 0.9rem
 		@include transition(0.2s)
 		&:hover
 			cursor: pointer
-
-
 	i
 		color: $red
 		font-size: 1.2rem
+
+.small-card-filled
+	background-color: #f9f9f9
+	border-radius: 5px
+	padding: 10px
+	margin: 10px
+	
+	
 
 //////////////////////////////////////
 //                                  //
@@ -613,6 +648,28 @@ $phvFsize: 0.9rem
 		.hide-desk
 			display: block
 		
+
+//////////////////////////////////////
+//                                  //
+//      ITEM CREATOR / Forms        //
+//                                  //
+//////////////////////////////////////
+
+
+.custom-badge
+	display: inline-block
+	min-width: 10px
+	padding: 3px 7px
+	font-size: 12px
+	font-weight: 700
+	line-height: 1
+	color: #fff
+	text-align: center
+	white-space: nowrap
+	vertical-align: middle
+	border-radius: 10px
+	margin-bottom: 5px
+
 //////////////////////////////////////
 //                                  //
 //      ITEM CREATOR / Forms        //
@@ -900,3 +957,22 @@ $phvFsize: 0.9rem
 		filter: brightness(120%)
 	i
 		color: #000
+
+
+//////////////////////////////////////
+//                                  //
+//             LOADERS              //
+//                                  //
+//////////////////////////////////////
+
+.loader
+	@include flex-center
+	@include transition(0.2s)
+	position: absolute
+	top: 5px
+	width: 100%
+	z-index: 9999
+	img
+		background-color: #342b39
+		border-radius: 50%
+		width: 40px

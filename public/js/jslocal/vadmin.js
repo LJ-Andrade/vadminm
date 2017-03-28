@@ -218,6 +218,20 @@ function alert_error(bigtext, smalltext){
 	
 }
 
+function alert_info(bigtext, smalltext){
+
+	swal({
+  		title: bigtext,
+		type: 'info',
+		html: smalltext,
+		showCloseButton: true,
+		showCancelButton: false,
+		confirmButtonText:
+			'<i class="ion-checkmark-round"></i> Ok!'
+		});
+
+}
+
 //////////////////////////////
 // 							//
 //        ACTIONS           //

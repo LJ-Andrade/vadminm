@@ -13,7 +13,7 @@
             </div>
             <div class="inner-column">
                 <div class="input-group">
-                    {!! Form::label('type', 'Rol') !!}
+                    {!! Form::label('type', 'Permisos') !!}
                     {!! Form::select('type', ['*' => 'Todos', 'user' => 'Usuario','admin' => 'Admin', 'superadmin' => 'SuperAdmin'], null, ['id' => 'SearchRole', 'class' => 'form-control', 'placeholder' => 'Rol']) !!}
                 </div>
             </div>

@@ -36,6 +36,34 @@
 			font-size: 1rem
 			color: #000 !important
 
+
+@media (min-width: 768px)
+	.navbar
+		.dropdown-menu
+			a
+				font-size: 1rem
+				color: #000 !important
+
+
+@media (max-width: 768px)
+	.navbar
+		li
+			padding-top: 10px
+			padding-bottom: 10px
+			&:hover
+					background-color: #505063
+		.dropdown-menu
+			li
+				padding-top: 10px
+				padding-bottom: 10px
+				a
+					font-size: 1rem
+					color: #fff  !important
+				&:hover
+					background-color: #505063
+
+
+
 .navbar
 	@include transition(0.3s)
 	.brand-scrolled

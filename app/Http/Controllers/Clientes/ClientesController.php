@@ -66,23 +66,23 @@ class ClientesController extends Controller
                 $id = $_GET['id'];
             }
 
-            $clientes = Cliente::where('id', 'LIKE', '%'.$id.'%' )->paginate(20);
+            // $clientes = Cliente::where('razonsocial', 'LIKE', '%'.$name.'%' )->paginate(20);
 
-            // if ($name != '' and $id != ''){
-            //     // Search User AND Role
-            //     $clientes = Cliente::where('razonsocial', 'LIKE', '%'.$name.'%' )
-            //     ->where('id', 'LIKE', '%'.$id.'%')->paginate(20);
-            // } else if($name != '') {
-            //     // Search by name
-            //      $clientes = Cliente::where('razonsocial', 'LIKE', '%'.$name.'%' )->paginate(20);
+            if ($name != '' and $id != ''){
+                // Search User AND Role
+                $clientes = Cliente::where('razonsocial', 'LIKE', '%'.$name.'%' )
+                ->where('id', 'LIKE', '%'.$id.'%')->paginate(20);
+            } else if($name != '') {
+                // Search by name
+                 $clientes = Cliente::where('razonsocial', 'LIKE', '%'.$name.'%' )->paginate(20);
            
-            // } else if ($id !='') {
-            //     // Search by Name or Email
-            //     $clientes = Cliente::where('id', 'LIKE', '%'.$id.'%' )->paginate(20);
-            // } else {
-            //     // Seatch All
-            //     $clientes = Cliente::orderBy('id', 'DESC')->paginate(12);
-            // }
+            } else if ($id !='') {
+                // Search by Name or Email
+                $clientes = Cliente::where('id', 'LIKE', '%'.$id.'%' )->paginate(20);
+            } else {
+                // Seatch All
+                $clientes = Cliente::orderBy('id', 'ASC')->paginate(12);
+            }
 
             return view('vadmin/clientes/list')->with('clientes', $clientes);  
         }
@@ -179,9 +179,13 @@ class ClientesController extends Controller
     public function show($id)
     {
 
-        $cliente = Cliente::findOrFail($id);
+        $cliente    = Cliente::findOrFail($id);
+        $dirEntrega = Direntrega::where('client_id', '=', $id);
+ 
 
-        return view('vadmin.clientes.show')->with('cliente', $cliente);
+        return view('vadmin.clientes.show')
+            ->with('cliente', $cliente)
+            ->with('dirEntrega', $dirEntrega);
     }
 
 

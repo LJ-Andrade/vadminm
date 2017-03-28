@@ -33,7 +33,7 @@
                     <div class="content">
                         {{-- Column --}}
                         <div class="col-xs-6 col-sm-4 col-md-4 inner">
-                            <div class="col-md-1">{{ $item->id }}</div> | <span><b>{{ $item->name }}</b></span>
+                        	<span><b>{{ $item->name }}</b></span>
                         </div>
                         {{-- Column --}}
                         <div class="col-xs-6 col-sm-3 col-md-4 mobile-hide inner-tags">
@@ -111,7 +111,7 @@
 
 	function delete_item(id, route) {	
 
-		var route = "{{ url('vadmin/ajax_delete_%%%crudNameSingular%%%') }}/"+id+"";
+		var route = "{{ url('vadmin/ajax_delete_flete') }}/"+id+"";
 
 		$.ajax({
 			url: route,
@@ -154,7 +154,7 @@
 	// ---- Delete ---- //
 	function batch_delete_item(id) {
 
-		var route = "{{ url('vadmin/ajax_batch_delete_%fletes%') }}/"+id+"";
+		var route = "{{ url('vadmin/ajax_batch_delete_fletes') }}/"+id+"";
 
 		$.ajax({
 			url: route,

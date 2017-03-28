@@ -22,6 +22,9 @@
 
 {{-- CONTENT --}}
 @section('content')
+	<div id="Loader" class="loader">
+		<img src="{{ asset('images/loaders/loader.svg')}}" alt="">
+	</div>
 	@include('vadmin.clientes.searcher')
     <div class="container">
 		<div class="row">
@@ -55,12 +58,20 @@
 		$.ajax({
 			type: 'get',
 			url: '{{ url('vadmin/ajax_list_clients') }}',
+			beforeSend: function(){
+				$('#Loader').show();
+			},
 			success: function(data){
+				// $('#Loader').hide();
 				$('#List').empty().html(data);
+			},
+			complete(){
+				$('#Loader').hide();
 			},
 			error: function(data){
 				console.log(data)
-				$('#Error').html(data.responseText);
+				// $('#Loader').hide();
+				//$('#Error').html(data.responseText);
 			}
 		});
 	}
@@ -76,8 +87,14 @@
 		$.ajax({
 			type: 'get',
 			url: url,
+			beforeSend: function(){
+				$('#Loader').show();
+			},
 			success: function(data){
 				$('#List').empty().html(data);
+			},
+			complete: function(){
+				$('#Loader').hide();
 			},
 			error: function(data){
 				console.log(data)
@@ -91,11 +108,10 @@
 		e.preventDefault();
 		var name  = $('#SearchByName').val();
 		var id    = $('#SearchById').val();
-		// var role  = $(this).find('option:selected').val();
-		console.log(id);
-		if( name.length == 0 ){
-			ajax_list();
-		} else {
+
+		// if( name.length == 0 ){
+		// 	ajax_list();
+		// } else {
 			var url = "{{ url('vadmin/ajax_list_search_clientes') }}/search?id="+id+"&name="+name+"";
 			// var url = "{{ url('vadmin/ajax_list_search_clients') }}/search?name="+name+"";
 			console.log(url);
@@ -103,7 +119,7 @@
 				type: 'get',
 				url: url,
 				complete: function(data){
-					$('#Error').html(data.responseText);		
+					// $('#Error').html(data.responseText);		
 				},
 				success: function(data){
 					$('#List').empty().html(data);
@@ -113,7 +129,7 @@
 					$('#Error').html(data.responseText);
 				}
 			});
-		}		
+		// }		
 	});
 
 

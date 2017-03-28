@@ -53,7 +53,6 @@
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="{{ route('clientes.index') }}"><i class="ion-ios-briefcase"></i> Clientes</a></li>
-							<li><a href=""><i class="ion-ios-people"></i> Vendedores</a></li>
 							<li><a href="{{ route('listas.index') }}"><i class="ion-clipboard"></i> Listas de Precios</a></li>
 						</ul>
 					</li>
@@ -63,9 +62,10 @@
 						<ul class="dropdown-menu">
 							<li><a href="{{ route('condicventas.index') }}"><i class="ion-clipboard"></i> Condiciones de Vta.</a></li>
 							<li><a href="{{ route('ivas.index') }}"><i class="ion-ios-list-outline"></i> Categorías Iva</a></li>
-							<li><a href="{{ route('listas.index') }}"><i class="ion-map"></i> Listas de Precios</a></li>
+							<li><a href="{{ route('listas.index') }}"><i class="ion-ios-list-outline"></i> Listas de Precios</a></li>
+							<li><a href="{{ url('vadmin/vendedores') }}"><i class="ion-ios-people"></i> Vendedores</a></li>
 							<li><a href="{{ route('fletes.index') }}"><i class="ion-paper-airplane"></i> Fleteros</a></li>
-							<li><a href="{{ route('direntregas.index') }}"><i class="ion-clipboard"></i> Direcciones de Entrega</a></li>
+							<li><a href="{{ route('direntregas.index') }}"><i class="ion-android-pin"></i> Direcciones de Entrega</a></li>
 							<li><a href="{{ route('provincias.index') }}"><i class="ion-map"></i> Provincias</a></li>
 							<li><a href="{{ route('localidades.index') }}"><i class="ion-map"></i> Localidades</a></li>
 							<li><a href="{{ route('zonas.index') }}"><i class="ion-map"></i> Zonas</a></li>

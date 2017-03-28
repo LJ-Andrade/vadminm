@@ -20,8 +20,8 @@
 			</div>
 			{{-- Column --}}
 			<div class="col-xs-6 col-sm-3 col-md-4 mobile-hide inner-tags">
-				<span class="small-text"></span><span class="badge">{{ typeTrd($user->type) }}</span>
-				<span class="small-text"></span><span class="badge">{{ roleTrd($user->role) }}</span>
+				<span class="small-text"></span><span class="custom-badge buttonOk">{{ $user->type }}</span> <br>
+				<span class="small-text"></span><span class="custom-badge buttonOther">{{ roleTrd($user->role) }}</span>
 			</div>
 		
 		</div>

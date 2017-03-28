@@ -11,14 +11,19 @@ class Direntrega extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['cliente', 'name', 'provincia', 'localidad', 'telefono', 'cliente_id'];
+    protected $fillable = ['name', 'provincia', 'localidad', 'telefono', 'cliente_id'];
 
     public function provincia()
     {
     	return $this->belongsTo('App\Provincia');
     }
 
-    public function clientes()
+    public function localidad()
+    {
+    	return $this->belongsTo('App\Localidade');
+    }
+
+    public function cliente()
     {
     	return $this->belongsTo('App\Cliente');
     }

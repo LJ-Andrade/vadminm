@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Hashing\Hasher;
+use Illuminate\Support\Facades\Hash;
 use App\User; 
 use Auth;
 use Image;
@@ -120,10 +121,12 @@ class UsersController extends Controller
 
         if ($request->ajax())
         {  
+            $user           = new User($request->all());
+            $user->password = Hash::make($request->password);
+            $user->save();
 
-            // dd($request->all());
-            $result = User::create($request->all());
-            if ($result)
+            
+            if ($user)
             {
                 return response()->json(['success'=>'true', 'message'=>'Usuario creado']);
             } else {
@@ -147,6 +150,8 @@ class UsersController extends Controller
 
         $user = User::find($id);
         $user->fill($request->all());
+        $user->password = Hash::make($request->password);
+
         
         $result = $user->save();
         if ($result) {

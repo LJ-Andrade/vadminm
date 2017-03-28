@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-03-2017 a las 21:14:18
+-- Tiempo de generación: 28-03-2017 a las 10:08:06
 -- Versión del servidor: 10.1.19-MariaDB
 -- Versión de PHP: 5.6.28
 
@@ -28,37 +28,242 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `clientes` (
   `id` int(10) UNSIGNED NOT NULL,
-  `razonsocial` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `cuit` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `dirfiscal` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `codpostal` int(11) DEFAULT NULL,
+  `razonsocial` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cuit` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dirfiscal` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `codpostal` int(11) NOT NULL,
   `limitcred` int(11) NOT NULL,
+  `telefono` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `celular` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `iva_id` int(10) UNSIGNED DEFAULT NULL,
   `provincia_id` int(10) UNSIGNED DEFAULT NULL,
   `localidad_id` int(10) UNSIGNED DEFAULT NULL,
   `condicventas_id` int(10) UNSIGNED DEFAULT NULL,
-  `user_id` int(10) UNSIGNED DEFAULT NULL,
   `listas_id` int(10) UNSIGNED DEFAULT NULL,
+  `user_id` int(10) UNSIGNED DEFAULT NULL,
   `zona_id` int(10) UNSIGNED DEFAULT NULL,
   `flete_id` int(10) UNSIGNED DEFAULT NULL,
-  `direntrega_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `zona2_id` int(10) UNSIGNED DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `clientes`
 --
 
-INSERT INTO `clientes` (`id`, `razonsocial`, `cuit`, `dirfiscal`, `codpostal`, `limitcred`, `iva_id`, `provincia_id`, `localidad_id`, `condicventas_id`, `user_id`, `listas_id`, `zona_id`, `flete_id`, `direntrega_id`, `created_at`, `updated_at`, `zona2_id`) VALUES
-(25, 'Leandro S.A.', '11452546540', 'Juan Leon Palliere 1342', 1407, 0, 1, 1, 2, 7, 4, 2, 3, 1, NULL, '2017-03-16 07:13:14', '2017-03-16 07:13:14', NULL),
-(252, 'Leandro S.A.', '11452546540', 'Juan Leon Palliere 1342', 1407, 0, 1, 1, 0, 7, 4, 2, 3, 1, NULL, '2017-03-16 07:16:39', '2017-03-16 07:16:39', NULL),
-(456, '1321233', '23131231321', 'dir fiscal 1212', 3213123, 0, 4, 5, 0, 9, 1, 2, 3, 0, NULL, '2017-03-16 07:01:50', '2017-03-16 07:01:50', NULL),
-(545, 'Razon Social', '46-54654655-4', 'dir fiscal 1212', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-03-18 02:22:40', '2017-03-18 02:22:40', NULL),
-(4587, 'Perro S.A.', '45458798799', 'Directorio 4750', 1407, 0, 1, 1, 23, 0, 0, 0, 0, 0, NULL, '2017-03-16 00:38:59', '2017-03-16 00:38:59', NULL),
-(5401, 'Test Loco S.RL', '54545454545', 'Casa 123', 1231, 0, 4, 4, 43, 0, 0, 0, 0, 0, NULL, '2017-03-16 00:40:32', '2017-03-16 00:40:32', NULL),
-(10000, 'Leandro2 S.A.', '11452546540', 'Juan Leon Palliere 1342', 1407, 0, 1, 1, 1871, 7, 4, 2, 3, 1, NULL, '2017-03-16 07:18:08', '2017-03-16 07:18:08', NULL);
+INSERT INTO `clientes` (`id`, `razonsocial`, `cuit`, `dirfiscal`, `codpostal`, `limitcred`, `telefono`, `celular`, `email`, `iva_id`, `provincia_id`, `localidad_id`, `condicventas_id`, `listas_id`, `user_id`, `zona_id`, `flete_id`, `created_at`, `updated_at`) VALUES
+(1, 'CONSUMIDOR FINAL', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 'CHALITA MARIA CAMILA', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 'CEMICA SUDAMERICANA S.R.L.', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 'ACEVEDO ABEL   (ARRECIFES)', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 'BENITO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, 'AUTORADIO FG  "FABIAN"', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(8, 'AITA ANGEL', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9, 'ALBERTO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, 'ALONSO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(11, 'ATAURI LUIS', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(12, 'AMANTEA OSCAR', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(13, 'ALBORNOZ', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(14, 'ARRARAS RODOLFO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(15, 'ALBANI   DARIO', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(16, 'ALANIS', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(17, 'LELFUN S.A.', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(18, 'AVONDET ORLANDO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(19, 'BALBARANI  OSVALDO OSCAR', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(20, 'BELTRAN RAUL', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(21, 'BASSINI JUAN MANUEL', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(22, 'BAGNONI   JUAN', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(23, 'BIANCHI  CARLOS (CACHARI)', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(24, 'BORAGNO VICTOR', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(25, 'BAVA OSVALDO ALFREDO', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(26, 'BIANCHI  MARCELO ALEJANDRO', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(27, 'BELUCCI  JUAN PEDRO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(28, 'BUTAFUOCO DANIEL', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(29, 'MARIO BASUALDO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(30, 'BOTTA CARLOS', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(31, 'BIANCHI CARLOS (ALBERTI)', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(32, 'BASILENCO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(33, 'BUSCALIA OSVALDO', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(34, 'BRENNA ROBERTO FABIAN', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(35, 'BONEFON', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(36, 'BECERRA ALBERTO ELADIO', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(37, 'BRICIO JUAN MARTIN', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(38, 'BRAVO VICTOR HUGO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(39, 'BASUALDO, (CHACABUCO)', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(40, 'BASAN', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(41, 'BRAGHI', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(42, 'BORAGNO PABLO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(43, 'BANEGAS', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(44, 'PRIETO OSCAR OSVALDO', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(45, 'CARLOMAGNO CARLOS MARIA', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(46, 'CASA POLLETI (EDUARDO)', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(47, 'DEGLICE MATIAS', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 'CESAR', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(49, 'CORNARO.', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 'CASTRO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(51, 'CHILLIER JORGE', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(52, 'CACHO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(53, 'DAVID  "CASA MELA"', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(54, 'CARLOS UHALDEGARAY', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(55, 'IGLESIAS  CARLOS', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(56, 'CENTRO HOGAR  (BERSELLINI)', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(57, 'CRIVELLI', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(58, 'CLARAMUNT  RICARDO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(59, 'CLAUDIO ENRIQUE VITOLA', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(60, 'COOPERATIVA  ELECTRICA CASTELLI  LTDA(', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(61, 'CARAM', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(62, 'CORREA DANIEL ALBERTO', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(63, 'CANEPA NICOLAS', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(64, 'DIAZ ALFREDO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(65, 'DEPICHI MARIO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(66, 'DIBELLO, FABIAN', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(67, 'DE CASTRO, DANIEL ADRIAN', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(68, 'DODDS  DANIEL', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(69, 'DISTABILI', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(70, 'DE ANDRES', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(71, 'DIAB  GABRIEL', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(72, 'DILEGO ANTONIO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(73, 'DIAZ', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(74, 'DIRISIO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(75, 'SIGILLITO MAURO ALEJANDRO', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(76, 'DANIEL  TUNDIS', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(77, 'DELLOSO ROMULO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(78, 'ESLAVA FABIAN HUGO', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(79, 'DIAZ ARMANDO "SERVIHOGAR"', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(80, 'D´IGARTUA MARCELO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(81, 'ROSSELLI DANIEL EDUARDO', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(82, 'D`AMICO ALDO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(83, 'DUARTE PEPE', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(84, 'ENRIQUE HECTOR', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(85, 'ESTEBAN GONZALEZ', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(86, 'ECHEVARRIA LEONARDO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(87, 'EL TORITO    " RAUL "', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(88, 'ELECTRICIDAD TTAL   S.A.', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(89, 'EDU-MAR   "EDUARDO"', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(90, 'ELECTRICIDAD CARLITOS  "CARLOS THEAUX"', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(91, 'EMANUELI   "DARIO O SERGIO "', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(93, 'COCO GONZALEZ', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(94, 'NORBERTO VOLKER', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(95, 'MAXI FRIO S.R.L.', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(96, 'RIOS RODOLFO OSCAR', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(97, 'FRECHERO ARTURO ISMAEL', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(98, 'BONELLI MIGUEL', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(99, 'EDUARDO ROSA', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(101, 'Test S.A', '11-11111121-2', 'Directorio 4750', 1454, 5000, '4545-4545', '(15)5454-5445', 'mail@test.com', 1, 3, 145, 4, 1, 3, 3, 1, '2017-03-28 04:06:37', '2017-03-28 04:06:37');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `clientes_razonsocial`
+--
+
+CREATE TABLE `clientes_razonsocial` (
+  `id` int(11) NOT NULL,
+  `iva_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `clientes_razonsocial`
+--
+
+INSERT INTO `clientes_razonsocial` (`id`, `iva_id`) VALUES
+(2, 2),
+(3, 2),
+(4, 1),
+(5, 1),
+(7, 1),
+(8, 1),
+(9, 1),
+(10, 1),
+(11, 1),
+(12, 2),
+(13, 1),
+(14, 1),
+(15, 4),
+(16, 1),
+(17, 2),
+(18, 1),
+(19, 2),
+(20, 1),
+(21, 4),
+(22, 1),
+(23, 4),
+(24, 1),
+(25, 4),
+(26, 4),
+(27, 1),
+(28, 1),
+(29, 1),
+(30, 1),
+(31, 1),
+(32, 1),
+(33, 2),
+(34, 4),
+(35, 1),
+(36, 4),
+(37, 4),
+(38, 1),
+(39, 1),
+(40, 1),
+(41, 1),
+(42, 1),
+(43, 1),
+(44, 2),
+(45, 2),
+(46, 1),
+(47, 1),
+(48, 1),
+(49, 1),
+(50, 1),
+(51, 4),
+(52, 1),
+(53, 1),
+(54, 1),
+(55, 1),
+(56, 1),
+(57, 1),
+(58, 1),
+(59, 2),
+(60, 2),
+(61, 1),
+(62, 2),
+(63, 1),
+(64, 1),
+(65, 1),
+(66, 1),
+(67, 4),
+(68, 1),
+(69, 1),
+(70, 1),
+(71, 1),
+(72, 1),
+(73, 1),
+(74, 1),
+(75, 4),
+(76, 1),
+(77, 1),
+(78, 2),
+(79, 1),
+(80, 1),
+(81, 4),
+(82, 1),
+(83, 1),
+(84, 4),
+(85, 1),
+(86, 1),
+(87, 1),
+(88, 2),
+(89, 1),
+(90, 1),
+(91, 1),
+(93, 1),
+(94, 4),
+(95, 2),
+(96, 2),
+(97, 2),
+(98, 4),
+(99, 1);
 
 -- --------------------------------------------------------
 
@@ -68,7 +273,7 @@ INSERT INTO `clientes` (`id`, `razonsocial`, `cuit`, `dirfiscal`, `codpostal`, `
 
 CREATE TABLE `condicventas` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -78,14 +283,14 @@ CREATE TABLE `condicventas` (
 --
 
 INSERT INTO `condicventas` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Contado', '2017-03-16 05:11:57', '2017-03-16 05:11:57'),
-(2, '7 días factura', '2017-03-16 05:12:20', '2017-03-16 05:12:20'),
-(3, '15 días factura', '2017-03-16 05:12:25', '2017-03-16 05:12:25'),
-(7, '21 días factura', '2017-03-16 05:46:24', '2017-03-16 05:46:24'),
-(8, '30 días factura', '2017-03-16 05:46:29', '2017-03-16 05:46:29'),
-(9, '45 días factura', '2017-03-16 05:46:36', '2017-03-16 05:46:36'),
-(10, '60 días factura', '2017-03-16 05:46:42', '2017-03-16 05:46:42'),
-(11, 'Contra Reembolso', '2017-03-16 05:46:50', '2017-03-16 05:46:50');
+(1, 'Contado', '2009-10-27 06:37:55', '2009-10-27 06:37:55'),
+(2, '7 días factura', '2009-10-27 06:38:07', '2009-10-27 06:38:07'),
+(3, '15 días factura', '2009-10-27 06:38:26', '2009-10-27 06:38:26'),
+(4, '21 días factura', '2009-10-27 06:38:34', '2009-10-27 06:38:34'),
+(5, '30 días factura', '2009-10-27 06:38:44', '2009-10-27 06:38:44'),
+(6, '45 días factura', '2009-10-27 06:38:53', '2009-10-27 06:38:53'),
+(7, '60 días factura', '2009-10-27 06:39:00', '2009-10-27 06:39:00'),
+(8, 'Contra Reembolso', '2009-10-27 06:39:08', '2009-10-27 06:39:08');
 
 -- --------------------------------------------------------
 
@@ -95,15 +300,24 @@ INSERT INTO `condicventas` (`id`, `name`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `direntregas` (
   `id` int(10) UNSIGNED NOT NULL,
-  `cliente` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `provincia` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `localidad` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `telefono` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `telefono` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `localidad_id` int(10) UNSIGNED NOT NULL,
+  `provincia_id` int(10) UNSIGNED NOT NULL,
   `cliente_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `direntregas`
+--
+
+INSERT INTO `direntregas` (`id`, `name`, `telefono`, `localidad_id`, `provincia_id`, `cliente_id`, `created_at`, `updated_at`) VALUES
+(1, 'Directorio 4545', '4545-4545', 968, 3, 4, '2017-03-28 10:34:42', '2017-03-28 10:34:42'),
+(2, 'Perro3', '4545455', 143, 1, 10, '2017-03-28 10:44:23', '2017-03-28 10:44:23'),
+(3, 'Av. Directorio 4750', '5656-6656', 968, 3, 101, '2017-03-28 10:48:45', '2017-03-28 10:48:45'),
+(4, 'Av. Rivadavia 4500', '2121-1121', 1, 1, 101, '2017-03-28 10:53:43', '2017-03-28 10:53:43');
 
 -- --------------------------------------------------------
 
@@ -113,7 +327,7 @@ CREATE TABLE `direntregas` (
 
 CREATE TABLE `fletes` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -123,10 +337,8 @@ CREATE TABLE `fletes` (
 --
 
 INSERT INTO `fletes` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Cruz del Sur', '2017-03-15 23:31:17', '2017-03-15 23:31:17'),
-(2, 'Lento Pero Inseguro', '2017-03-15 23:31:23', '2017-03-15 23:31:23'),
-(3, 'Rastrojero Fletes - Sin Freno !', '2017-03-15 23:32:10', '2017-03-16 05:52:15'),
-(4, 'Sin Flete', '2017-03-16 03:00:00', '2017-03-16 03:00:00');
+(1, 'Cruz del Sur', '2009-10-27 06:41:48', '2009-10-27 06:41:48'),
+(2, 'Lento Pero Inseguro', '2009-10-27 06:42:09', '2009-10-27 06:42:09');
 
 -- --------------------------------------------------------
 
@@ -136,7 +348,7 @@ INSERT INTO `fletes` (`id`, `name`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `ivas` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -146,12 +358,11 @@ CREATE TABLE `ivas` (
 --
 
 INSERT INTO `ivas` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Consumidor Final', '2017-03-15 23:29:42', '2017-03-15 23:29:42'),
-(2, 'Responsable Inscripto', '2017-03-15 23:29:56', '2017-03-15 23:29:56'),
-(3, 'Régimen Simplificado', '2017-03-15 23:30:06', '2017-03-15 23:30:06'),
-(4, 'Monotributista', '2017-03-15 23:30:17', '2017-03-15 23:30:17'),
-(5, 'Exento', '2017-03-15 23:30:25', '2017-03-15 23:30:25'),
-(6, 'Iva Loco', '2017-03-17 01:37:30', '2017-03-17 01:37:30');
+(1, 'Consumidor Final', '2009-10-27 06:39:26', '2009-10-27 06:39:26'),
+(2, 'Responsable Inscripto', '2009-10-27 06:39:34', '2009-10-27 06:39:34'),
+(3, 'Régimen Simplificado', '2009-10-27 06:39:43', '2009-10-27 06:39:43'),
+(4, 'Monotributo', '2009-10-27 06:39:50', '2017-03-21 11:07:34'),
+(5, 'Exento', '2009-10-27 06:39:59', '2009-10-27 06:39:59');
 
 -- --------------------------------------------------------
 
@@ -161,7 +372,7 @@ INSERT INTO `ivas` (`id`, `name`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `listas` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -171,8 +382,8 @@ CREATE TABLE `listas` (
 --
 
 INSERT INTO `listas` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Lista Minorísta', '2017-03-16 06:11:22', '2017-03-16 06:11:22'),
-(2, 'Lista Mayorísta', '2017-03-16 06:11:30', '2017-03-16 06:11:30');
+(1, 'Lista Minorísta', '2017-03-26 06:38:20', '2017-03-26 06:38:20'),
+(2, 'Lista Mayorísta', '2017-03-26 06:38:32', '2017-03-26 06:38:32');
 
 -- --------------------------------------------------------
 
@@ -183,7 +394,7 @@ INSERT INTO `listas` (`id`, `name`, `created_at`, `updated_at`) VALUES
 CREATE TABLE `localidades` (
   `id` int(10) UNSIGNED NOT NULL,
   `province_id` int(11) NOT NULL DEFAULT '0',
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2568,7 +2779,7 @@ INSERT INTO `localidades` (`id`, `province_id`, `name`, `created_at`, `updated_a
 (2380, 25, 'Yánima', '2017-03-15 03:00:00', '2017-03-15 03:00:00'),
 (2381, 25, 'Yerba Buena', '2017-03-15 03:00:00', '2017-03-15 03:00:00'),
 (2382, 25, 'Yerba Buena (S)', '2017-03-15 03:00:00', '2017-03-15 03:00:00'),
-(2383, 0, 'Mechita', '2017-03-17 03:09:10', '2017-03-17 03:09:10');
+(3000, 1, 'test', '2017-03-15 03:00:00', '2017-03-15 03:00:00');
 
 -- --------------------------------------------------------
 
@@ -2578,9 +2789,9 @@ INSERT INTO `localidades` (`id`, `province_id`, `name`, `created_at`, `updated_a
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `migrations`
@@ -2589,15 +2800,16 @@ CREATE TABLE `migrations` (
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
-(36, '2017_03_12_032623_create_provincias_table', 2),
-(37, '2017_03_12_050132_create_localidades_table', 2),
-(38, '2017_03_14_011515_create_zonas_table', 2),
-(39, '2017_03_14_193419_create_fletes_table', 2),
-(40, '2017_03_14_232711_create_ivas_table', 3),
-(41, '2017_03_14_234000_create_condicventas_table', 3),
-(42, '2017_03_15_042807_create_listas_table', 3),
-(43, '2017_03_14_212921_create_clientes_table', 4),
-(48, '2017_03_17_212048_create_direntregas_table', 5);
+(3, '2017_03_12_032623_create_provincias_table', 1),
+(4, '2017_03_12_050132_create_localidades_table', 1),
+(5, '2017_03_14_011515_create_zonas_table', 1),
+(6, '2017_03_14_193419_create_fletes_table', 1),
+(7, '2017_03_14_232711_create_ivas_table', 1),
+(8, '2017_03_14_234000_create_condicventas_table', 1),
+(9, '2017_03_15_042807_create_listas_table', 1),
+(10, '2017_03_16_230638_create_tests_table', 1),
+(11, '2017_03_14_212921_create_clientes_table', 2),
+(13, '2017_03_17_212048_create_direntregas_table', 3);
 
 -- --------------------------------------------------------
 
@@ -2606,10 +2818,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -2619,7 +2831,7 @@ CREATE TABLE `password_resets` (
 
 CREATE TABLE `provincias` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2653,8 +2865,7 @@ INSERT INTO `provincias` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (22, 'Santa Fe', '2017-03-15 03:00:00', '2017-03-15 03:00:00'),
 (23, 'Santiago del Estero', '2017-03-15 03:00:00', '2017-03-15 03:00:00'),
 (24, 'Tierra del Fuego', '2017-03-15 03:00:00', '2017-03-15 03:00:00'),
-(25, 'Tucumán', '2017-03-15 03:00:00', '2017-03-15 03:00:00'),
-(26, 'Test', '2017-03-15 03:00:00', '2017-03-15 03:00:00');
+(25, 'Tucumán', '2017-03-15 03:00:00', '2017-03-15 03:00:00');
 
 -- --------------------------------------------------------
 
@@ -2664,30 +2875,26 @@ INSERT INTO `provincias` (`id`, `name`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `avatar` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `type` enum('user','admin','superadmin') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'user',
-  `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `avatar` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` enum('user','admin','superadmin') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
+  `role` enum('seller','none') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'seller',
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `avatar`, `type`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'javzero', 'javzero@hotmail.com', '$2y$10$gOwPzwLnHjhwPOpLSAR7AO6fsbKbDW7ajTgBITSYraDLEkjY338OW', '1488385515.jpg', 'superadmin', 'IlGA7fQy6VXbwB9RYw6BBPKage3Q5kLGlBdo54Q208izudyOsnj1Gv7V8HKi', '2017-01-19 07:04:46', '2017-03-01 19:25:17'),
-(2, 'Viole', 'admstudiovimana@gmail.com', '$2y$10$gOwPzwLnHjhwPOpLSAR7AO6fsbKbDW7ajTgBITSYraDLEkjY338OW', '', 'superadmin', 'kBjqKvoCevhP5X5iyMftxAuEHlm5pmH6PC8W7gNQGuM7FbHziQudgDskGE7m', '2017-01-19 23:53:30', '2017-03-07 21:59:53'),
-(3, 'Perro', 'javzero1@gmail.com2', 'lea1983', '', 'admin', NULL, '2017-03-11 00:09:09', '2017-03-11 00:09:15'),
-(4, 'Marsopa', '2javzero1@gmail.com', '12121212', '', 'user', NULL, '2017-03-14 22:28:44', '2017-03-14 22:28:44'),
-(5, 'Perro', 'perro@hotmail.com', '$2y$10$GfWuGUskVHfmcBEyCIARp.p0gpfHltdcEo4rkUan5wgzt7RbNxxTK', '', 'user', 'cMhdIhOftXiFcawIoVxoWpYrmLsYglXrBc43SLPjFPkYclGdT889WVEBmPGk', '2017-03-14 23:35:42', '2017-03-14 23:35:42'),
-(9, 'monoloco@hotmail.com', 'monoloco@hotmail.com232', '$2y$10$v.0c3Egv2cgPq3PhiU9mkuvUfEkZyws5JMo6XzSqiDPXmM97UIPj.', '', 'user', 'ppwTEy6PmWLbRLmumZB1yVWpj4FHysCYG0fePj8lwhlVZFufcs1jlvdoLzgh', '2017-03-15 00:02:00', '2017-03-15 00:02:00'),
-(10, 'babar', 'babar@hotmail.com', '$2y$10$nE1pfKqk3nlc1sxP89VD0O/.C1Zt6gZZAcygX2JoK5Q7mxBPFCwhS', '', 'user', 'IQwNbDGuHc0Eq5ABfmovRYMgfM5MvbQQJYmtRN1kvLrGYQTJArwI3sMQRTJQ', '2017-03-15 00:21:14', '2017-03-15 00:21:14'),
-(11, 'aris1', 'aris@hotmail.com', '121212122', '', 'admin', NULL, '2017-03-17 01:37:00', '2017-03-17 01:37:09'),
-(12, 'arisreloco', 'aris@hotmail2.com', '$2y$10$uP3LhSpEarqCjU9HtoEm4ulp7JPKj1NSOc5sIt426ygb2hu5HVTs6', '', 'user', 'aBdpQfm3OazsI7gITbKwtxGCmzFVo0EwYNfgons7WYyGKxZctNHPlaoDrXsu', '2017-03-17 02:14:44', '2017-03-17 02:14:44');
+INSERT INTO `users` (`id`, `name`, `email`, `avatar`, `password`, `type`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Leandro', 'javzero@hotmail.com', '1490141701.jpg', '$2y$10$cgDhH3RbTDKqRSm0ALRZteC2EVE2h58QVaXQO1GQ5trzVsrmIEqEm', 'superadmin', 'none', '25dVCKqiiMLNym7NJmUCbhFEpcF1iTlNJ63B1DArJFy43EEoTf0tZgq514qU', '2009-10-27 06:37:05', '2017-03-22 03:15:02'),
+(3, 'Julian', 'julian@hotmail.com', '', '$2y$10$Z3WB/YZH8vGmf93N3PTsw.H0AYCf9pMJtDtab/4nZbeDMYYValcKO', 'user', 'seller', NULL, '2017-03-26 07:20:28', '2017-03-28 03:13:12'),
+(4, 'Pablo', 'pablo@hotmail.com', '', '$2y$10$JYcb1N2Sqs2FAtaWB0SekO/GKkJ16SUcdQ/PXH7u0bSdVl1MptFpG', 'admin', 'seller', NULL, '2017-03-20 07:58:24', '2017-03-28 03:46:32'),
+(5, 'Juanjo', 'juanjo@hotmail.com', '', '$2y$10$s06ZXneElpIWSUFhz.h8xe/BzoZaOolL9s1CwWF/oNYPOt0mDSulK', 'admin', 'seller', NULL, '2017-03-20 07:58:35', '2017-03-28 03:52:24');
 
 -- --------------------------------------------------------
 
@@ -2697,7 +2904,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `avatar`, `type`, `remem
 
 CREATE TABLE `zonas` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2707,10 +2914,9 @@ CREATE TABLE `zonas` (
 --
 
 INSERT INTO `zonas` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'Avellaneda', '2017-03-15 23:30:42', '2017-03-15 23:30:42'),
-(2, 'Partido de la Costa', '2017-03-15 23:30:50', '2017-03-15 23:30:50'),
-(3, 'Gran BsAs', '2017-03-15 23:31:03', '2017-03-15 23:31:03'),
-(4, 'La Plata', '2017-03-17 03:04:40', '2017-03-17 03:05:00');
+(1, 'Partido de La Costa', '2009-10-27 06:40:21', '2009-10-27 06:40:21'),
+(2, 'Avellaneda', '2009-10-27 06:40:58', '2009-10-27 06:40:58'),
+(3, 'GranBA', '2009-10-27 06:41:35', '2009-10-27 06:41:35');
 
 --
 -- Índices para tablas volcadas
@@ -2723,7 +2929,18 @@ ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `clientes_iva_id_foreign` (`iva_id`),
   ADD KEY `clientes_provincia_id_foreign` (`provincia_id`),
-  ADD KEY `clientes_zona2_id_foreign` (`zona2_id`);
+  ADD KEY `clientes_localidad_id_foreign` (`localidad_id`),
+  ADD KEY `clientes_condicventas_id_foreign` (`condicventas_id`),
+  ADD KEY `clientes_listas_id_foreign` (`listas_id`),
+  ADD KEY `clientes_user_id_foreign` (`user_id`),
+  ADD KEY `clientes_zona_id_foreign` (`zona_id`),
+  ADD KEY `clientes_flete_id_foreign` (`flete_id`);
+
+--
+-- Indices de la tabla `clientes_razonsocial`
+--
+ALTER TABLE `clientes_razonsocial`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `condicventas`
@@ -2736,6 +2953,8 @@ ALTER TABLE `condicventas`
 --
 ALTER TABLE `direntregas`
   ADD PRIMARY KEY (`id`),
+  ADD KEY `direntregas_localidad_id_foreign` (`localidad_id`),
+  ADD KEY `direntregas_provincia_id_foreign` (`provincia_id`),
   ADD KEY `direntregas_cliente_id_foreign` (`cliente_id`);
 
 --
@@ -2802,27 +3021,32 @@ ALTER TABLE `zonas`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10001;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+--
+-- AUTO_INCREMENT de la tabla `clientes_razonsocial`
+--
+ALTER TABLE `clientes_razonsocial`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 --
 -- AUTO_INCREMENT de la tabla `condicventas`
 --
 ALTER TABLE `condicventas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT de la tabla `direntregas`
 --
 ALTER TABLE `direntregas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `fletes`
 --
 ALTER TABLE `fletes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `ivas`
 --
 ALTER TABLE `ivas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `listas`
 --
@@ -2832,27 +3056,27 @@ ALTER TABLE `listas`
 -- AUTO_INCREMENT de la tabla `localidades`
 --
 ALTER TABLE `localidades`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2384;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3001;
 --
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT de la tabla `provincias`
 --
 ALTER TABLE `provincias`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `zonas`
 --
 ALTER TABLE `zonas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- Restricciones para tablas volcadas
 --
@@ -2861,15 +3085,22 @@ ALTER TABLE `zonas`
 -- Filtros para la tabla `clientes`
 --
 ALTER TABLE `clientes`
+  ADD CONSTRAINT `clientes_condicventas_id_foreign` FOREIGN KEY (`condicventas_id`) REFERENCES `condicventas` (`id`),
+  ADD CONSTRAINT `clientes_flete_id_foreign` FOREIGN KEY (`flete_id`) REFERENCES `fletes` (`id`),
   ADD CONSTRAINT `clientes_iva_id_foreign` FOREIGN KEY (`iva_id`) REFERENCES `ivas` (`id`),
+  ADD CONSTRAINT `clientes_listas_id_foreign` FOREIGN KEY (`listas_id`) REFERENCES `listas` (`id`),
+  ADD CONSTRAINT `clientes_localidad_id_foreign` FOREIGN KEY (`localidad_id`) REFERENCES `localidades` (`id`),
   ADD CONSTRAINT `clientes_provincia_id_foreign` FOREIGN KEY (`provincia_id`) REFERENCES `provincias` (`id`),
-  ADD CONSTRAINT `clientes_zona2_id_foreign` FOREIGN KEY (`zona2_id`) REFERENCES `zonas` (`id`);
+  ADD CONSTRAINT `clientes_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `clientes_zona_id_foreign` FOREIGN KEY (`zona_id`) REFERENCES `zonas` (`id`);
 
 --
 -- Filtros para la tabla `direntregas`
 --
 ALTER TABLE `direntregas`
-  ADD CONSTRAINT `direntregas_cliente_id_foreign` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`);
+  ADD CONSTRAINT `direntregas_cliente_id_foreign` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`),
+  ADD CONSTRAINT `direntregas_localidad_id_foreign` FOREIGN KEY (`localidad_id`) REFERENCES `localidades` (`id`),
+  ADD CONSTRAINT `direntregas_provincia_id_foreign` FOREIGN KEY (`provincia_id`) REFERENCES `provincias` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

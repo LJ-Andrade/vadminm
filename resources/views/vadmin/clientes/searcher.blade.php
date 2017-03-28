@@ -12,16 +12,23 @@
             <div class="inner-column">
                 <div class="input-group">
                     {!! Form::label('id', 'Código') !!}
-                    <input type="number" id="SearchById" class="form-control" placeholder="Buscar por nombre o email..." name="id" >
+                    <input type="number" id="SearchById" class="form-control" placeholder="Buscar por Código..." name="id" >
     
                 </div>
             </div>
             <div class="inner-column">
                 <div class="input-group">
                     {!! Form::label('name', 'Razón Social') !!}
-                    {!! Form::text('name', null, ['id' => 'SearchByName', 'class' => 'form-control', 'placeholder' => 'Buscar por nombre o email...']) !!}
+                    {!! Form::text('name', null, ['id' => 'SearchByName', 'class' => 'form-control', 'placeholder' => 'Buscar por Razón Social...']) !!}
                 </div>
             </div>
+            <div class="inner-column">
+                <div class="input-group">
+                    {!! Form::label('', '') !!} <br>
+                    <a href="{{ url('vadmin/clientes') }}"><button type="button" class="btnSmall buttonOk">Mostrar Todos</button></a>
+                </div>
+            </div>
+            
             
         {!! Form::close() !!}
         {{-- /Search --}}

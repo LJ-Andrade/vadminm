@@ -19,7 +19,6 @@ class CreateClientesTable extends Migration
             $table->string('dirfiscal');
             $table->integer('codpostal');
             $table->integer('limitcred');
-            $table->integer('direntrega_id');
             $table->string('telefono');
             $table->string('celular');
             $table->string('email');

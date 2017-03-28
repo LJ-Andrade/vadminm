@@ -9,9 +9,9 @@
 
 		<div class="content">
 			{{-- Column --}}
-			<div class="col-xs-6 col-sm-3 col-md-3 inner">
+			<div class="col-xs-6 col-sm-4 col-md-4 inner">
 				<span><b>{{ $item->razonsocial }}</b></span><br>
-				<span class="small">Cuit: {{ $item->cuit }}</span>
+				<span class="small">Código: {{ $item->id }}</span>
 			</div>
 			{{-- Column --}}
 			<div class="col-xs-6 col-sm-3 col-md-4 mobile-hide inner-tags">
