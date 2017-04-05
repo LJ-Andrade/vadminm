@@ -18,4 +18,10 @@ class Iva extends Model
     	return $this->hasMany('App\Cliente');
     }
 
+    public function proveedor()
+	{
+	    return $this->belongsTo('App\Proveedor','proveedor_id');
+	}
+
+
 }

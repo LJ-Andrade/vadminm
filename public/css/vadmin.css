@@ -42,7 +42,7 @@ h2 {
 }
 
 hr {
-  border-top: 1px solid #40404D;
+  border-top: 1px solid #343440;
 }
 
 .brd {
@@ -436,7 +436,7 @@ hr {
 }
 
 .login-back {
-  background-color: #393944;
+  background-color: #212129;
 }
 
 .form-group form, .form-horizontal form {
@@ -635,6 +635,25 @@ hr {
   margin: 10px;
 }
 
+.card-filled {
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  position: relative;
+  min-height: 130px;
+}
+
+.card-filled .right-bottom {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+}
+
+.card-filled .bigtext {
+  font-size: 2rem;
+  margin-top: 15px;
+}
+
 .button {
   border: 0;
   border-radius: 50px;
@@ -677,6 +696,29 @@ hr {
 }
 
 .btnSm:hover {
+  cursor: pointer;
+}
+
+.btnSmSquare {
+  border: 0;
+  border-radius: 1px;
+  padding: 2px 15px;
+  font-size: 1rem;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  line-height: 1.42857143;
+  margin: 4px;
+  min-height: 27px;
+  -webkit-transition: all 0.2s ease 0s;
+  transition: all 0.2s ease 0s;
+}
+
+.btnSmSquare:hover {
   cursor: pointer;
 }
 
@@ -1093,7 +1135,7 @@ hr {
 .main-list .item-row {
   position: relative;
   background-color: #fff;
-  padding-right: 30px;
+  padding-left: 30px;
   padding-top: 8px;
   padding-bottom: 8px;
   max-height: 80px;
@@ -1235,14 +1277,15 @@ hr {
   font-size: 0.8rem;
 }
 
-.main-list .item-row .status-icon {
+.main-list .item-row .batch-delete-checkbox {
   position: absolute;
   padding: 5px 8px;
-  right: 0;
+  left: 0;
   top: 0;
   width: 30px;
-  background-color: #efefef;
+  background-color: #e8e8e8;
   height: 100%;
+  z-index: 989;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1259,7 +1302,7 @@ hr {
   flex-direction: column;
 }
 
-.main-list .item-row .status-icon input[type="checkbox"], .main-list .item-row .status-icon input[type="radio"] {
+.main-list .item-row .batch-delete-checkbox input[type="checkbox"], .main-list .item-row .batch-delete-checkbox input[type="radio"] {
   margin: 0;
 }
 
@@ -1352,7 +1395,7 @@ hr {
 }
 
 .sp-replacer {
-  background-color: #393944;
+  background-color: #212129;
   border: 0;
   color: #fff;
 }
@@ -1367,7 +1410,7 @@ hr {
 
 .sp-container {
   border: 0;
-  background-color: #393944;
+  background-color: #212129;
   color: #fff;
   box-shadow: 6px 10px 17px -4px rgba(0, 0, 0, 0.75) !important;
 }
@@ -1390,7 +1433,7 @@ hr {
 }
 
 .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
-  background-color: #40404D;
+  background-color: #343440;
   border: 0;
   border-radius: 0 !important;
 }
@@ -1448,13 +1491,22 @@ hr {
   width: 40px;
 }
 
+.blue-back {
+  background-color: #8094d8;
+  color: #fff;
+}
+
+.blue-back span {
+  color: #fff;
+}
+
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
   border: 0;
-  background-color: #393944;
+  background-color: #212129;
 }
 
 .navbar-default.scrolled {
-  background-color: #40404D;
+  background-color: #343440;
   border: 0;
   box-shadow: 1px 10px 17px -4px rgba(0, 0, 0, 0.75) !important;
 }
@@ -1537,7 +1589,7 @@ hr {
 }
 
 .navbar .user-menu {
-  background-color: #40404D;
+  background-color: #343440;
 }
 
 .navbar .user-menu a {

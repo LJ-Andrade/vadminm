@@ -71,14 +71,21 @@ Mousetrap.bind(['command+k', 'f4'], function(e) {
 
 // ----------------- List Actions---------------------- //
 
+$(document).ready(function(){
+	$(document).on("click",".Select-Row-Trigger",function(e) {
+		$('.List-Actions').addClass('Hidden');
+		$(this).children('.List-Actions').removeClass('Hidden');
+	});
+});
+
 $(document).ready(function() {
 	// Show Actions
-	$(document).on("click",".Lists-Actions-Trigger",function(e) {
-		e.preventDefault();
-		e.stopPropagation();
-		$('.List-Actions').addClass('Hidden');
-		$(this).parent().siblings('.List-Actions').removeClass('Hidden');
-	});
+	// $(document).on("click",".Lists-Actions-Trigger",function(e) {
+	// 	e.preventDefault();
+	// 	e.stopPropagation();
+	// 	$('.List-Actions').addClass('Hidden');
+	// 	$(this).parent().siblings('.List-Actions').removeClass('Hidden');
+	// });
 
 	// Close Actions
 	$(document).on("click",".Close-Actions-Btn",function(e) {
@@ -92,6 +99,8 @@ $(document).ready(function() {
 
 $(document).on("click", ".BatchDelete", function(e){
 
+	
+	e.stopPropagation();
 	batch_select(this);
 
 	var checkbox = $(this).prop('checked');

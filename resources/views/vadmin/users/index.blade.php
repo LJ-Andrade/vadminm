@@ -36,9 +36,6 @@
 	<div id="Error"></div>	
 @endsection
 
-{{-- MODALS --}}
-@include('vadmin.users.modals')
-
 {{-- SCRIPT INCLUDES --}}
 @section('scripts')
 	{!! Html::script('plugins/jqueryfiler/jquery.filer.min.js') !!}

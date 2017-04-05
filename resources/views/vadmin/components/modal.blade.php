@@ -1,4 +1,4 @@
-<div id="{{ $id }}" class="modal fade" role="dialog">
+<div id="{{$id}}" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <!-- Modal content-->
     <div class="modal-content">
@@ -7,10 +7,10 @@
         <h4 class="modal-title">{{ $title }}</h4>
       </div>
       <div class="modal-body">
-        	{{ $content }}
+        {{ $content }}
       </div>
       <div class="modal-footer">
-        <button id="{{ $actionBtnId }}" type="button" class="button buttonOk"><i class="ion-checkmark-round"></i> {{ $acceptBtn }}</button>
+        {{ $ok_button }}
         <button type="button" class="CloseModal button buttonCancel" data-dismiss="modal">Cerrar</button>
       </div>
     </div>

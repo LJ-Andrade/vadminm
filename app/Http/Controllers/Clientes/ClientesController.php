@@ -43,7 +43,7 @@ class ClientesController extends Controller
 
     public function ajax_list(Request $request)
     {
-        $clientes = Cliente::orderBy('id', 'DESC')->paginate(10);
+        $clientes = Cliente::orderBy('id', 'DESC')->paginate(20);
         return view('vadmin/clientes/list')->with('clientes', $clientes);   
     }
 
@@ -135,7 +135,6 @@ class ClientesController extends Controller
         // dd($request->all());
         
         $cliente = new Cliente($request->all());
-        // dd($cliente);
 
         $cliente->iva_id          = $request->iva;
         $cliente->provincia_id    = $request->provincia;
@@ -146,25 +145,21 @@ class ClientesController extends Controller
         $cliente->user_id         = $request->vendedor;
         $cliente->zona_id         = $request->zona;
         $cliente->flete_id        = $request->flete;
-        // dd($request->direntrega);
         
-        // create a new event
-        // $calles                   = $request->direntrega;
-        // dd($request->direntrega);
-        
-        // $cliente->direntrega_id   = $calles;
-        
-        // dd($dirEntrega);
-        // $request->direntrega;
-        // $request->locentrega;
-        // $request->telentrega;
-        // $request->proventrega;
-        
-
-
         // dd($cliente);
-
+        
         $cliente->save();
+
+        $entrega = new Direntrega();
+        
+        $entrega->name         = $request->dirname;
+        $entrega->cliente_id   = $request->id_direntrega; 
+        $entrega->localidad_id = '1';
+        $entrega->provincia_id = '1';
+        $entrega->telefono     = '1122122';
+
+        // dd($entrega); 
+        $entrega->save();
         
         Session::flash('flash_message', 'Cliente ingresado correctamente');
 

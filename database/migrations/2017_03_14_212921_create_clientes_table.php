@@ -18,17 +18,17 @@ class CreateClientesTable extends Migration
             $table->string('cuit');
             $table->string('dirfiscal');
             $table->integer('codpostal');
-            $table->integer('limitcred');
             $table->string('telefono');
             $table->string('celular');
             $table->string('email');
+            $table->integer('limitcred')->nullable();
             
             $table->integer('iva_id')->unsigned();
-            $table->integer('provincia_id')->unsigned()->nullable();;
-            $table->integer('localidad_id')->unsigned()->nullable();;
-            $table->integer('condicventas_id')->unsigned()->nullable();;
-            $table->integer('listas_id')->unsigned()->nullable();;
-            $table->integer('user_id')->unsigned()->nullable();;
+            $table->integer('provincia_id')->unsigned()->nullable();
+            $table->integer('localidad_id')->unsigned()->nullable();
+            $table->integer('condicventas_id')->unsigned()->nullable();
+            $table->integer('listas_id')->unsigned()->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->integer('zona_id')->unsigned()->nullable();
             $table->integer('flete_id')->unsigned()->nullable();
 

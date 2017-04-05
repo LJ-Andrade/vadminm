@@ -2,7 +2,7 @@
     {!! Form::open(['id'=>'NewForm', 'data-parsley-validate' => '']) !!}
      <div class="row inner">
         <div class="col-md-12 title">
-            <div class="CloseSmallForm close-btn"><i class="ion-close-round"></i></div>		
+            <div class="CloseSmallForm close-btn2"><i class="ion-close-round"></i></div>		
             <span><i class="ion-plus-round"></i> Creación de Nuevo Usuario</span>
         </div>
         <div class=" col-md-12 form-group">
@@ -41,7 +41,7 @@
         <div class="row inner">
             <div class="col-md-12 title">
                 <span><i class="ion-edit"></i> Edición de Usuario: </span><b><span id="EditTitle"></span></b>
-                 <div class="CloseSmallForm close-btn"><i class="ion-close-round"></i></div>		
+                 <div class="CloseSmallForm close-btn2"><i class="ion-close-round"></i></div>		
             </div>
             <div class="col-md-12 form-group">
                 <div class="col-md-6">

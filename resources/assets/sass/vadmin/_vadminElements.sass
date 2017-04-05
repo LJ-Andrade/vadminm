@@ -334,8 +334,20 @@ $phvFsize: 0.9rem
 	border-radius: 5px
 	padding: 10px
 	margin: 10px
-	
-	
+
+.card-filled
+	border-radius: 5px
+	padding: 10px
+	margin: 10px
+	position: relative
+	min-height: 130px
+	.right-bottom
+		position: absolute
+		bottom: 2px
+		right: 2px
+	.bigtext
+		font-size: 2rem
+		margin-top: 15px
 
 //////////////////////////////////////
 //                                  //
@@ -381,6 +393,24 @@ $phvFsize: 0.9rem
 		cursor: pointer
 
 
+.btnSmSquare
+	border: 0
+	border-radius: 1px
+	padding: 2px 15px
+	font-size: 1rem
+	white-space: nowrap
+	vertical-align: middle
+	-webkit-user-select: none
+	-moz-user-select: none
+	-ms-user-select: none
+	user-select: none
+	background-image: none
+	line-height: 1.42857143
+	margin: 4px
+	min-height: 27px
+	@include transition(0.2s)
+	&:hover
+		cursor: pointer
 
 .btnList
 	border: 0
@@ -709,7 +739,7 @@ $phvFsize: 0.9rem
 	.item-row
 		position: relative
 		background-color: #fff
-		padding-right: 30px
+		padding-left: 30px
 		padding-top: 8px
 		padding-bottom: 8px
 		max-height: 80px
@@ -793,14 +823,15 @@ $phvFsize: 0.9rem
 			.small
 				color: #C1C1C1
 				font-size: 0.8rem
-		.status-icon
+		.batch-delete-checkbox
 			position: absolute
 			padding: 5px 8px
-			right: 0
+			left: 0
 			top: 0
 			width: 30px
-			background-color: #efefef
+			background-color: #e8e8e8
 			height: 100%
+			z-index: 989
 			@include flex-column
 			input[type="checkbox"], input[type="radio"]
 				margin: 0
@@ -976,3 +1007,18 @@ $phvFsize: 0.9rem
 		background-color: #342b39
 		border-radius: 50%
 		width: 40px
+
+//////////////////////////////////////
+//                                  //
+//            BACKGROUNS           //
+//                                  //
+//////////////////////////////////////
+
+
+
+
+.blue-back
+	background-color: $lightBlue
+	color: #fff
+	span
+		color: #fff

@@ -25,15 +25,8 @@
 			</div>
 		
 		</div>
-		{{-- Action Button --}}
-		<div class="lists-actions-trigger triggerwithimg">
-			<button type="button" class="Lists-Actions-Trigger action-btn" data-toggle="modal" data-target="#Article-Actions{{ $user->id }}">
-				<i class="ion-ios-gear-outline"></i>
-			</button>
-		</div>
-		{{-- Right Slot --}}
-		<div class="Status-Icon Status{{ $user->id }} status-icon">
-			{{-- Batch Delete --}} 
+		{{-- Batch Delete --}} 
+		<div class="batch-delete-checkbox">
 			<input type="checkbox" class="BatchDelete" data-id="{{ $user->id }}">
 		</div>
 		{{-- Hidden Action Buttons --}}

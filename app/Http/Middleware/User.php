@@ -17,7 +17,7 @@ class User
     {
         $user = Auth::user();
         // dd($user->type);
-        if ($user->type == 'member') {
+        if ($user->type == 'user') {
             return $next($request);
         } else {
             return redirect()->guest('guest');

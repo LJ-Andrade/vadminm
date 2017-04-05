@@ -125,7 +125,7 @@
 					$('#List').empty().html(data);
 				},
 				error: function(data){
-					// console.log(data)
+					console.log(data)
 					$('#Error').html(data.responseText);
 				}
 			});

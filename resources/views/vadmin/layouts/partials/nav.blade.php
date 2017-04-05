@@ -60,15 +60,21 @@
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Varios
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
+							<li><a href="{{ route('proveedores.index') }}"><i class="ion-ios-people"></i> Proveedores</a></li>
+							<li><a href="{{ route('familias.index') }}"><i class="ion-ios-people"></i> Familias</a></li>
+							<li><a href="{{ route('subfamilias.index') }}"><i class="ion-ios-people"></i> SubFamilias</a></li>
+							<li role="separator" class="divider"></li>
 							<li><a href="{{ route('condicventas.index') }}"><i class="ion-clipboard"></i> Condiciones de Vta.</a></li>
 							<li><a href="{{ route('ivas.index') }}"><i class="ion-ios-list-outline"></i> Categorías Iva</a></li>
-							<li><a href="{{ route('listas.index') }}"><i class="ion-ios-list-outline"></i> Listas de Precios</a></li>
-							<li><a href="{{ url('vadmin/vendedores') }}"><i class="ion-ios-people"></i> Vendedores</a></li>
-							<li><a href="{{ route('fletes.index') }}"><i class="ion-paper-airplane"></i> Fleteros</a></li>
+							<li><a href="{{ route('monedas.index') }}"><i class="ion-social-usd"></i> Monedas</a></li>
+							<li role="separator" class="divider"></li>
 							<li><a href="{{ route('direntregas.index') }}"><i class="ion-android-pin"></i> Direcciones de Entrega</a></li>
+							<li><a href="{{ route('fletes.index') }}"><i class="ion-paper-airplane"></i> Fleteros</a></li>
+							<li><a href="{{ url('vadmin/vendedores') }}"><i class="ion-ios-people"></i> Vendedores</a></li>
+							<li><a href="{{ route('zonas.index') }}"><i class="ion-map"></i> Zonas</a></li>
+							<li role="separator" class="divider"></li>
 							<li><a href="{{ route('provincias.index') }}"><i class="ion-map"></i> Provincias</a></li>
 							<li><a href="{{ route('localidades.index') }}"><i class="ion-map"></i> Localidades</a></li>
-							<li><a href="{{ route('zonas.index') }}"><i class="ion-map"></i> Zonas</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">

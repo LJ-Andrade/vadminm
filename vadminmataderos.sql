@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-03-2017 a las 10:08:06
+-- Tiempo de generación: 05-04-2017 a las 02:46:29
 -- Versión del servidor: 10.1.19-MariaDB
 -- Versión de PHP: 5.6.28
 
@@ -32,7 +32,7 @@ CREATE TABLE `clientes` (
   `cuit` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `dirfiscal` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `codpostal` int(11) NOT NULL,
-  `limitcred` int(11) NOT NULL,
+  `limitcred` int(11) DEFAULT NULL,
   `telefono` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `celular` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -317,7 +317,34 @@ INSERT INTO `direntregas` (`id`, `name`, `telefono`, `localidad_id`, `provincia_
 (1, 'Directorio 4545', '4545-4545', 968, 3, 4, '2017-03-28 10:34:42', '2017-03-28 10:34:42'),
 (2, 'Perro3', '4545455', 143, 1, 10, '2017-03-28 10:44:23', '2017-03-28 10:44:23'),
 (3, 'Av. Directorio 4750', '5656-6656', 968, 3, 101, '2017-03-28 10:48:45', '2017-03-28 10:48:45'),
-(4, 'Av. Rivadavia 4500', '2121-1121', 1, 1, 101, '2017-03-28 10:53:43', '2017-03-28 10:53:43');
+(4, 'Av. Rivadavia 4500', '2121-1121', 1, 1, 101, '2017-03-28 10:53:43', '2017-03-28 10:53:43'),
+(9, 'weqqweqweqwe', '1122122', 1, 1, 102, '2017-04-04 01:38:37', '2017-04-04 01:38:37'),
+(10, 'dasdasdasd4', '1122122', 1, 1, 102, '2017-04-04 01:43:58', '2017-04-04 01:43:58'),
+(11, 'Direccion de nuevo cliente', '1122122', 1, 1, 108, '2017-04-04 01:44:53', '2017-04-04 01:44:53'),
+(12, 'Otra direccion', '232323232', 143, 1, 108, '2017-04-04 01:45:43', '2017-04-04 01:45:43');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `familias`
+--
+
+CREATE TABLE `familias` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nombre` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `proveedor_id` int(10) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `familias`
+--
+
+INSERT INTO `familias` (`id`, `nombre`, `proveedor_id`, `created_at`, `updated_at`) VALUES
+(2, 'Lavarropas', 1, '2017-04-04 02:20:23', '2017-04-04 02:20:23'),
+(3, 'Aire Acondicionado', 1, '2017-04-04 02:20:32', '2017-04-04 02:20:32'),
+(5, 'Secarropa', 1, '2017-04-04 02:26:31', '2017-04-04 02:26:31');
 
 -- --------------------------------------------------------
 
@@ -2809,7 +2836,34 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (9, '2017_03_15_042807_create_listas_table', 1),
 (10, '2017_03_16_230638_create_tests_table', 1),
 (11, '2017_03_14_212921_create_clientes_table', 2),
-(13, '2017_03_17_212048_create_direntregas_table', 3);
+(13, '2017_03_17_212048_create_direntregas_table', 3),
+(15, '2017_04_03_230420_create_familias_table', 5),
+(16, '2017_04_04_004238_create_monedas_table', 6),
+(17, '2017_04_04_072349_create_subfamilias_table', 7),
+(19, '2017_04_03_230853_create_proveedores_table', 8);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `monedas`
+--
+
+CREATE TABLE `monedas` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nombre` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `valor` float NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `monedas`
+--
+
+INSERT INTO `monedas` (`id`, `nombre`, `valor`, `created_at`, `updated_at`) VALUES
+(1, 'Pesos', 1, '2017-04-04 07:09:12', '2017-04-04 08:51:23'),
+(8, 'Dolar', 15.88, '2017-04-04 07:18:29', '2017-04-05 02:42:30'),
+(9, 'Euro', 18.54, '2017-04-04 07:18:37', '2017-04-04 07:24:07');
 
 -- --------------------------------------------------------
 
@@ -2822,6 +2876,40 @@ CREATE TABLE `password_resets` (
   `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `proveedores`
+--
+
+CREATE TABLE `proveedores` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nombre` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `razonsocial` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cuit` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ingbrutos` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `telefonos` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `direccion` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pais` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `codpostal` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `notas` text COLLATE utf8mb4_unicode_ci,
+  `iva_id` int(10) UNSIGNED DEFAULT NULL,
+  `localidad_id` int(10) UNSIGNED DEFAULT NULL,
+  `provincia_id` int(10) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `proveedores`
+--
+
+INSERT INTO `proveedores` (`id`, `nombre`, `razonsocial`, `cuit`, `ingbrutos`, `telefonos`, `email`, `direccion`, `pais`, `codpostal`, `notas`, `iva_id`, `localidad_id`, `provincia_id`, `created_at`, `updated_at`) VALUES
+(9, 'Lavarropas22', 'Extreme Air Aconditionated22e', '12-12121121-2', '21121212', '21221212', 'javzero@hotmail.com2', 'DIreccion 1212', NULL, '1212', 'dasdasdasdasdasdas', 1, 968, 3, '2017-04-04 12:52:43', '2017-04-04 12:52:43'),
+(10, '32323', 'Extreme Air Ac2332', '12-12112212-2', '212122', '4545-4545', 'javzero@hotmail.com1', 'DIreccion 1212', 'Argentina', '1545', 'dasdasdasadadasds', 1, 968, 1, '2017-04-04 12:54:31', '2017-04-04 12:54:31'),
+(11, 'Studio Vimana', 'Violeta Raffin', '12-54546546-5', '5465456456456', '5455-4545', 'info@studiovimana.com.ar', 'Palliere 1372', 'Argentina', '1407', 'Desarrolladores del sistema VADmin.', 4, 1546, 1, '2017-04-04 18:35:31', '2017-04-04 18:35:31');
 
 -- --------------------------------------------------------
 
@@ -2870,6 +2958,27 @@ INSERT INTO `provincias` (`id`, `name`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `subfamilias`
+--
+
+CREATE TABLE `subfamilias` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `proveedor_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `subfamilias`
+--
+
+INSERT INTO `subfamilias` (`id`, `nombre`, `proveedor_id`, `created_at`, `updated_at`) VALUES
+(3, 'Chatarra', 9, '2017-04-04 13:00:55', '2017-04-04 13:00:55');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `users`
 --
 
@@ -2891,7 +3000,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `avatar`, `password`, `type`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Leandro', 'javzero@hotmail.com', '1490141701.jpg', '$2y$10$cgDhH3RbTDKqRSm0ALRZteC2EVE2h58QVaXQO1GQ5trzVsrmIEqEm', 'superadmin', 'none', '25dVCKqiiMLNym7NJmUCbhFEpcF1iTlNJ63B1DArJFy43EEoTf0tZgq514qU', '2009-10-27 06:37:05', '2017-03-22 03:15:02'),
+(1, 'Leandro', 'javzero@hotmail.com', '1490141701.jpg', '$2y$10$cgDhH3RbTDKqRSm0ALRZteC2EVE2h58QVaXQO1GQ5trzVsrmIEqEm', 'superadmin', 'none', 'G6ln0HCMfgSNjYKAvLuFwl75EzanOWpLUHkqg8fWYny9ne072uDfyS86Xap2', '2009-10-27 06:37:05', '2017-03-22 03:15:02'),
 (3, 'Julian', 'julian@hotmail.com', '', '$2y$10$Z3WB/YZH8vGmf93N3PTsw.H0AYCf9pMJtDtab/4nZbeDMYYValcKO', 'user', 'seller', NULL, '2017-03-26 07:20:28', '2017-03-28 03:13:12'),
 (4, 'Pablo', 'pablo@hotmail.com', '', '$2y$10$JYcb1N2Sqs2FAtaWB0SekO/GKkJ16SUcdQ/PXH7u0bSdVl1MptFpG', 'admin', 'seller', NULL, '2017-03-20 07:58:24', '2017-03-28 03:46:32'),
 (5, 'Juanjo', 'juanjo@hotmail.com', '', '$2y$10$s06ZXneElpIWSUFhz.h8xe/BzoZaOolL9s1CwWF/oNYPOt0mDSulK', 'admin', 'seller', NULL, '2017-03-20 07:58:35', '2017-03-28 03:52:24');
@@ -2958,6 +3067,13 @@ ALTER TABLE `direntregas`
   ADD KEY `direntregas_cliente_id_foreign` (`cliente_id`);
 
 --
+-- Indices de la tabla `familias`
+--
+ALTER TABLE `familias`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `familias_proveedor_id_foreign` (`proveedor_id`);
+
+--
 -- Indices de la tabla `fletes`
 --
 ALTER TABLE `fletes`
@@ -2988,6 +3104,12 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `monedas`
+--
+ALTER TABLE `monedas`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `password_resets`
 --
 ALTER TABLE `password_resets`
@@ -2995,10 +3117,26 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_token_index` (`token`);
 
 --
+-- Indices de la tabla `proveedores`
+--
+ALTER TABLE `proveedores`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `proveedores_iva_id_foreign` (`iva_id`),
+  ADD KEY `proveedores_localidad_id_foreign` (`localidad_id`),
+  ADD KEY `proveedores_provincia_id_foreign` (`provincia_id`);
+
+--
 -- Indices de la tabla `provincias`
 --
 ALTER TABLE `provincias`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `subfamilias`
+--
+ALTER TABLE `subfamilias`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `subfamilias_proveedor_id_foreign` (`proveedor_id`);
 
 --
 -- Indices de la tabla `users`
@@ -3021,7 +3159,7 @@ ALTER TABLE `zonas`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 --
 -- AUTO_INCREMENT de la tabla `clientes_razonsocial`
 --
@@ -3036,7 +3174,12 @@ ALTER TABLE `condicventas`
 -- AUTO_INCREMENT de la tabla `direntregas`
 --
 ALTER TABLE `direntregas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT de la tabla `familias`
+--
+ALTER TABLE `familias`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `fletes`
 --
@@ -3051,7 +3194,7 @@ ALTER TABLE `ivas`
 -- AUTO_INCREMENT de la tabla `listas`
 --
 ALTER TABLE `listas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `localidades`
 --
@@ -3061,17 +3204,32 @@ ALTER TABLE `localidades`
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+--
+-- AUTO_INCREMENT de la tabla `monedas`
+--
+ALTER TABLE `monedas`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT de la tabla `proveedores`
+--
+ALTER TABLE `proveedores`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT de la tabla `provincias`
 --
 ALTER TABLE `provincias`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 --
+-- AUTO_INCREMENT de la tabla `subfamilias`
+--
+ALTER TABLE `subfamilias`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `zonas`
 --
@@ -3095,12 +3253,12 @@ ALTER TABLE `clientes`
   ADD CONSTRAINT `clientes_zona_id_foreign` FOREIGN KEY (`zona_id`) REFERENCES `zonas` (`id`);
 
 --
--- Filtros para la tabla `direntregas`
+-- Filtros para la tabla `proveedores`
 --
-ALTER TABLE `direntregas`
-  ADD CONSTRAINT `direntregas_cliente_id_foreign` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`),
-  ADD CONSTRAINT `direntregas_localidad_id_foreign` FOREIGN KEY (`localidad_id`) REFERENCES `localidades` (`id`),
-  ADD CONSTRAINT `direntregas_provincia_id_foreign` FOREIGN KEY (`provincia_id`) REFERENCES `provincias` (`id`);
+ALTER TABLE `proveedores`
+  ADD CONSTRAINT `proveedores_iva_id_foreign` FOREIGN KEY (`iva_id`) REFERENCES `ivas` (`id`),
+  ADD CONSTRAINT `proveedores_localidad_id_foreign` FOREIGN KEY (`localidad_id`) REFERENCES `localidades` (`id`),
+  ADD CONSTRAINT `proveedores_provincia_id_foreign` FOREIGN KEY (`provincia_id`) REFERENCES `provincias` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

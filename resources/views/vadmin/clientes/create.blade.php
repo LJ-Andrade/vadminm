@@ -33,6 +33,7 @@
 						<div class="form-group">
 							{!! Form::label('id', 'Código') !!}
 							{!! Form::text('id', $cliente_id->id+1, ['id'=>'Cliente_Id','class' => 'form-control', 'disabled'=>'', 'placeholder' => 'Ingrese el código', 'id'=>'Client_Id']) !!}
+							{!! Form::text('id_direntrega', $cliente_id->id+1, ['id'=>'Cliente_Id', 'class' => 'form-control Hidden', 'placeholder' => 'Ingrese el código', 'id'=>'CLIENTID']) !!}
 						</div>
 					</div>
 					{{-- /// --}}
@@ -46,7 +47,7 @@
 					<div class="col-md-3 col-sm-6 col-xs-12">
 						<div class="form-group">
 							{!! Form::label('iva', 'Categoría de IVA') !!}
-							{!! Form::select('iva',  $iva, null, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
+							{!! Form::select('iva', $iva, null, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
 						</div>
 					</div>
                      {{-- /// --}}
@@ -175,10 +176,13 @@
 				</div>
                 {{-- //-------------------------------------------------// --}}
                 {{-- Datos de contacto y entrega --}}
-                <div class="row sub-title"><div class="col-md-12">
-                    <div class="inner-sub-title"><i class="ion-map icon"></i><span> Direcciones de Entrega</span>
-					<button type="button" class="OpenDirsEntregaBtn btnSm buttonGrey"><i class="ion-chevron-right"></i></button></div>
-                </div></div>
+                <div class="row sub-title">
+					<div class="col-md-12">
+						<div class="inner-sub-title"><i class="ion-map icon"></i><span> Direccion de Entrega</span>
+							<button type="button" class="OpenDirsEntregaBtn btnSm buttonGrey"><i class="ion-chevron-right"></i></button>
+						</div>
+                	</div>
+				</div>
                 <div class="row inner-row">
                    {{-- Dirección de Entrega --}}
 					<div class="col-md-12 col-sm-6 col-xs-12">							
@@ -186,21 +190,21 @@
 							<div class="CloseDirsEntregaBtn btnCloseDark"><i class="ion-close-round"></i></div>
 							<div class="col-md-6 form-group">
 								<div class="AnotherAddress">
-									{!! Form::label('', 'Calle') !!}
-									{!! Form::text('', null, ['class' => 'form-control', 'placeholder' => 'Domicilio de entrega', 'id' => 'DirEntrega']) !!}
-									{!! Form::label('', 'Localidad') !!}
-									{!! Form::select('',  $localidades, null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion', 'id' => 'LocEntrega']) !!}
+									{!! Form::label('dirname', 'Calle') !!}
+									{!! Form::text('dirname', null, ['class' => 'form-control', 'placeholder' => 'Domicilio de entrega', 'id' => 'DirEntrega']) !!}
+									{!! Form::label('dirlocalidad_id', 'Localidad') !!}
+									{!! Form::select('dirlocalidad_id',  $localidades, null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion', 'id' => 'LocEntrega']) !!}
 								</div>
                             </div>
 							<div class="col-md-6 form-group">
 								<div class="AnotherAddress">
-									{!! Form::label('', 'Teléfono') !!}
-									{!! Form::text('', null, ['class' => 'form-control', 'placeholder' => 'Domicilio de entrega', 'id' => 'TelEntrega']) !!}
-									{!! Form::label('', 'Provincia') !!}
-									{!! Form::select('',  $provincias, null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion', 'id' => 'ProvEntrega']) !!}
+									{!! Form::label('dirtelefono', 'Teléfono') !!}
+									{!! Form::text('dirtelefono', null, ['class' => 'form-control', 'placeholder' => 'Domicilio de entrega', 'id' => 'TelEntrega']) !!}
+									{!! Form::label('dirprovincia_id', 'Provincia') !!}
+									{!! Form::select('dirprovincia_id',  $provincias, null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion', 'id' => 'ProvEntrega']) !!}
 								</div>
                             </div>
-							<button type="button" class="AddDirsEntregaBtn btnSm buttonOk">Agregar Dirección de Entrega</button>	
+							{{-- <button type="button" class="AddDirsEntregaBtn btnSm buttonOk">Agregar Dirección de Entrega</button> --}}
 						</div>							
 					</div>        
                 </div>
@@ -264,20 +268,15 @@
 			if(dirEntrega == '' || locEntrega == '') {
 				alert_error('Ups!','Faltan datos de entrega');
 			} else {
-				//var inputDir   = "<input class='Hidden' type='text' name='direntrega[]' value='"+dirEntrega+','+provEntrega+','+locEntrega+','+telEntrega+"'>";
-
 				var dirCard ="<div class='col-md-12 small-card'>"
 						 	+"<span>"+ dirEntrega +"</span> - <span>"+ provEntrega +"</span> - <span>"+ locEntrega +"</span> - <span>"+ telEntrega +"</span>"
 						 	+"<div class='btnCloseThis'><i class='ion-trash-b'></i></div>"
 						    +"</div><br>";
 
-				// var dirEntrega = array('cliente' => clientId, 'name'=> clientName);
-				// console.log(dirEntrega);
-
-				// var input1 = "<input type='text' class='Hidden' name='direntrega[]'  value='"+ dirEntrega  +"'>";
-				// var input3 = "<input type='text' class='Hidden' name='telentrega[]'  value='"+ telEntrega  +"'>";
-				// var input2 = "<input type='text' class='Hidden' name='locentrega[]'  value='"+ locEntrega  +"'>";
-				// var input4 = "<input type='text' class='Hidden' name='proventrega[]' value='"+ provEntrega +"'>";
+				var input1 = "<input type='text' class='Hidden' name='direntrega[]'  value='"+ dirEntrega  +"'>";
+				var input3 = "<input type='text' class='Hidden' name='telentrega[]'  value='"+ telEntrega  +"'>";
+				var input2 = "<input type='text' class='Hidden' name='locentrega[]'  value='"+ locEntrega  +"'>";
+				var input4 = "<input type='text' class='Hidden' name='proventrega[]' value='"+ provEntrega +"'>";
 
 				
 				$('#DirEntregaDiv').append(input1 + input2 + input3 + input4 +'<br>'+dirCard);
@@ -285,10 +284,6 @@
 			
 		});
 
-		// Remove Disabled on click
-		$('#Cliente_Id').click(function(){
-			// $(this).attr('disabled','');
-		})
 
 	</script>
 

@@ -6,7 +6,7 @@
 
 {{-- HEAD--}}
 @section('header')
-	@section('header_title', 'Listado de Direntregas') 
+	@section('header_title', 'Direcciones de Entrega') 
 	@section('options')
 		<div class="actions">
             <a href="{{ url('vadmin/direntregas/create') }}" class="btn btnSm buttonOther">Nueva</a>
@@ -29,14 +29,13 @@
 			@include('vadmin.direntregas.searcher')
             <div class="col-md-12 animated fadeIn main-list">
                 @foreach($direntregas as $item)
-				
                 <div id="Id{{ $item->id }}" class="Item-Row Select-Row-Trigger row item-row simple-list">
                     {{-- Column / Image --}}
                     <div class=""></div>
                     <div class="content">
                         {{-- Column --}}
 	
-                        <div class="col-xs-6 col-sm-3 col-md-3 mobile-hide inner-tags">
+                        <div class="col-xs-6 col-sm-4 col-md-4 mobile-hide inner-tags">
 							<span class=""><b>@if (is_null($item->cliente)) @else {{ $item->cliente->razonsocial }} @endif</b></span> <br>
 							<span class="small">Código: @if (is_null($item->cliente)) @else {{ $item->cliente->id }} @endif </span>
                         </div>   

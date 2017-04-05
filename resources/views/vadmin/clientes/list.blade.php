@@ -1,4 +1,3 @@
-
 <div class="col-md-12 animated fadeIn main-list">
 
 	@foreach($clientes as $item)
@@ -24,14 +23,7 @@
 				<span class="small-text">@if(is_null($item->listas)) @else {{ $item->listas->name }} @endif</span>
             </div>
 		</div>
-		{{-- Action Button --}}
-		<div class="lists-actions-trigger">
-			<button type="button" class="Lists-Actions-Trigger action-btn" data-toggle="modal" data-target="#Article-Actions{{ $item->id }}">
-				<i class="ion-ios-gear-outline"></i>
-			</button>
-		</div>
-		{{-- Right Slot --}}
-		<div class="Status-Icon Status{{ $item->id }} status-icon">
+		<div class="batch-delete-checkbox">
 			{{-- Batch Delete --}} 
 			<input type="checkbox" class="BatchDelete" data-id="{{ $item->id }}">
 		</div>
