@@ -36,4 +36,9 @@ class Proveedor extends Model
     	return $this->belongsTo('App\Localidade');
     }
 
+    public function productos()
+    {
+    	return $this->hasMany('App\Producto');
+    }
+
 }

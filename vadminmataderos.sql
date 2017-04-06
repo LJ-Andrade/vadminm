@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-04-2017 a las 02:46:29
+-- Tiempo de generación: 06-04-2017 a las 19:55:07
 -- Versión del servidor: 10.1.19-MariaDB
 -- Versión de PHP: 5.6.28
 
@@ -36,6 +36,8 @@ CREATE TABLE `clientes` (
   `telefono` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `celular` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tipo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `descuento` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `iva_id` int(10) UNSIGNED DEFAULT NULL,
   `provincia_id` int(10) UNSIGNED DEFAULT NULL,
   `localidad_id` int(10) UNSIGNED DEFAULT NULL,
@@ -52,105 +54,105 @@ CREATE TABLE `clientes` (
 -- Volcado de datos para la tabla `clientes`
 --
 
-INSERT INTO `clientes` (`id`, `razonsocial`, `cuit`, `dirfiscal`, `codpostal`, `limitcred`, `telefono`, `celular`, `email`, `iva_id`, `provincia_id`, `localidad_id`, `condicventas_id`, `listas_id`, `user_id`, `zona_id`, `flete_id`, `created_at`, `updated_at`) VALUES
-(1, 'CONSUMIDOR FINAL', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 'CHALITA MARIA CAMILA', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 'CEMICA SUDAMERICANA S.R.L.', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 'ACEVEDO ABEL   (ARRECIFES)', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 'BENITO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(7, 'AUTORADIO FG  "FABIAN"', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8, 'AITA ANGEL', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(9, 'ALBERTO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(10, 'ALONSO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(11, 'ATAURI LUIS', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(12, 'AMANTEA OSCAR', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(13, 'ALBORNOZ', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(14, 'ARRARAS RODOLFO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(15, 'ALBANI   DARIO', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(16, 'ALANIS', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(17, 'LELFUN S.A.', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(18, 'AVONDET ORLANDO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(19, 'BALBARANI  OSVALDO OSCAR', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(20, 'BELTRAN RAUL', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(21, 'BASSINI JUAN MANUEL', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(22, 'BAGNONI   JUAN', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(23, 'BIANCHI  CARLOS (CACHARI)', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(24, 'BORAGNO VICTOR', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(25, 'BAVA OSVALDO ALFREDO', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(26, 'BIANCHI  MARCELO ALEJANDRO', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(27, 'BELUCCI  JUAN PEDRO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(28, 'BUTAFUOCO DANIEL', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(29, 'MARIO BASUALDO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(30, 'BOTTA CARLOS', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(31, 'BIANCHI CARLOS (ALBERTI)', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(32, 'BASILENCO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(33, 'BUSCALIA OSVALDO', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(34, 'BRENNA ROBERTO FABIAN', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(35, 'BONEFON', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(36, 'BECERRA ALBERTO ELADIO', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(37, 'BRICIO JUAN MARTIN', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(38, 'BRAVO VICTOR HUGO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(39, 'BASUALDO, (CHACABUCO)', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(40, 'BASAN', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(41, 'BRAGHI', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(42, 'BORAGNO PABLO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(43, 'BANEGAS', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(44, 'PRIETO OSCAR OSVALDO', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(45, 'CARLOMAGNO CARLOS MARIA', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(46, 'CASA POLLETI (EDUARDO)', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(47, 'DEGLICE MATIAS', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(48, 'CESAR', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(49, 'CORNARO.', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(50, 'CASTRO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(51, 'CHILLIER JORGE', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(52, 'CACHO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(53, 'DAVID  "CASA MELA"', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(54, 'CARLOS UHALDEGARAY', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(55, 'IGLESIAS  CARLOS', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(56, 'CENTRO HOGAR  (BERSELLINI)', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(57, 'CRIVELLI', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(58, 'CLARAMUNT  RICARDO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(59, 'CLAUDIO ENRIQUE VITOLA', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(60, 'COOPERATIVA  ELECTRICA CASTELLI  LTDA(', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(61, 'CARAM', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(62, 'CORREA DANIEL ALBERTO', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(63, 'CANEPA NICOLAS', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(64, 'DIAZ ALFREDO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(65, 'DEPICHI MARIO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(66, 'DIBELLO, FABIAN', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(67, 'DE CASTRO, DANIEL ADRIAN', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(68, 'DODDS  DANIEL', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(69, 'DISTABILI', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(70, 'DE ANDRES', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(71, 'DIAB  GABRIEL', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(72, 'DILEGO ANTONIO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(73, 'DIAZ', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(74, 'DIRISIO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(75, 'SIGILLITO MAURO ALEJANDRO', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(76, 'DANIEL  TUNDIS', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(77, 'DELLOSO ROMULO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(78, 'ESLAVA FABIAN HUGO', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(79, 'DIAZ ARMANDO "SERVIHOGAR"', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(80, 'D´IGARTUA MARCELO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(81, 'ROSSELLI DANIEL EDUARDO', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(82, 'D`AMICO ALDO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(83, 'DUARTE PEPE', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(84, 'ENRIQUE HECTOR', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(85, 'ESTEBAN GONZALEZ', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(86, 'ECHEVARRIA LEONARDO', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(87, 'EL TORITO    " RAUL "', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(88, 'ELECTRICIDAD TTAL   S.A.', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(89, 'EDU-MAR   "EDUARDO"', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(90, 'ELECTRICIDAD CARLITOS  "CARLOS THEAUX"', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(91, 'EMANUELI   "DARIO O SERGIO "', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(93, 'COCO GONZALEZ', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(94, 'NORBERTO VOLKER', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(95, 'MAXI FRIO S.R.L.', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(96, 'RIOS RODOLFO OSCAR', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(97, 'FRECHERO ARTURO ISMAEL', '', '', 0, 0, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(98, 'BONELLI MIGUEL', '', '', 0, 0, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(99, 'EDUARDO ROSA', '', '', 0, 0, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(101, 'Test S.A', '11-11111121-2', 'Directorio 4750', 1454, 5000, '4545-4545', '(15)5454-5445', 'mail@test.com', 1, 3, 145, 4, 1, 3, 3, 1, '2017-03-28 04:06:37', '2017-03-28 04:06:37');
+INSERT INTO `clientes` (`id`, `razonsocial`, `cuit`, `dirfiscal`, `codpostal`, `limitcred`, `telefono`, `celular`, `email`, `tipo`, `descuento`, `iva_id`, `provincia_id`, `localidad_id`, `condicventas_id`, `listas_id`, `user_id`, `zona_id`, `flete_id`, `created_at`, `updated_at`) VALUES
+(1, 'CONSUMIDOR FINAL', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 'CHALITA MARIA CAMILA', '', '', 0, 0, NULL, NULL, NULL, '', '', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 'CEMICA SUDAMERICANA S.R.L.', '', '', 0, 0, NULL, NULL, NULL, '', '', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 'ACEVEDO ABEL   (ARRECIFES)', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 'BENITO', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, 'AUTORADIO FG  "FABIAN"', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(8, 'AITA ANGEL', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9, 'ALBERTO', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, 'ALONSO', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(11, 'ATAURI LUIS', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(12, 'AMANTEA OSCAR', '', '', 0, 0, NULL, NULL, NULL, '', '', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(13, 'ALBORNOZ', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(14, 'ARRARAS RODOLFO', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(15, 'ALBANI   DARIO', '', '', 0, 0, NULL, NULL, NULL, '', '', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(16, 'ALANIS', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(17, 'LELFUN S.A.', '', '', 0, 0, NULL, NULL, NULL, '', '', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(18, 'AVONDET ORLANDO', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(19, 'BALBARANI  OSVALDO OSCAR', '', '', 0, 0, NULL, NULL, NULL, '', '', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(20, 'BELTRAN RAUL', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(21, 'BASSINI JUAN MANUEL', '', '', 0, 0, NULL, NULL, NULL, '', '', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(22, 'BAGNONI   JUAN', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(23, 'BIANCHI  CARLOS (CACHARI)', '', '', 0, 0, NULL, NULL, NULL, '', '', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(24, 'BORAGNO VICTOR', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(25, 'BAVA OSVALDO ALFREDO', '', '', 0, 0, NULL, NULL, NULL, '', '', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(26, 'BIANCHI  MARCELO ALEJANDRO', '', '', 0, 0, NULL, NULL, NULL, '', '', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(27, 'BELUCCI  JUAN PEDRO', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(28, 'BUTAFUOCO DANIEL', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(29, 'MARIO BASUALDO', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(30, 'BOTTA CARLOS', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(31, 'BIANCHI CARLOS (ALBERTI)', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(32, 'BASILENCO', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(33, 'BUSCALIA OSVALDO', '', '', 0, 0, NULL, NULL, NULL, '', '', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(34, 'BRENNA ROBERTO FABIAN', '', '', 0, 0, NULL, NULL, NULL, '', '', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(35, 'BONEFON', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(36, 'BECERRA ALBERTO ELADIO', '', '', 0, 0, NULL, NULL, NULL, '', '', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(37, 'BRICIO JUAN MARTIN', '', '', 0, 0, NULL, NULL, NULL, '', '', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(38, 'BRAVO VICTOR HUGO', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(39, 'BASUALDO, (CHACABUCO)', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(40, 'BASAN', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(41, 'BRAGHI', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(42, 'BORAGNO PABLO', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(43, 'BANEGAS', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(44, 'PRIETO OSCAR OSVALDO', '', '', 0, 0, NULL, NULL, NULL, '', '', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(45, 'CARLOMAGNO CARLOS MARIA', '', '', 0, 0, NULL, NULL, NULL, '', '', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(46, 'CASA POLLETI (EDUARDO)', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(47, 'DEGLICE MATIAS', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(48, 'CESAR', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(49, 'CORNARO.', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(50, 'CASTRO', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(51, 'CHILLIER JORGE', '', '', 0, 0, NULL, NULL, NULL, '', '', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(52, 'CACHO', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(53, 'DAVID  "CASA MELA"', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(54, 'CARLOS UHALDEGARAY', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(55, 'IGLESIAS  CARLOS', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(56, 'CENTRO HOGAR  (BERSELLINI)', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(57, 'CRIVELLI', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(58, 'CLARAMUNT  RICARDO', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(59, 'CLAUDIO ENRIQUE VITOLA', '', '', 0, 0, NULL, NULL, NULL, '', '', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(60, 'COOPERATIVA  ELECTRICA CASTELLI  LTDA(', '', '', 0, 0, NULL, NULL, NULL, '', '', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(61, 'CARAM', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(62, 'CORREA DANIEL ALBERTO', '', '', 0, 0, NULL, NULL, NULL, '', '', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(63, 'CANEPA NICOLAS', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(64, 'DIAZ ALFREDO', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(65, 'DEPICHI MARIO', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(66, 'DIBELLO, FABIAN', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(67, 'DE CASTRO, DANIEL ADRIAN', '', '', 0, 0, NULL, NULL, NULL, '', '', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(68, 'DODDS  DANIEL', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(69, 'DISTABILI', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(70, 'DE ANDRES', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(71, 'DIAB  GABRIEL', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(72, 'DILEGO ANTONIO', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(73, 'DIAZ', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(74, 'DIRISIO', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(75, 'SIGILLITO MAURO ALEJANDRO', '', '', 0, 0, NULL, NULL, NULL, '', '', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(76, 'DANIEL  TUNDIS', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(77, 'DELLOSO ROMULO', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(78, 'ESLAVA FABIAN HUGO', '', '', 0, 0, NULL, NULL, NULL, '', '', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(79, 'DIAZ ARMANDO "SERVIHOGAR"', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(80, 'D´IGARTUA MARCELO', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(81, 'ROSSELLI DANIEL EDUARDO', '', '', 0, 0, NULL, NULL, NULL, '', '', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(82, 'D`AMICO ALDO', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(83, 'DUARTE PEPE', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(84, 'ENRIQUE HECTOR', '', '', 0, 0, NULL, NULL, NULL, '', '', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(85, 'ESTEBAN GONZALEZ', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(86, 'ECHEVARRIA LEONARDO', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(87, 'EL TORITO    " RAUL "', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(88, 'ELECTRICIDAD TTAL   S.A.', '', '', 0, 0, NULL, NULL, NULL, '', '', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(89, 'EDU-MAR   "EDUARDO"', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(90, 'ELECTRICIDAD CARLITOS  "CARLOS THEAUX"', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(91, 'EMANUELI   "DARIO O SERGIO "', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(93, 'COCO GONZALEZ', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(94, 'NORBERTO VOLKER', '', '', 0, 0, NULL, NULL, NULL, '', '', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(95, 'MAXI FRIO S.R.L.', '', '', 0, 0, NULL, NULL, NULL, '', '', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(96, 'RIOS RODOLFO OSCAR', '', '', 0, 0, NULL, NULL, NULL, '', '', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(97, 'FRECHERO ARTURO ISMAEL', '', '', 0, 0, NULL, NULL, NULL, '', '', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(98, 'BONELLI MIGUEL', '', '', 0, 0, NULL, NULL, NULL, '', '', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(99, 'EDUARDO ROSA', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(101, 'Test S.A', '11-11111121-2', 'Directorio 4750', 1454, 5000, '4545-4545', '(15)5454-5445', 'mail@test.com', 'Gremio', 'Ninguno', 1, 3, 145, 4, 1, 3, 3, 1, '2017-03-28 04:06:37', '2017-03-28 04:06:37');
 
 -- --------------------------------------------------------
 
@@ -321,7 +323,8 @@ INSERT INTO `direntregas` (`id`, `name`, `telefono`, `localidad_id`, `provincia_
 (9, 'weqqweqweqwe', '1122122', 1, 1, 102, '2017-04-04 01:38:37', '2017-04-04 01:38:37'),
 (10, 'dasdasdasd4', '1122122', 1, 1, 102, '2017-04-04 01:43:58', '2017-04-04 01:43:58'),
 (11, 'Direccion de nuevo cliente', '1122122', 1, 1, 108, '2017-04-04 01:44:53', '2017-04-04 01:44:53'),
-(12, 'Otra direccion', '232323232', 143, 1, 108, '2017-04-04 01:45:43', '2017-04-04 01:45:43');
+(12, 'Otra direccion', '232323232', 143, 1, 108, '2017-04-04 01:45:43', '2017-04-04 01:45:43'),
+(13, 'dasdas', '4545-4545', 144, 1, 101, '2017-04-05 05:54:34', '2017-04-05 05:54:34');
 
 -- --------------------------------------------------------
 
@@ -343,8 +346,8 @@ CREATE TABLE `familias` (
 
 INSERT INTO `familias` (`id`, `nombre`, `proveedor_id`, `created_at`, `updated_at`) VALUES
 (2, 'Lavarropas', 1, '2017-04-04 02:20:23', '2017-04-04 02:20:23'),
-(3, 'Aire Acondicionado', 1, '2017-04-04 02:20:32', '2017-04-04 02:20:32'),
-(5, 'Secarropa', 1, '2017-04-04 02:26:31', '2017-04-04 02:26:31');
+(3, 'Aire Acondicionados', 1, '2017-04-04 02:20:32', '2017-04-06 10:02:52'),
+(9, 'Respuestos', NULL, '2017-04-06 10:03:13', '2017-04-06 10:03:13');
 
 -- --------------------------------------------------------
 
@@ -410,7 +413,11 @@ CREATE TABLE `listas` (
 
 INSERT INTO `listas` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'Lista Minorísta', '2017-03-26 06:38:20', '2017-03-26 06:38:20'),
-(2, 'Lista Mayorísta', '2017-03-26 06:38:32', '2017-03-26 06:38:32');
+(2, 'Lista Mayorísta', '2017-03-26 06:38:32', '2017-03-26 06:38:32'),
+(3, 'Lista 1', '2017-04-06 20:00:00', '2017-04-06 20:00:00'),
+(4, 'Lista 2', '2017-04-06 20:00:06', '2017-04-06 20:00:06'),
+(5, 'Lista Especial', '2017-04-06 20:00:16', '2017-04-06 20:00:16'),
+(6, 'Lista 10', '2017-04-06 20:00:24', '2017-04-06 20:00:24');
 
 -- --------------------------------------------------------
 
@@ -2840,7 +2847,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (15, '2017_04_03_230420_create_familias_table', 5),
 (16, '2017_04_04_004238_create_monedas_table', 6),
 (17, '2017_04_04_072349_create_subfamilias_table', 7),
-(19, '2017_04_03_230853_create_proveedores_table', 8);
+(19, '2017_04_03_230853_create_proveedores_table', 8),
+(20, '2017_04_06_000532_create_tipocts_table', 9),
+(23, '2017_04_06_023556_create_productos_table', 10);
 
 -- --------------------------------------------------------
 
@@ -2862,7 +2871,7 @@ CREATE TABLE `monedas` (
 
 INSERT INTO `monedas` (`id`, `nombre`, `valor`, `created_at`, `updated_at`) VALUES
 (1, 'Pesos', 1, '2017-04-04 07:09:12', '2017-04-04 08:51:23'),
-(8, 'Dolar', 15.88, '2017-04-04 07:18:29', '2017-04-05 02:42:30'),
+(8, 'Dolar', 15.88, '2017-04-04 07:18:29', '2017-04-06 02:54:26'),
 (9, 'Euro', 18.54, '2017-04-04 07:18:37', '2017-04-04 07:24:07');
 
 -- --------------------------------------------------------
@@ -2876,6 +2885,40 @@ CREATE TABLE `password_resets` (
   `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `productos`
+--
+
+CREATE TABLE `productos` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nombre` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `unidad` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `estado` enum('activo','pausado') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'activo',
+  `stockactual` int(11) NOT NULL,
+  `stockmin` int(11) NOT NULL,
+  `stockmax` int(11) NOT NULL,
+  `preciocompra` int(11) NOT NULL,
+  `preciocosto` int(11) NOT NULL,
+  `preciogremio` int(11) NOT NULL,
+  `precioparticular` int(11) NOT NULL,
+  `precioespecial` int(11) NOT NULL,
+  `preciooferta` int(11) NOT NULL,
+  `proveedor_id` int(10) UNSIGNED NOT NULL,
+  `familia_id` int(10) UNSIGNED NOT NULL,
+  `subfamilia_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `productos`
+--
+
+INSERT INTO `productos` (`id`, `nombre`, `unidad`, `estado`, `stockactual`, `stockmin`, `stockmax`, `preciocompra`, `preciocosto`, `preciogremio`, `precioparticular`, `precioespecial`, `preciooferta`, `proveedor_id`, `familia_id`, `subfamilia_id`, `created_at`, `updated_at`) VALUES
+(2, 'dqedqwdq', 'qwqwe', 'activo', 32, 21, 21, 21, 21, 2, 121, 12, 21, 9, 2, 3, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -2909,7 +2952,8 @@ CREATE TABLE `proveedores` (
 INSERT INTO `proveedores` (`id`, `nombre`, `razonsocial`, `cuit`, `ingbrutos`, `telefonos`, `email`, `direccion`, `pais`, `codpostal`, `notas`, `iva_id`, `localidad_id`, `provincia_id`, `created_at`, `updated_at`) VALUES
 (9, 'Lavarropas22', 'Extreme Air Aconditionated22e', '12-12121121-2', '21121212', '21221212', 'javzero@hotmail.com2', 'DIreccion 1212', NULL, '1212', 'dasdasdasdasdasdas', 1, 968, 3, '2017-04-04 12:52:43', '2017-04-04 12:52:43'),
 (10, '32323', 'Extreme Air Ac2332', '12-12112212-2', '212122', '4545-4545', 'javzero@hotmail.com1', 'DIreccion 1212', 'Argentina', '1545', 'dasdasdasadadasds', 1, 968, 1, '2017-04-04 12:54:31', '2017-04-04 12:54:31'),
-(11, 'Studio Vimana', 'Violeta Raffin', '12-54546546-5', '5465456456456', '5455-4545', 'info@studiovimana.com.ar', 'Palliere 1372', 'Argentina', '1407', 'Desarrolladores del sistema VADmin.', 4, 1546, 1, '2017-04-04 18:35:31', '2017-04-04 18:35:31');
+(11, 'Studio Vimana', 'Violeta Raffin', '12-54546546-5', '5465456456456', '5455-4545', 'info@studiovimana.com.ar', 'Palliere 1372', 'Argentina', '1407', 'Desarrolladores del sistema VADmin.', 4, 1546, 1, '2017-04-04 18:35:31', '2017-04-04 18:35:31'),
+(12, 'Whirpool', 'Whirpool S.A.', '21-21212122-1', '121212212', '4545-4545', 'javzero@hotmail.com2', 'DIreccion 1212', 'Argentina', '1515', '<p>Notas sobre el proveedor</p><p><br></p>', 1, 143, 1, '2017-04-05 05:59:08', '2017-04-05 05:59:08');
 
 -- --------------------------------------------------------
 
@@ -2975,6 +3019,29 @@ CREATE TABLE `subfamilias` (
 
 INSERT INTO `subfamilias` (`id`, `nombre`, `proveedor_id`, `created_at`, `updated_at`) VALUES
 (3, 'Chatarra', 9, '2017-04-04 13:00:55', '2017-04-04 13:00:55');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipocts`
+--
+
+CREATE TABLE `tipocts` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `tipocts`
+--
+
+INSERT INTO `tipocts` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'Gremio', '2017-04-06 05:21:59', '2017-04-06 05:21:59'),
+(2, 'Particular', '2017-04-06 05:22:08', '2017-04-06 05:22:08'),
+(3, 'Especial', '2017-04-06 05:22:15', '2017-04-06 05:22:15'),
+(4, 'Otro', '2017-04-06 05:23:09', '2017-04-06 05:23:09');
 
 -- --------------------------------------------------------
 
@@ -3117,6 +3184,15 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_token_index` (`token`);
 
 --
+-- Indices de la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `productos_proveedor_id_foreign` (`proveedor_id`),
+  ADD KEY `productos_familia_id_foreign` (`familia_id`),
+  ADD KEY `productos_subfamilia_id_foreign` (`subfamilia_id`);
+
+--
 -- Indices de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
@@ -3139,6 +3215,12 @@ ALTER TABLE `subfamilias`
   ADD KEY `subfamilias_proveedor_id_foreign` (`proveedor_id`);
 
 --
+-- Indices de la tabla `tipocts`
+--
+ALTER TABLE `tipocts`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
@@ -3159,7 +3241,7 @@ ALTER TABLE `zonas`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 --
 -- AUTO_INCREMENT de la tabla `clientes_razonsocial`
 --
@@ -3174,12 +3256,12 @@ ALTER TABLE `condicventas`
 -- AUTO_INCREMENT de la tabla `direntregas`
 --
 ALTER TABLE `direntregas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT de la tabla `familias`
 --
 ALTER TABLE `familias`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT de la tabla `fletes`
 --
@@ -3194,7 +3276,7 @@ ALTER TABLE `ivas`
 -- AUTO_INCREMENT de la tabla `listas`
 --
 ALTER TABLE `listas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `localidades`
 --
@@ -3204,17 +3286,22 @@ ALTER TABLE `localidades`
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT de la tabla `monedas`
 --
 ALTER TABLE `monedas`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
+-- AUTO_INCREMENT de la tabla `productos`
+--
+ALTER TABLE `productos`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT de la tabla `provincias`
 --
@@ -3226,10 +3313,15 @@ ALTER TABLE `provincias`
 ALTER TABLE `subfamilias`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
+-- AUTO_INCREMENT de la tabla `tipocts`
+--
+ALTER TABLE `tipocts`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `zonas`
 --
@@ -3251,6 +3343,14 @@ ALTER TABLE `clientes`
   ADD CONSTRAINT `clientes_provincia_id_foreign` FOREIGN KEY (`provincia_id`) REFERENCES `provincias` (`id`),
   ADD CONSTRAINT `clientes_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `clientes_zona_id_foreign` FOREIGN KEY (`zona_id`) REFERENCES `zonas` (`id`);
+
+--
+-- Filtros para la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD CONSTRAINT `productos_familia_id_foreign` FOREIGN KEY (`familia_id`) REFERENCES `familias` (`id`),
+  ADD CONSTRAINT `productos_proveedor_id_foreign` FOREIGN KEY (`proveedor_id`) REFERENCES `proveedores` (`id`),
+  ADD CONSTRAINT `productos_subfamilia_id_foreign` FOREIGN KEY (`subfamilia_id`) REFERENCES `subfamilias` (`id`);
 
 --
 -- Filtros para la tabla `proveedores`

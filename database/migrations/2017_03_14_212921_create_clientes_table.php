@@ -21,6 +21,8 @@ class CreateClientesTable extends Migration
             $table->string('telefono');
             $table->string('celular');
             $table->string('email');
+            $table->string('tipo');
+            $table->string('descuento')->nullable();
             $table->integer('limitcred')->nullable();
             
             $table->integer('iva_id')->unsigned();

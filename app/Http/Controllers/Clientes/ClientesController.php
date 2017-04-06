@@ -17,6 +17,7 @@ use App\Flete;
 use App\Zona;
 use App\Lista;
 use App\Direntrega;
+use App\Tipoct;
 
 class ClientesController extends Controller
 {
@@ -106,6 +107,7 @@ class ClientesController extends Controller
         $flete        = Flete::orderBy('name', 'ASC')->pluck('name', 'id');
         $zona         = Zona::orderBy('name', 'ASC')->pluck('name', 'id');
         $lista        = Lista::orderBy('name', 'ASC')->pluck('name', 'id');
+        $tipo         = Tipoct::orderBy('name', 'ASC')->pluck('name', 'id');
         return view('vadmin.clientes.create')
             ->with('cliente_id', $cliente_id)
             ->with('provincias', $provincias)
@@ -115,7 +117,8 @@ class ClientesController extends Controller
             ->with('users', $users)
             ->with('flete', $flete)
             ->with('zona', $zona)
-            ->with('lista', $lista);
+            ->with('lista', $lista)
+            ->with('tipo', $tipo);
 
     }
 
@@ -217,6 +220,10 @@ class ClientesController extends Controller
 
         return redirect('vadmin/clientes');
     }
+
+    //////////////////////////////////////////////////
+    //                 DESTROY                      //
+    //////////////////////////////////////////////////
 
     // ---------- Delete -------------- //
     public function destroy($id)

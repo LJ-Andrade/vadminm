@@ -6,13 +6,13 @@
 @endsection
 
 @section('content')
-
 	 <div class="container">
 		<div class="row">
+		@component('vadmin.components.mainloader')@endcomponent
 		
 			<span>Tu nivel de permisos es <b>{{ typeTrd(Auth::user()->type) }}</b></span>
 			<hr>
-Vendedores activos:
+			Vendedores activos:
 			@foreach ($vendedores as $vendedor)
 			<span class="badge">{{ $vendedor->name }}</span>
 			@endforeach

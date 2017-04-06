@@ -51,7 +51,11 @@
 				<b>Condiciones de Vta.:</b>
 				@if(is_null($cliente->condicventas)) @else {{ $cliente->condicventas->name }} @endif <br>
 				<b>Lista de Precios:</b>    
-				@if(is_null($cliente->listas)) @else {{ $cliente->listas->name }} @endif  
+				@if(is_null($cliente->listas)) @else {{ $cliente->listas->name }} @endif <br>
+				<b>Tipo:</b>    
+				@if(is_null($cliente->tipo)) @else {{ $cliente->tipo }} @endif  <br>
+				<b>Descuento:</b>    
+				@if(is_null($cliente->descuento)) @else {{ $cliente->descuento }} @endif  
 			</div>
 
 			<div class="col-md-6">

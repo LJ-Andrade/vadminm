@@ -71,9 +71,8 @@ Route::get('/', [
 Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(){
 
 	// ------ Clientes ------- //
-	Route::get('ajax_list_clients/{page?}', 'Clientes\ClientesController@ajax_list');
-	Route::get('ajax_list_users/{page?}', 'UsersController@ajax_list');
 	Route::resource('clientes', 'Clientes\ClientesController');
+	Route::get('ajax_list_clients/{page?}', 'Clientes\ClientesController@ajax_list');
 	Route::post('ajax_delete_cliente/{id}', 'Clientes\ClientesController@destroy');
 	Route::post('ajax_batch_delete_clientes/{id}', 'Clientes\ClientesController@ajax_batch_delete');
 
@@ -151,7 +150,19 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 
 	Route::post('ajax_update_dolar/{id}', 'Monedas\MonedasController@updateDolarValue');
 
+	// ------ Tipo de Cliente ------- //
+	Route::resource('tipocts', 'Tipocts\TipoctsController');
+	Route::post('ajax_delete_tipoct/{id}', 'Tipocts\TipoctsController@destroy');
+	Route::post('ajax_batch_delete_tipocts/{id}', 'Tipocts\TipoctsController@ajax_batch_delete');
 
+	// ------ Productos ------- //
+	Route::resource('productos', 'Productos\ProductosController');
+	Route::get('ajax_list_productos/{page?}', 'Productos\ProductosController@ajax_list');
+	Route::post('ajax_delete_producto/{id}', 'Productos\ProductosController@destroy');
+	Route::post('ajax_batch_delete_productos/{id}', 'Productos\ProductosController@ajax_batch_delete');
+
+	Route::post('ajax_build_id/{id}', 'Productos\ProductosController@ajax_build_id');
+	// Route::get('ajax_build_id/', 'Productos\ProductosController@ajax_build_id_none');
 
 });
 

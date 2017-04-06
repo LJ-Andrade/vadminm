@@ -16,22 +16,30 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 profile-card">
-				<div class="inner">
-					<div class="title"><span class="data">{{ $user->name }}</span></div>
-					<div id="Avatar">
+				<div class="inner1">
+					
+				</div>
+				<div class="inner2">
+					<div id="Avatar" class="avatar">
 						@if($user->avatar == '')
 							<img src="images/gen/user-gen.jpg" class="Image-Container">
 						@else	
 							<img src="images/users/{{ $user->avatar }}" class="Image-Container">
 						@endif
 					</div>
-
-					<div class="text">
-						<div><span><b>{{ $user->email }}</b></span>
-						<hr class="softhr">
-						<div><span><b>Permisos</b></span>
-						<span class="data">{{ typeTrd($user->type) }}</span></div>
-						<div><span><b>Rol</b></span> <span class="data">{{ roleTrd($user->role) }}</span></div>
+					<div class="title">
+						<span class="data"><b>{{ $user->name }} </b> | </span>
+						<span>{{ $user->email }}</span>
+					</div>
+					<div class="text col-md-12">
+						<div class="col-md-6">
+							<span>Permisos</span> <br>
+							<span class="data">{{ typeTrd($user->type) }}</span>
+						</div>
+						<div class="col-md-6">
+							<span>Rol</span> <br>
+							<span class="data">{{ roleTrd($user->role) }}</span>
+						</div>
 					</div>
 					<br>
 					{!! Form::open(['url' => 'profile', 'method' => 'POST', 'files' => true]) !!}

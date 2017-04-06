@@ -119,6 +119,20 @@
 					</div>
 				</div>
                 <div class="row inner-row">
+					{{-- Tipo --}}
+					<div class="col-md-4 col-sm-6 col-xs-12">
+						<div class="form-group">
+							{!! Form::label('tipo', 'Tipo') !!}
+							{!! Form::select('tipo', $tipo, null, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
+						</div>
+					</div>
+					{{-- Descuento --}}
+					<div class="col-md-4 col-sm-6 col-xs-12">
+						<div class="form-group">
+							{!! Form::label('descuento', 'Descuento') !!}
+							{!! Form::text('descuento', null, ['class' => 'form-control', 'placeholder' => 'Descuento a aplicar...']) !!}
+						</div>
+					</div>					
 				    {{-- Vendedor Designado --}}
 					<div class="col-md-4 col-sm-6 col-xs-12">
 						<div class="form-group">
@@ -126,6 +140,9 @@
 							{!! Form::select('vendedor', $users, null, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
 						</div>
 					</div>
+				
+				</div>
+				<div class="row inner-row">
 					{{-- Flete --}}
 					<div class="col-md-4 col-sm-6 col-xs-12">
 						<div class="form-group">

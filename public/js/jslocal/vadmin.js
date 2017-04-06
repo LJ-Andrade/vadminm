@@ -269,25 +269,26 @@ $('.OpenFilters').click(function(){
 //                          //
 //////////////////////////////
 
-// $(document).ajaxStart(function(){
-//     // $(".loader").removeClass("Hidden");
-//     // $('html').css({ 'overflow': 'hidden', 'height': '100%' });
-//     toggleLoader();
-// });
+//////////////////////////////
+// 							//
+//        LOADER            //
+//                          //
+//////////////////////////////
 
-// $(document).ajaxComplete(function(){
-//     // $(".loader").addClass("Hidden");
-//     // $('html').css({ 'overflow-Y': 'scroll', 'height': '100%' });
-//     toggleLoader();
-// });
+$(document).ajaxStart(function(){
+    toggleLoader();
+});
 
-// function toggleLoader()
-// {
-//   $('.loader').toggleClass('Hidden');
-//     if (!$('.loader').hasClass('Hidden')) {
-//       // This prevents scroll on loader
-//       $('html').css({ 'overflow': 'hidden', 'height': '100%' });
-//     } else {
-//       $('html').css({ 'overflow-Y': 'scroll', 'height': '100%' });
-//     }
-// }
+$(document).ajaxComplete(function(){
+	toggleLoader();
+});
+
+function toggleLoader(){
+  $('.Main-Loader').toggleClass('Hidden');
+    if (!$('.main-loader').hasClass('Hidden')) {
+      // This prevents scroll on loader
+      $('html').css({ 'overflow': 'hidden', 'height': '100%' });
+    } else {
+      $('html').css({ 'overflow-Y': 'scroll', 'height': '100%' });
+    }
+}

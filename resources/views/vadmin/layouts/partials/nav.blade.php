@@ -53,6 +53,7 @@
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="{{ route('clientes.index') }}"><i class="ion-ios-briefcase"></i> Clientes</a></li>
+							<li><a href="{{ route('productos.index') }}"><i class="ion-ios-gear"></i> Productos</a></li>
 							<li><a href="{{ route('listas.index') }}"><i class="ion-clipboard"></i> Listas de Precios</a></li>
 						</ul>
 					</li>
@@ -63,6 +64,7 @@
 							<li><a href="{{ route('proveedores.index') }}"><i class="ion-ios-people"></i> Proveedores</a></li>
 							<li><a href="{{ route('familias.index') }}"><i class="ion-ios-people"></i> Familias</a></li>
 							<li><a href="{{ route('subfamilias.index') }}"><i class="ion-ios-people"></i> SubFamilias</a></li>
+							<li><a href="{{ route('tipocts.index') }}"><i class="ion-ios-people"></i> Tipo de Cliente</a></li>
 							<li role="separator" class="divider"></li>
 							<li><a href="{{ route('condicventas.index') }}"><i class="ion-clipboard"></i> Condiciones de Vta.</a></li>
 							<li><a href="{{ route('ivas.index') }}"><i class="ion-ios-list-outline"></i> Categorías Iva</a></li>

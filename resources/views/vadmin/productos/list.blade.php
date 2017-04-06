@@ -1,7 +1,7 @@
 <div class="col-md-12 animated fadeIn main-list">
 
-	@foreach($clientes as $item)
-	<div id="Id{{ $item->id }}" class="row Item-Row item-row Select-Row-Trigger" data-data="{{ $item }}">
+	@foreach($productos as $item)
+	<div id="Id{{ $item->id }}" class="row Item-Row item-row Select-Row-Trigger">
 		{{-- Column --}}
 		<div class="noimg">
 		</div>
@@ -9,18 +9,15 @@
 		<div class="content">
 			{{-- Column --}}
 			<div class="col-xs-6 col-sm-4 col-md-4 inner">
-				<span><b>{{ $item->razonsocial }}</b></span><br>
+				<span><b>{{ $item->nombre }}</b></span><br>
 				<span class="small">Código: {{ $item->id }}</span>
 			</div>
 			{{-- Column --}}
 			<div class="col-xs-6 col-sm-3 col-md-4 mobile-hide inner-tags">
-				<span class="small-text">{{ $item->dirfiscal }}</span><br>
-				<span class="small-text">@if (is_null($item->provincia)) @else {{ $item->provincia->name }} @endif</span>
-				<span class="small-text">@if (is_null($item->localidad)) @else | {{ $item->localidad->name }} @endif</span>
+				
 			</div>
             <div class="col-md-3">
-            	<span class="small-text">@if(is_null($item->iva)) @else {{ $item->iva->name }} @endif</span> <br>
-				<span class="small-text">@if(is_null($item->listas)) @else {{ $item->listas->name }} @endif</span>
+            
             </div>
 		</div>
 		{{-- Batch Delete --}} 
@@ -32,7 +29,7 @@
 			<a class="ShowEditBtn btnSmall buttonOk" data-id="{{ $item->id }}">
 				<i class="ion-ios-compose-outline"></i>
 			</a>
-			<a href="{{ url('vadmin/clientes/'. $item->id) }}" class="btnSmall buttonOther">
+			<a href="{{ url('vadmin/productos/'. $item->id) }}" class="btnSmall buttonOther">
 				<i class="ion-ios-search"></i>
 			</a>
 			<button class="Delete btnSmall buttonCancel" data-id="{!! $item->id !!}">
@@ -47,11 +44,11 @@
 	@endforeach
 
 	{{-- If there is no articles published shows this --}}
-	@if(! count($clientes))
+	@if(! count($productos))
 	<div class="Item-Row item-row empty-row">
-		No se han encontrado clientes
+		No se han encontrado productos
 	</div>
 	@endif
 </div>
-{!! $clientes->render(); !!}
+{!! $productos->render(); !!}
 <br>

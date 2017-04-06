@@ -16,5 +16,11 @@ class Familia extends Model
 	{
 	    return $this->belongsTo('App\Proveedor','proveedor_id');
 	}
+
+    public function productos()
+    {
+    	return $this->hasMany('App\Producto');
+    }
+
     
 }

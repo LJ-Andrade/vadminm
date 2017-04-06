@@ -2,14 +2,14 @@
 @extends('vadmin.layouts.main')
 
 {{-- PAGE TITLE--}}
-@section('title', 'Vadmin | Clientes')
+@section('title', 'Vadmin | Tipos de Cliente')
 
 {{-- HEAD--}}
 @section('header')
-	@section('header_title', 'Listado de Clientes') 
+	@section('header_title', 'Tipos de Cliente') 
 	@section('options')
 		<div class="actions">
-            <a id="ToNewItem" href="{{ url('vadmin/clientes/create') }}" class="btn btnSm buttonOther"><i class="ion-ios-briefcase-outline"></i> Nuevo Cliente</a>
+            <a href="{{ url('vadmin/tipocts/create') }}" class="btn btnSm buttonOther">Nuevo Tipo</a>
             <button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button>
 		</div>	
 	@endsection
@@ -20,19 +20,65 @@
 	{{-- Include Styles Here --}}
 @endsection
 
+
 {{-- CONTENT --}}
 @section('content')
-	@component('vadmin.components.mainloader')@endcomponent
-
-	@include('vadmin.clientes.searcher')
     <div class="container">
-		<div class="row">
-			<div id="List"></div>
-			<br>
+		<div class="row">		
+			@include('vadmin.tipocts.searcher')
+            <div class="col-md-12 animated fadeIn main-list">
+                @foreach($tipocts as $item)
+                <div id="Id{{ $item->id }}" class="Item-Row Select-Row-Trigger row item-row simple-list">
+                    {{-- Column / Image --}}
+                    <div class=""></div>
+
+                    <div class="content">
+                        {{-- Column --}}
+                        <div class="col-xs-6 col-sm-4 col-md-4 inner">
+                        	<span><b>{{ $item->name }}</b></span>
+                        </div>
+                        {{-- Column --}}
+                        <div class="col-xs-6 col-sm-3 col-md-4 mobile-hide inner-tags">
+                        </div>                        
+                    </div>
+                    {{-- Hidden Action Buttons --}}
+                    <div class="List-Actions lists-actions Hidden">
+						<a href="{{ url('/vadmin/tipocts/' . $item->id . '/edit') }}" class="btnSmall buttonOk" data-id="{{ $item->id }}">
+							<i class="ion-ios-compose-outline"></i>
+						</a>
+						<a target="_blank" class="btnSmall buttonOther">
+							<i class="ion-ios-search"></i>
+						</a>
+						<button class="Delete btnSmall buttonCancel" data-id="{!! $item->id !!}">
+							<i class="ion-ios-trash-outline"></i>
+						</button>
+						<a class="Close-Actions-Btn btn btn-danger btn-close">
+							<i class="ion-ios-close-empty"></i>
+						</a>
+                    </div>
+					{{-- Batch Delete --}} 
+					<div class="batch-delete-checkbox">
+						<input type="checkbox" class="BatchDelete" data-id="{{ $item->id }}">
+					</div>
+                </div>
+
+                @endforeach
+
+                {{-- If there is no articles published shows this --}}
+                @if(! count($tipocts))
+                <div class="Item-Row item-row empty-row">
+                    No se han encontrado items
+                </div>
+                @endif
+            </div>
+            {!! $tipocts->render(); !!}
+            <br>
+
 		</div>
 		<button id="BatchDeleteBtn" class="button buttonCancel batchDeleteBtn Hidden"><i class="ion-ios-trash-outline"></i> Eliminar seleccionados</button>
 	</div>  
-	<div id="Error"></div>	
+	<div id="Error"></div>
+	
 @endsection
 
 @section('scripts')
@@ -42,95 +88,6 @@
 @section('custom_js')
 
 	<script type="text/javascript">
-
-	/////////////////////////////////////////////////
-    //                 LIST                        // 
-    /////////////////////////////////////////////////
-
-
-	$(document).ready(function(){
-		ajax_list();
-	});
-
-	var ajax_list = function(){
-
-		$.ajax({
-			type: 'get',
-			url: '{{ url('vadmin/ajax_list_clients') }}',
-			beforeSend: function(){
-				// $('#Loader').show();
-			},
-			success: function(data){
-				// $('#Loader').hide();
-				$('#List').empty().html(data);
-			},
-			complete(){
-				// $('#Loader').hide();
-			},
-			error: function(data){
-				console.log(data)
-				// $('#Loader').hide();
-				//$('#Error').html(data.responseText);
-			}
-		});
-	}
-
-	// Pagination
-	$(document).on("click", ".pagination li a", function(e){
-		e.preventDefault();
-
-		var url     = $(this).attr('href');
-		// var page_num = href.split('=').pop();
-		// var url      = "{{ url('vadmin/users/ajax_list_user') }}?page="+page_num+"";
-
-		$.ajax({
-			type: 'get',
-			url: url,
-			beforeSend: function(){
-				$('#Loader').show();
-			},
-			success: function(data){
-				$('#List').empty().html(data);
-			},
-			complete: function(){
-				$('#Loader').hide();
-			},
-			error: function(data){
-				console.log(data)
-			}
-		});
-	});
-
-
-	// By Name or Email
-	$(document).on("keyup", "#SearchForm", function(e){
-		e.preventDefault();
-		var name  = $('#SearchByName').val();
-		var id    = $('#SearchById').val();
-
-		// if( name.length == 0 ){
-		// 	ajax_list();
-		// } else {
-			var url = "{{ url('vadmin/ajax_list_search_clientes') }}/search?id="+id+"&name="+name+"";
-			// var url = "{{ url('vadmin/ajax_list_search_clients') }}/search?name="+name+"";
-			console.log(url);
-			$.ajax({
-				type: 'get',
-				url: url,
-				complete: function(data){
-					// $('#Error').html(data.responseText);		
-				},
-				success: function(data){
-					$('#List').empty().html(data);
-				},
-				error: function(data){
-					console.log(data)
-					$('#Error').html(data.responseText);
-				}
-			});
-		// }		
-	});
-
 
 	/////////////////////////////////////////////////
     //                     DELETE                  //
@@ -147,7 +104,7 @@
 
 	function delete_item(id, route) {	
 
-		var route = "{{ url('vadmin/ajax_delete_cliente') }}/"+id+"";
+		var route = "{{ url('vadmin/ajax_delete_tipoct') }}/"+id+"";
 
 		$.ajax({
 			url: route,
@@ -190,7 +147,7 @@
 	// ---- Delete ---- //
 	function batch_delete_item(id) {
 
-		var route = "{{ url('vadmin/ajax_batch_delete_clientes') }}/"+id+"";
+		var route = "{{ url('vadmin/ajax_batch_delete_tipocts') }}/"+id+"";
 
 		$.ajax({
 			url: route,
@@ -214,12 +171,6 @@
 		});
 
 	}
-
-
-
-	//// 
-
-	
 
 	</script>
 

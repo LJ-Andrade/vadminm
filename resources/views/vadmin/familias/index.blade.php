@@ -34,21 +34,17 @@
                     <div class="content">
                         {{-- Column --}}
                         <div class="col-xs-6 col-sm-4 col-md-4 inner">
-                        	<span><b>{{ $item->nombre }}</b></span>
+                        	<span><b>{{ $item->nombre }}</b></span> <br>
+							<span class="small">Código: {{ $item->id }}</span>
                         </div>
                         {{-- Column --}}
                         <div class="col-xs-6 col-sm-3 col-md-4 mobile-hide inner-tags">
-							<span><b>@if(is_null($item->proveedor)) @else {{ $item->proveedor->nombre }} @endif</b></span>
+							{{-- <span><b>@if(is_null($item->proveedor)) @else {{ $item->proveedor->nombre }} @endif</b></span> --}}
                         </div>                        
                     </div>
-
-                    {{-- Action Button --}}
-                    <div class="lists-actions-trigger">
-                        <button type="button" class="Lists-Actions-Trigger action-btn" data-toggle="modal" data-target="#Actions{{ $item->id }}">
-                            <i class="ion-ios-gear-outline"></i>
-                        </button>
-                    </div>
-
+                    <div class="batch-delete-checkbox">
+						<input type="checkbox" class="BatchDelete" data-id="{{ $item->id }}">
+					</div>
                     {{-- Hidden Action Buttons --}}
                     <div class="List-Actions lists-actions Hidden">
 						<a href="{{ url('/vadmin/familias/' . $item->id . '/edit') }}" class="btnSmall buttonOk" data-id="{{ $item->id }}">
@@ -63,11 +59,6 @@
 						<a class="Close-Actions-Btn btn btn-danger btn-close">
 							<i class="ion-ios-close-empty"></i>
 						</a>
-                    </div>
-                        {{-- Right Slot --}}
-                    <div class="Status-Icon Status{{ $item->id }} status-icon">
-                        {{-- Batch Delete --}} 
-                        <input type="checkbox" class="BatchDelete" data-id="{{ $item->id }}">
                     </div>
                 </div>
 

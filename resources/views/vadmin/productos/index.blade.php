@@ -2,14 +2,14 @@
 @extends('vadmin.layouts.main')
 
 {{-- PAGE TITLE--}}
-@section('title', 'Vadmin | Clientes')
+@section('title', 'Vadmin | Productos')
 
 {{-- HEAD--}}
 @section('header')
-	@section('header_title', 'Listado de Clientes') 
+	@section('header_title', 'Listado de Productos') 
 	@section('options')
 		<div class="actions">
-            <a id="ToNewItem" href="{{ url('vadmin/clientes/create') }}" class="btn btnSm buttonOther"><i class="ion-ios-briefcase-outline"></i> Nuevo Cliente</a>
+            <a id="ToNewItem" href="{{ url('vadmin/productos/create') }}" class="btn btnSm buttonOther"><i class="ion-ios-briefcase-outline"></i> Nuevo Producto</a>
             <button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button>
 		</div>	
 	@endsection
@@ -24,7 +24,7 @@
 @section('content')
 	@component('vadmin.components.mainloader')@endcomponent
 
-	@include('vadmin.clientes.searcher')
+	@include('vadmin.productos.searcher')
     <div class="container">
 		<div class="row">
 			<div id="List"></div>
@@ -56,7 +56,7 @@
 
 		$.ajax({
 			type: 'get',
-			url: '{{ url('vadmin/ajax_list_clients') }}',
+			url: '{{ url('vadmin/ajax_list_productos') }}',
 			beforeSend: function(){
 				// $('#Loader').show();
 			},
@@ -80,8 +80,6 @@
 		e.preventDefault();
 
 		var url     = $(this).attr('href');
-		// var page_num = href.split('=').pop();
-		// var url      = "{{ url('vadmin/users/ajax_list_user') }}?page="+page_num+"";
 
 		$.ajax({
 			type: 'get',
@@ -111,7 +109,7 @@
 		// if( name.length == 0 ){
 		// 	ajax_list();
 		// } else {
-			var url = "{{ url('vadmin/ajax_list_search_clientes') }}/search?id="+id+"&name="+name+"";
+			var url = "{{ url('vadmin/ajax_list_search_productos') }}/search?id="+id+"&name="+name+"";
 			// var url = "{{ url('vadmin/ajax_list_search_clients') }}/search?name="+name+"";
 			console.log(url);
 			$.ajax({
@@ -133,7 +131,7 @@
 
 
 	/////////////////////////////////////////////////
-    //                     DELETE                  //
+    //                  DELETE                     //
     /////////////////////////////////////////////////
 
 
@@ -147,7 +145,7 @@
 
 	function delete_item(id, route) {	
 
-		var route = "{{ url('vadmin/ajax_delete_cliente') }}/"+id+"";
+		var route = "{{ url('vadmin/ajax_delete_producto') }}/"+id+"";
 
 		$.ajax({
 			url: route,
@@ -190,7 +188,7 @@
 	// ---- Delete ---- //
 	function batch_delete_item(id) {
 
-		var route = "{{ url('vadmin/ajax_batch_delete_clientes') }}/"+id+"";
+		var route = "{{ url('vadmin/ajax_batch_delete_productos') }}/"+id+"";
 
 		$.ajax({
 			url: route,
@@ -214,12 +212,7 @@
 		});
 
 	}
-
-
-
 	//// 
-
-	
 
 	</script>
 
