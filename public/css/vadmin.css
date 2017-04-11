@@ -173,12 +173,46 @@ hr {
 
 .big-card {
   background-color: #fff;
-  padding: 20px;
+  position: relative;
+  padding-bottom: 45px;
   box-shadow: 5px 2px 8px -5px rgba(0, 0, 0, 0.55);
 }
 
-.big-card h1 {
+.big-card .right-bottom {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  text-align: right;
+}
+
+.big-card .right-bottom .small-text {
+  font-size: 0.9rem;
+}
+
+.big-card .title {
+  background-color: #ceceef;
+  padding: 10px;
+  position: relative;
+}
+
+.big-card .title h1 {
   margin-left: 15px;
+}
+
+.big-card .subtitle {
+  margin-top: 15px;
+  margin-bottom: 10px;
+  background-color: #e5e5f5;
+  color: #383838;
+  padding: 2px 5px;
+}
+
+.big-card .content {
+  padding: 15px;
+}
+
+.big-card .content .btnSm {
+  margin-top: 15px;
 }
 
 .profile-card {
@@ -1543,24 +1577,49 @@ hr {
   padding-top: 5px;
   margin-right: 4px;
   border: 1px solid #ccc;
-  width: 40px;
+  width: 70px;
   height: 34px;
   float: left;
 }
 
 .horiz-checkbox-input .inner2 {
   float: left;
+  width: 78%;
+}
+
+@media (max-width: 1200px) {
+  .horiz-checkbox-input .inner2 {
+    width: 70%;
+  }
+}
+
+@media (max-width: 765px) {
+  .horiz-checkbox-input .inner2 {
+    width: auto;
+  }
 }
 
 .horiz-double-input .inner1 {
-  margin-right: 4px;
-  width: 60px;
+  width: 70px;
   height: 34px;
   float: left;
 }
 
 .horiz-double-input .inner2 {
   float: left;
+  width: 80%;
+}
+
+@media (max-width: 1200px) {
+  .horiz-double-input .inner2 {
+    width: 75%;
+  }
+}
+
+@media (max-width: 765px) {
+  .horiz-double-input .inner2 {
+    max-width: 200px;
+  }
 }
 
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {

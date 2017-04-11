@@ -7,10 +7,33 @@
 
 .big-card
 	background-color: #fff
-	padding: 20px
+	position: relative
+	padding-bottom: 45px
 	@include box-shadow
-	h1
-		margin-left: 15px
+	.right-bottom
+		position: absolute
+		right: 10px
+		bottom: 10px
+		text-align: right
+		.small-text
+			font-size: 0.9rem
+	.title
+		background-color: $light2
+		padding: 10px
+		position: relative
+		h1
+			margin-left: 15px
+	.subtitle
+		margin-top: 15px
+		margin-bottom: 10px
+		background-color: $light3
+		color: #383838
+		padding: 2px 5px
+	.content
+		padding: 15px
+		.btnSm
+			margin-top: 15px
+
 
 .profile-card
 	text-align: center
@@ -1008,16 +1031,11 @@ $phvFsize: 0.9rem
 	i
 		color: #000
 
-
-
-
 //////////////////////////////////////
 //                                  //
-//            BACKGROUNS           //
+//            BACKGROUNS            //
 //                                  //
 //////////////////////////////////////
-
-
 
 
 .blue-back
@@ -1067,17 +1085,39 @@ $phvFsize: 0.9rem
 		padding-top: 5px
 		margin-right: 4px
 		border: 1px solid #ccc
-		width: 40px
+		width: 70px
 		height: 34px
 		float: left
 	.inner2
 		float: left
+		width: 78%
+		
+@media (max-width: 1200px)
+	.horiz-checkbox-input
+		.inner2
+			width: 70%
+
+@media (max-width: 765px)
+	.horiz-checkbox-input
+		.inner2
+			width: auto
+			
 
 .horiz-double-input
 	.inner1
-		margin-right: 4px
-		width: 60px
+		width: 70px
 		height: 34px
 		float: left
 	.inner2
 		float: left
+		width: 80%
+
+@media (max-width: 1200px)
+	.horiz-double-input
+		.inner2
+			width: 75%
+
+@media (max-width: 765px)
+	.horiz-double-input
+		.inner2
+			max-width: 200px

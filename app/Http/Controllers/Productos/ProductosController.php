@@ -9,6 +9,8 @@ use App\Producto;
 use App\Proveedor;
 use App\Familia;
 use App\Subfamilia;
+use App\Moneda;
+use App\Iva;
 use Illuminate\Http\Request;
 use Session;
 
@@ -24,6 +26,7 @@ class ProductosController extends Controller
         $keyword = $request->get('search');
         $perPage = 25;
 
+
         if (!empty($keyword)) {
             $productos = Producto::where('nombre', 'LIKE', "%$keyword%")
 				
@@ -32,7 +35,9 @@ class ProductosController extends Controller
             $productos = Producto::paginate($perPage);
         }
 
-        return view('vadmin.productos.index', compact('productos'));
+        $dolarsist = Moneda::where('nombre', '=', 'Dolar')->first();
+
+        return view('vadmin.productos.index')->with('productos', $productos)->with('dolarsist', $dolarsist);
     }
 
     //////////////////////////////////////////////////
@@ -42,7 +47,8 @@ class ProductosController extends Controller
     public function ajax_list(Request $request)
     {
         $productos = Producto::orderBy('id', 'DESC')->paginate(20);
-        return view('vadmin/productos/list')->with('productos', $productos);   
+        $dolarsist = Moneda::where('nombre', '=', 'Dolar')->first();
+        return view('vadmin/productos/list')->with('productos', $productos)->with('dolarsist', $dolarsist);   
     }
 
     
@@ -97,43 +103,32 @@ class ProductosController extends Controller
     {
 
         $producto_id  = Producto::orderBy('id','DESC')->first();
-        $proveedor    = Proveedor::orderBy('id','DESC')->first();
+        $proveedor    = Proveedor::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $familias     = Familia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $subfamilias  = Subfamilia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
+        $monedas      = Moneda::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
        
+        if(is_null($producto_id)){
+            $producto_id = 0;
+        }
+
         return view('vadmin.productos.create')
             ->with('producto_id', $producto_id)
             ->with('proveedor', $proveedor)
             ->with('familias', $familias)
-            ->with('subfamilias', $subfamilias);
+            ->with('subfamilias', $subfamilias)
+            ->with('monedas', $monedas);
 
     }
 
-    public function ajax_build_id(Request $request)
-    {
-        
-        
-        $familias = Familia::where('id', '=', $request->id)->first();
+    public function ajax_subfamilias($id) {
 
-        // dd($familias->nombre);
+        $subfamilias = Subfamilia::where('familia_id', '=', $id)->get();
 
-        if (is_null($familias)) {
-            echo 'No Existe';
-            // return response()->json(['id'=>'0']);
-        } else {
-            return response()->json([
-                        'familia'=>$familias->nombre,
-                        'id'     =>$familias->id                    
-                    ]);
-        }
-
+        return response()->json($subfamilias);
 
     }
-    
-    public function ajax_build_id_none(Request $request)
-    {
-        echo 'deadend';
-    }
+
     //////////////////////////////////////////////////
     //                  STORE                       //
     //////////////////////////////////////////////////
@@ -148,35 +143,24 @@ class ProductosController extends Controller
         // ]);
         
         // dd($request->all());
-        
-        $cliente = new Cliente($request->all());
+        $dolarsist = Moneda::where('nombre', '=', 'Dolar')->first();
 
-        $cliente->iva_id          = $request->iva;
-        $cliente->provincia_id    = $request->provincia;
-        $cliente->localidad_id    = $request->localidad;
-        $cliente->limitcred       = $request->limitcred;
-        $cliente->condicventas_id = $request->condicventas;
-        $cliente->listas_id       = $request->listas;
-        $cliente->user_id         = $request->vendedor;
-        $cliente->zona_id         = $request->zona;
-        $cliente->flete_id        = $request->flete;
-        
-        // dd($cliente);
-        
-        $cliente->save();
+        $producto = new Producto($request->all());
 
-        $entrega = new Direntrega();
-        
-        $entrega->nombre         = $request->dirnombre;
-        $entrega->cliente_id   = $request->id_direntrega; 
-        $entrega->localidad_id = '1';
-        $entrega->provincia_id = '1';
-        $entrega->telefono     = '1122122';
+        $producto->preciocosto   = $request->preciocosto / $dolarsist->valor;
+        $producto->preciocosto   = round($producto->preciocosto, 2);
+        $producto->preciooferta  = $request->preciooferta / $dolarsist->valor;
+        $producto->preciooferta   = round($producto->preciooferta, 2);
 
-        // dd($entrega); 
-        $entrega->save();
+        $producto->proveedor_id  = $request->proveedor_id;
+        $producto->familia_id    = $request->familia_id;
+        $producto->subfamilia_id = $request->subfamilia_id;
+
+        // dd($producto);
         
-        Session::flash('flash_message', 'Cliente ingresado correctamente');
+        $producto->save();
+
+        Session::flash('flash_message', 'Producto ingresado correctamente');
 
         return redirect('vadmin/productos');
     }
@@ -185,16 +169,37 @@ class ProductosController extends Controller
     //                  SHOW                        //
     //////////////////////////////////////////////////
 
+
     public function show($id)
     {
+        $dolarsist = Moneda::where('nombre', '=', 'Dolar')->first();
+        $producto  = Producto::findOrFail($id);
 
-        $cliente    = Cliente::findOrFail($id);
-        $dirEntrega = Direntrega::where('client_id', '=', $id);
- 
+        $fullid    = $producto->familia_id.'-'.$id;
+        
+        $valgremiouss      = calcFinalPrice($producto->preciocosto, $producto->pjegremio);
+        $valparticularuss  = calcFinalPrice($producto->preciocosto, $producto->pjeparticular);
+        $valespecialuss    = calcFinalPrice($producto->preciocosto, $producto->pjeespecial);
 
+        $preciocostopesos  = $producto->preciocosto * $dolarsist->valor;
+        $precioofertapesos = $producto->preciooferta * $dolarsist->valor;
+        $valorgremio       = calcFinalPriceConvert($producto->preciocosto, $producto->pjegremio, $dolarsist->valor);
+        $valorparticular   = calcFinalPriceConvert($producto->preciocosto, $producto->pjeparticular, $dolarsist->valor);
+        $valorespecial     = calcFinalPriceConvert($producto->preciocosto, $producto->pjeespecial, $dolarsist->valor);
+  
+        
         return view('vadmin.productos.show')
-            ->with('cliente', $cliente)
-            ->with('dirEntrega', $dirEntrega);
+            ->with('producto', $producto)
+            ->with('fullid', $fullid)
+            ->with('preciocostopesos', $preciocostopesos)
+            ->with('valorgremio', $valorgremio)
+            ->with('valorparticular', $valorparticular)
+            ->with('valorespecial', $valorespecial)
+            ->with('valgremiouss', $valgremiouss)
+            ->with('valparticularuss', $valparticularuss)
+            ->with('valespecialuss', $valespecialuss)
+            ->with('precioofertapesos', $precioofertapesos);
+
     }
 
     //////////////////////////////////////////////////

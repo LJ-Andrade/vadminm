@@ -28,11 +28,44 @@
     <div class="container">
 		<div class="row">
 			<div id="List"></div>
+
 			<br>
 		</div>
 		<button id="BatchDeleteBtn" class="button buttonCancel batchDeleteBtn Hidden"><i class="ion-ios-trash-outline"></i> Eliminar seleccionados</button>
 	</div>  
 	<div id="Error"></div>	
+
+	@component('vadmin.components.modal')
+		
+		@slot('id', 'PriceModal')
+		
+		
+		@slot('title', 'Precios del Producto')
+		
+
+		@slot('content')
+			<div class="row">
+				<div class="col-md-12">
+					Dolar del sistema: <b>{{ $dolarsist->valor }} </b><br>
+				</div>
+				<div class="col-md-6">
+					<div id="PrecioCosto"></div>
+					<div id="PrecioGremio"></div>
+				</div>
+				<div class="col-md-6">
+					<div id="PrecioParticular"></div>
+					<div id="PrecioOferta"></div>
+				</div>
+				<div class="col-md-6">
+					<div id="PrecioEspecial"></div>
+				</div>
+			</div>
+		@endslot
+		
+		@slot('ok_button')
+
+		@endslot
+	@endcomponent
 @endsection
 
 @section('scripts')
@@ -196,13 +229,18 @@
 			dataType: "json",
 			data: {id: id},
 			success: function(data){
-				for(i=0; i < id.length ; i++){
-					$('#Id'+id[i]).hide(200);
-				}
+				// for(i=0; i < id.length ; i++){
+				// 	$('#Id'+id[i]).hide(200);
+				// }
 				$('#BatchDeleteBtn').addClass('Hidden');
 				ajax_list();
+				
 				// $('#Error').html(data.responseText);
 				// console.log(data);
+				console.log(data);
+			},
+			complete: function(){
+				toggleLoader();
 			},
 			error: function(data)
 			{
@@ -214,6 +252,30 @@
 	}
 	//// 
 
+	/////////////////////////////////////////////////
+    //                PRICES MODAL                 //
+    /////////////////////////////////////////////////
+
+	$(document).ready(function(){
+	
+	
+		$(document).on('click', '.ShowPriceBtn', function(e) { 
+			var precioCosto      = $(this).data('costo');
+			var precioGremio     = $(this).data('gremio');
+			var precioParticular = $(this).data('particular');
+			var precioOferta     = $(this).data('oferta');
+			var precioEspecial   = $(this).data('especial');
+
+			console.log(precioCosto);
+
+			$('#PrecioCosto').html('Precio de costo: <b>$ ' + precioCosto + '</b>');
+			$('#PrecioGremio').html('Precio al gremio: <b>$ ' + precioGremio + '</b>');
+			$('#PrecioParticular').html('Precio a particular: <b>$ ' + precioParticular + '</b>');
+			$('#PrecioOferta').html('Precio de oferta: <b>$ ' + precioOferta + '</b>');
+			$('#PrecioEspecial').html('Precio especial: <b>$ ' + precioEspecial + '</b>');
+		});
+		
+	});
 	</script>
 
 @endsection

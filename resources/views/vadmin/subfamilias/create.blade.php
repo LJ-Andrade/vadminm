@@ -3,7 +3,7 @@
 @section('title', 'Vadmin | Subfamilias')
 
 @section('header')
-	@section('header_title', 'Creación de Subfamilias') 
+	@section('header_title', 'Subfamilias') 
 	@section('options')
 		<div class="actions">
 			<a href="{{ url('vadmin/subfamilias') }}"><button type="button" class="animated fadeIn btnSm buttonOther">Volver</button></a>
@@ -22,14 +22,14 @@
             {!! Form::open(['url' => 'vadmin/subfamilias', 'data-parsley-validate' => '']) !!}
             <div class="row inner">
                 <div class="col-md-12 title">
-                    <span><i class="ion-plus-round"></i> Creación de Nuevo Item</span>
+                    <span><i class="ion-plus-round"></i> Creación de Subfamilia</span>
                     <a href="{{ url('vadmin/subfamilias') }}"><div class="close-btn2"><i class="ion-close-round"></i></div></a>
                 </div>
                 <div class=" col-md-12 form-group">
-                    {!! Form::label('nombre', 'Nombre:') !!}
-                    {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el nombre del item', 'required' => '']) !!} 
-                    {!! Form::label('proveedor_id', 'Proveedor:') !!}
-                    {!! Form::select('proveedor_id', $proveedores, null, ['class' => 'form-control', 'placeholder' => 'Ingrese el nombre del proveedor','required' => '']) !!} 
+                    {!! Form::label('familia_id', 'Familia:') !!}
+                    {!! Form::select('familia_id', $familias, null, ['class' => 'form-control', 'placeholder' => 'Seleccione la familia','required' => '']) !!} 
+                    {!! Form::label('nombre', 'Subfamilia:') !!}
+                    {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el nombre de la subfamilia', 'required' => '']) !!} 
                 </div>
                 <div class="col-md-12 actions">
                     {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Crear', ['class' => 'animated fadeIn button buttonOk pull-right']) !!}

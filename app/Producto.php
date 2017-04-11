@@ -11,18 +11,20 @@ class Producto extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = [ 'nombre', 'unidad', 'estado', 'stockactual', 'stockmin', 'stockmax', 'preciocompra', 'preciocosto',
-                            'preciogremio', 'precioparticular', 'precioespecial', 'preciooferta', 'proveedor_id', 'familia_id', 'subfamilia_id'];
+
+    protected $fillable = [ 'nombre', 'stockactual', 'condiva', 'codproveedor', 'stockmin', 'stockmax', 'preciocompra',
+                            'preciocosto', 'pjegremio', 'pjeparticular', 'pjeespecial', 'preciooferta', 'cantoferta', 'estado', 'proveedor_id','familia_id', 
+                            'subfamilia_id' ];
     
     public function proveedor(){
     	return $this->belongsTo('App\Proveedor');
     }
     
-    public function familias(){
+    public function familia(){
     	return $this->belongsTo('App\Familia');
     }
 
-    public function subfamilias(){
+    public function subfamilia(){
     	return $this->belongsTo('App\Subfamilia');
     }
 }

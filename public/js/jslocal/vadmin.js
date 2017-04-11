@@ -238,7 +238,13 @@ function alert_info(bigtext, smalltext){
 		confirmButtonText:
 			'<i class="ion-checkmark-round"></i> Ok!'
 		});
+}
 
+function calcPtje(preciocosto, pjegremio){
+	var calc   = parseFloat(preciocosto) * parseFloat(pjegremio) / 100;
+	var result = parseFloat(preciocosto) + parseFloat(calc);
+	var result = Math.round(result*Math.pow(10,2))/Math.pow(10,2);
+	return result;
 }
 
 //////////////////////////////
@@ -263,11 +269,6 @@ $('.OpenFilters').click(function(){
 	$('.Search-Filters').fadeIn(200);
 });
 
-//////////////////////////////
-// 							//
-//        LOADER            //
-//                          //
-//////////////////////////////
 
 //////////////////////////////
 // 							//

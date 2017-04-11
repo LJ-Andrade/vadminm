@@ -11,11 +11,11 @@ class Subfamilia extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['nombre', 'proveedor_id'];
+    protected $fillable = ['nombre', 'familia_id'];
 
-    public function proveedor()
+    public function familia()
 	{
-	    return $this->belongsTo('App\Proveedor','proveedor_id');
+	    return $this->belongsTo('App\Familia');
 	}
     
     public function productos()

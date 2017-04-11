@@ -6,7 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Subfamilia;
-use App\Proveedor;
+use App\Familia;
 use Illuminate\Http\Request;
 use Session;
 
@@ -39,9 +39,9 @@ class SubfamiliasController extends Controller
     public function create()
     {
 
-        $proveedores = Proveedor::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
+        $familias = Familia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
 
-        return view('vadmin.subfamilias.create')->with('proveedores', $proveedores);
+        return view('vadmin.subfamilias.create')->with('familias', $familias);
 
     }
 
@@ -54,12 +54,12 @@ class SubfamiliasController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'nombre'              => 'required|unique:subfamilias,nombre',
-        ],[
-            'nombre.required'     => 'Debe ingresar un nombre',
-            'nombre.unique'      => 'El item ya existe',
-        ]);
+        // $this->validate($request,[
+        //     'nombre'              => 'required|unique:subfamilias,nombre',
+        // ],[
+        //     'nombre.required'     => 'Debe ingresar un nombre',
+        //     'nombre.unique'      => 'El item ya existe',
+        // ]);
 
 
         
@@ -96,8 +96,9 @@ class SubfamiliasController extends Controller
     public function edit($id)
     {
         $subfamilia = Subfamilia::findOrFail($id);
+        $familia    = Familia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
 
-        return view('vadmin.subfamilias.edit', compact('subfamilia'));
+        return view('vadmin.subfamilias.edit')->with('subfamilia', $subfamilia)->with('familia', $familia);
     }
 
     /**
@@ -111,12 +112,12 @@ class SubfamiliasController extends Controller
     public function update($id, Request $request)
     {
 
-        $this->validate($request,[
-            'nombre'              => 'required|unique:subfamilias,nombre',
-        ],[
-            'nombre.required'     => 'Debe ingresar un nombre',
-            'nombre.unique'      => 'El item ya existe',
-        ]);
+        // $this->validate($request,[
+        //     'nombre'              => 'required|unique:subfamilias,nombre',
+        // ],[
+        //     'nombre.required'     => 'Debe ingresar un nombre',
+        //     'nombre.unique'      => 'El item ya existe',
+        // ]);
 
 
         

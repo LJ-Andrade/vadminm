@@ -161,8 +161,7 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::post('ajax_delete_producto/{id}', 'Productos\ProductosController@destroy');
 	Route::post('ajax_batch_delete_productos/{id}', 'Productos\ProductosController@ajax_batch_delete');
 
-	Route::post('ajax_build_id/{id}', 'Productos\ProductosController@ajax_build_id');
-	// Route::get('ajax_build_id/', 'Productos\ProductosController@ajax_build_id_none');
+	Route::get('/productos_subfamilias/{id}', 'Productos\ProductosController@ajax_subfamilias');
 
 });
 

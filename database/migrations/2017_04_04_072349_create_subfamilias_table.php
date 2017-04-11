@@ -14,8 +14,8 @@ class CreateSubfamiliasTable extends Migration
     {
         Schema::create('subfamilias', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('proveedor_id')->unsigned();
-            $table->foreign('proveedor_id')->references('id')->on('proveedores');
+            $table->integer('familia_id')->unsigned();
+            $table->foreign('familia_id')->references('id')->on('familias');
             $table->timestamps();
         });
     }

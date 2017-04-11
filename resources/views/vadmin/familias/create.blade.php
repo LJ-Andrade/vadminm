@@ -3,7 +3,7 @@
 @section('title', 'Vadmin | Familias')
 
 @section('header')
-	@section('header_title', 'Creación de Familias') 
+	@section('header_title', 'Familias') 
 	@section('options')
 		<div class="actions">
 			<a href="{{ url('vadmin/familias') }}"><button type="button" class="animated fadeIn btnSm buttonOther">Volver</button></a>
@@ -22,7 +22,7 @@
             {!! Form::open(['url' => 'vadmin/familias', 'data-parsley-validate' => '']) !!}
             <div class="row inner">
                 <div class="col-md-12 title">
-                    <span><i class="ion-plus-round"></i> Creación de Nuevo Item</span>
+                    <span><i class="ion-plus-round"></i> Creación de Familia</span>
                     <a href="{{ url('vadmin/familias') }}"><div class="close-btn2"><i class="ion-close-round"></i></div></a>
                 </div>
                 <div class=" col-md-12 form-group">

@@ -22,10 +22,11 @@ class CreateProductosTable extends Migration
             $table->integer('stockmax');
             $table->integer('preciocompra');
             $table->integer('preciocosto');
-            $table->integer('preciogremio');
-            $table->integer('precioparticular');
-            $table->integer('precioespecial');
-            $table->integer('preciooferta');
+            $table->integer('pjegremio');
+            $table->integer('pjeparticular');
+            $table->integer('pjeespecial');
+            $table->integer('preciooferta')->nullabble();
+            $table->integer('cantoferta')->nullabble();
 
             $table->integer('proveedor_id')->unsigned();
             $table->foreign('proveedor_id')->references('id')->on('proveedores');

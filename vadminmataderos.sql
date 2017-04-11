@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-04-2017 a las 19:55:07
+-- Tiempo de generación: 11-04-2017 a las 13:59:34
 -- Versión del servidor: 10.1.19-MariaDB
 -- Versión de PHP: 5.6.28
 
@@ -152,7 +152,8 @@ INSERT INTO `clientes` (`id`, `razonsocial`, `cuit`, `dirfiscal`, `codpostal`, `
 (97, 'FRECHERO ARTURO ISMAEL', '', '', 0, 0, NULL, NULL, NULL, '', '', 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (98, 'BONELLI MIGUEL', '', '', 0, 0, NULL, NULL, NULL, '', '', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (99, 'EDUARDO ROSA', '', '', 0, 0, NULL, NULL, NULL, '', '', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(101, 'Test S.A', '11-11111121-2', 'Directorio 4750', 1454, 5000, '4545-4545', '(15)5454-5445', 'mail@test.com', 'Gremio', 'Ninguno', 1, 3, 145, 4, 1, 3, 3, 1, '2017-03-28 04:06:37', '2017-03-28 04:06:37');
+(101, 'Test S.A', '11-11111121-2', 'Directorio 4750', 1454, 5000, '4545-4545', '(15)5454-5445', 'mail@test.com', 'Gremio', 'Ninguno', 1, 3, 145, 4, 1, 3, 3, 1, '2017-03-28 04:06:37', '2017-03-28 04:06:37'),
+(102, '', '', '', 0, NULL, NULL, NULL, NULL, '', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-04-11 03:36:08', '2017-04-11 03:36:08');
 
 -- --------------------------------------------------------
 
@@ -346,8 +347,7 @@ CREATE TABLE `familias` (
 
 INSERT INTO `familias` (`id`, `nombre`, `proveedor_id`, `created_at`, `updated_at`) VALUES
 (2, 'Lavarropas', 1, '2017-04-04 02:20:23', '2017-04-04 02:20:23'),
-(3, 'Aire Acondicionados', 1, '2017-04-04 02:20:32', '2017-04-06 10:02:52'),
-(9, 'Respuestos', NULL, '2017-04-06 10:03:13', '2017-04-06 10:03:13');
+(3, 'Aire Acondicionados', 1, '2017-04-04 02:20:32', '2017-04-06 10:02:52');
 
 -- --------------------------------------------------------
 
@@ -2871,7 +2871,7 @@ CREATE TABLE `monedas` (
 
 INSERT INTO `monedas` (`id`, `nombre`, `valor`, `created_at`, `updated_at`) VALUES
 (1, 'Pesos', 1, '2017-04-04 07:09:12', '2017-04-04 08:51:23'),
-(8, 'Dolar', 15.88, '2017-04-04 07:18:29', '2017-04-06 02:54:26'),
+(8, 'Dolar', 17, '2017-04-04 07:18:29', '2017-04-11 13:38:35'),
 (9, 'Euro', 18.54, '2017-04-04 07:18:37', '2017-04-04 07:24:07');
 
 -- --------------------------------------------------------
@@ -2895,17 +2895,18 @@ CREATE TABLE `password_resets` (
 CREATE TABLE `productos` (
   `id` int(10) UNSIGNED NOT NULL,
   `nombre` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `unidad` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `estado` enum('activo','pausado') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'activo',
+  `codproveedor` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `condiva` int(10) NOT NULL,
   `stockactual` int(11) NOT NULL,
   `stockmin` int(11) NOT NULL,
   `stockmax` int(11) NOT NULL,
-  `preciocompra` int(11) NOT NULL,
   `preciocosto` int(11) NOT NULL,
-  `preciogremio` int(11) NOT NULL,
-  `precioparticular` int(11) NOT NULL,
-  `precioespecial` int(11) NOT NULL,
-  `preciooferta` int(11) NOT NULL,
+  `pjegremio` int(11) NOT NULL,
+  `pjeparticular` int(11) NOT NULL,
+  `pjeespecial` int(11) NOT NULL,
+  `preciooferta` int(11) DEFAULT NULL,
+  `cantoferta` int(10) DEFAULT NULL,
   `proveedor_id` int(10) UNSIGNED NOT NULL,
   `familia_id` int(10) UNSIGNED NOT NULL,
   `subfamilia_id` int(10) UNSIGNED NOT NULL,
@@ -2917,8 +2918,12 @@ CREATE TABLE `productos` (
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`id`, `nombre`, `unidad`, `estado`, `stockactual`, `stockmin`, `stockmax`, `preciocompra`, `preciocosto`, `preciogremio`, `precioparticular`, `precioespecial`, `preciooferta`, `proveedor_id`, `familia_id`, `subfamilia_id`, `created_at`, `updated_at`) VALUES
-(2, 'dqedqwdq', 'qwqwe', 'activo', 32, 21, 21, 21, 21, 2, 121, 12, 21, 9, 2, 3, NULL, NULL);
+INSERT INTO `productos` (`id`, `nombre`, `estado`, `codproveedor`, `condiva`, `stockactual`, `stockmin`, `stockmax`, `preciocosto`, `pjegremio`, `pjeparticular`, `pjeespecial`, `preciooferta`, `cantoferta`, `proveedor_id`, `familia_id`, `subfamilia_id`, `created_at`, `updated_at`) VALUES
+(4, 'Aire 3200F', 'activo', 'W1212', 21, 50, 50, 100, 6000, 6900, 7200, 7500, 0, NULL, 12, 3, 9, '2017-04-11 05:22:05', '2017-04-11 05:22:05'),
+(8, 'Secarropa', 'activo', 'JD5360', 21, 12, 12, 12, 1500, 12, 13, 14, 1212, NULL, 12, 3, 9, '2017-04-11 05:58:24', '2017-04-11 05:58:24'),
+(11, 'Aire Acondicionado', 'activo', 'JD5360', 21, 50, 50, 100, 384, 25, 30, 20, 6500, NULL, 12, 3, 9, '2017-04-11 07:20:24', '2017-04-11 07:20:24'),
+(16, 'Filtros', 'activo', '121212', 21, 100, 100, 150, 9, 30, 35, 15, 180, 10, 12, 3, 5, '2017-04-11 14:02:07', '2017-04-11 14:02:07'),
+(17, 'Filtros', 'activo', '121212', 21, 100, 100, 150, 9, 30, 35, 15, 11, 10, 12, 3, 5, '2017-04-11 14:04:49', '2017-04-11 14:04:49');
 
 -- --------------------------------------------------------
 
@@ -2950,9 +2955,6 @@ CREATE TABLE `proveedores` (
 --
 
 INSERT INTO `proveedores` (`id`, `nombre`, `razonsocial`, `cuit`, `ingbrutos`, `telefonos`, `email`, `direccion`, `pais`, `codpostal`, `notas`, `iva_id`, `localidad_id`, `provincia_id`, `created_at`, `updated_at`) VALUES
-(9, 'Lavarropas22', 'Extreme Air Aconditionated22e', '12-12121121-2', '21121212', '21221212', 'javzero@hotmail.com2', 'DIreccion 1212', NULL, '1212', 'dasdasdasdasdasdas', 1, 968, 3, '2017-04-04 12:52:43', '2017-04-04 12:52:43'),
-(10, '32323', 'Extreme Air Ac2332', '12-12112212-2', '212122', '4545-4545', 'javzero@hotmail.com1', 'DIreccion 1212', 'Argentina', '1545', 'dasdasdasadadasds', 1, 968, 1, '2017-04-04 12:54:31', '2017-04-04 12:54:31'),
-(11, 'Studio Vimana', 'Violeta Raffin', '12-54546546-5', '5465456456456', '5455-4545', 'info@studiovimana.com.ar', 'Palliere 1372', 'Argentina', '1407', 'Desarrolladores del sistema VADmin.', 4, 1546, 1, '2017-04-04 18:35:31', '2017-04-04 18:35:31'),
 (12, 'Whirpool', 'Whirpool S.A.', '21-21212122-1', '121212212', '4545-4545', 'javzero@hotmail.com2', 'DIreccion 1212', 'Argentina', '1515', '<p>Notas sobre el proveedor</p><p><br></p>', 1, 143, 1, '2017-04-05 05:59:08', '2017-04-05 05:59:08');
 
 -- --------------------------------------------------------
@@ -3008,7 +3010,7 @@ INSERT INTO `provincias` (`id`, `name`, `created_at`, `updated_at`) VALUES
 CREATE TABLE `subfamilias` (
   `id` int(10) UNSIGNED NOT NULL,
   `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `proveedor_id` int(10) UNSIGNED NOT NULL,
+  `familia_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -3017,8 +3019,13 @@ CREATE TABLE `subfamilias` (
 -- Volcado de datos para la tabla `subfamilias`
 --
 
-INSERT INTO `subfamilias` (`id`, `nombre`, `proveedor_id`, `created_at`, `updated_at`) VALUES
-(3, 'Chatarra', 9, '2017-04-04 13:00:55', '2017-04-04 13:00:55');
+INSERT INTO `subfamilias` (`id`, `nombre`, `familia_id`, `created_at`, `updated_at`) VALUES
+(5, 'Repuestos', 3, '2017-04-10 03:26:57', '2017-04-10 03:26:57'),
+(6, 'Filtros', 3, '2017-04-10 03:28:54', '2017-04-10 03:35:56'),
+(7, 'Motores', 2, '2017-04-10 03:29:44', '2017-04-10 03:29:44'),
+(8, 'Respuestos', 2, '2017-04-10 03:30:13', '2017-04-10 03:30:13'),
+(9, 'Equipo', 3, '2017-04-11 05:20:18', '2017-04-11 05:20:18'),
+(10, 'Equipo', 2, '2017-04-11 05:21:10', '2017-04-11 05:21:10');
 
 -- --------------------------------------------------------
 
@@ -3067,7 +3074,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `avatar`, `password`, `type`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Leandro', 'javzero@hotmail.com', '1490141701.jpg', '$2y$10$cgDhH3RbTDKqRSm0ALRZteC2EVE2h58QVaXQO1GQ5trzVsrmIEqEm', 'superadmin', 'none', 'G6ln0HCMfgSNjYKAvLuFwl75EzanOWpLUHkqg8fWYny9ne072uDfyS86Xap2', '2009-10-27 06:37:05', '2017-03-22 03:15:02'),
+(1, 'Leandro', 'javzero@hotmail.com', '1491501555.jpg', '$2y$10$cgDhH3RbTDKqRSm0ALRZteC2EVE2h58QVaXQO1GQ5trzVsrmIEqEm', 'superadmin', 'none', 'G6ln0HCMfgSNjYKAvLuFwl75EzanOWpLUHkqg8fWYny9ne072uDfyS86Xap2', '2009-10-27 06:37:05', '2017-04-06 20:59:16'),
 (3, 'Julian', 'julian@hotmail.com', '', '$2y$10$Z3WB/YZH8vGmf93N3PTsw.H0AYCf9pMJtDtab/4nZbeDMYYValcKO', 'user', 'seller', NULL, '2017-03-26 07:20:28', '2017-03-28 03:13:12'),
 (4, 'Pablo', 'pablo@hotmail.com', '', '$2y$10$JYcb1N2Sqs2FAtaWB0SekO/GKkJ16SUcdQ/PXH7u0bSdVl1MptFpG', 'admin', 'seller', NULL, '2017-03-20 07:58:24', '2017-03-28 03:46:32'),
 (5, 'Juanjo', 'juanjo@hotmail.com', '', '$2y$10$s06ZXneElpIWSUFhz.h8xe/BzoZaOolL9s1CwWF/oNYPOt0mDSulK', 'admin', 'seller', NULL, '2017-03-20 07:58:35', '2017-03-28 03:52:24');
@@ -3212,7 +3219,7 @@ ALTER TABLE `provincias`
 --
 ALTER TABLE `subfamilias`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `subfamilias_proveedor_id_foreign` (`proveedor_id`);
+  ADD KEY `subfamilias_proveedor_id_foreign` (`familia_id`);
 
 --
 -- Indices de la tabla `tipocts`
@@ -3241,7 +3248,7 @@ ALTER TABLE `zonas`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 --
 -- AUTO_INCREMENT de la tabla `clientes_razonsocial`
 --
@@ -3261,7 +3268,7 @@ ALTER TABLE `direntregas`
 -- AUTO_INCREMENT de la tabla `familias`
 --
 ALTER TABLE `familias`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `fletes`
 --
@@ -3296,7 +3303,7 @@ ALTER TABLE `monedas`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
 --
@@ -3311,12 +3318,12 @@ ALTER TABLE `provincias`
 -- AUTO_INCREMENT de la tabla `subfamilias`
 --
 ALTER TABLE `subfamilias`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `tipocts`
 --
 ALTER TABLE `tipocts`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `users`
 --

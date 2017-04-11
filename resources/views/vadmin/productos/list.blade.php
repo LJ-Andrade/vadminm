@@ -14,10 +14,11 @@
 			</div>
 			{{-- Column --}}
 			<div class="col-xs-6 col-sm-3 col-md-4 mobile-hide inner-tags">
-				
+				<span class="small-text">@if(is_null($item->familia)) @else Familia: {{  $item->familia->nombre }} @endif</span> <br>
+				<span class="small-text">@if(is_null($item->subfamilia)) @else Subfamilia: {{ $item->subfamilia->nombre }} @endif</span> <br>
 			</div>
             <div class="col-md-3">
-            
+				<span class="small-text">@if(is_null($item->stockactual)) @else Stock: {{ $item->stockactual }} @endif</span> <br>
             </div>
 		</div>
 		{{-- Batch Delete --}} 
@@ -26,6 +27,14 @@
 		</div>
 		{{-- Hidden Action Buttons --}}
 		<div class="List-Actions lists-actions Hidden">
+			<a class="ShowPriceBtn btnSmall buttonOk" data-toggle="modal" data-target="#PriceModal" 
+				data-costo="{{ $item->preciocosto}}" 
+				data-gremio="{{ $item->preciogremio }}" 
+				data-particular="{{ $item->precioparticular }}" 
+				data-oferta="{{ $item->preciooferta }}" 
+				data-especial="{{ $item->precioespecial }}">
+				<i class="ion-social-usd"></i>
+			</a>
 			<a class="ShowEditBtn btnSmall buttonOk" data-id="{{ $item->id }}">
 				<i class="ion-ios-compose-outline"></i>
 			</a>
