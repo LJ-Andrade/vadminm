@@ -286,7 +286,7 @@ $(document).ajaxComplete(function(){
 
 function toggleLoader(){
   $('.Main-Loader').toggleClass('Hidden');
-    if (!$('.main-loader').hasClass('Hidden')) {
+    if (!$('.Main-loader').hasClass('Hidden')) {
       // This prevents scroll on loader
       $('html').css({ 'overflow': 'hidden', 'height': '100%' });
     } else {

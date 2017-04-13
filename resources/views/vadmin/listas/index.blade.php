@@ -41,8 +41,8 @@
                         <div class="col-xs-6 col-sm-3 col-md-4 mobile-hide inner-tags">
                         </div>                        
                     </div>
+					{{-- Batch Delete --}} 
 					<div class="batch-delete-checkbox">
-						{{-- Batch Delete --}} 
 						<input type="checkbox" class="BatchDelete" data-id="{{ $item->id }}">
 					</div>
                     {{-- Hidden Action Buttons --}}

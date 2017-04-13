@@ -11,7 +11,7 @@ class Cliente extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['id', 'razonsocial', 'cuit', 'dirfiscal', 'codpostal', 'limitcred', 'telefono', 'celular', 'email', 'tipo', 'descuento',
+    protected $fillable = ['id', 'razonsocial', 'cuit', 'dirfiscal', 'codpostal', 'limitcred', 'telefono', 'celular', 'email', 'tipo_id', 'descuento',
     'iva_id', 'provincia_id', 'localidad_id', 'condicventas_id', 'user_id', 'listas_id', 'zona_id', 'flete_id'];
 
     public function iva(){
@@ -44,6 +44,10 @@ class Cliente extends Model
 
     public function flete(){
     	return $this->belongsTo('App\Flete');
+    }
+
+    public function tipocts(){
+    	return $this->belongsTo('App\Tipoct');
     }
 
     public function direntregas(){

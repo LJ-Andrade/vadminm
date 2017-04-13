@@ -155,14 +155,18 @@ class ClientesController extends Controller
 
         $entrega = new Direntrega();
         
-        $entrega->name         = $request->dirname;
-        $entrega->cliente_id   = $request->id_direntrega; 
-        $entrega->localidad_id = '1';
-        $entrega->provincia_id = '1';
-        $entrega->telefono     = '1122122';
+        if (is_null($request->dirname)) {
 
-        // dd($entrega); 
-        $entrega->save();
+        } else {
+
+            $entrega->name         = $request->dirname;
+            $entrega->cliente_id   = $request->id_direntrega; 
+            $entrega->localidad_id = $request->dirlocalidad_id;
+            $entrega->provincia_id = $request->dirprovincia_id;
+            $entrega->telefono     = $request->dirtelefono;
+
+            $entrega->save();
+        }
         
         Session::flash('flash_message', 'Cliente ingresado correctamente');
 
@@ -180,7 +184,6 @@ class ClientesController extends Controller
         $cliente    = Cliente::findOrFail($id);
         $dirEntrega = Direntrega::where('client_id', '=', $id);
  
-
         return view('vadmin.clientes.show')
             ->with('cliente', $cliente)
             ->with('dirEntrega', $dirEntrega);
@@ -194,30 +197,46 @@ class ClientesController extends Controller
 
     public function edit($id)
     {
-        $cliente = Cliente::findOrFail($id);
-
-        return view('vadmin.clientes.edit', compact('cliente'));
+        $cliente      = Cliente::findOrFail($id);
+        $cliente_id   = Cliente::orderBy('id','DESC')->first();
+        $dirEntrega   = Direntrega::where('client_id', '=', $id);
+        $provincias   = Provincia::orderBy('name', 'ASC')->pluck('name', 'id');
+        $localidades  = Localidade::orderBy('name', 'ASC')->pluck('name', 'id');
+        $iva          = Iva::orderBy('name', 'ASC')->pluck('name', 'id');
+        $condicventas = Condicventa::orderBy('name', 'ASC')->pluck('name', 'id');
+        $users        = User::where('role', '=', 'seller')->pluck('name', 'id');
+        $flete        = Flete::orderBy('name', 'ASC')->pluck('name', 'id');
+        $zona         = Zona::orderBy('name', 'ASC')->pluck('name', 'id');
+        $lista        = Lista::orderBy('name', 'ASC')->pluck('name', 'id');
+        $tipo         = Tipoct::orderBy('name', 'ASC')->pluck('name', 'id');
+        return view('vadmin.clientes.edit')
+            ->with('cliente', $cliente)
+            ->with('cliente_id', $cliente_id)
+            ->with('provincias', $provincias)
+            ->with('localidades', $localidades)
+            ->with('iva', $iva)
+            ->with('condicventas', $condicventas)
+            ->with('users', $users)
+            ->with('flete', $flete)
+            ->with('zona', $zona)
+            ->with('lista', $lista)
+            ->with('tipo', $tipo);
     }
 
     public function update($id, Request $request)
     {
-
-        $this->validate($request,[
-            'name'              => 'required|unique:clientes,name',
-        ],[
-            'name.required'     => 'Debe ingresar un nombre',
-            'name.unique'      => 'El item ya existe',
-        ]);
-
-
-        
-        $requestData = $request->all();
+        // $this->validate($request,[
+        //     'razonsocial'          => 'required|unique:clientes,razonsocial',
+        // ],[
+        //     'razonsocial.required' => 'Debe ingresar un nombre',
+        //     'razonsocial.unique'   => 'La razon social ya existe',
+        // ]);
         
         $cliente = Cliente::findOrFail($id);
-        $cliente->update($requestData);
-
-        Session::flash('flash_message', 'Cliente updated!');
-
+        $cliente->fill($request->all());
+        $cliente->save();
+        
+        Session::flash('flash_message', 'Cliente actualizado!');
         return redirect('vadmin/clientes');
     }
 
@@ -228,7 +247,7 @@ class ClientesController extends Controller
     // ---------- Delete -------------- //
     public function destroy($id)
     {
-        $item = Cliente::find($id);
+        $item    = Cliente::find($id);
         $item->delete();
         echo 1;
     }
@@ -238,7 +257,6 @@ class ClientesController extends Controller
     public function ajax_batch_delete(Request $request, $id)
     {
         foreach ($request->id as $id) {
-        
             $item  = Cliente::find($id);
             Cliente::destroy($id);
         }

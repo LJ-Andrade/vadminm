@@ -34,7 +34,6 @@
                         <b>Código: </b>  {{ $fullid }} <br>
                         <b>Familia: </b>  @if(is_null($producto->familia->nombre)) @else {{ $producto->familia->nombre }} @endif <br>
                         <b>Subfamilia: </b>  @if(is_null($producto->subfamilia->nombre)) @else {{ $producto->subfamilia->nombre }} @endif <br>
-                        
                     </div>
                     <div class="col-md-6">
                         <div class="subtitle">Proveedor</div>

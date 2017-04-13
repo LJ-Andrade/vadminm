@@ -27,12 +27,13 @@
 	@include('vadmin.clientes.searcher')
     <div class="container">
 		<div class="row">
+			<div id="Error"></div>	
 			<div id="List"></div>
 			<br>
 		</div>
 		<button id="BatchDeleteBtn" class="button buttonCancel batchDeleteBtn Hidden"><i class="ion-ios-trash-outline"></i> Eliminar seleccionados</button>
 	</div>  
-	<div id="Error"></div>	
+	
 @endsection
 
 @section('scripts')
@@ -161,6 +162,7 @@
 					alert_ok('Ok!','Eliminación completa');
 				} else {
 					alert_error('Ups!','Ha ocurrido un error');
+					$('#Error').html(data.responseText);
 				}
 			},
 			error: function(data)

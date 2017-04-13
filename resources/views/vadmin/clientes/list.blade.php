@@ -29,7 +29,7 @@
 		</div>
 		{{-- Hidden Action Buttons --}}
 		<div class="List-Actions lists-actions Hidden">
-			<a class="ShowEditBtn btnSmall buttonOk" data-id="{{ $item->id }}">
+			<a href="{{ url('vadmin/clientes/' . $item->id . '/edit') }}" class="ShowEditBtn btnSmall buttonOk" data-id="{{ $item->id }}">
 				<i class="ion-ios-compose-outline"></i>
 			</a>
 			<a href="{{ url('vadmin/clientes/'. $item->id) }}" class="btnSmall buttonOther">
