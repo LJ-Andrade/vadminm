@@ -58,19 +58,15 @@
 		$.ajax({
 			type: 'get',
 			url: '{{ url('vadmin/ajax_list_clients') }}',
-			beforeSend: function(){
-				// $('#Loader').show();
-			},
 			success: function(data){
-				// $('#Loader').hide();
+				$('#Loader').hide();
 				$('#List').empty().html(data);
 			},
 			complete(){
-				// $('#Loader').hide();
+				$('#Loader').hide();
 			},
 			error: function(data){
 				console.log(data)
-				// $('#Loader').hide();
 				//$('#Error').html(data.responseText);
 			}
 		});

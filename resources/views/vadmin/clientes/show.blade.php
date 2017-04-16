@@ -75,7 +75,6 @@
 					<b>Flete:</b>
 					@if(is_null($cliente->flete)) @else {{ $cliente->flete->name }} @endif
 				</div>
-				{{ dd($cliente)}}
 				@if(count($cliente->direntregas)==0)
 				@else
 				<div class="row">

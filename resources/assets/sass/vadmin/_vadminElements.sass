@@ -623,6 +623,7 @@ $phvFsize: 0.9rem
 	color: #000
 	padding: 1px 8px
 	border-radius: 50%
+	border: 0
 	font-size: 0.8rem
 	width: 25px
 	height: 25px
@@ -632,6 +633,8 @@ $phvFsize: 0.9rem
 	@include transition(0.2s)
 	&:hover
 		cursor: pointer
+
+
 
 //////////////////////////////////////
 //                                  //
@@ -1121,3 +1124,35 @@ $phvFsize: 0.9rem
 	.horiz-double-input
 		.inner2
 			max-width: 200px
+
+
+
+//////////////////////////////////////
+//                                  //
+//             ERRORS               //
+//                                  //
+//////////////////////////////////////
+
+.error-display
+	position: absolute
+	width: 50px
+	height: 50px
+	@include flex-column
+	right: 40px
+	bottom: 50px
+	border-radius: 10px
+	background-color: $dark2
+	i
+		color: #fff
+		font-size: 2rem
+	&:hover
+		cursos: pointer
+
+.main-error
+	position: absolute
+	width: 100%
+	height: 100%
+	z-index: 9999
+	background-color: #000
+
+	
