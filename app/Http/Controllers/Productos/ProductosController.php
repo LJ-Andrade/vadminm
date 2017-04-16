@@ -186,8 +186,7 @@ class ProductosController extends Controller
         $valorgremio       = calcFinalPriceConvert($producto->preciocosto, $producto->pjegremio, $dolarsist->valor);
         $valorparticular   = calcFinalPriceConvert($producto->preciocosto, $producto->pjeparticular, $dolarsist->valor);
         $valorespecial     = calcFinalPriceConvert($producto->preciocosto, $producto->pjeespecial, $dolarsist->valor);
-  
-        
+          
         return view('vadmin.productos.show')
             ->with('producto', $producto)
             ->with('fullid', $fullid)
