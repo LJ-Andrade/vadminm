@@ -44,7 +44,7 @@ class ClientesController extends Controller
 
     public function ajax_list(Request $request)
     {
-        $clientes = Cliente::orderBy('id', '2DESC')->paginate(20);
+        $clientes = Cliente::orderBy('id', 'DESC')->paginate(20);
         return view('vadmin/clientes/list')->with('clientes', $clientes);   
     }
 

@@ -301,3 +301,14 @@ function toggleLoader(){
 //                          //
 //////////////////////////////
 
+// $('#MainError')
+// $('.CloseMainError')
+
+// $('#CloseMainError').click(function(){
+// 	console.log();
+// 	$('#MainError').addClass('Hidden');
+// });
+
+// $('.CloseMainError').click(function(){
+// 		console.log();
+// });

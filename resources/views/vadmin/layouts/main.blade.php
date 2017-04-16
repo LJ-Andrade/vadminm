@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>@yield('title')</title>
 	<meta name="csrf-token" content="{{ csrf_token() }}">
-	<meta name="description" content="VADmin | Gestor de Contenidos" />
+	<meta name="description" content="VADmin | Gestor de Con2tenidos" />
 	<meta name="keywords" content="Diseño Web, diseño grafico, web, sitio web, paginas web, programacion, sistemas, administracion, gestores, contenido, publicidad, internet, redes sociales" />
 	<meta name="author" content="Studio Vimana" />
 
@@ -24,11 +24,11 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/vadmin.css') }}">
 </head>
 	<body>
-		<div id="Error-Display" class="error-display">
-			<i class="ion-ios-information"></i>
+		<div id="ErrorDisplay1" class="error-display">
+			<i class="ion-ios-information"></i> 
 		</div>
-		<div id="Main-Error" class="main-error"><button class="close-btn2">X</button></div>
-		@include('vadmin.layouts.partials.full')
+		<div id="MainError" class="main-error"><button id="CloseMainError" class="close-btn2">12X</button></div>
+		{{-- @include('vadmin.layouts.partials.full') --}}
 		<header>
 			@include('vadmin.layouts.partials.nav')
 		</header>

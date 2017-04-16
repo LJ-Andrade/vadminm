@@ -17,8 +17,7 @@
 			<span class="badge">{{ $vendedor->name }}</span>
 			@endforeach
 			<hr>
-			
-			
+						
 		</div>
 		<div class="row">
 			{{-- <iframe src="http://ws.geeklab.com.ar/dolar/dolar-iframe.php" height="60" width="160" frameborder="0" scrolling="no"></iframe> --}}
