@@ -54,4 +54,12 @@ class Cliente extends Model
     	return $this->hasMany('App\Direntrega');
     }
 
+    public function pedidos(){
+    	return $this->hasMany('App\Pedido');
+    }
+
+    public function pedidositem(){
+    	return $this->hasMany('App\Pedidositem');
+    }
+
 }

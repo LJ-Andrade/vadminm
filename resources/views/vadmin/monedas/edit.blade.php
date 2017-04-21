@@ -30,8 +30,8 @@
                     <a href="{{ url('vadmin/monedas') }}"><div class="close-btn2"><i class="ion-close-round"></i></div></a>
                 </div>
                 <div class=" col-md-12 form-group">
-                    {!! Form::label('nombre', 'Nombre:') !!}
-                    {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el nombre del item', 'required' => '', 'maxlength' => '120', 'minlength' => '4']) !!} 
+                    {!! Form::label('valor', 'Valor actual:') !!}
+                    {!! Form::text('valor', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el valor de la moneda', 'required' => '']) !!} 
                 </div>
                 <div class="col-md-12 actions">
                     {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Modificar', ['class' => 'animated fadeIn button buttonOk pull-right']) !!}

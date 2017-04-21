@@ -28,8 +28,6 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 
 	Route::resource('users', 'UsersController');
 
-
-
 	Route::post('ajax_delete_user/{id}', 'UsersController@destroy');
 	Route::post('ajax_batch_delete_users/{id}', 'UsersController@ajax_batch_delete');
 	Route::post('ajax_update_user/{id}', 'UsersController@update');
@@ -160,8 +158,34 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::get('ajax_list_productos/{page?}', 'Productos\ProductosController@ajax_list');
 	Route::post('ajax_delete_producto/{id}', 'Productos\ProductosController@destroy');
 	Route::post('ajax_batch_delete_productos/{id}', 'Productos\ProductosController@ajax_batch_delete');
+	Route::post('update_prod_status/{id}', 'Productos\ProductosController@updateStatus');
 
 	Route::get('/productos_subfamilias/{id}', 'Productos\ProductosController@ajax_subfamilias');
+	Route::get('show_products/{id}', 'Productos\ProductosController@ajax_show_products');
+
+	Route::post('update_prod_stock/{id}', 'Productos\ProductosController@updateStock');
+	Route::post('update_prod_costprice/{id}', 'Productos\ProductosController@updateCostPrice');
+	// Searcher
+	Route::get('ajax_list_search_productos/{search?}', 'Productos\ProductosController@ajax_list_search');
+
+	// ------ Pedidos ------- //
+	Route::resource('pedidos', 'PedidosController');
+	Route::post('ajax_delete_pedido/{id}', 'PedidosController@destroy');
+	Route::post('ajax_batch_delete_pedidos/{id}', 'PedidosController@ajax_batch_delete');
+	
+	// ------ Pedidos Items------- //
+	Route::resource('pedidositems', 'PedidositemsController');
+	Route::post('ajax_delete_pedidositem/{id}', 'PedidositemsController@destroy');
+	Route::post('ajax_batch_delete_pedidositems/{id}', 'PedidositemsController@ajax_batch_delete');
+
+	// ------ Generador de Orden de Pedidos e Items ------- //
+	Route::post('ajax_store_pedido/{id}', 'PedidosController@ajax_store');
+	Route::post('ajax_store_pedidositems/{id}', 'PedidositemsController@ajax_store');
+	Route::get('ajax_get_cliente/{id}', 'Clientes\ClientesController@ajax_get');
+	Route::post('ajax_store_pedidoitem', 'PedidositemsController@ajax_store_item');
+
+	// Developer Map
+	Route::resource('desarrollo', 'DesarrolloController');
 
 });
 

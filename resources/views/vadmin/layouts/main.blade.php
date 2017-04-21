@@ -24,11 +24,6 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/vadmin.css') }}">
 </head>
 	<body>
-		<div id="ErrorDisplay1" class="error-display">
-			<i class="ion-ios-information"></i> 
-		</div>
-		<div id="MainError" class="main-error"><button id="CloseMainError" class="close-btn2">12X</button></div>
-		{{-- @include('vadmin.layouts.partials.full') --}}
 		<header>
 			@include('vadmin.layouts.partials.nav')
 		</header>

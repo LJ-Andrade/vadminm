@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Productos;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rule;
+use Illuminate\Http\Request;
+use Session;
 
 use App\Producto;
 use App\Proveedor;
@@ -11,8 +14,6 @@ use App\Familia;
 use App\Subfamilia;
 use App\Moneda;
 use App\Iva;
-use Illuminate\Http\Request;
-use Session;
 
 class ProductosController extends Controller
 {
@@ -25,18 +26,15 @@ class ProductosController extends Controller
     {
         $keyword = $request->get('search');
         $perPage = 25;
-
-
+    
         if (!empty($keyword)) {
             $productos = Producto::where('nombre', 'LIKE', "%$keyword%")
-				
                 ->paginate($perPage);
         } else {
             $productos = Producto::paginate($perPage);
         }
 
         $dolarsist = Moneda::where('nombre', '=', 'Dolar')->first();
-
         return view('vadmin.productos.index')->with('productos', $productos)->with('dolarsist', $dolarsist);
     }
 
@@ -48,7 +46,9 @@ class ProductosController extends Controller
     {
         $productos = Producto::orderBy('id', 'DESC')->paginate(20);
         $dolarsist = Moneda::where('nombre', '=', 'Dolar')->first();
-        return view('vadmin/productos/list')->with('productos', $productos)->with('dolarsist', $dolarsist);   
+        return view('vadmin/productos/list')
+            ->with('productos', $productos)
+            ->with('dolarsist', $dolarsist);   
     }
 
     
@@ -57,42 +57,39 @@ class ProductosController extends Controller
     //////////////////////////////////////////////////
 
 
-    // public function ajax_list_search(Request $request)
-    // {   
-       
-    //     if ($request->ajax())
-    //     {
+    public function ajax_list_search(Request $request)
+    {   
+        if ($request->ajax())
+        {
+            if ($request->get('nombre')){
+                $nombre = $_GET['nombre'];
+            } else {
+                $nombre = '';
+            }
 
-    //         if (isset($_GET['nombre'])){
-    //             $nombre = $_GET['nombre'];
-    //         } 
+            if ($request->get('id')){
+                $id = $_GET['id'];
+            } else {
+                $id = '';
+            }
 
-    //          if (isset($_GET['id'])){
-    //             $id = $_GET['id'];
-    //         }
-
-    //         // $clientes = Cliente::where('razonsocial', 'LIKE', '%'.$nombre.'%' )->paginate(20);
-
-    //         if ($nombre != '' and $id != ''){
-    //             // Search User AND Role
-    //             $clientes = Cliente::where('razonsocial', 'LIKE', '%'.$nombre.'%' )
-    //             ->where('id', 'LIKE', '%'.$id.'%')->paginate(20);
-    //         } else if($nombre != '') {
-    //             // Search by nombre
-    //              $clientes = Cliente::where('razonsocial', 'LIKE', '%'.$nombre.'%' )->paginate(20);
-           
-    //         } else if ($id !='') {
-    //             // Search by nombre or Email
-    //             $clientes = Cliente::where('id', 'LIKE', '%'.$id.'%' )->paginate(20);
-    //         } else {
-    //             // Seatch All
-    //             $clientes = Cliente::orderBy('id', 'ASC')->paginate(12);
-    //         }
-
-    //         return view('vadmin/clientes/list')->with('clientes', $clientes);  
-    //     }
-
-    // }
+            if ($nombre != '' and $id != ''){
+                // Show All
+                $productos = Producto::where('nombre', 'LIKE', '%'.$nombre.'%' )
+                ->where('id', 'LIKE', '%'.$id.'%')->paginate(20);
+            } else if($nombre != '') {
+                // Search by nombre
+                 $productos = Producto::where('nombre', 'LIKE', '%'.$nombre.'%' )->paginate(20);
+            } else if ($id !='') {
+                // Search by nombre or Id
+                $productos = Producto::where('id', 'LIKE', '%'.$id.'%' )->paginate(20);
+            } else {
+                // Show All
+                $productos = Producto::orderBy('id', 'ASC')->paginate(12);
+            }
+            return view('vadmin/productos/list')->with('productos', $productos);  
+        }
+    }
 
     //////////////////////////////////////////////////
     //                  CREATE                      //
@@ -121,13 +118,6 @@ class ProductosController extends Controller
 
     }
 
-    public function ajax_subfamilias($id) {
-
-        $subfamilias = Subfamilia::where('familia_id', '=', $id)->get();
-
-        return response()->json($subfamilias);
-
-    }
 
     //////////////////////////////////////////////////
     //                  STORE                       //
@@ -135,28 +125,41 @@ class ProductosController extends Controller
 
     public function store(Request $request)
     {
-        // $this->validate($request,[
-        //     'nombre'              => 'required|unique:clientes,nombre',
-        // ],[
-        //     'nombre.required'     => 'Debe ingresar un item',
-        //     'nombre.unique'      => 'El cliente ya existe',
-        // ]);
+        $this->validate($request,[
+            'nombre'              => 'required|unique:productos,nombre',
+            'codproveedor'        => 'required|unique:productos,codproveedor',
+        ],[
+            'nombre.required'     => 'Debe ingresar un nombre',
+            'nombre.unique'       => 'El producto ya existe',
+            'codproveedor.unique' => 'Ya existe un producto con el código de proveedor ingresado',
+        ]);
         
-        // dd($request->all());
         $dolarsist = Moneda::where('nombre', '=', 'Dolar')->first();
-
-        $producto = new Producto($request->all());
-
-        $producto->preciocosto   = $request->preciocosto / $dolarsist->valor;
-        $producto->preciocosto   = round($producto->preciocosto, 2);
-        $producto->preciooferta  = $request->preciooferta / $dolarsist->valor;
-        $producto->preciooferta   = round($producto->preciooferta, 2);
+        $eurosist  = Moneda::where('nombre', '=', 'Euro-Dolar')->first();
+        $producto  = new Producto($request->all());
+        // Convert Input Value to Dolar
+        switch ($request->moneda) {
+            case 1:
+                $producto->preciocosto   = $request->preciocosto / $dolarsist->valor;
+                $producto->preciocosto   = formatNum($producto->preciocosto, 2);
+                break;
+            case 2:
+                $producto->preciocosto   = $request->preciocosto;
+                $producto->preciocosto   = formatNum($producto->preciocosto, 2);
+                break;
+            case 3:
+                $producto->preciocosto   = $request->preciocosto / $eurosist->valor;
+                $producto->preciocosto   = formatNum($producto->preciocosto, 2);
+                break;
+            default:
+                $producto->preciocosto   = $request->preciocosto / $dolarsist->valor;
+                $producto->preciocosto   = formatNum($producto->preciocosto, 2);
+                break;
+        }
 
         $producto->proveedor_id  = $request->proveedor_id;
         $producto->familia_id    = $request->familia_id;
         $producto->subfamilia_id = $request->subfamilia_id;
-
-        // dd($producto);
         
         $producto->save();
 
@@ -174,6 +177,7 @@ class ProductosController extends Controller
     {
         $dolarsist = Moneda::where('nombre', '=', 'Dolar')->first();
         $producto  = Producto::findOrFail($id);
+        $monedas   = Moneda::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
 
         $fullid    = $producto->familia_id.'-'.$id;
         
@@ -190,6 +194,7 @@ class ProductosController extends Controller
         return view('vadmin.productos.show')
             ->with('producto', $producto)
             ->with('fullid', $fullid)
+            ->with('monedas', $monedas)
             ->with('preciocostopesos', $preciocostopesos)
             ->with('valorgremio', $valorgremio)
             ->with('valorparticular', $valorparticular)
@@ -202,45 +207,117 @@ class ProductosController extends Controller
     }
 
     //////////////////////////////////////////////////
+    //              SHOW PRODUCTS AJAX              //
+    //////////////////////////////////////////////////
+
+    public function ajax_subfamilias($id) {
+
+        $subfamilias = Subfamilia::where('familia_id', '=', $id)->get();
+
+        return response()->json($subfamilias);
+
+    }
+
+    public function ajax_show_products($id)
+    {
+        $productos = Producto::where('subfamilia_id', '=', $id)->get();
+
+        return response()->json($productos);
+    }
+
+
+    //////////////////////////////////////////////////
     //                  EDIT                        //
     //////////////////////////////////////////////////
     
     public function edit($id)
     {
-        $producto = Producto::findOrFail($id);
+        $producto     = Producto::findOrFail($id);
+        $proveedor    = Proveedor::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
+        $familias     = Familia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
+        $subfamilias  = Subfamilia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
+        $monedas      = Moneda::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
+        $subfamiliaId = $producto->subfamilia->id;
+        
+        return view('vadmin.productos.edit')
+            ->with('producto', $producto)
+            ->with('proveedor', $proveedor)
+            ->with('familias', $familias)
+            ->with('subfamilias', $subfamilias)
+            ->with('subfamiliaId', $subfamiliaId)
+            ->with('monedas', $monedas);
 
-        return view('vadmin.productos.edit', compact('producto'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
     public function update($id, Request $request)
     {
 
+        $requestData = $request->all();
+        $producto    = Producto::findOrFail($id);
+
         $this->validate($request,[
-            'nombre'              => 'required|unique:productos,nombre',
+            'codproveedor'        => Rule::unique('productos')->ignore($producto->id, 'id')
         ],[
-            'nombre.required'     => 'Debe ingresar un nombre',
-            'nombre.unique'      => 'El item ya existe',
+            'codproveedor.unique' => 'Ya existe un producto con ese código de proveedor',
         ]);
 
-
-        
-        $requestData = $request->all();
-        
-        $producto = Producto::findOrFail($id);
         $producto->update($requestData);
 
         Session::flash('flash_message', 'Producto updated!');
 
         return redirect('vadmin/productos');
     }
+
+    //////////////////////////////////////////////////
+    //               UPDATE STATUS                  //
+    //////////////////////////////////////////////////
+    public function updateStatus(Request $request, $id)
+    {
+
+        $producto = Producto::find($id);
+        $producto->estado = $request->estado;            
+        $producto->save();
+
+        return response()->json([
+            "lastStatus" => $producto->estado,
+        ]);
+
+    }
+
+    //////////////////////////////////////////////////
+    //               UPDATE STOCK                   //
+    //////////////////////////////////////////////////
+    public function updateStock(Request $request, $id)
+    {
+            $producto = Producto::find($id);
+            $producto->stockactual = $request->value;   
+            $producto->save();
+
+            return response()->json([
+                "response" => 'Done'
+            ]);
+
+    }
+
+    //////////////////////////////////////////////////
+    //               UPDATE STOCK                   //
+    //////////////////////////////////////////////////
+    public function updateCostPrice(Request $request, $id)
+    {
+
+        $producto              = Producto::find($id);
+        $producto->preciocosto = $request->value;
+        $producto->save();
+
+        return response()->json([
+            "Id"          => $id,
+            "NuevoPrecio" => $request->value,
+            "Moneda"      => $request->value2,
+            "Estado"      => "Hecho"
+        ]);
+    
+    }
+
 
     //////////////////////////////////////////////////
     //                 DESTROY                      //

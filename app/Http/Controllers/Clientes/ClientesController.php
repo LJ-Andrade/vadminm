@@ -48,6 +48,18 @@ class ClientesController extends Controller
         return view('vadmin/clientes/list')->with('clientes', $clientes);   
     }
 
+    public function ajax_get($id)
+    {
+        $cliente = Cliente::findOrFail($id);
+
+        // return response()->json([
+        //     "cliente" => $cliente
+        // ]);
+        
+        return response()->json($cliente);
+
+    }
+
     //////////////////////////////////////////////////
     //                  SEARCH                      //
     //////////////////////////////////////////////////

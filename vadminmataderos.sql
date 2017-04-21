@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-04-2017 a las 23:21:30
+-- Tiempo de generación: 21-04-2017 a las 07:10:31
 -- Versión del servidor: 10.1.19-MariaDB
 -- Versión de PHP: 5.6.28
 
@@ -152,9 +152,7 @@ INSERT INTO `clientes` (`id`, `razonsocial`, `cuit`, `dirfiscal`, `codpostal`, `
 (97, 'FRECHERO ARTURO ISMAEL', '', '', 0, 0, NULL, NULL, NULL, '', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (98, 'BONELLI MIGUEL', '', '', 0, 0, NULL, NULL, NULL, '', NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (99, 'EDUARDO ROSA', '', '', 0, 0, NULL, NULL, NULL, '', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(103, 'Otro Cliente', '21-21212121-2', 'Av. Directorio 4705', 1545, 5000, '4545-4545', '(15)1515-1515', 'admstudiovimana@gmail.com', '2', NULL, 4, 1, 143, 5, 6, 3, 2, 1, '2017-04-12 12:25:22', '2017-04-12 12:25:22'),
-(104, 'Otro Cliente', '15-16165165-1', 'Av. Directorio 4705', 1545, 5000, NULL, '(15)1515-1515', 'admstudiovimana@gmail.com', '2', NULL, 1, 1, 143, 5, 6, 3, 2, 1, '2017-04-12 12:25:37', '2017-04-12 16:24:11'),
-(105, 'Otro Cliente2', '15-16165165-1', 'Av. Directorio 4705', 1545, 5000, NULL, '(15)1515-1515', 'admstudiovimana@gmail.com', '2', 3, 2, 1, 143, 5, 6, 3, 2, 1, '2017-04-12 12:26:05', '2017-04-12 16:24:02');
+(103, 'Otro Cliente', '21-21212121-2', 'Av. Directorio 4705', 1545, 5000, '4545-4545', '(15)1515-1515', 'admstudiovimana@gmail.com', '2', NULL, 4, 1, 143, 5, 6, 3, 2, 1, '2017-04-12 12:25:22', '2017-04-12 12:25:22');
 
 -- --------------------------------------------------------
 
@@ -2835,7 +2833,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (17, '2017_04_04_072349_create_subfamilias_table', 7),
 (19, '2017_04_03_230853_create_proveedores_table', 8),
 (20, '2017_04_06_000532_create_tipocts_table', 9),
-(23, '2017_04_06_023556_create_productos_table', 10);
+(23, '2017_04_06_023556_create_productos_table', 10),
+(29, '2017_04_20_185003_create_pedidos_table', 11),
+(30, '2017_04_20_205715_create_pedidositems_table', 11);
 
 -- --------------------------------------------------------
 
@@ -2857,8 +2857,10 @@ CREATE TABLE `monedas` (
 
 INSERT INTO `monedas` (`id`, `nombre`, `valor`, `created_at`, `updated_at`) VALUES
 (1, 'Pesos', 1, '2017-04-04 07:09:12', '2017-04-04 08:51:23'),
-(8, 'Dolar', 17, '2017-04-04 07:18:29', '2017-04-11 13:38:35'),
-(9, 'Euro', 18.54, '2017-04-04 07:18:37', '2017-04-04 07:24:07');
+(2, 'Dolar', 15.87, '2017-04-04 07:18:29', '2017-04-19 04:16:30'),
+(3, 'Euro', 17.5, '2017-04-04 07:18:37', '2017-04-17 14:35:37'),
+(4, 'Euro-Dolar', 0.94, '2017-04-17 15:45:19', '2017-04-17 16:01:20'),
+(12, 'Dolar-Euro', 1.06, '2017-04-17 16:00:57', '2017-04-17 16:00:57');
 
 -- --------------------------------------------------------
 
@@ -2870,6 +2872,80 @@ CREATE TABLE `password_resets` (
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pedidos`
+--
+
+CREATE TABLE `pedidos` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `cliente_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `pedidos`
+--
+
+INSERT INTO `pedidos` (`id`, `cliente_id`, `created_at`, `updated_at`) VALUES
+(49, 94, '2017-04-21 07:57:08', '2017-04-21 07:57:08'),
+(50, 103, '2017-04-21 07:58:21', '2017-04-21 07:58:21'),
+(51, 96, '2017-04-21 07:58:54', '2017-04-21 07:58:54'),
+(52, 75, '2017-04-21 07:59:40', '2017-04-21 07:59:40'),
+(53, 75, '2017-04-21 08:00:35', '2017-04-21 08:00:35'),
+(54, 75, '2017-04-21 08:01:46', '2017-04-21 08:01:46'),
+(55, 81, '2017-04-21 08:02:23', '2017-04-21 08:02:23'),
+(56, 96, '2017-04-21 08:02:38', '2017-04-21 08:02:38'),
+(57, 96, '2017-04-21 08:04:08', '2017-04-21 08:04:08'),
+(58, 96, '2017-04-21 08:05:13', '2017-04-21 08:05:13'),
+(59, 94, '2017-04-21 08:05:42', '2017-04-21 08:05:42');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pedidositems`
+--
+
+CREATE TABLE `pedidositems` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `cliente_id` int(10) UNSIGNED NOT NULL,
+  `pedido_id` int(10) UNSIGNED NOT NULL,
+  `producto_id` int(10) UNSIGNED NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `valor` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `pedidositems`
+--
+
+INSERT INTO `pedidositems` (`id`, `cliente_id`, `pedido_id`, `producto_id`, `cantidad`, `valor`, `created_at`, `updated_at`) VALUES
+(19, 81, 55, 11, 12, 12, '2017-04-21 08:02:27', '2017-04-21 08:02:27'),
+(20, 96, 56, 21, 32, 32, '2017-04-21 08:02:41', '2017-04-21 08:02:41'),
+(21, 96, 57, 19, 12, 150, '2017-04-21 08:04:18', '2017-04-21 08:04:18'),
+(22, 96, 58, 4, 12, 32, '2017-04-21 08:05:18', '2017-04-21 08:05:18'),
+(23, 96, 58, 16, 23, 465, '2017-04-21 08:05:23', '2017-04-21 08:05:23'),
+(24, 96, 58, 20, 165, 12, '2017-04-21 08:05:30', '2017-04-21 08:05:30'),
+(25, 94, 59, 21, 12, 32, '2017-04-21 08:05:45', '2017-04-21 08:05:45'),
+(26, 94, 59, 17, 12, 32, '2017-04-21 08:05:49', '2017-04-21 08:05:49'),
+(27, 94, 59, 8, 45, 3, '2017-04-21 08:05:54', '2017-04-21 08:05:54');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pedido_pedidositem`
+--
+
+CREATE TABLE `pedido_pedidositem` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `pedido_id` int(11) NOT NULL,
+  `pedidositem_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -2893,6 +2969,7 @@ CREATE TABLE `productos` (
   `pjeespecial` int(11) NOT NULL,
   `preciooferta` int(11) DEFAULT NULL,
   `cantoferta` int(10) DEFAULT NULL,
+  `moneda_id` int(10) UNSIGNED NOT NULL DEFAULT '2',
   `proveedor_id` int(10) UNSIGNED NOT NULL,
   `familia_id` int(10) UNSIGNED NOT NULL,
   `subfamilia_id` int(10) UNSIGNED NOT NULL,
@@ -2904,12 +2981,17 @@ CREATE TABLE `productos` (
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`id`, `nombre`, `estado`, `codproveedor`, `condiva`, `stockactual`, `stockmin`, `stockmax`, `preciocosto`, `pjegremio`, `pjeparticular`, `pjeespecial`, `preciooferta`, `cantoferta`, `proveedor_id`, `familia_id`, `subfamilia_id`, `created_at`, `updated_at`) VALUES
-(4, 'Aire 3200F', 'activo', 'W1212', 21, 50, 50, 100, 6000, 6900, 7200, 7500, 0, NULL, 12, 3, 9, '2017-04-11 05:22:05', '2017-04-11 05:22:05'),
-(8, 'Secarropa', 'activo', 'JD5360', 21, 12, 12, 12, 1500, 12, 13, 14, 1212, NULL, 12, 3, 9, '2017-04-11 05:58:24', '2017-04-11 05:58:24'),
-(11, 'Aire Acondicionado', 'activo', 'JD5360', 21, 50, 50, 100, 384, 25, 30, 20, 6500, NULL, 12, 3, 9, '2017-04-11 07:20:24', '2017-04-11 07:20:24'),
-(16, 'Filtros', 'activo', '121212', 21, 100, 100, 150, 9, 30, 35, 15, 180, 10, 12, 3, 5, '2017-04-11 14:02:07', '2017-04-11 14:02:07'),
-(17, 'Filtros', 'activo', '121212', 21, 100, 100, 150, 9, 30, 35, 15, 11, 10, 12, 3, 5, '2017-04-11 14:04:49', '2017-04-11 14:04:49');
+INSERT INTO `productos` (`id`, `nombre`, `estado`, `codproveedor`, `condiva`, `stockactual`, `stockmin`, `stockmax`, `preciocosto`, `pjegremio`, `pjeparticular`, `pjeespecial`, `preciooferta`, `cantoferta`, `moneda_id`, `proveedor_id`, `familia_id`, `subfamilia_id`, `created_at`, `updated_at`) VALUES
+(4, 'Aire 3200F', 'activo', 'W1212', 21, 50, 50, 100, 6000, 6900, 7200, 7500, 8000, NULL, 0, 12, 3, 9, '2017-04-11 05:22:05', '2017-04-11 05:22:05'),
+(8, 'Secarropa22', 'activo', 'JD53601', 21, 12, 12, 12, 1500, 12, 13, 14, 1212, NULL, 0, 12, 3, 9, '2017-04-11 05:58:24', '2017-04-19 03:01:16'),
+(11, 'Aire Acondicionado', 'activo', 'JD5360', 21, 50, 50, 100, 384, 25, 30, 20, 6500, 20, 0, 12, 3, 9, '2017-04-11 07:20:24', '2017-04-11 07:20:24'),
+(16, 'Filtros', 'activo', '121212', 21, 50, 100, 150, 9, 30, 35, 15, 180, 10, 0, 12, 3, 5, '2017-04-11 14:02:07', '2017-04-20 20:39:28'),
+(17, 'Filtros', 'activo', '121212', 21, 100, 100, 150, 9, 30, 35, 15, 11, 10, 0, 12, 3, 5, '2017-04-11 14:04:49', '2017-04-18 08:49:34'),
+(18, 'Turbina 5300', 'pausado', 'WP5300', 21, 49, 50, 100, 88, 20, 25, 18, 106, 10, 2, 12, 3, 5, '2017-04-14 06:19:34', '2017-04-19 21:31:54'),
+(19, 'Filtro en Pesos', 'activo', '5454', 21, 52, 50, 100, 100, 15, 20, 14, 120, 40, 0, 12, 3, 6, '2017-04-17 16:09:21', '2017-04-21 08:09:12'),
+(20, 'Producto Pausado', 'pausado', '1212', 21, 15, 50, 100, 50, 15, 20, 14, 1200, 20, 0, 12, 2, 8, '2017-04-17 16:21:52', '2017-04-21 00:58:28'),
+(21, 'Articulo no listado', 'pausado', '12121', 21, 20, 10, 50, 121, 15, 20, 12, 130, 20, 0, 12, 2, 8, '2017-04-17 16:24:50', '2017-04-20 20:37:40'),
+(22, 'Producto Con Validaciones2', 'pausado', 'WPdsds213', 21, 20, 30, 60, 200, 15, 20, 14, 2500, 20, 2, 12, 3, 5, '2017-04-18 17:55:41', '2017-04-21 00:59:35');
 
 -- --------------------------------------------------------
 
@@ -3009,7 +3091,7 @@ INSERT INTO `subfamilias` (`id`, `nombre`, `familia_id`, `created_at`, `updated_
 (5, 'Repuestos', 3, '2017-04-10 03:26:57', '2017-04-10 03:26:57'),
 (6, 'Filtros', 3, '2017-04-10 03:28:54', '2017-04-10 03:35:56'),
 (7, 'Motores', 2, '2017-04-10 03:29:44', '2017-04-10 03:29:44'),
-(8, 'Respuestos', 2, '2017-04-10 03:30:13', '2017-04-10 03:30:13'),
+(8, 'Repuestos', 2, '2017-04-10 03:30:13', '2017-04-18 02:13:08'),
 (9, 'Equipo', 3, '2017-04-11 05:20:18', '2017-04-11 05:20:18'),
 (10, 'Equipo', 2, '2017-04-11 05:21:10', '2017-04-11 05:21:10');
 
@@ -3060,7 +3142,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `avatar`, `password`, `type`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Leandro', 'javzero@hotmail.com', '1491501555.jpg', '$2y$10$cgDhH3RbTDKqRSm0ALRZteC2EVE2h58QVaXQO1GQ5trzVsrmIEqEm', 'superadmin', 'none', 'G6ln0HCMfgSNjYKAvLuFwl75EzanOWpLUHkqg8fWYny9ne072uDfyS86Xap2', '2009-10-27 06:37:05', '2017-04-06 20:59:16'),
+(1, 'Leandro', 'javzero@hotmail.com', '1492529279.jpg', '$2y$10$cgDhH3RbTDKqRSm0ALRZteC2EVE2h58QVaXQO1GQ5trzVsrmIEqEm', 'superadmin', 'none', 'G6ln0HCMfgSNjYKAvLuFwl75EzanOWpLUHkqg8fWYny9ne072uDfyS86Xap2', '2009-10-27 06:37:05', '2017-04-18 18:28:00'),
 (3, 'Julian', 'julian@hotmail.com', '', '$2y$10$Z3WB/YZH8vGmf93N3PTsw.H0AYCf9pMJtDtab/4nZbeDMYYValcKO', 'user', 'seller', NULL, '2017-03-26 07:20:28', '2017-03-28 03:13:12'),
 (4, 'Pablo', 'pablo@hotmail.com', '', '$2y$10$JYcb1N2Sqs2FAtaWB0SekO/GKkJ16SUcdQ/PXH7u0bSdVl1MptFpG', 'admin', 'seller', NULL, '2017-03-20 07:58:24', '2017-03-28 03:46:32'),
 (5, 'Juanjo', 'juanjo@hotmail.com', '', '$2y$10$s06ZXneElpIWSUFhz.h8xe/BzoZaOolL9s1CwWF/oNYPOt0mDSulK', 'admin', 'seller', NULL, '2017-03-20 07:58:35', '2017-03-28 03:52:24');
@@ -3178,13 +3260,36 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_token_index` (`token`);
 
 --
+-- Indices de la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `pedidos_cliente_id_foreign` (`cliente_id`);
+
+--
+-- Indices de la tabla `pedidositems`
+--
+ALTER TABLE `pedidositems`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `pedidositems_cliente_id_foreign` (`cliente_id`),
+  ADD KEY `pedidositems_producto_id_foreign` (`producto_id`),
+  ADD KEY `pedidositems_pedido_id_foreign` (`pedido_id`);
+
+--
+-- Indices de la tabla `pedido_pedidositem`
+--
+ALTER TABLE `pedido_pedidositem`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `productos_proveedor_id_foreign` (`proveedor_id`),
   ADD KEY `productos_familia_id_foreign` (`familia_id`),
-  ADD KEY `productos_subfamilia_id_foreign` (`subfamilia_id`);
+  ADD KEY `productos_subfamilia_id_foreign` (`subfamilia_id`),
+  ADD KEY `moneda_id` (`moneda_id`);
 
 --
 -- Indices de la tabla `proveedores`
@@ -3235,7 +3340,7 @@ ALTER TABLE `zonas`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 --
 -- AUTO_INCREMENT de la tabla `clientes_razonsocial`
 --
@@ -3280,17 +3385,32 @@ ALTER TABLE `localidades`
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT de la tabla `monedas`
 --
 ALTER TABLE `monedas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT de la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+--
+-- AUTO_INCREMENT de la tabla `pedidositems`
+--
+ALTER TABLE `pedidositems`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+--
+-- AUTO_INCREMENT de la tabla `pedido_pedidositem`
+--
+ALTER TABLE `pedido_pedidositem`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
 --
@@ -3344,6 +3464,20 @@ ALTER TABLE `clientes`
 --
 ALTER TABLE `direntregas`
   ADD CONSTRAINT `direntregas_cliente_id_foreign` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD CONSTRAINT `pedidos_cliente_id_foreign` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`);
+
+--
+-- Filtros para la tabla `pedidositems`
+--
+ALTER TABLE `pedidositems`
+  ADD CONSTRAINT `pedidositems_cliente_id_foreign` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`),
+  ADD CONSTRAINT `pedidositems_pedido_id_foreign` FOREIGN KEY (`pedido_id`) REFERENCES `pedidos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pedidositems_producto_id_foreign` FOREIGN KEY (`producto_id`) REFERENCES `productos` (`id`);
 
 --
 -- Filtros para la tabla `productos`

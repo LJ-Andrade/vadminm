@@ -12,7 +12,7 @@
 	});
 
 	$('.Select-Chosen').chosen({
-		placeholder_text_single: 'Seleccione una categoría',
+		placeholder_text_single: 'Seleccione una opción',
 	});
 
 
@@ -88,8 +88,6 @@
 		var addressInput = "<input class='form-control' placeholder='Ingrese otro teléfono' name='deliveryaddress[]' type='text' style='margin-top:5px'>";
 		var locInput     = "<input class='form-control' placeholder='Ingrese otro teléfono' name='deliveryaddress[]' type='text' style='margin-top:5px'>";
 
-		
-
 		$('.AnotherAddress').append(addressInput);
 		$('.AnotherLoc').append(locInput);
 	});
@@ -156,5 +154,8 @@
 	        }
 	    });
 	});
+
+
+
 
 

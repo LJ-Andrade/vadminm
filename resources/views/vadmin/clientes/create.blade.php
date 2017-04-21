@@ -22,7 +22,7 @@
 	<div class="container">
 	    <div class="row">
 	        {!! Form::open(['route' => 'clientes.store', 'method' => 'POST', 'files' => true, 'id' => 'NewItemForm', 'class' => 'big-form', 'data-parsley-validate' => '']) !!}	
-            	@include ('vadmin.clientes.form');
+            	@include ('vadmin.clientes.form')
             {!! Form::close() !!}
         </div>
     </div>  

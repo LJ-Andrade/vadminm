@@ -42,14 +42,10 @@
 							<span><b>{{ $item->valor }}</b></span>
                         </div>                        
                     </div>
-
-                    {{-- Action Button --}}
-                    <div class="lists-actions-trigger">
-                        <button type="button" class="Lists-Actions-Trigger action-btn" data-toggle="modal" data-target="#Actions{{ $item->id }}">
-                            <i class="ion-ios-gear-outline"></i>
-                        </button>
-                    </div>
-
+					{{-- Batch Delete --}} 
+					<div class="batch-delete-checkbox">
+						<input type="checkbox" class="BatchDelete" data-id="{{ $item->id }}">
+					</div>
                     {{-- Hidden Action Buttons --}}
                     <div class="List-Actions lists-actions Hidden">
 						<a href="{{ url('/vadmin/monedas/' . $item->id . '/edit') }}" class="btnSmall buttonOk" data-id="{{ $item->id }}">
@@ -64,11 +60,6 @@
 						<a class="Close-Actions-Btn btn btn-danger btn-close">
 							<i class="ion-ios-close-empty"></i>
 						</a>
-                    </div>
-                        {{-- Right Slot --}}
-                    <div class="Status-Icon Status{{ $item->id }} status-icon">
-                        {{-- Batch Delete --}} 
-                        <input type="checkbox" class="BatchDelete" data-id="{{ $item->id }}">
                     </div>
                 </div>
 

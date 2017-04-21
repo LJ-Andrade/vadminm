@@ -110,14 +110,12 @@ class MonedasController extends Controller
     {
 
         $this->validate($request,[
-            'nombre'              => 'required|unique:monedas,nombre',
+            'valor'              => 'required',
         ],[
-            'nombre.required'     => 'Debe ingresar un nombre',
-            'nombre.unique'      => 'El item ya existe',
+            'valor.required'     => 'Debe ingresar un valor',
         ]);
 
 
-        
         $requestData = $request->all();
         
         $moneda = Moneda::findOrFail($id);

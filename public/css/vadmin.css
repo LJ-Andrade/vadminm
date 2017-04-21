@@ -199,6 +199,16 @@ hr {
   margin-left: 15px;
 }
 
+.big-card .title .small-text {
+  margin-left: 15px;
+}
+
+.big-card .title .right {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+
 .big-card .subtitle {
   margin-top: 15px;
   margin-bottom: 10px;
@@ -212,6 +222,33 @@ hr {
 }
 
 .big-card .content .btnSm {
+  margin-top: 15px;
+}
+
+.medium-card .inner {
+  position: relative;
+  border-radius: 5px;
+  padding: 10px;
+  padding-bottom: 40px;
+  min-height: 130px;
+}
+
+.medium-card .inner .title {
+  margin-bottom: 5px;
+}
+
+.medium-card .inner .chosen-container {
+  margin-bottom: 10px;
+}
+
+.medium-card .right-bottom {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+}
+
+.medium-card .bigtext {
+  font-size: 2rem;
   margin-top: 15px;
 }
 
@@ -290,6 +327,31 @@ hr {
   cursor: pointer;
   -webkit-filter: brightness(1.2);
           filter: brightness(1.2);
+}
+
+.small-card-filled {
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+}
+
+.card-filled .inner {
+  position: relative;
+  border-radius: 5px;
+  padding: 10px;
+  min-height: 130px;
+}
+
+.card-filled .right-bottom {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+}
+
+.card-filled .bigtext {
+  font-size: 2rem;
+  margin-top: 15px;
 }
 
 .big-list {
@@ -374,7 +436,7 @@ hr {
 
 .big-form .sub-title .inner-sub-title i.icon {
   padding-top: 4px;
-  font-size: 1.5rem;
+  font-size: 1rem;
   margin-right: 8px;
   margin-left: 8px;
 }
@@ -688,32 +750,6 @@ hr {
   font-size: 1.2rem;
 }
 
-.small-card-filled {
-  background-color: #f9f9f9;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
-}
-
-.card-filled {
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px;
-  position: relative;
-  min-height: 130px;
-}
-
-.card-filled .right-bottom {
-  position: absolute;
-  bottom: 2px;
-  right: 2px;
-}
-
-.card-filled .bigtext {
-  font-size: 2rem;
-  margin-top: 15px;
-}
-
 .button {
   border: 0;
   border-radius: 50px;
@@ -821,6 +857,27 @@ hr {
 }
 
 .btnSmall:hover {
+  cursor: pointer;
+}
+
+.btnXSmall {
+  border: 0;
+  padding: 1px 10px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  vertical-align: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  line-height: 1.42857143;
+  margin: 2px;
+  -webkit-transition: all 0.2s ease 0s;
+  transition: all 0.2s ease 0s;
+}
+
+.btnXSmall:hover {
   cursor: pointer;
 }
 
@@ -1211,7 +1268,7 @@ hr {
 }
 
 .main-list .item-row:nth-child(odd) {
-  background-color: #f3f3f3;
+  background-color: #fbfbfb;
 }
 
 .main-list .item-row:hover, .main-list .item-row .row-selected {
@@ -1301,7 +1358,7 @@ hr {
   -ms-flex-pack: center;
   justify-content: center;
   box-shadow: -11px 4px 9px -8px rgba(0, 0, 0, 0.55) !important;
-  background-color: #fff;
+  background-color: #212129;
   z-index: 5;
 }
 
@@ -1416,6 +1473,23 @@ hr {
 
 .softhr {
   border-top: 1px solid #E4E4E4;
+}
+
+.status {
+  margin-right: 6px;
+  font-size: 0.8rem;
+}
+
+.status span.text {
+  font-size: 1rem;
+}
+
+.status i.active {
+  color: #E2CF83;
+}
+
+.status i.paused {
+  color: red;
 }
 
 .colors-container {
@@ -1536,6 +1610,20 @@ hr {
   color: #fff;
 }
 
+.green-back {
+  background-color: #8DBB61;
+  color: #fff;
+}
+
+.green-back span {
+  color: #fff;
+}
+
+.light-green-back {
+  background-color: #dae2d4;
+  color: #383838;
+}
+
 .main-loader {
   position: fixed;
   width: 100%;
@@ -1621,47 +1709,6 @@ hr {
   .horiz-double-input .inner2 {
     max-width: 200px;
   }
-}
-
-.error-display {
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  -ms-grid-row-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  right: 40px;
-  bottom: 50px;
-  border-radius: 10px;
-  background-color: #343440;
-}
-
-.error-display i {
-  color: #fff;
-  font-size: 2rem;
-}
-
-.error-display:hover {
-  cursos: pointer;
-}
-
-.main-error {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 9999;
-  background-color: #000;
 }
 
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
@@ -1788,4 +1835,8 @@ hr {
 .login-back {
   background: url(../images/loginback.jpg) no-repeat center center fixed;
   background-size: cover;
+}
+
+.parsley-errors-list {
+  min-width: 120px;
 }

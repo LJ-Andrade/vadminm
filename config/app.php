@@ -188,6 +188,7 @@ return [
         Thedevsaddam\LaravelSchema\LaravelSchemaServiceProvider::class,
         // Image Intervention
         Intervention\Image\ImageServiceProvider::class,
+        // Crud Generator
         Appzcoder\CrudGenerator\CrudGeneratorServiceProvider::class,
 
     ],

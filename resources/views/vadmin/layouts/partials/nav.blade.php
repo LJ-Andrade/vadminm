@@ -49,13 +49,24 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Archivo
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Nuevo
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="{{ route('clientes.index') }}"><i class="ion-ios-briefcase"></i> Clientes</a></li>
+							<li><a href="{{ route('productos.create') }}"><i class="ion-ios-gear"></i>Producto</a></li>
+							<li><a href="{{ route('pedidos.create') }}"><i class="ion-paper-airplane"></i>Pedido</a></li>
+							<li><a href="{{ route('clientes.create') }}"><i class="ion-ios-briefcase"></i>Cliente</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Listados
+						<span class="caret"></span></a>
+						<ul class="dropdown-menu">
 							<li><a href="{{ route('productos.index') }}"><i class="ion-ios-gear"></i> Productos</a></li>
-							<li><a href="{{ route('productos.create') }}"><i class="ion-ios-plus"></i> Nuevo Producto</a></li>
+							<li><a href="{{ route('pedidos.index') }}"><i class="ion-paper-airplane"></i> Pedidos</a></li>
+							<li><a href="{{ route('clientes.index') }}"><i class="ion-ios-briefcase"></i> Clientes</a></li>
+							<li role="separator" class="divider"></li>
 							<li><a href="{{ route('listas.index') }}"><i class="ion-clipboard"></i> Listas de Precios</a></li>
+							<li><a href="{{ route('users.index') }}"><i class="ion-ios-people"></i> Usuarios</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">
@@ -66,6 +77,8 @@
 							<li><a href="{{ route('familias.index') }}"><i class="ion-ios-people"></i> Familias</a></li>
 							<li><a href="{{ route('subfamilias.index') }}"><i class="ion-ios-people"></i> SubFamilias</a></li>
 							<li><a href="{{ route('tipocts.index') }}"><i class="ion-ios-people"></i> Tipo de Cliente</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="{{ route('pedidositems.index') }}"><i class="ion-ios-people"></i> Pedidos Items</a></li>
 							<li role="separator" class="divider"></li>
 							<li><a href="{{ route('condicventas.index') }}"><i class="ion-clipboard"></i> Condiciones de Vta.</a></li>
 							<li><a href="{{ route('ivas.index') }}"><i class="ion-ios-list-outline"></i> Categorías Iva</a></li>
@@ -85,7 +98,7 @@
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="{{ url('/') }}"><i class="ion-ios-monitor-outline"></i> Ver Web</a></li>
-							<li><a href="{{ route('users.index') }}"><i class="ion-ios-people"></i> Usuarios</a></li>
+							<li><a href="{{ route('desarrollo.index') }}"><i class="ion-paper-airplane"></i> Mapa de Desarrollo</a></li>
 						</ul>
 					</li>
 				</ul>

@@ -23,6 +23,12 @@
 		position: relative
 		h1
 			margin-left: 15px
+		.small-text 
+			margin-left: 15px
+		.right
+			position: absolute
+			right: 10px
+			bottom: 10px
 	.subtitle
 		margin-top: 15px
 		margin-bottom: 10px
@@ -33,6 +39,25 @@
 		padding: 15px
 		.btnSm
 			margin-top: 15px
+
+.medium-card
+	.inner
+		position: relative
+		border-radius: 5px
+		padding: 10px
+		padding-bottom: 40px
+		min-height: 130px
+		.title
+			margin-bottom: 5px
+		.chosen-container
+			margin-bottom: 10px
+	.right-bottom
+		position: absolute
+		bottom: 2px
+		right: 2px
+	.bigtext
+		font-size: 2rem
+		margin-top: 15px
 
 
 .profile-card
@@ -80,6 +105,27 @@
 		&:hover
 			cursor: pointer
 			filter: brightness(1.2)
+
+.small-card-filled
+	background-color: #f9f9f9
+	border-radius: 5px
+	padding: 10px
+	margin: 10px
+
+.card-filled
+	.inner
+		position: relative
+		border-radius: 5px
+		padding: 10px
+		min-height: 130px
+	.right-bottom
+		position: absolute
+		bottom: 2px
+		right: 2px
+	.bigtext
+		font-size: 2rem
+		margin-top: 15px
+
 
 //////////////////////////////////////
 //                                  //
@@ -153,7 +199,7 @@ $phvFsize: 0.9rem
 				font-weight: 700
 			i.icon
 				padding-top: 4px
-				font-size: 1.5rem
+				font-size: 1rem
 				margin-right: 8px
 				margin-left: 8px
 	.multiple-items
@@ -371,25 +417,6 @@ $phvFsize: 0.9rem
 		color: $red
 		font-size: 1.2rem
 
-.small-card-filled
-	background-color: #f9f9f9
-	border-radius: 5px
-	padding: 10px
-	margin: 10px
-
-.card-filled
-	border-radius: 5px
-	padding: 10px
-	margin: 10px
-	position: relative
-	min-height: 130px
-	.right-bottom
-		position: absolute
-		bottom: 2px
-		right: 2px
-	.bigtext
-		font-size: 2rem
-		margin-top: 15px
 
 //////////////////////////////////////
 //                                  //
@@ -475,6 +502,23 @@ $phvFsize: 0.9rem
 	border: 0
 	padding: 5px 10px
 	font-size: 1rem
+	white-space: nowrap
+	vertical-align: middle
+	-webkit-user-select: none
+	-moz-user-select: none
+	-ms-user-select: none
+	user-select: none
+	background-image: none
+	line-height: 1.42857143
+	margin: 2px
+	@include transition(0.2s)
+	&:hover
+		cursor: pointer
+
+.btnXSmall
+	border: 0
+	padding: 1px 10px
+	font-size: 0.8rem
 	white-space: nowrap
 	vertical-align: middle
 	-webkit-user-select: none
@@ -795,7 +839,7 @@ $phvFsize: 0.9rem
 			// padding-left: 0
 			float: left
 		&:nth-child(odd)
-			background-color: #f3f3f3
+			background-color: #fbfbfb
 		&:hover, .row-selected
 			cursor: pointer
 			background-color: #DDD
@@ -847,7 +891,7 @@ $phvFsize: 0.9rem
 			padding: 0 20px
 			@include flex-center
 			@include box-shadow-left
-			background-color: #fff
+			background-color: $dark
 			z-index: 5
 			.form-group
 				margin-right: 10px
@@ -935,6 +979,16 @@ $phvFsize: 0.9rem
 .softhr
 	border-top: 1px solid #E4E4E4
 
+
+.status
+	margin-right: 6px
+	font-size: 0.8rem
+	span.text
+		font-size: 1rem
+	i.active
+		color: #E2CF83
+	i.paused
+		color: red
 
 
 //////////////////////////////////////
@@ -1047,6 +1101,16 @@ $phvFsize: 0.9rem
 	span
 		color: #fff
 
+.green-back
+	background-color: $greenD	
+	color: #fff
+	span
+		color: #fff
+
+.light-green-back
+	background-color: #dae2d4
+	color: #383838
+
 
 //////////////////////////////////////
 //                                  //
@@ -1074,8 +1138,6 @@ $phvFsize: 0.9rem
 		padding: 10px
 		img
 			width: 80px
-
-
 
 //////////////////////////////////////
 //                                  //
@@ -1125,34 +1187,3 @@ $phvFsize: 0.9rem
 		.inner2
 			max-width: 200px
 
-
-
-//////////////////////////////////////
-//                                  //
-//             ERRORS               //
-//                                  //
-//////////////////////////////////////
-
-.error-display
-	position: absolute
-	width: 50px
-	height: 50px
-	@include flex-column
-	right: 40px
-	bottom: 50px
-	border-radius: 10px
-	background-color: $dark2
-	i
-		color: #fff
-		font-size: 2rem
-	&:hover
-		cursos: pointer
-
-.main-error
-	position: absolute
-	width: 100%
-	height: 100%
-	z-index: 9999
-	background-color: #000
-
-	

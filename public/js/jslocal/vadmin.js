@@ -76,16 +76,6 @@ $(document).ready(function(){
 		$('.List-Actions').addClass('Hidden');
 		$(this).children('.List-Actions').removeClass('Hidden');
 	});
-});
-
-$(document).ready(function() {
-	// Show Actions
-	// $(document).on("click",".Lists-Actions-Trigger",function(e) {
-	// 	e.preventDefault();
-	// 	e.stopPropagation();
-	// 	$('.List-Actions').addClass('Hidden');
-	// 	$(this).parent().siblings('.List-Actions').removeClass('Hidden');
-	// });
 
 	// Close Actions
 	$(document).on("click",".Close-Actions-Btn",function(e) {
@@ -200,6 +190,25 @@ function resetForm(id) {
     document.getElementById(id).reset();
 }
 
+//////////////////////////////
+// 							//
+//         FORMULES         //
+//                          //
+//////////////////////////////
+
+function formatNum(num, fixed) {
+    var re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || -1) + '})?');
+    return num.toString().match(re)[0];
+}
+
+
+function calcPtje(preciocosto, pjegremio){
+	var calc   = parseFloat(preciocosto) * parseFloat(pjegremio) / 100;
+	var result = parseFloat(preciocosto) + parseFloat(calc);
+	var result = Math.round(result*Math.pow(10,2))/Math.pow(10,2);
+	return result;
+}
+
 
 //////////////////////////////
 // 							//
@@ -240,12 +249,6 @@ function alert_info(bigtext, smalltext){
 		});
 }
 
-function calcPtje(preciocosto, pjegremio){
-	var calc   = parseFloat(preciocosto) * parseFloat(pjegremio) / 100;
-	var result = parseFloat(preciocosto) + parseFloat(calc);
-	var result = Math.round(result*Math.pow(10,2))/Math.pow(10,2);
-	return result;
-}
 
 //////////////////////////////
 // 							//
@@ -295,20 +298,3 @@ function toggleLoader(){
 }
 
 
-//////////////////////////////
-// 							//
-//          ERRORS          //
-//                          //
-//////////////////////////////
-
-// $('#MainError')
-// $('.CloseMainError')
-
-// $('#CloseMainError').click(function(){
-// 	console.log();
-// 	$('#MainError').addClass('Hidden');
-// });
-
-// $('.CloseMainError').click(function(){
-// 		console.log();
-// });

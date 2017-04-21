@@ -12,11 +12,7 @@ use Session;
 
 class SubfamiliasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\View\View
-     */
+
     public function index(Request $request)
     {
         $keyword = $request->get('search');
@@ -31,11 +27,6 @@ class SubfamiliasController extends Controller
         return view('vadmin.subfamilias.index', compact('subfamilias'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\View\View
-     */
     public function create()
     {
 
@@ -45,13 +36,6 @@ class SubfamiliasController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
     public function store(Request $request)
     {
         // $this->validate($request,[
@@ -61,8 +45,6 @@ class SubfamiliasController extends Controller
         //     'nombre.unique'      => 'El item ya existe',
         // ]);
 
-
-        
         $requestData = $request->all();
         
         Subfamilia::create($requestData);
@@ -72,13 +54,6 @@ class SubfamiliasController extends Controller
         return redirect('vadmin/subfamilias');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\View\View
-     */
     public function show($id)
     {
         $subfamilia = Subfamilia::findOrFail($id);
@@ -86,13 +61,6 @@ class SubfamiliasController extends Controller
         return view('vadmin.subfamilias.show', compact('subfamilia'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\View\View
-     */
     public function edit($id)
     {
         $subfamilia = Subfamilia::findOrFail($id);

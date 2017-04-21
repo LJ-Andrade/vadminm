@@ -20,7 +20,6 @@ class CreateProductosTable extends Migration
             $table->integer('stockactual');
             $table->integer('stockmin');
             $table->integer('stockmax');
-            $table->integer('preciocompra');
             $table->integer('preciocosto');
             $table->integer('pjegremio');
             $table->integer('pjeparticular');
@@ -28,6 +27,8 @@ class CreateProductosTable extends Migration
             $table->integer('preciooferta')->nullabble();
             $table->integer('cantoferta')->nullabble();
 
+            $table->integer('moneda_id')->unsigned();
+            $table->foreign('moneda_id')->references('id')->on('monedas');
             $table->integer('proveedor_id')->unsigned();
             $table->foreign('proveedor_id')->references('id')->on('proveedores');
             $table->integer('familia_id')->unsigned();
