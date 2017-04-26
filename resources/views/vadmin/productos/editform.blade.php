@@ -73,15 +73,15 @@
 	{{-- Precio de Costo --}}
 	<div class="col-md-2 col-xs-12">
 		<div class="form-group">
-			{!! Form::label('preciocosto', 'Precio de Costo') !!}
-			{!! Form::number('preciocosto', null, ['id' => 'PrecioCostoIpt', 'class' => 'form-control', 'min' => '0', 'placeholder' => '']) !!}
+			{!! Form::label('costo', 'Precio de Costo') !!}
+			{!! Form::number('costo', $costo, ['id' => 'PrecioCostoIpt', 'class' => 'form-control', 'step'=>'any', 'min' => '0', 'placeholder' => '']) !!}
 		</div>
 	</div>
 	{{-- Moneda --}}
 	<div class="col-md-2 col-sm-6 col-xs-12">
 		<div class="form-group">
-			{!! Form::label('moneda', 'Moneda') !!}
-			{!! Form::select('moneda', $monedas, $producto->moneda_id, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
+			{!! Form::label('monedacompra', 'Moneda') !!}
+			{!! Form::select('monedacompra', $monedacompra, $producto->monedacompra, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
 		</div>
 	</div>
 	{{-- Condicion Iva --}}

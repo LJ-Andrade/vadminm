@@ -20,7 +20,10 @@ class CreateProductosTable extends Migration
             $table->integer('stockactual');
             $table->integer('stockmin');
             $table->integer('stockmax');
-            $table->integer('preciocosto');
+            $table->integer('monedacompra');
+            $table->integer('costopesos');
+            $table->integer('costodolar');
+            $table->integer('costoeuro');
             $table->integer('pjegremio');
             $table->integer('pjeparticular');
             $table->integer('pjeespecial');

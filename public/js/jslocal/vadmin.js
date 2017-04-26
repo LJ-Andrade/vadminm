@@ -289,12 +289,12 @@ $(document).ajaxComplete(function(){
 
 function toggleLoader(){
   $('.Main-Loader').toggleClass('Hidden');
-    if (!$('.Main-loader').hasClass('Hidden')) {
-      // This prevents scroll on loader
-      $('html').css({ 'overflow': 'hidden', 'height': '100%' });
-    } else {
-      $('html').css({ 'overflow-Y': 'scroll', 'height': '100%' });
-    }
+    // if (!$('.Main-loader').hasClass('Hidden')) {
+    //   // This prevents scroll on loader
+    // //   $('html').css({ 'overflow': 'hidden', 'height': '100%' });
+    // } else {
+    // //   $('html').css({ 'overflow-y': 'scroll', 'height': '100%' });
+    // }
 }
 
 

@@ -12,9 +12,9 @@ class Producto extends Model
     protected $primaryKey = 'id';
 
 
-    protected $fillable = [ 'nombre', 'estado', 'stockactual', 'condiva', 'codproveedor', 'stockmin', 'stockmax', 'preciocompra', 'moneda_id',
-                            'preciocosto', 'pjegremio', 'pjeparticular', 'pjeespecial', 'preciooferta', 'cantoferta', 'proveedor_id','familia_id', 
-                            'subfamilia_id' ];
+    protected $fillable = [ 'nombre', 'estado', 'stockactual', 'condiva', 'codproveedor', 'stockmin', 'stockmax', 'monedacompra', 'costopesos', 
+                            'costodolar', 'costoeuro', 'pjegremio', 'pjeparticular', 'pjeespecial', 'preciooferta', 'cantoferta', 'proveedor_id',
+                            'familia_id', 'subfamilia_id' ];
     
     public function proveedor(){
     	return $this->belongsTo('App\Proveedor');

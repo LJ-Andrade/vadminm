@@ -134,26 +134,20 @@ class ProductosController extends Controller
             'codproveedor.unique' => 'Ya existe un producto con el código de proveedor ingresado',
         ]);
         
-        $dolarsist = Moneda::where('nombre', '=', 'Dolar')->first();
-        $eurosist  = Moneda::where('nombre', '=', 'Euro-Dolar')->first();
         $producto  = new Producto($request->all());
-        // Convert Input Value to Dolar
-        switch ($request->moneda) {
+        // Store cost by money type
+        switch ($request->monedacompra) {
             case 1:
-                $producto->preciocosto   = $request->preciocosto / $dolarsist->valor;
-                $producto->preciocosto   = formatNum($producto->preciocosto, 2);
+                $producto->costopesos    = formatNum($request->costo, 2);
                 break;
             case 2:
-                $producto->preciocosto   = $request->preciocosto;
-                $producto->preciocosto   = formatNum($producto->preciocosto, 2);
+                $producto->costodolar    = formatNum($request->costo, 2);
                 break;
             case 3:
-                $producto->preciocosto   = $request->preciocosto / $eurosist->valor;
-                $producto->preciocosto   = formatNum($producto->preciocosto, 2);
+                $producto->costoeuro     = formatNum($request->costo, 2);
                 break;
             default:
-                $producto->preciocosto   = $request->preciocosto / $dolarsist->valor;
-                $producto->preciocosto   = formatNum($producto->preciocosto, 2);
+                $producto->costopesos    = formatNum($request->costo, 2);
                 break;
         }
 
@@ -236,16 +230,32 @@ class ProductosController extends Controller
         $proveedor    = Proveedor::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $familias     = Familia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $subfamilias  = Subfamilia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
-        $monedas      = Moneda::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
+        $monedacompra = Moneda::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $subfamiliaId = $producto->subfamilia->id;
-        
+
+        switch ($producto->monedacompra) {
+            case 1:
+                $costo = $producto->costopesos;
+                break;
+            case 2:
+                $costo = $producto->costodolar;
+                break;
+            case 3:
+                $costo = $producto->costoeuro;
+                break;
+            default:
+                $costo = $producto->costopesos;
+                break;
+        }
+
         return view('vadmin.productos.edit')
+            ->with('costo', $costo)
             ->with('producto', $producto)
             ->with('proveedor', $proveedor)
             ->with('familias', $familias)
             ->with('subfamilias', $subfamilias)
             ->with('subfamiliaId', $subfamiliaId)
-            ->with('monedas', $monedas);
+            ->with('monedacompra', $monedacompra);
 
     }
 
@@ -260,6 +270,30 @@ class ProductosController extends Controller
         ],[
             'codproveedor.unique' => 'Ya existe un producto con ese código de proveedor',
         ]);
+
+              // Store cost by money type
+        switch ($request->monedacompra) {
+            case 1:
+                $producto->costopesos = formatNum($request->costo, 2);
+                $producto->costodolar = 0;
+                $producto->costoeuro  = 0;
+                break;
+            case 2:
+                $producto->costodolar = formatNum($request->costo, 2);
+                $producto->costopesos = 0;
+                $producto->costoeuro  = 0;
+                break;
+            case 3:
+                $producto->costoeuro  = formatNum($request->costo, 2);
+                $producto->costopesos = 0;
+                $producto->costodolar = 0;
+                break;
+            default:
+                $producto->costopesos    = formatNum($request->costo, 2);
+                break;
+        }
+
+
 
         $producto->update($requestData);
 

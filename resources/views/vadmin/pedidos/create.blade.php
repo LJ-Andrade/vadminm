@@ -146,7 +146,7 @@
 			var route   = "{{ url('vadmin/ajax_store_pedidoitem') }}";
 			var data    = {cliente_id: clienteid, pedido_id: pedidoid, producto_id: productoid, cantidad: cantidad, valor: valor};
 			$.post(route, data, function(data) {
-				console.log(data);
+				// console.log(data);
 			})
 			.done(function(data) {
 
@@ -169,7 +169,7 @@
 				
 			})
 			.fail(function(data) {
-				// console.log(data);
+				console.log(data);
 			});
 		
 
