@@ -190,17 +190,26 @@ hr {
 }
 
 .big-card .title {
-  background-color: #ceceef;
+  background-color: #ffd9d9;
   padding: 10px;
   position: relative;
 }
 
-.big-card .title h1 {
+.big-card .title .ml15 {
   margin-left: 15px;
 }
 
 .big-card .title .small-text {
-  margin-left: 15px;
+  font-size: 0.9rem;
+}
+
+.big-card .title .medium-text {
+  font-size: 1rem;
+}
+
+.big-card .title .big-text {
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
 .big-card .title .right {
@@ -212,7 +221,7 @@ hr {
 .big-card .subtitle {
   margin-top: 15px;
   margin-bottom: 10px;
-  background-color: #e5e5f5;
+  background-color: #fff6f6;
   color: #383838;
   padding: 2px 5px;
 }
@@ -223,6 +232,10 @@ hr {
 
 .big-card .content .btnSm {
   margin-top: 15px;
+}
+
+.big-card .content .small-table td {
+  padding-right: 15px;
 }
 
 .medium-card .inner {

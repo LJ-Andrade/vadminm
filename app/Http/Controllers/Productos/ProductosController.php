@@ -24,72 +24,50 @@ class ProductosController extends Controller
      */
     public function index(Request $request)
     {
-        $keyword = $request->get('search');
+        $name = $request->get('name');
+        $code = $request->get('code');
         $perPage = 25;
-    
-        if (!empty($keyword)) {
-            $productos = Producto::where('nombre', 'LIKE', "%$keyword%")
+
+        if ($name != '' and $code != ''){
+                // Search User AND Role
+                $productos = Producto::where('nombre', 'LIKE', "%$name%")->where('id', 'LIKE', "%$code%")
                 ->paginate($perPage);
-        } else {
-            $productos = Producto::paginate($perPage);
+            } else if ($name != '') {
+                // Search by name
+                $productos = Producto::where('nombre', 'LIKE', "%$name%")->paginate($perPage);
+           
+            } else if ($code !='') {
+                // Search by Name or Email
+                $productos = Producto::where('id', 'LIKE', "%$code%")->paginate($perPage);
+            } else {
+                // Seatch All
+                $productos = Producto::paginate($perPage);
         }
+
+
+        // if (!empty($name) || !empty($code)) {
+
+        //     switch ($keyword) {
+        //         case 'value':
+        //             # code...
+        //             break;
+                
+        //         default:
+        //             # code...
+        //             break;
+        //     }
+
+        //     $productos = Producto::where('nombre', 'LIKE', "%$keyword%")
+        //         ->paginate($perPage);
+        // } else {
+            
+        //     $productos = Producto::paginate($perPage);
+        // }
 
         $dolarsist = Moneda::where('nombre', '=', 'Dolar')->first();
         return view('vadmin.productos.index')->with('productos', $productos)->with('dolarsist', $dolarsist);
     }
 
-    //////////////////////////////////////////////////
-    //                  LIST                        //
-    //////////////////////////////////////////////////
-
-    public function ajax_list(Request $request)
-    {
-        $productos = Producto::orderBy('id', 'DESC')->paginate(20);
-        $dolarsist = Moneda::where('nombre', '=', 'Dolar')->first();
-        return view('vadmin/productos/list')
-            ->with('productos', $productos)
-            ->with('dolarsist', $dolarsist);   
-    }
-
-    
-    //////////////////////////////////////////////////
-    //                  SEARCH                      //
-    //////////////////////////////////////////////////
-
-
-    public function ajax_list_search(Request $request)
-    {   
-        if ($request->ajax())
-        {
-            if ($request->get('nombre')){
-                $nombre = $_GET['nombre'];
-            } else {
-                $nombre = '';
-            }
-
-            if ($request->get('id')){
-                $id = $_GET['id'];
-            } else {
-                $id = '';
-            }
-
-            if ($nombre != '' and $id != ''){
-                // Show All
-                $productos = Producto::where('nombre', 'LIKE', '%'.$nombre.'%' )
-                ->where('id', 'LIKE', '%'.$id.'%')->paginate(20);
-            } else if($nombre != '') {
-                // Search by nombre
-                 $productos = Producto::where('nombre', 'LIKE', '%'.$nombre.'%' )->paginate(20);
-            } else if ($id !='') {
-                // Search by nombre or Id
-                $productos = Producto::where('id', 'LIKE', '%'.$id.'%' )->paginate(20);
-            } else {
-                // Show All
-                $productos = Producto::orderBy('id', 'ASC')->paginate(12);
-            }
-            return view('vadmin/productos/list')->with('productos', $productos);  
-        }
-    }
 
     //////////////////////////////////////////////////
     //                  CREATE                      //
@@ -169,35 +147,48 @@ class ProductosController extends Controller
 
     public function show($id)
     {
-        $dolarsist = Moneda::where('nombre', '=', 'Dolar')->first();
-        $producto  = Producto::findOrFail($id);
-        $monedas   = Moneda::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
-
-        $fullid    = $producto->familia_id.'-'.$producto->subfamilia_id.'-'.$id;
+        $dolarsist    = Moneda::where('nombre', '=', 'Dolar')->first();
+        $eurosist     = Moneda::where('nombre', '=', 'Euro')->first();
+        $producto     = Producto::findOrFail($id);
+        $monedas      = Moneda::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
+        $fullid       = $producto->familia_id.'-'.$producto->subfamilia_id.'-'.$id;
+        $monedacompra = Moneda::where('id', '=', $producto->monedacompra)->first();
         
-        $valgremiouss      = calcFinalPrice($producto->preciocosto, $producto->pjegremio);
-        $valparticularuss  = calcFinalPrice($producto->preciocosto, $producto->pjeparticular);
-        $valespecialuss    = calcFinalPrice($producto->preciocosto, $producto->pjeespecial);
+        switch ($producto->monedacompra) {
+            case 1:
+                $valorcompra     = formatNum($producto->costopesos, 2);
+                $finalgremio     = calcFinalPrice($valorcompra, $producto->pjegremio);
+                $finalparticular = calcFinalPrice($valorcompra, $producto->pjeparticulat);
+                $finalespecial   = calcFinalPrice($valorcompra, $producto->pjeespecial);
+                break;
+            case 2:
+                $valorcompra     = formatNum($producto->costodolar, 2);
+                                  //calcFinalPriceConvert(cost, porcentage, moneyactualvalue);
+                $finalgremio     = calcFinalPriceConvert($valorcompra, $producto->pjegremio,     $dolarsist->valor);
+                $finalparticular = calcFinalPriceConvert($valorcompra, $producto->pjeparticular, $dolarsist->valor);
+                $finalespecial   = calcFinalPriceConvert($valorcompra, $producto->pjeespecial,   $dolarsist->valor);
+                break;
+            case 3:
+                $valorcompra     = formatNum($producto->costoeuro, 2);
+                $finalgremio     = calcFinalPriceConvert($valorcompra, $producto->pjegremio,     $eurosist->valor);
+                $finalparticular = calcFinalPriceConvert($valorcompra, $producto->pjeparticular, $eurosist->valor);
+                $finalespecial   = calcFinalPriceConvert($valorcompra, $producto->pjeespecial,   $eurosist->valor);
+                break;
+            default:
+                $valorcompra = formatNum($producto->costopesos, 2);
+                break;
+        }
 
-        $preciocostopesos  = $producto->preciocosto * $dolarsist->valor;
-        $precioofertapesos = $producto->preciooferta * $dolarsist->valor;
-        $valorgremio       = calcFinalPriceConvert($producto->preciocosto, $producto->pjegremio, $dolarsist->valor);
-        $valorparticular   = calcFinalPriceConvert($producto->preciocosto, $producto->pjeparticular, $dolarsist->valor);
-        $valorespecial     = calcFinalPriceConvert($producto->preciocosto, $producto->pjeespecial, $dolarsist->valor);
           
         return view('vadmin.productos.show')
             ->with('producto', $producto)
             ->with('fullid', $fullid)
             ->with('monedas', $monedas)
-            ->with('preciocostopesos', $preciocostopesos)
-            ->with('valorgremio', $valorgremio)
-            ->with('valorparticular', $valorparticular)
-            ->with('valorespecial', $valorespecial)
-            ->with('valgremiouss', $valgremiouss)
-            ->with('valparticularuss', $valparticularuss)
-            ->with('valespecialuss', $valespecialuss)
-            ->with('precioofertapesos', $precioofertapesos);
-
+            ->with('monedacompra', $monedacompra)
+            ->with('valorcompra', $valorcompra)
+            ->with('finalgremio', $finalgremio)
+            ->with('finalparticular', $finalparticular)
+            ->with('finalespecial', $finalespecial);
     }
 
     //////////////////////////////////////////////////

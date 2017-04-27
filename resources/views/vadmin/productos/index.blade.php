@@ -27,8 +27,7 @@
 	<div id="DolarSist" data-dolarsist="{{ $dolarsist->valor }}"></div>
     <div class="container">
 		<div class="row">
-			<div id="List"></div>
-			<br>
+			@include('vadmin.productos.list')
 		</div>
 		<button id="BatchDeleteBtn" class="button buttonCancel batchDeleteBtn Hidden"><i class="ion-ios-trash-outline"></i> Eliminar seleccionados</button>
 	</div>  
@@ -81,69 +80,69 @@
     /////////////////////////////////////////////////
 
 
-	$(document).ready(function(){
-		ajax_list();
-	});
+	// $(document).ready(function(){
+	// 	ajax_list();
+	// });
 
-	var ajax_list = function(){
+	// var ajax_list = function(){
 
-		$.ajax({
-			type: 'get',
-			url: '{{ url('vadmin/ajax_list_productos') }}',
-			success: function(data){
-				$('#List').empty().html(data);
-			},
-			error: function(data){
-				console.log(data)
-				// $('#Loader').hide();
-				//$('#Error').html(data.responseText);
-			}
-		});
-	}
+	// 	$.ajax({
+	// 		type: 'get',
+	// 		url: '{{ url('vadmin/ajax_list_productos') }}',
+	// 		success: function(data){
+	// 			$('#List').empty().html(data);
+	// 		},
+	// 		error: function(data){
+	// 			console.log(data)
+	// 			// $('#Loader').hide();
+	// 			//$('#Error').html(data.responseText);
+	// 		}
+	// 	});
+	// }
 
-	// Pagination
-	$(document).on("click", ".pagination li a", function(e){
-		e.preventDefault();
+	// // Pagination
+	// $(document).on("click", ".pagination li a", function(e){
+	// 	e.preventDefault();
 
-		var url     = $(this).attr('href');
+	// 	var url     = $(this).attr('href');
 
-		$.ajax({
-			type: 'get',
-			url: url,
-			success: function(data){
-				$('#List').empty().html(data);
-			},
-			complete: function(){
-			},
-			error: function(data){
-				console.log(data)
-			}
-		});
-	});
+	// 	$.ajax({
+	// 		type: 'get',
+	// 		url: url,
+	// 		success: function(data){
+	// 			$('#List').empty().html(data);
+	// 		},
+	// 		complete: function(){
+	// 		},
+	// 		error: function(data){
+	// 			console.log(data)
+	// 		}
+	// 	});
+	// });
 
-	// By Id or Description
-	$(document).on("keyup", "#SearchForm", function(e){
-		e.preventDefault();
-		var name  = $('#SearchByName').val();
-		var id    = $('#SearchById').val();
-		var url = "{{ url('vadmin/ajax_list_search_productos') }}/search?id="+id+"&nombre="+name+"";
+	// // By Id or Description
+	// $(document).on("keyup", "#SearchForm", function(e){
+	// 	e.preventDefault();
+	// 	var name  = $('#SearchByName').val();
+	// 	var id    = $('#SearchById').val();
+	// 	var url = "{{ url('vadmin/ajax_list_search_productos') }}/search?id="+id+"&nombre="+name+"";
 
-		$.ajax({
-			type: 'get',
-			url: url,
-			success: function(data){
-				$('#List').empty().html(data);
-				toggleLoader();	
-			},
-			complete: function(data){
-				toggleLoader();	
-			},
-			error: function(data){
-				console.log(data)
-				toggleLoader();	
-			}
-		});		
-	});
+	// 	$.ajax({
+	// 		type: 'get',
+	// 		url: url,
+	// 		success: function(data){
+	// 			$('#List').empty().html(data);
+	// 			toggleLoader();	
+	// 		},
+	// 		complete: function(data){
+	// 			toggleLoader();	
+	// 		},
+	// 		error: function(data){
+	// 			console.log(data)
+	// 			toggleLoader();	
+	// 		}
+	// 	});		
+	// });
 
 
 	/////////////////////////////////////////////////

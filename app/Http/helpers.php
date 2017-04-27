@@ -57,10 +57,10 @@ function calcFinalPrice($cost, $pje){
     return $result;
 }
 
-function calcFinalPriceConvert($cost, $pje, $change){
-    $result = $cost * $pje / 100;
-    $result = $result + $cost;
-    $result = $result * $change;
+function calcFinalPriceConvert($cost, $porcentage, $currencyActualValue){
+    $porcentage = $cost * $porcentage / 100;
+    $result     = $cost + $porcentage;
+    $result     = $result * $currencyActualValue;
     return $result;
 }
 

@@ -155,7 +155,6 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 
 	// ------ Productos ------- //
 	Route::resource('productos', 'Productos\ProductosController');
-	Route::get('ajax_list_productos/{page?}', 'Productos\ProductosController@ajax_list');
 	Route::post('ajax_delete_producto/{id}', 'Productos\ProductosController@destroy');
 	Route::post('ajax_batch_delete_productos/{id}', 'Productos\ProductosController@ajax_batch_delete');
 	Route::post('update_prod_status/{id}', 'Productos\ProductosController@updateStatus');
@@ -165,8 +164,6 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 
 	Route::post('update_prod_stock/{id}', 'Productos\ProductosController@updateStock');
 	Route::post('update_prod_costprice/{id}', 'Productos\ProductosController@updateCostPrice');
-	// Searcher
-	Route::get('ajax_list_search_productos/{search?}', 'Productos\ProductosController@ajax_list_search');
 
 	// ------ Pedidos ------- //
 	Route::resource('pedidos', 'PedidosController');

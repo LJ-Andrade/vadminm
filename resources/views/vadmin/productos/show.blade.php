@@ -25,9 +25,9 @@
     <div class="container">
 		<div class="row big-card">	
             <div class="title">
-                <p>{{ $producto->familia->nombre }} > {{ $producto->subfamilia->nombre }}</p>
-			    <span class="title">{{ $producto->nombre }}</h1>
-                <p class="small">Cód. {{ $fullid }}</p>
+                <span class="medium-text">{{ $producto->familia->nombre }} > {{ $producto->subfamilia->nombre }}</span> <br>
+			    <span class="big-text">{{ $producto->nombre }}</span><br>
+                <span class="small-text">Cód. {{ $fullid }}</span>
             </div>
             <div class="content">
                 <div class="row">
@@ -45,24 +45,19 @@
                             @endif
                         </div>
                     </div>
-                      <div class="col-md-4">
+                      <div class="col-md-6">
                         <div class="subtitle">Stock </div>
                         <b>Stock actual:</b> 
                         @if ( $producto->stockactual < $producto->stockmin )
                         <span class="badge buttonCancel"> {{ $producto->stockactual }} </span>
                         @else {{ $producto->stockactual }} @endif <br>
-                        <b>Stock mínimo:</b> {{ $producto->stockmin }} <br>
+                        <b>Stock mínimo:</b> {{ $producto->stockmin }} |
                         <b>Stock máximo:</b> {{ $producto->stockmax }} <br>
                         {{-- Update Stock Modal Trigger --}}
                         <button class="btnSm buttonOther" data-toggle="modal" data-target="#UpdateStockModal">Actualizar Stock</button>
                     </div>
-                    <div class="col-md-4">
-                        <div class="subtitle">Datos</div>
-                        <b>Código: </b>  {{ $fullid }} <br>
-                        <b>Familia: </b>  @if(is_null($producto->familia->nombre)) @else {{ $producto->familia->nombre }} @endif <br>
-                        <b>Subfamilia: </b>  @if(is_null($producto->subfamilia->nombre)) @else {{ $producto->subfamilia->nombre }} @endif <br>
-                    </div>
-                    <div class="col-md-4">
+
+                    <div class="col-md-6">
                         <div class="subtitle">Proveedor</div>
                         <b>Proveedor:</b> @if(is_null($producto->proveedor->nombre)) @else {{ $producto->proveedor->nombre }} @endif <br>
                         <b>Código de proveedor:</b> @if(is_null($producto->codproveedor)) @else {{ $producto->codproveedor }} @endif  <br>
@@ -72,35 +67,34 @@
                 <hr class="softhr">
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="subtitle">Precios en Dólares</div>
-                        <b>Precio de costo: u$s</b> @if(is_null($producto->preciocosto)) @else {{ $producto->preciocosto }} @endif <br>
-                        <b>Gremio</b> @if(is_null($producto->pjegremio)) @else {{ $producto->pjegremio }} % @endif | <b>u$s</b> {{ $valgremiouss }} <br>
-                        <b>Particular:</b> @if(is_null($producto->pjeparticular)) @else {{ $producto->pjeparticular }} % @endif | <b>u$s: </b>{{ $valparticularuss }} <br>
-                        <b>Especial:</b> @if(is_null($producto->pjeespecial)) @else {{ $producto->pjeespecial }} % @endif | <b>u$s</b> {{ $valespecialuss }} </b><br>                
+                        <div class="subtitle">Precio de Costo</div>
+                        <b>Moneda:</b>  {{ $monedacompra->nombre }}<br>
+                        <b>Valor: </b>  {{ $valorcompra }}<br>
                         {{-- Update Price Modal Trigger --}}
                         <button class="btnSm buttonOther" data-toggle="modal" data-target="#UpdatePriceModal">Actualizar Costo</button>
                     </div>
                     <div class="col-md-4">
                         <div class="subtitle">Precios en Pesos</div>
-                        <b>Precio de costo: $</b> {{ $preciocostopesos }} <br>
-                        <b>Gremio</b> @if(is_null($producto->pjegremio)) @else {{ $producto->pjegremio }} % @endif | <b>$</b> {{ $valorgremio }} <br>
-                        <b>Particular:</b> @if(is_null($producto->pjeparticular)) @else {{ $producto->pjeparticular }} % @endif | <b>$ </b>{{ $valorparticular }} <br>
-                        <b>Especial:</b> @if(is_null($producto->pjeespecial)) @else {{ $producto->pjeespecial }} % @endif | <b>$</b> {{ $valorespecial }} </b><br>
+                        <table class="small-table">
+                            <tr>
+                                <td><b>Gremio</b> {{ $producto->pjegremio }} % </td>
+                                <td><b>$</b> {{ $finalgremio }} </td>                            
+                            </tr>
+                            <tr>
+                                <td><b>Particular:</b> {{ $producto->pjeparticular }} % </td>
+                                <td><b>$ </b>{{ $finalparticular }} </td>
+                            </tr>
+                            <tr>
+                                <td><b>Especial: </b> {{ $producto->pjeespecial }} % </td>
+                                <td><b>$</b> {{ $finalespecial }} </b><br></td>
+                            </tr>
+                        </table>
                     </div>
-                     <div class="col-md-4">
-                        <div class="subtitle">Precios en Pesos</div>
-                        <b>Precio de costo: $</b> {{ $preciocostopesos }} <br>
-                        <b>Gremio</b> @if(is_null($producto->pjegremio)) @else {{ $producto->pjegremio }} % @endif | <b>$</b> {{ $valorgremio }} <br>
-                        <b>Particular:</b> @if(is_null($producto->pjeparticular)) @else {{ $producto->pjeparticular }} % @endif | <b>$ </b>{{ $valorparticular }} <br>
-                        <b>Especial:</b> @if(is_null($producto->pjeespecial)) @else {{ $producto->pjeespecial }} % @endif | <b>$</b> {{ $valorespecial }} </b><br>
-                    </div>
-                </div>
-                <div class="row">
-                  
-                    <div class="col-md-6">
-                        <div class="subtitle">Ofertas</div>
-                        <b>Precio de oferta:</b> @if(is_null($producto->preciooferta)) @else u$s {{ $producto->preciooferta }} @endif | @if(is_null($precioofertapesos)) @else $ {{ $precioofertapesos }} @endif <br>
-                        <b>Cantidad mínima (oferta):</b> @if(is_null($producto->cantoferta)) @else {{ $producto->cantoferta }} @endif <br>
+  
+                    <div class="col-md-4">
+                        <div class="subtitle">Precio de oferta  (pesos) </div>
+                        <b>Precio de oferta:</b> @if(is_null($producto->preciooferta)) @else $ {{ $producto->preciooferta }} @endif <br>
+                        <b>Cantidad mínima:</b> @if(is_null($producto->cantoferta)) @else {{ $producto->cantoferta }} @endif <br>
                     </div>
                 </div>
                 <hr class="softhr">
