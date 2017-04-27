@@ -71,5 +71,20 @@
 
 	// ProductOutput
 	
+
+	// Get Client By Id
+	function getClientById(id, url){
+
+		$.get(route, function(data){
+			
+			$.each(data, function(index, productos){
+				$('#ProductSelect').append("<option value='"+productos.id+"' data-name='"+ productos.nombre +"' data-stockactual='"+ productos.stockactual +"'>"+ productos.nombre +"</option>");
+			});
+
+		});
+
+	}
+
+
     
 </script>
