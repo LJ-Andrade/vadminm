@@ -173,7 +173,7 @@ class ProductosController extends Controller
         $producto  = Producto::findOrFail($id);
         $monedas   = Moneda::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
 
-        $fullid    = $producto->familia_id.'-'.$id;
+        $fullid    = $producto->familia_id.'-'.$producto->subfamilia_id.'-'.$id;
         
         $valgremiouss      = calcFinalPrice($producto->preciocosto, $producto->pjegremio);
         $valparticularuss  = calcFinalPrice($producto->preciocosto, $producto->pjeparticular);

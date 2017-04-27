@@ -9,10 +9,8 @@
 	<meta name="description" content="VADmin | Gestor de Con2tenidos" />
 	<meta name="keywords" content="Diseño Web, diseño grafico, web, sitio web, paginas web, programacion, sistemas, administracion, gestores, contenido, publicidad, internet, redes sociales" />
 	<meta name="author" content="Studio Vimana" />
-
 	<!-- Favicon -->
 	<link rel="shortcut icon" href="{{ asset('webimages/logos/favicon.png') }}">
-
 	<!-- Styles -->
 	<link rel="stylesheet" type="text/css" href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('plugins/animate/animate.css') }}">
