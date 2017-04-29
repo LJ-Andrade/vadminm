@@ -18,7 +18,7 @@
 @endsection
 
 @section('content')
-	@component('vadmin.components.mainloader')@endcomponent
+	@component('vadmin.components.mainloader') @endcomponent
 	<div class="container">
 		<div class="row">
 			<div id="Error"></div>

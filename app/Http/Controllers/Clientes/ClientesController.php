@@ -28,7 +28,7 @@ class ClientesController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $clientes = Cliente::where('name', 'LIKE', "%$keyword%")
+            $clientes = Cliente::where('name', 'LIKE', "%$keyword%");
 				
                 ->paginate($perPage);
         } else {
@@ -102,6 +102,16 @@ class ClientesController extends Controller
 
     }
 
+
+    public function  get_client($id)
+    {
+
+       //$client = Cliente::where('id', '=', $id);
+    //    echo $client->razonsocial;
+        echo 'test';
+       //return response()->json(['clientname' => $client->name]);
+
+    }
 
     //////////////////////////////////////////////////
     //                  CREATE                      //
