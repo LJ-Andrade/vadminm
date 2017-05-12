@@ -30,12 +30,16 @@
 		var route = "{{ url('vadmin/show_products') }}/"+ids+"";
 		$.get(route, function(data){
 			$('#ProductSelect').find('option').remove().end();
+			$('#ProductOnlySelect').find('option').remove().end();
 			// We add this option to put ProductSelect to work on single product result
 			$('#ProductSelect').append("<option value=''>Seleccione una opción</option>");
 			$.each(data, function(index, productos){
-				$('#ProductSelect').append("<option value='"+productos.id+"' data-name='"+ productos.nombre +"' data-stockactual='"+ productos.stockactual +"'>"+ productos.nombre +"</option>");
+				var div = "<option value='"+productos.id+"' data-name='"+ productos.nombre +"' data-stockactual='"+ productos.stockactual +"'>"+ productos.nombre +"</option>"
+				$('#ProductSelect').append(div);
+				$('#ProductOnlySelect').append(div);
 			});
 			$('#ProductSelect').trigger("chosen:updated");
+			$('#ProductOnlySelect').trigger("chosen:updated");
 		});
 	});
 
@@ -69,6 +73,55 @@
 	});
 
 
+	/////////////////////////////////////////////////
+	//            SUBFAMILIAS - AJAX               //
+	/////////////////////////////////////////////////
+	
+
+
+
+
+
+	$('#ClienteBySelect').on('change', function(e, p){
+		var id     = $(this).chosen().val();
+		var route  = "{{ url('vadmin/get_client') }}/"+id+"";
+		var output = $('#ClientNameOutput');
+
+		$.get(route, function(data){
+			var cliente = data.cliente.razonsocial;
+			var codigo  = data.cliente.id;
+			var cuit    = data.cliente.cuit;
+			output.html('Código: ' + codigo + ' - ' + cliente);
+			$('#ClienteIdOutput').val(codigo);
+			$('#OutPut').removeClass('Hidden');
+			$('#ClienteId').val(codigo);
+		});
+		
+	});
+
+	$("#CodigoCliente").on( "keydown", function(e) {
+		
+		if(e.which == 13) {
+			var id    = $(this).val();
+			var route = "{{ url('vadmin/get_client') }}/"+id+"";
+			var output = $('#ClientNameOutput');
+
+			$.get(route, function(data){
+				if(data.cliente==null){
+					output.html('El cliente no existe');
+				} else {
+					var cliente = data.cliente.razonsocial;
+					var codigo  = data.cliente.id;
+					var cuit    = data.cliente.cuit;
+					
+					output.html('Código: ' + codigo + ' - ' + cliente);
+					$('#ClienteIdOutput').val(codigo);
+					$('#OutPut').removeClass('Hidden');
+					$('#ClienteId').val(codigo);
+				}	
+			});
+		}
+	});
 
     
 </script>

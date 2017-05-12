@@ -12,8 +12,9 @@ class Tipoct extends Model
 
     protected $fillable = ['name'];
 
-    public function clientes(){
-    	return $this->hasMany('App\Cliente');
+    public function clientes()
+    {
+    	return $this->hasMany('App\Cliente', 'tipo_id');
     }
 
 }

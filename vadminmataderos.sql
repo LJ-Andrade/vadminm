@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-04-2017 a las 21:19:34
+-- Tiempo de generación: 12-05-2017 a las 19:32:50
 -- Versión del servidor: 10.1.19-MariaDB
 -- Versión de PHP: 5.6.28
 
@@ -56,9 +56,9 @@ CREATE TABLE `clientes` (
 
 INSERT INTO `clientes` (`id`, `razonsocial`, `cuit`, `dirfiscal`, `codpostal`, `limitcred`, `telefono`, `celular`, `email`, `descuento`, `tipo_id`, `iva_id`, `provincia_id`, `localidad_id`, `condicventas_id`, `listas_id`, `user_id`, `zona_id`, `flete_id`, `created_at`, `updated_at`) VALUES
 (1, 'CONSUMIDOR FINAL', '', '', 0, 0, NULL, NULL, NULL, '', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 'CHALITA MARIA CAMILA', '', '', 0, 0, NULL, NULL, NULL, '', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 'CEMICA SUDAMERICANA S.R.L.', '', '', 0, 0, NULL, NULL, NULL, '', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 'ACEVEDO ABEL   (ARRECIFES)', '', '', 0, 0, NULL, NULL, NULL, '', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 'CHALITA MARIA CAMILA', '11111111111', '', 0, 0, NULL, NULL, NULL, '', 1, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 'CEMICA SUDAMERICANA S.R.L.', '', '', 0, 0, NULL, NULL, NULL, '', 1, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 'ACEVEDO ABEL   (ARRECIFES)', '', '', 0, 0, NULL, NULL, NULL, '', 2, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (5, 'BENITO', '', '', 0, 0, NULL, NULL, NULL, '', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (7, 'AUTORADIO FG  "FABIAN"', '', '', 0, 0, NULL, NULL, NULL, '', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (8, 'AITA ANGEL', '', '', 0, 0, NULL, NULL, NULL, '', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -151,8 +151,9 @@ INSERT INTO `clientes` (`id`, `razonsocial`, `cuit`, `dirfiscal`, `codpostal`, `
 (96, 'RIOS RODOLFO OSCAR', '', '', 0, 0, NULL, NULL, NULL, '', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (97, 'FRECHERO ARTURO ISMAEL', '', '', 0, 0, NULL, NULL, NULL, '', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (98, 'BONELLI MIGUEL', '', '', 0, 0, NULL, NULL, NULL, '', NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(99, 'EDUARDO ROSA', '', '', 0, 0, NULL, NULL, NULL, '', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(103, 'Otro Cliente', '21-21212121-2', 'Av. Directorio 4705', 1545, 5000, '4545-4545', '(15)1515-1515', 'admstudiovimana@gmail.com', '2', NULL, 4, 1, 143, 5, 6, 3, 2, 1, '2017-04-12 12:25:22', '2017-04-12 12:25:22');
+(99, 'EDUARDO ROSA', '', '', 0, 0, NULL, '15-4545-4545', NULL, '', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2017-05-11 02:45:01'),
+(103, 'Otro Cliente', '21-21212121-2', 'Av. Directorio 4705', 1545, 5000, '4545-4545', '(15)1515-1515', 'admstudiovimana@gmail.com', '2', NULL, 4, 1, 143, 5, 6, 3, 2, 1, '2017-04-12 12:25:22', '2017-04-12 12:25:22'),
+(104, 'Chotorx', '45-45454554-5', 'dsadasdasdasdasdas', 1515, 5000, '4545-4545', '(15)1515-1515', '64654654654@sdsd.com', '350', 1, 1, 2, 968, 6, 5, 3, 2, 1, '2017-05-11 02:55:22', '2017-05-11 02:57:00');
 
 -- --------------------------------------------------------
 
@@ -311,6 +312,32 @@ CREATE TABLE `direntregas` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `direntregas`
+--
+
+INSERT INTO `direntregas` (`id`, `name`, `telefono`, `localidad_id`, `provincia_id`, `cliente_id`, `created_at`, `updated_at`) VALUES
+(1, 'Juan Leon Palliere 1212', '4545-4545', 2, 2, 103, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `facturas`
+--
+
+CREATE TABLE `facturas` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `numero` int(11) NOT NULL,
+  `tipo` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `centroemisor` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `direntrega` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `flete` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `vendedor` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cliente_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- --------------------------------------------------------
 
 --
@@ -331,7 +358,8 @@ CREATE TABLE `familias` (
 
 INSERT INTO `familias` (`id`, `nombre`, `proveedor_id`, `created_at`, `updated_at`) VALUES
 (2, 'Lavarropas', 1, '2017-04-04 02:20:23', '2017-04-04 02:20:23'),
-(3, 'Aire Acondicionados', 1, '2017-04-04 02:20:32', '2017-04-06 10:02:52');
+(3, 'Aire Acondicionados', 1, '2017-04-04 02:20:32', '2017-04-06 10:02:52'),
+(4, 'Motores', NULL, '2017-05-04 08:51:38', '2017-05-04 08:51:38');
 
 -- --------------------------------------------------------
 
@@ -2835,7 +2863,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (20, '2017_04_06_000532_create_tipocts_table', 9),
 (23, '2017_04_06_023556_create_productos_table', 10),
 (29, '2017_04_20_185003_create_pedidos_table', 11),
-(30, '2017_04_20_205715_create_pedidositems_table', 11);
+(30, '2017_04_20_205715_create_pedidositems_table', 11),
+(31, '2017_05_08_231514_create_facturas_table', 12);
 
 -- --------------------------------------------------------
 
@@ -2857,7 +2886,7 @@ CREATE TABLE `monedas` (
 
 INSERT INTO `monedas` (`id`, `nombre`, `valor`, `created_at`, `updated_at`) VALUES
 (1, 'Pesos', 1, '2017-04-04 07:09:12', '2017-04-04 08:51:23'),
-(2, 'Dolar', 15.87, '2017-04-04 07:18:29', '2017-04-19 04:16:30'),
+(2, 'Dolar', 10, '2017-04-04 07:18:29', '2017-05-04 23:12:41'),
 (3, 'Euro', 17.5, '2017-04-04 07:18:37', '2017-04-17 14:35:37');
 
 -- --------------------------------------------------------
@@ -2880,10 +2909,34 @@ CREATE TABLE `password_resets` (
 
 CREATE TABLE `pedidos` (
   `id` int(10) UNSIGNED NOT NULL,
+  `estado` enum('Pendiente','Preparado','Enviado') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `facturado` tinyint(1) NOT NULL,
   `cliente_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `pedidos`
+--
+
+INSERT INTO `pedidos` (`id`, `estado`, `facturado`, `cliente_id`, `created_at`, `updated_at`) VALUES
+(11, 'Pendiente', 0, 45, '2017-05-03 22:33:01', '2017-05-03 22:33:01'),
+(13, 'Enviado', 0, 4, '2017-05-04 09:03:04', '2017-05-04 09:03:04'),
+(14, 'Pendiente', 0, 2, '2017-05-04 09:03:16', '2017-05-04 09:03:16'),
+(15, 'Preparado', 0, 2, '2017-05-04 19:54:41', '2017-05-04 19:54:41'),
+(16, 'Pendiente', 0, 95, '2017-05-05 07:27:47', '2017-05-05 07:27:47'),
+(17, 'Pendiente', 0, 103, '2017-05-09 09:28:26', '2017-05-09 09:28:26'),
+(18, 'Pendiente', 0, 103, '2017-05-09 09:31:01', '2017-05-09 09:31:01'),
+(19, 'Pendiente', 0, 2, '2017-05-09 09:31:28', '2017-05-09 09:31:28'),
+(20, 'Pendiente', 0, 81, '2017-05-09 09:34:42', '2017-05-09 09:34:42'),
+(21, 'Pendiente', 0, 96, '2017-05-10 20:12:44', '2017-05-10 20:12:44'),
+(22, 'Pendiente', 0, 94, '2017-05-10 20:16:39', '2017-05-10 20:16:39'),
+(23, 'Pendiente', 0, 2, '2017-05-10 21:05:21', '2017-05-10 21:05:21'),
+(24, 'Pendiente', 0, 81, '2017-05-10 22:23:07', '2017-05-10 22:23:07'),
+(26, 'Pendiente', 0, 1, '2017-05-11 01:33:19', '2017-05-11 01:33:19'),
+(27, 'Pendiente', 0, 75, '2017-05-11 03:02:08', '2017-05-11 03:02:08'),
+(28, 'Pendiente', 0, 103, '2017-05-11 03:02:18', '2017-05-11 03:02:18');
 
 -- --------------------------------------------------------
 
@@ -2901,6 +2954,37 @@ CREATE TABLE `pedidositems` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `pedidositems`
+--
+
+INSERT INTO `pedidositems` (`id`, `cliente_id`, `pedido_id`, `producto_id`, `cantidad`, `valor`, `created_at`, `updated_at`) VALUES
+(1, 2, 14, 2, 12, 500, '2017-05-04 09:22:43', '2017-05-04 09:22:43'),
+(2, 2, 14, 1, 23, 500, '2017-05-04 09:23:41', '2017-05-04 09:23:41'),
+(3, 2, 14, 2, 32, 500, '2017-05-04 09:24:02', '2017-05-04 09:24:02'),
+(4, 2, 14, 2, 12, 500, '2017-05-04 09:41:33', '2017-05-04 09:41:33'),
+(14, 2, 15, 1, 12, 4, '2017-05-05 00:43:46', '2017-05-05 00:43:46'),
+(19, 2, 15, 1, 20, 4, '2017-05-05 01:00:32', '2017-05-05 01:00:32'),
+(28, 2, 15, 1, 12, 4, '2017-05-05 06:57:08', '2017-05-05 06:57:08'),
+(31, 2, 15, 2, 1, 6500, '2017-05-05 07:00:28', '2017-05-05 07:00:28'),
+(34, 2, 15, 1, 23, 4, '2017-05-05 07:01:48', '2017-05-05 07:01:48'),
+(35, 95, 16, 1, 12, 4, '2017-05-05 07:28:00', '2017-05-05 07:28:00'),
+(36, 95, 16, 2, 23, 6500, '2017-05-05 07:28:09', '2017-05-05 07:28:09'),
+(37, 2, 15, 3, 5, 690, '2017-05-05 08:12:42', '2017-05-05 08:12:42'),
+(38, 2, 15, 1, 1, 4, '2017-05-05 08:13:02', '2017-05-05 08:13:02'),
+(39, 45, 11, 3, 15, 690, '2017-05-09 01:57:36', '2017-05-09 01:57:36'),
+(40, 2, 19, 2, 20, 6500, '2017-05-09 09:33:17', '2017-05-09 09:33:17'),
+(41, 2, 19, 1, 20, 1250, '2017-05-09 09:33:25', '2017-05-09 09:33:25'),
+(42, 2, 19, 4, 1, 105, '2017-05-09 09:33:39', '2017-05-09 09:33:39'),
+(43, 81, 20, 1, 1, 1250, '2017-05-09 09:34:48', '2017-05-09 09:34:48'),
+(45, 81, 20, 1, 1, 1250, '2017-05-09 09:35:31', '2017-05-09 09:35:31'),
+(46, 96, 21, 2, 2, 6500, '2017-05-10 20:13:39', '2017-05-10 20:13:39'),
+(47, 96, 21, 1, 20, 1250, '2017-05-10 20:13:45', '2017-05-10 20:13:45'),
+(48, 94, 22, 1, 20, 1250, '2017-05-10 20:16:46', '2017-05-10 20:16:46'),
+(49, 81, 24, 2, 10, 6500, '2017-05-10 22:23:24', '2017-05-10 22:23:24'),
+(50, 103, 28, 2, 20, 6500, '2017-05-11 03:03:17', '2017-05-11 03:03:17'),
+(51, 103, 28, 2, 22, 6500, '2017-05-11 20:03:57', '2017-05-11 20:03:57');
 
 -- --------------------------------------------------------
 
@@ -2951,8 +3035,10 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `estado`, `codproveedor`, `condiva`, `stockactual`, `stockmin`, `stockmax`, `monedacompra`, `costopesos`, `costodolar`, `costoeuro`, `pjegremio`, `pjeparticular`, `pjeespecial`, `preciooferta`, `cantoferta`, `moneda_id`, `proveedor_id`, `familia_id`, `subfamilia_id`, `created_at`, `updated_at`) VALUES
-(29, 'Lavarropas', 'activo', 'WP3500', 21, 50, 20, 90, 3, 5, 0, 0, 20, 30, 18, 6500, 20, 2, 12, 3, 5, '2017-04-26 15:38:02', '2017-04-26 15:47:06'),
-(30, 'Equipo', 'activo', '156', 21, 50, 20, 60, 1, 600, 0, 0, 15, 20, 14, 750, 20, 2, 12, 2, 10, '2017-04-26 15:47:57', '2017-04-26 16:19:57');
+(1, 'Bocha', 'activo', '3232', 21, 50, 20, 100, 2, 0, 100, 0, 25, 30, 20, 1500, 20, 2, 12, 4, 12, '2017-05-04 08:52:52', '2017-05-09 09:29:48'),
+(2, 'Aire3500', 'activo', 'AR3500', 21, 50, 20, 60, 2, 0, 500, 0, 30, 50, 25, 200, 20, 2, 12, 3, 9, '2017-04-27 01:31:47', '2017-04-27 01:53:16'),
+(3, 'Equipo', 'activo', '156', 21, 50, 20, 60, 1, 600, 0, 0, 15, 20, 14, 580, 20, 2, 12, 2, 10, '2017-04-26 15:47:57', '2017-05-04 23:43:13'),
+(4, 'Lavarropas', 'activo', 'WP3500', 21, 50, 20, 90, 3, 5, 0, 0, 20, 30, 18, 6500, 20, 2, 12, 3, 5, '2017-04-26 15:38:02', '2017-04-26 15:47:06');
 
 -- --------------------------------------------------------
 
@@ -3028,7 +3114,8 @@ INSERT INTO `provincias` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (22, 'Santa Fe', '2017-03-15 03:00:00', '2017-03-15 03:00:00'),
 (23, 'Santiago del Estero', '2017-03-15 03:00:00', '2017-03-15 03:00:00'),
 (24, 'Tierra del Fuego', '2017-03-15 03:00:00', '2017-03-15 03:00:00'),
-(25, 'Tucumán', '2017-03-15 03:00:00', '2017-03-15 03:00:00');
+(25, 'Tucumán', '2017-03-15 03:00:00', '2017-03-15 03:00:00'),
+(26, '', '2017-05-03 22:17:09', '2017-05-03 22:17:09');
 
 -- --------------------------------------------------------
 
@@ -3054,7 +3141,9 @@ INSERT INTO `subfamilias` (`id`, `nombre`, `familia_id`, `created_at`, `updated_
 (7, 'Motores', 2, '2017-04-10 03:29:44', '2017-04-10 03:29:44'),
 (8, 'Repuestos', 2, '2017-04-10 03:30:13', '2017-04-18 02:13:08'),
 (9, 'Equipo', 3, '2017-04-11 05:20:18', '2017-04-11 05:20:18'),
-(10, 'Equipo', 2, '2017-04-11 05:21:10', '2017-04-11 05:21:10');
+(10, 'Equipo', 2, '2017-04-11 05:21:10', '2017-04-11 05:21:10'),
+(11, 'test', 3, '2017-05-03 22:15:30', '2017-05-03 22:15:30'),
+(12, 'Repuestos', 4, '2017-05-04 08:52:04', '2017-05-04 08:52:04');
 
 -- --------------------------------------------------------
 
@@ -3169,6 +3258,13 @@ ALTER TABLE `direntregas`
   ADD KEY `direntregas_localidad_id_foreign` (`localidad_id`),
   ADD KEY `direntregas_provincia_id_foreign` (`provincia_id`),
   ADD KEY `direntregas_cliente_id_foreign` (`cliente_id`);
+
+--
+-- Indices de la tabla `facturas`
+--
+ALTER TABLE `facturas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `facturas_cliente_id_foreign` (`cliente_id`);
 
 --
 -- Indices de la tabla `familias`
@@ -3301,7 +3397,7 @@ ALTER TABLE `zonas`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 --
 -- AUTO_INCREMENT de la tabla `clientes_razonsocial`
 --
@@ -3316,12 +3412,17 @@ ALTER TABLE `condicventas`
 -- AUTO_INCREMENT de la tabla `direntregas`
 --
 ALTER TABLE `direntregas`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `facturas`
+--
+ALTER TABLE `facturas`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `familias`
 --
 ALTER TABLE `familias`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `fletes`
 --
@@ -3346,22 +3447,22 @@ ALTER TABLE `localidades`
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT de la tabla `monedas`
 --
 ALTER TABLE `monedas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT de la tabla `pedidositems`
 --
 ALTER TABLE `pedidositems`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 --
 -- AUTO_INCREMENT de la tabla `pedido_pedidositem`
 --
@@ -3371,7 +3472,7 @@ ALTER TABLE `pedido_pedidositem`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
 --
@@ -3381,12 +3482,12 @@ ALTER TABLE `proveedores`
 -- AUTO_INCREMENT de la tabla `provincias`
 --
 ALTER TABLE `provincias`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 --
 -- AUTO_INCREMENT de la tabla `subfamilias`
 --
 ALTER TABLE `subfamilias`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT de la tabla `tipocts`
 --
@@ -3416,7 +3517,7 @@ ALTER TABLE `clientes`
   ADD CONSTRAINT `clientes_listas_id_foreign` FOREIGN KEY (`listas_id`) REFERENCES `listas` (`id`),
   ADD CONSTRAINT `clientes_localidad_id_foreign` FOREIGN KEY (`localidad_id`) REFERENCES `localidades` (`id`),
   ADD CONSTRAINT `clientes_provincia_id_foreign` FOREIGN KEY (`provincia_id`) REFERENCES `provincias` (`id`),
-  ADD CONSTRAINT `clientes_tipocts_id_foreign` FOREIGN KEY (`tipo_id`) REFERENCES `tipocts` (`id`),
+  ADD CONSTRAINT `clientes_tipoct_id_foreign` FOREIGN KEY (`tipo_id`) REFERENCES `tipocts` (`id`),
   ADD CONSTRAINT `clientes_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `clientes_zona_id_foreign` FOREIGN KEY (`zona_id`) REFERENCES `zonas` (`id`);
 
@@ -3425,6 +3526,12 @@ ALTER TABLE `clientes`
 --
 ALTER TABLE `direntregas`
   ADD CONSTRAINT `direntregas_cliente_id_foreign` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `facturas`
+--
+ALTER TABLE `facturas`
+  ADD CONSTRAINT `facturas_cliente_id_foreign` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`);
 
 --
 -- Filtros para la tabla `pedidos`

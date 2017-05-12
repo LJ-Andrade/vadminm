@@ -1,34 +1,29 @@
 @section('searcher')
 
-@if(isset($_GET['search']))
-<a href="{{ url('vadmin/clientes') }}"><button type="button" class="btnSmall buttonOk">Mostrar Todos</button></a>
+@if(isset($_GET['name']) or isset($_GET['code']))
+<a href="{{ url('vadmin/clientes') }}"><button type="button" class="btnSmall buttonOk">Mostrar Todos</button></a> <br><br>
+Resultados de la búsqueda:
 @endif
-
 <div class="row header-options">
     <div class="Search-Filters search-filters">
         {{-- Search --}}
         <h4 class="hide-desk">Buscador</h4>
-        {!! Form::open(['id' => 'SearchForm', 'class' => 'navbar-form']) !!}
+        {!! Form::open(['method' => 'GET', 'url' => 'vadmin/clientes', 'class' => 'navbar-form', 'role' => 'search']) !!}
             <div class="inner-column">
                 <div class="input-group">
-                    {!! Form::label('id', 'Código') !!}
-                    <input type="number" id="SearchById" class="form-control" placeholder="Buscar por Código..." name="id" >
-    
+                    <span class="input-group-btn">
+                        <input type="text" class="form-control" name="name" placeholder="Buscar por razón social...">
+                    </span>
+                </div>
+                 <div class="input-group">
+                    <span class="input-group-btn">
+                        <input type="text" class="form-control" name="code" placeholder="Buscar por código...">
+                        <button class="btn btn-default" type="submit">
+                            <i class="ion-ios-search"></i>
+                        </button>
+                    </span>
                 </div>
             </div>
-            <div class="inner-column">
-                <div class="input-group">
-                    {!! Form::label('name', 'Razón Social') !!}
-                    {!! Form::text('name', null, ['id' => 'SearchByName', 'class' => 'form-control', 'placeholder' => 'Buscar por Razón Social...']) !!}
-                </div>
-            </div>
-            <div class="inner-column">
-                <div class="input-group">
-                    {!! Form::label('', '') !!} <br>
-                    <a href="{{ url('vadmin/clientes') }}"><button type="button" class="btnSmall buttonOk">Mostrar Todos</button></a>
-                </div>
-            </div>
-            
             
         {!! Form::close() !!}
         {{-- /Search --}}

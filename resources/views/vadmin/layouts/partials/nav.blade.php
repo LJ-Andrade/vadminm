@@ -52,6 +52,7 @@
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Nuevo
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
+							<li><a href="{{ route('facturas.create') }}"><i class="ion-printer"></i>Factura</a></li>
 							<li><a href="{{ route('productos.create') }}"><i class="ion-ios-gear"></i>Producto</a></li>
 							<li><a href="{{ route('pedidos.create') }}"><i class="ion-paper-airplane"></i>Pedido</a></li>
 							<li><a href="{{ route('clientes.create') }}"><i class="ion-ios-briefcase"></i>Cliente</a></li>
@@ -61,6 +62,7 @@
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Listados
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
+							<li><a href="{{ route('facturas.index') }}"><i class="ion-printer"></i>Facturas</a></li>
 							<li><a href="{{ route('productos.index') }}"><i class="ion-ios-gear"></i> Productos</a></li>
 							<li><a href="{{ route('pedidos.index') }}"><i class="ion-paper-airplane"></i> Pedidos</a></li>
 							<li><a href="{{ route('clientes.index') }}"><i class="ion-ios-briefcase"></i> Clientes</a></li>

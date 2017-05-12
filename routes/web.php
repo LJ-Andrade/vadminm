@@ -69,16 +69,16 @@ Route::get('/', [
 Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(){
 
 	// ------ Clientes ------- //
-	Route::resource('clientes', 'Clientes\ClientesController');
-	Route::get('ajax_list_clients/{page?}', 'Clientes\ClientesController@ajax_list');
-	Route::post('ajax_delete_cliente/{id}', 'Clientes\ClientesController@destroy');
-	Route::post('ajax_batch_delete_clientes/{id}', 'Clientes\ClientesController@ajax_batch_delete');
+	Route::resource('clientes', 'ClientesController');
+	Route::get('ajax_list_clients/{page?}', 'ClientesController@ajax_list');
+	Route::post('ajax_delete_cliente/{id}', 'ClientesController@destroy');
+	Route::post('ajax_batch_delete_clientes/{id}', 'ClientesController@ajax_batch_delete');
 
-	Route::get('get_client/{id}', 'Clientes\ClientesController@get_client');
+	Route::get('get_client/{id}', 'ClientesController@get_client');
 
 	// Searcher
-	Route::get('ajax_list_search_clientes/{search?}', 'Clientes\ClientesController@ajax_list_search');
-	// Route::get('ajax_list_search_clientes/{id?}', 'Clientes\ClientesController@ajax_list_search');
+	Route::get('ajax_list_search_clientes/{search?}', 'ClientesController@ajax_list_search');
+	// Route::get('ajax_list_search_clientes/{id?}', 'ClientesController@ajax_list_search');
 
 	// ------ Provincias ------- //
 	Route::resource('provincias', 'Provincias\ProvinciasController');
@@ -161,6 +161,11 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::post('ajax_batch_delete_productos/{id}', 'Productos\ProductosController@ajax_batch_delete');
 	Route::post('update_prod_status/{id}', 'Productos\ProductosController@updateStatus');
 
+	Route::get('get_product/{id}', 'Productos\ProductosController@get_product');
+	Route::post('get_product_and_price/{id}', 'Productos\ProductosController@get_product_and_price');
+
+
+
 	Route::get('/productos_subfamilias/{id}', 'Productos\ProductosController@ajax_subfamilias');
 	Route::get('show_products/{id}', 'Productos\ProductosController@ajax_show_products');
 
@@ -172,16 +177,26 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::post('ajax_delete_pedido/{id}', 'PedidosController@destroy');
 	Route::post('ajax_batch_delete_pedidos/{id}', 'PedidosController@ajax_batch_delete');
 	
+
+	
+
 	// ------ Pedidos Items------- //
 	Route::resource('pedidositems', 'PedidositemsController');
 	Route::post('ajax_delete_pedidositem/{id}', 'PedidositemsController@destroy');
 	Route::post('ajax_batch_delete_pedidositems/{id}', 'PedidositemsController@ajax_batch_delete');
 
+	Route::post('ajax_delete_pedidositem/{id}', 'PedidositemsController@destroy');
+
 	// ------ Generador de Orden de Pedidos e Items ------- //
 	Route::post('ajax_store_pedido/{id}', 'PedidosController@ajax_store');
 	Route::post('ajax_store_pedidositems/{id}', 'PedidositemsController@ajax_store');
-	Route::get('ajax_get_cliente/{id}', 'Clientes\ClientesController@ajax_get');
+	Route::get('ajax_get_cliente/{id}', 'ClientesController@ajax_get');
 	Route::post('ajax_store_pedidoitem', 'PedidositemsController@ajax_store_item');
+
+	
+	// ------------------- Facturación --------------------- //
+	Route::resource('facturas', 'Facturas\FacturasController');
+	Route::get('ajax_get_pedidos/{id}', 'PedidosController@ajax_get_pedidos');
 
 	// Developer Map
 	Route::resource('desarrollo', 'DesarrolloController');

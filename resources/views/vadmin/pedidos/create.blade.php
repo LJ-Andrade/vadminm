@@ -39,12 +39,16 @@
 				</div>
 			</div>
 			{{-- /// --}}
-			<div class="col-md-12">
-				<span id="ClientNameOutput"></span>
-			</div>
-
-			<div class="col-md-12">
-				<button id="GeneratePedidoBtn" class="button buttonOk Hidden"> Generar Pedido</button>
+			<div id="OutPut" class="Hidden">
+				<div class="col-md-12 output-data">
+					<div  id="ClientNameOutput" class="output-inner"></div>
+				</div>
+				<div class="col-md-12">
+					{!! Form::open(['url' => 'vadmin/pedidos', 'method' => 'POST', 'id' => 'NewItemForm']) !!}
+						 {!! Form::text('cliente_id', null, ['id' => 'ClienteIdOutput', 'class' => 'form-control Hidden', 'required' => '']) !!} 
+						<button id="GeneratePedidoBtn" class="btnSm buttonOk"> Generar Pedido</button>
+					{!! Form::close() !!}
+				</div>
 			</div>
 		</div>
 	</div> 	
@@ -70,39 +74,17 @@
 @section('custom_js')
 	<script>
 
-		$('#ClienteBySelect').on('change', function(e, p){
-			
-			var id    = $(this).chosen().val();
-			var route = "{{ url('vadmin/get_client') }}/"+id+"";
-			
-			$.get(route, function(data){
-				var cliente = data.cliente.razonsocial;
-				var codigo  = data.cliente.id;
-				$('#ClientNameOutput').html('Código: ' + id + ' - ' + cliente);
-				$('#GeneratePedidoBtn').removeClass('Hidden');
-			});
-			
-		});
+	
+	$('#GeneratePedidoBtn').click(function(e){
+		e.preventDefault();
 
-		$("#CodigoCliente").on( "keydown", function(e) {
-			
-			if(e.which == 13) {
-				var id    = $(this).val();
-				var route = "{{ url('vadmin/get_client') }}/"+id+"";
-				$.get(route, function(data){
-					
-					if(cliente==null){
-						$('#ClientNameOutput').html('El cliente no existe');
-					} else {
-						var cliente = data.cliente.razonsocial;
-						var codigo  = data.cliente.id;
-						$('#ClientNameOutput').html('Código: ' + id + ' - ' + cliente);
-						$('#GeneratePedidoBtn').removeClass('Hidden');
-					}
-				});
-			}
+		var id    = $('#ClientNameOutput').val();
+		var route = "{{ url('vadmin/ajax_store_pedido') }}/"+id+"";
+		
+		console.log(id);
 
-		});
+		$('#NewItemForm').submit();
+	});
 			
 
     </script>

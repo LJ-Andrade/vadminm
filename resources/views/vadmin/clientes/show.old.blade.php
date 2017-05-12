@@ -25,18 +25,14 @@
     <div class="container">
 		<div class="row big-card">
 		 	<div class="title">
-				{{--  <span class="medium-text"></span> <br>--}}
-			    <span class="big-text">{{ $cliente->razonsocial }}</span><br>
-                <span class="small-text">Cód. {{ $cliente->id }}</span>
-            </div>
-
-
+			    <h1>Cliente: @if(is_null($cliente->razonsocial)) @else {{ $cliente->razonsocial }} @endif </h1>
+            </div>		
 			<div class="content">
 				<div class="row">
+					
 					<div class="col-md-6">
-					  	<div class="subtitle">Datos </div>
 						<b>Razón Social:</b>
-						@if(is_null($cliente->razonsocial)) @else {{ $cliente->razonsocial }} @endif 
+						Cliente: @if(is_null($cliente->razonsocial)) @else {{ $cliente->razonsocial }} @endif 
 						<br>
 						<b>Código de Cliente:</b>
 						@if(is_null($cliente->id)) @else {{ $cliente->id }} @endif <br>
@@ -47,7 +43,6 @@
 					</div>
 
 					<div class="col-md-6">
-					  	<div class="subtitle"> </div>
 						<b>Dirección Fiscal:</b>   
 						@if(is_null($cliente->dirfiscal)) @else {{ $cliente->dirfiscal }} @endif <br>
 						<b>Provincia:</b>      
@@ -58,29 +53,27 @@
 				</div>
 					<hr class="softhr">
 
-				<div class="row">
-					<div class="col-md-6">
-						<b>Condiciones de Vta.:</b>
-						@if(is_null($cliente->condicventas)) @else {{ $cliente->condicventas->name }} @endif <br>
-						<b>Lista de Precios:</b>    
-						@if(is_null($cliente->listas)) @else {{ $cliente->listas->name }} @endif <br>
-						<b>Tipo:</b>    
-	
-						@if(is_null($cliente->tipoct->name)) @else {{ $cliente->tipoct->name }} @endif  <br>
-						<b>Descuento:</b>    
-						@if(is_null($cliente->descuento)) @else {{ $cliente->descuento }} @endif  
-					</div>
+				<div class="col-md-6">
+					<b>Condiciones de Vta.:</b>
+					@if(is_null($cliente->condicventas)) @else {{ $cliente->condicventas->name }} @endif <br>
+					<b>Lista de Precios:</b>    
+					@if(is_null($cliente->listas)) @else {{ $cliente->listas->name }} @endif <br>
+					<b>Tipo:</b>    
+			
+					@if(is_null($cliente->tipocts)) @else {{ $cliente->tipocts }} @endif  <br>
+					<b>Descuento:</b>    
+					@if(is_null($cliente->descuento)) @else {{ $cliente->descuento }} @endif  
+				</div>
 
-					<div class="col-md-6">
-						<b>Vendedor:</b>          
-						@if(is_null($cliente->user)) @else {{ $cliente->user->name }} @endif <br>
+				<div class="col-md-6">
+					<b>Vendedor:</b>          
+					@if(is_null($cliente->user)) @else {{ $cliente->user->name }} @endif <br>
 
-						<b>Zona:</b>                
-						@if(is_null($cliente->zona)) @else {{ $cliente->zona->name }} @endif <br>
+					<b>Zona:</b>                
+					@if(is_null($cliente->zona)) @else {{ $cliente->zona->name }} @endif <br>
 
-						<b>Flete:</b>
-						@if(is_null($cliente->flete)) @else {{ $cliente->flete->name }} @endif
-					</div>
+					<b>Flete:</b>
+					@if(is_null($cliente->flete)) @else {{ $cliente->flete->name }} @endif
 				</div>
 				@if(count($cliente->direntregas)==0)
 				@else

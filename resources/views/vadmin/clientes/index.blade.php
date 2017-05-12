@@ -28,7 +28,9 @@
     <div class="container">
 		<div class="row">
 			<div id="Error"></div>	
-			<div id="List"></div>
+			<div class="row">
+				@include('vadmin.clientes.list')
+			</div>
 			<br>
 		</div>
 		<button id="BatchDeleteBtn" class="button buttonCancel batchDeleteBtn Hidden"><i class="ion-ios-trash-outline"></i> Eliminar seleccionados</button>
@@ -49,84 +51,84 @@
     /////////////////////////////////////////////////
 
 
-	$(document).ready(function(){
-		ajax_list();
-	});
+	// $(document).ready(function(){
+	// 	ajax_list();
+	// });
 
-	var ajax_list = function(){
+	// var ajax_list = function(){
 
-		$.ajax({
-			type: 'get',
-			url: '{{ url('vadmin/ajax_list_clients') }}',
-			success: function(data){
-				$('#Loader').hide();
-				$('#List').empty().html(data);
-			},
-			complete(){
-				$('#Loader').hide();
-			},
-			error: function(data){
-				console.log(data)
-				$('#Error').html(data.responseText);
-			}
-		});
-	}
+	// 	$.ajax({
+	// 		type: 'get',
+	// 		url: '{{ url('vadmin/ajax_list_clients') }}',
+	// 		success: function(data){
+	// 			$('#Loader').hide();
+	// 			$('#List').empty().html(data);
+	// 		},
+	// 		complete(){
+	// 			$('#Loader').hide();
+	// 		},
+	// 		error: function(data){
+	// 			console.log(data)
+	// 			$('#Error').html(data.responseText);
+	// 		}
+	// 	});
+	// }
 
-	// Pagination
-	$(document).on("click", ".pagination li a", function(e){
-		e.preventDefault();
+	// // Pagination
+	// $(document).on("click", ".pagination li a", function(e){
+	// 	e.preventDefault();
 
-		var url     = $(this).attr('href');
-		// var page_num = href.split('=').pop();
-		// var url      = "{{ url('vadmin/users/ajax_list_user') }}?page="+page_num+"";
+	// 	var url     = $(this).attr('href');
+	// 	// var page_num = href.split('=').pop();
+	// 	// var url      = "{{ url('vadmin/users/ajax_list_user') }}?page="+page_num+"";
 
-		$.ajax({
-			type: 'get',
-			url: url,
-			beforeSend: function(){
-				$('#Loader').show();
-			},
-			success: function(data){
-				$('#List').empty().html(data);
-			},
-			complete: function(){
-				$('#Loader').hide();
-			},
-			error: function(data){
-				console.log(data)
-			}
-		});
-	});
+	// 	$.ajax({
+	// 		type: 'get',
+	// 		url: url,
+	// 		beforeSend: function(){
+	// 			$('#Loader').show();
+	// 		},
+	// 		success: function(data){
+	// 			$('#List').empty().html(data);
+	// 		},
+	// 		complete: function(){
+	// 			$('#Loader').hide();
+	// 		},
+	// 		error: function(data){
+	// 			console.log(data)
+	// 		}
+	// 	});
+	// });
 
 
-	// By Name or Email
-	$(document).on("keyup", "#SearchForm", function(e){
-		e.preventDefault();
-		var name  = $('#SearchByName').val();
-		var id    = $('#SearchById').val();
+	// // By Name or Email
+	// $(document).on("keyup", "#SearchForm", function(e){
+	// 	e.preventDefault();
+	// 	var name  = $('#SearchByName').val();
+	// 	var id    = $('#SearchById').val();
 
-		// if( name.length == 0 ){
-		// 	ajax_list();
-		// } else {
-			var url = "{{ url('vadmin/ajax_list_search_clientes') }}/search?id="+id+"&name="+name+"";
-			// var url = "{{ url('vadmin/ajax_list_search_clients') }}/search?name="+name+"";
-			console.log(url);
-			$.ajax({
-				type: 'get',
-				url: url,
-				complete: function(data){
-					// $('#Error').html(data.responseText);		
-				},
-				success: function(data){
-					$('#List').empty().html(data);
-				},
-				error: function(data){
-					console.log(data)
-					$('#Error').html(data.responseText);
-				}
-			});
-		// }		
-	});
+	// 	// if( name.length == 0 ){
+	// 	// 	ajax_list();
+	// 	// } else {
+	// 		var url = "{{ url('vadmin/ajax_list_search_clientes') }}/search?id="+id+"&name="+name+"";
+	// 		// var url = "{{ url('vadmin/ajax_list_search_clients') }}/search?name="+name+"";
+	// 		console.log(url);
+	// 		$.ajax({
+	// 			type: 'get',
+	// 			url: url,
+	// 			complete: function(data){
+	// 				// $('#Error').html(data.responseText);		
+	// 			},
+	// 			success: function(data){
+	// 				$('#List').empty().html(data);
+	// 			},
+	// 			error: function(data){
+	// 				console.log(data)
+	// 				$('#Error').html(data.responseText);
+	// 			}
+	// 		});
+	// 	// }		
+	// });
 
 
 	/////////////////////////////////////////////////

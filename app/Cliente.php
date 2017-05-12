@@ -46,8 +46,12 @@ class Cliente extends Model
     	return $this->belongsTo('App\Flete');
     }
 
-    public function tipocts(){
-    	return $this->belongsTo('App\Tipoct');
+    // public function tipocts(){
+    // 	return $this->belongsTo('App\Tipoct');
+    // }
+
+    public function tipoct(){
+    	return $this->belongsTo('App\Tipoct', 'id');
     }
 
     public function direntregas(){

@@ -95,7 +95,7 @@ class PedidositemsController extends Controller
     public function show($id)
     {
         $pedidositem = Pedidositem::findOrFail($id);
-
+        
         return view('vadmin.pedidositems.show', compact('pedidositem'));
     }
 
@@ -146,7 +146,11 @@ class PedidositemsController extends Controller
     {
         $item = Pedidositem::find($id);
         $item->delete();
-        echo 1;
+
+        return response()->json([
+            "result"   => 1
+        ]);
+     
     }
 
 

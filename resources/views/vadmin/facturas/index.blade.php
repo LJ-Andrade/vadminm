@@ -2,14 +2,14 @@
 @extends('vadmin.layouts.main')
 
 {{-- PAGE TITLE--}}
-@section('title', 'Vadmin | Pedidos')
+@section('title', 'Vadmin | Facturas')
 
 {{-- HEAD--}}
 @section('header')
-	@section('header_title', 'Listado de Pedidos') 
+	@section('header_title', 'Listado de Facturas') 
 	@section('options')
 		<div class="actions">
-            <a href="{{ url('vadmin/pedidos/create') }}" class="btn btnSm buttonOther">Nuevo Pedido</a>
+            <a href="{{ url('vadmin/facturas/create') }}" class="btn btnSm buttonOther">Nueva</a>
             <button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button>
 		</div>	
 	@endsection
@@ -25,56 +25,32 @@
 @section('content')
     <div class="container">
 		<div class="row">		
-			@include('vadmin.pedidos.searcher')
+			@include('vadmin.facturas.searcher')
             <div class="col-md-12 animated fadeIn main-list">
-                @foreach($pedidos as $item)
+                @foreach($facturas as $item)
                 <div id="Id{{ $item->id }}" class="Item-Row Select-Row-Trigger row item-row simple-list">
                     {{-- Column / Image --}}
                     <div class=""></div>
 
                     <div class="content">
                         {{-- Column --}}
-                        <div class="col-xs-6 col-sm-2 col-md-2 inner">
-                        	<span><b>N°: {{ $item->id }}  </b></span>
+                        <div class="col-xs-6 col-sm-4 col-md-4 inner">
+                            <div class="col-md-1">{{ $item->id }}</div> | <span><b>{{ $item->name }}</b></span>
                         </div>
                         {{-- Column --}}
-                        <div class="col-xs-6 col-sm-4 col-md-4 inner-tags">
-							Cliente: {{ $item->cliente->razonsocial }}
-                        </div>      
-						<div class="col-xs-6 col-sm-3 col-md-3">
-							<?php
-								switch($item->estado)
-								{
-									case 'Pendiente':
-										echo "<span class='custom-badge red-back'>".$item->estado."</span>";
-										break;
-									case 'Preparado':
-										echo "<span class='custom-badge green-back'>".$item->estado."</span>";
-										break;
-									case 'Enviado':
-										echo "<span class='custom-badge blue-back'>".$item->estado."</span>";
-										break;
-									default:
-										echo "<span class='custom-badge blue-back'>".$item->estado."</span>";
-								}
-							?>
-
+                        <div class="col-xs-6 col-sm-3 col-md-4 mobile-hide inner-tags">
                         </div>                        
-						<div class="col-xs-6 col-sm-3 col-md-3 pull-right">
-							{{ transDateT($item->created_at) }}
-                        </div>                        
-
                     </div>
-                    {{-- Batch Delete --}} 
+ 					{{-- Batch Delete --}} 
 					<div class="batch-delete-checkbox">
 						<input type="checkbox" class="BatchDelete" data-id="{{ $item->id }}">
 					</div>
                     {{-- Hidden Action Buttons --}}
                     <div class="List-Actions lists-actions Hidden">
-						<a href="{{ url('/vadmin/pedidos/' . $item->id . '/edit') }}" class="btnSmall buttonOk" data-id="{{ $item->id }}">
+						<a href="{{ url('/vadmin/facturas/' . $item->id . '/edit') }}" class="btnSmall buttonOk" data-id="{{ $item->id }}">
 							<i class="ion-ios-compose-outline"></i>
 						</a>
-						<a href="{{ url('vadmin/pedidos/'. $item->id) }}" class="btnSmall buttonOther">
+						<a href="{{ url('vadmin/facturas/'. $item->id) }}" class="btnSmall buttonOther">
 							<i class="ion-ios-search"></i>
 						</a>
 						<button class="Delete btnSmall buttonCancel" data-id="{!! $item->id !!}">
@@ -89,13 +65,13 @@
                 @endforeach
 
                 {{-- If there is no articles published shows this --}}
-                @if(! count($pedidos))
+                @if(! count($facturas))
                 <div class="Item-Row item-row empty-row">
                     No se han encontrado items
                 </div>
                 @endif
             </div>
-            {!! $pedidos->render(); !!}
+            {!! $facturas->render(); !!}
             <br>
 
 		</div>
@@ -128,7 +104,7 @@
 
 	function delete_item(id, route) {	
 
-		var route = "{{ url('vadmin/ajax_delete_pedido') }}/"+id+"";
+		var route = "{{ url('vadmin/ajax_delete_%crudNameSingular%') }}/"+id+"";
 
 		$.ajax({
 			url: route,
@@ -171,7 +147,7 @@
 	// ---- Delete ---- //
 	function batch_delete_item(id) {
 
-		var route = "{{ url('vadmin/ajax_batch_delete_pedidos') }}/"+id+"";
+		var route = "{{ url('vadmin/ajax_batch_delete_%crudName%') }}/"+id+"";
 
 		$.ajax({
 			url: route,
@@ -183,7 +159,7 @@
 					$('#Id'+id[i]).hide(200);
 				}
 				$('#BatchDeleteBtn').addClass('Hidden');
-				location.reload();
+				ajax_list();
 				// $('#Error').html(data.responseText);
 				// console.log(data);
 			},

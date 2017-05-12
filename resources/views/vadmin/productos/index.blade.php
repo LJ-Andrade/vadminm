@@ -246,7 +246,6 @@
 				var updatedStatus = (data.lastStatus);
 				var iconStatus    = '';
 				ajax_list();
-					
 			},
 			complete: function(data){
 				toggleLoader();

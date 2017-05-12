@@ -171,6 +171,22 @@ hr {
   justify-content: center;
 }
 
+.blue-back {
+  background-color: #5D76C9;
+}
+
+.green-back {
+  background-color: #D8BE55;
+}
+
+.red-back {
+  background-color: #D05C5C;
+}
+
+.grey-back {
+  background-color: #f3f3f3;
+}
+
 .big-card {
   background-color: #fff;
   position: relative;
@@ -193,6 +209,10 @@ hr {
   background-color: #ffd9d9;
   padding: 10px;
   position: relative;
+}
+
+.big-card .title h2 {
+  margin: 0;
 }
 
 .big-card .title .ml15 {
@@ -218,6 +238,16 @@ hr {
   bottom: 10px;
 }
 
+.big-card .title .topright {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.big-card .title .topright .chosen-container {
+  margin-bottom: 5px;
+}
+
 .big-card .subtitle {
   margin-top: 15px;
   margin-bottom: 10px;
@@ -236,6 +266,41 @@ hr {
 
 .big-card .content .small-table td {
   padding-right: 15px;
+}
+
+.big-card .content .item-row {
+  position: relative;
+  -webkit-transition: all 0.2s ease 0s;
+  transition: all 0.2s ease 0s;
+}
+
+.big-card .content .item-row .delete-item {
+  position: absolute;
+  opacity: 0;
+  right: 20px;
+}
+
+.big-card .content .item-row:hover {
+  cursor: pointer;
+  background-color: #f3f3f3;
+}
+
+.big-card .content .item-row:hover .delete-item {
+  opacity: 1;
+}
+
+.big-card .content .item-row:hover .delete-item i {
+  color: #ccc;
+}
+
+.big-card .content .item-row:hover .delete-item i:hover {
+  color: red;
+}
+
+.big-card .right-bottom {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
 }
 
 .medium-card .inner {
@@ -417,6 +482,7 @@ hr {
   border: 1px solid #ccc;
   border-top: 10px solid #ababc5;
   background-color: #fff;
+  margin-bottom: 20px;
   box-shadow: 5px 2px 8px -5px rgba(0, 0, 0, 0.55);
 }
 
@@ -464,6 +530,15 @@ hr {
   bottom: -30px;
   left: 0;
   font-size: 1rem;
+}
+
+.big-form .output-data {
+  margin-bottom: 10px;
+}
+
+.big-form .output-data .output-inner {
+  padding: 10px;
+  background-color: #fbfbfb;
 }
 
 .main-form .form-container {
@@ -763,6 +838,16 @@ hr {
   font-size: 1.2rem;
 }
 
+.horiz-container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.horiz-container .inner {
+  padding: 10px;
+  background-color: #fbfbfb;
+}
+
 .button {
   border: 0;
   border-radius: 50px;
@@ -1024,10 +1109,9 @@ hr {
 
 .btnSquare {
   border: 0;
-  border-radius: 40px;
-  padding: 2px 10px;
-  height: 40px;
-  font-size: 1.2rem;
+  border-radius: 4px;
+  border-radius-padding: 2px 8px;
+  font-size: 1rem;
   white-space: nowrap;
   vertical-align: middle;
   -webkit-user-select: none;
@@ -1482,6 +1566,10 @@ hr {
   height: 20px;
   border-radius: 50%;
   margin: 2px;
+}
+
+.horizontal-btn-container {
+  padding-top: 30px;
 }
 
 .softhr {

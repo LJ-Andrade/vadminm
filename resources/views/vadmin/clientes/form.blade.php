@@ -98,8 +98,8 @@
 	{{-- Tipo --}}
 	<div class="col-md-4 col-sm-6 col-xs-12">
 		<div class="form-group">
-			{!! Form::label('tipo', 'Tipo') !!}
-			{!! Form::select('tipo', $tipo, null, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
+			{!! Form::label('tipo_id', 'Tipo') !!}
+			{!! Form::select('tipo_id', $tipo, null, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
 		</div>
 	</div>
 	{{-- Descuento --}}

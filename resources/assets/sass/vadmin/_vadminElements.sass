@@ -1,5 +1,22 @@
 //////////////////////////////////////
 //                                  //
+//           BACKGROUNDS            //
+//                                  //
+//////////////////////////////////////
+
+.blue-back
+	background-color: $other
+
+.green-back
+	background-color: $edit
+
+.red-back
+	background-color: $cancel
+
+.grey-back
+	background-color: #f3f3f3
+//////////////////////////////////////
+//                                  //
 //           CONTAINERS             //
 //                                  //
 //////////////////////////////////////
@@ -21,6 +38,8 @@
 		background-color: $light2
 		padding: 10px
 		position: relative
+		h2
+			margin: 0
 		.ml15
 			margin-left: 15px
 		.small-text 
@@ -34,6 +53,12 @@
 			position: absolute
 			right: 10px
 			bottom: 10px
+		.topright
+			position: absolute
+			right: 10px
+			top: 10px
+			.chosen-container
+				margin-bottom: 5px
 	.subtitle
 		margin-top: 15px
 		margin-bottom: 10px
@@ -47,6 +72,26 @@
 		.small-table
 			td
 				padding-right: 15px
+		.item-row
+			position: relative
+			@include transition(0.2s)
+			.delete-item
+				position: absolute
+				opacity: 0
+				right: 20px
+			&:hover
+				cursor: pointer
+				background-color: #f3f3f3
+				.delete-item
+					opacity: 1
+					i
+						color: #ccc
+						&:hover
+							color: red
+	.right-bottom
+		position: absolute
+		bottom: 10px
+		right: 10px
 
 .medium-card
 	.inner
@@ -184,6 +229,7 @@ $phvFsize: 0.9rem
 	border: 1px solid #ccc
 	border-top: 10px solid $dark4
 	background-color: #fff
+	margin-bottom: 20px
 	@include box-shadow
 	.inner-row
 		label
@@ -195,7 +241,6 @@ $phvFsize: 0.9rem
 		margin-top: 10px
 		.box-inner
 			padding: 10px
-
 	.sub-title
 		.inner-sub-title
 			margin-top: 15px
@@ -218,6 +263,11 @@ $phvFsize: 0.9rem
 			bottom: -30px
 			left: 0
 			font-size: 1rem
+	.output-data
+		margin-bottom: 10px
+		.output-inner
+			padding: 10px 
+			background-color: #fbfbfb
 
 .main-form
 	.form-container
@@ -424,6 +474,14 @@ $phvFsize: 0.9rem
 	i
 		color: $red
 		font-size: 1.2rem
+
+
+.horiz-container
+	margin-top: 10px
+	margin-bottom: 10px
+	.inner
+		padding: 10px 
+		background-color: #fbfbfb
 
 
 //////////////////////////////////////
@@ -638,10 +696,9 @@ $phvFsize: 0.9rem
 
 .btnSquare
 	border: 0
-	border-radius: 40px
-	padding: 2px 10px
-	height: 40px
-	font-size: 1.2rem
+	border-radius: 4px
+    padding: 2px 8px
+	font-size: 1rem
 	white-space: nowrap
 	vertical-align: middle
 	-webkit-user-select: none
@@ -976,6 +1033,9 @@ $phvFsize: 0.9rem
 	height: 20px
 	border-radius: 50%
 	margin: 2px
+
+.horizontal-btn-container
+	padding-top: 30px
 	
 //////////////////////////////////////
 //                                  //

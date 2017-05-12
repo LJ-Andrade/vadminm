@@ -17,11 +17,7 @@ use App\Iva;
 
 class ProductosController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\View\View
-     */
+
     public function index(Request $request)
     {
         $name = $request->get('name');
@@ -44,29 +40,95 @@ class ProductosController extends Controller
                 $productos = Producto::paginate($perPage);
         }
 
-
-        // if (!empty($name) || !empty($code)) {
-
-        //     switch ($keyword) {
-        //         case 'value':
-        //             # code...
-        //             break;
-                
-        //         default:
-        //             # code...
-        //             break;
-        //     }
-
-        //     $productos = Producto::where('nombre', 'LIKE', "%$keyword%")
-        //         ->paginate($perPage);
-        // } else {
-            
-        //     $productos = Producto::paginate($perPage);
-        // }
-
         $dolarsist = Moneda::where('nombre', '=', 'Dolar')->first();
         return view('vadmin.productos.index')->with('productos', $productos)->with('dolarsist', $dolarsist);
     }
+
+    
+    public function get_product($id)
+    {
+
+       $producto = Producto::where('id', '=', $id)->first();
+
+        //    calcFinalPriceConvert($producto->costo, );
+       dd($this->calculatePrice());
+       
+       return response()->json(['producto' => $producto]);
+
+    }
+
+    public function get_product_and_price(Request $request) 
+    {
+        $tipocte      = $request->tipocte;
+        $id           = $request->id;
+        
+        $producto     = Producto::where('id', '=', $id)->first();
+        if($producto == null){
+            return response()->json(['producto' => 'No existe',
+                                     'precio' => '0',
+                                     'preciooferta'   => '0',
+                                     'cantoferta' => '0',
+                                     'exist' => 0
+                                    ]);
+                                     
+        } else {
+
+            $price = $this->calculatePrice($id, $tipocte);
+            return response()->json(['producto'       => $producto->nombre,
+                                     'precio'         => $price,
+                                     'preciooferta'   => $producto->preciooferta,
+                                     'cantoferta' => $producto->cantoferta,
+                                     'exist' => 1
+                                    ]);
+
+        }
+    }
+
+    
+    public function calculatePrice($id, $tipocte)
+    {
+
+        $producto  = Producto::where('id', '=', $id)->first();
+        $dolarsist = Moneda::where('nombre', '=', 'Dolar')->first();
+        $eurosist  = Moneda::where('nombre', '=', 'Euro')->first();
+        
+        // Calculate Cost
+        switch ($producto->monedacompra) {
+            case 1:
+                $costo = $producto->costopesos;
+                break;
+            case 2:
+                
+                $costo = $producto->costodolar * $dolarsist->valor;
+                break;
+            case 3:
+                $costo = $producto->costopesos * $eurosist->valor;
+                break;
+            default:
+                $costo = $producto->costopesos;
+                break;
+        }
+
+
+        switch ($tipocte) {
+            case 1:
+                $price = calcFinalPrice($costo, $producto->pjegremio);
+                break;
+            case 2:
+                $price = calcFinalPrice($costo, $producto->pjeparticular);
+                break;
+            case 3:
+                $price = calcFinalPrice($costo, $producto->pjeespecial);
+                break;
+            default:
+                $price = calcFinalPrice($costo, $producto->pjegremio);
+                break;
+        }
+
+        return $price;
+
+    }
+
 
 
     //////////////////////////////////////////////////
@@ -249,6 +311,8 @@ class ProductosController extends Controller
             ->with('monedacompra', $monedacompra);
 
     }
+
+
 
     public function update($id, Request $request)
     {

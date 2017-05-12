@@ -7,8 +7,6 @@
 		</div>
 	</div>
 
-
-    'cliente_id', 'pedido_id', 'producto_id', 'cantidad', 'valor'
 	{{-- /// --}}
 	<div class="col-md-2 col-sm-6 col-xs-12">
 		<div class="form-group">

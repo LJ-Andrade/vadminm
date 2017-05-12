@@ -11,7 +11,7 @@ class Pedido extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['cliente_id'];
+    protected $fillable = ['cliente_id', 'estado', 'facturado'];
 
     public function pedidositems()
     {
