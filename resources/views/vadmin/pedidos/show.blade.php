@@ -77,6 +77,10 @@
 							{!! Form::text('buscarporcodigo', null, ['id' => 'CodigoInput', 'class' => 'form-control']) !!} 
 						</div>
 						<div class="col-md-3">
+							{!! Form::label('productonombre', 'Nombre') !!}
+							{!! Form::text('precio', null, ['id' => 'PrecioInput', 'class' => 'form-control']) !!} 
+						</div>
+						<div class="col-md-3">
 							{!! Form::label('cantidad','Cantidad') !!}
 							{!! Form::text('cantidad', null, ['id' => 'CantidadInput', 'class' => 'form-control']) !!} 
 						</div>

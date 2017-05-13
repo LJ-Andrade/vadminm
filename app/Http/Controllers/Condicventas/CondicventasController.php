@@ -55,7 +55,7 @@ class CondicventasController extends Controller
             'name'              => 'required|unique:condicventas,name',
         ],[
             'name.required'     => 'Debe ingresar un nombre',
-            'name.unique'      => 'El item ya existe',
+            'name.unique'       => 'El item ya existe',
         ]);
 
 
@@ -149,3 +149,6 @@ class CondicventasController extends Controller
 
 
 }
+
+
+
