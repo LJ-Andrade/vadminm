@@ -1,5 +1,15 @@
 <script>    
 
+
+	/////////////////////////////////////////////////
+	//                   LOADER                    //
+	/////////////////////////////////////////////////
+
+	var loaderSm = function loaderSm(text){
+		var loader = '<img src="{{ asset("images/gral/loader-sm.svg") }}"/>' + text;
+		return loader;
+	}
+
 	/////////////////////////////////////////////////
 	//            SUBFAMILIAS - AJAX               //
 	/////////////////////////////////////////////////
@@ -78,24 +88,33 @@
 	/////////////////////////////////////////////////
 	
 
-
-
-
-
 	$('#ClienteBySelect').on('change', function(e, p){
 		var id     = $(this).chosen().val();
 		var route  = "{{ url('vadmin/get_client') }}/"+id+"";
 		var output = $('#ClientNameOutput');
 
-		$.get(route, function(data){
-			var cliente = data.cliente.razonsocial;
-			var codigo  = data.cliente.id;
-			var cuit    = data.cliente.cuit;
-			output.html('Código: ' + codigo + ' - ' + cliente);
-			$('#ClienteIdOutput').val(codigo);
-			$('#OutPut').removeClass('Hidden');
-			$('#ClienteId').val(codigo);
-		});
+		$.ajax({
+				url: route,
+				type: 'get',
+				dataType: 'json',
+				beforeSend: function(){
+					$('#OutPut').removeClass('Hidden');
+					output.html(loaderSm('Buscando...'));
+				},
+				success: function(data){
+					var cliente = data.cliente.razonsocial;
+					var codigo  = data.cliente.id;
+					var cuit    = data.cliente.cuit;
+					output.html('Código: ' + codigo + ' - ' + cliente);
+					$('#ClienteIdOutput').val(codigo);
+					$('#OutPut').removeClass('Hidden');
+					$('#ClienteId').val(codigo);
+				},
+				error: function(data){
+					console.log(data);
+				}
+			}); 
+
 		
 	});
 
@@ -122,6 +141,7 @@
 			});
 		}
 	});
+
 
     
 </script>

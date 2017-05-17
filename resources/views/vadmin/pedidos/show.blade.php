@@ -61,8 +61,9 @@
 					<div class="row">
 						<div class="col-md-12">
 							<hr class="softhr">
-							<div class="col-md-2">
-								{!! Form::select('estado', ['Pendiente', 'Preparado', 'Enviado'], null, ['id' => 'ClienteBySelect', 'class' => 'form-control Select-Chosen', 'placeholder' => 'Estado del pedido']) !!}</div>
+							{{--<div class="col-md-2">
+								{!! Form::select('estado', ['Pendiente', 'Preparado', 'Enviado'], null, ['id' => 'ClienteBySelect', 'class' => 'form-control Select-Chosen', 'placeholder' => 'Estado del pedido']) !!}
+							</div> --}}
 							<div class="col-md-3 pull-right">
 								TOTAL: <b>$ {{ $total }}</b>
 							</div>

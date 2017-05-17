@@ -80,12 +80,9 @@
 
 		var id    = $('#ClientNameOutput').val();
 		var route = "{{ url('vadmin/ajax_store_pedido') }}/"+id+"";
-		
-		console.log(id);
-
+		$('#ClientNameOutput').html(loaderSm('Creando pedido...'));
 		$('#NewItemForm').submit();
 	});
-			
 
     </script>
 @endsection

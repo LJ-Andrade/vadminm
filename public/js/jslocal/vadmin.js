@@ -4,6 +4,51 @@ $.ajaxSetup({
     }
 });
 
+//////////////////////////////
+// 							//
+//          LOADERS         //
+//                          //
+//////////////////////////////
+
+
+
+
+$(document).ajaxStart(function(){
+    toggleLoader();
+});
+
+$(document).ajaxComplete(function(){
+	toggleLoader();
+});
+
+function toggleLoader(){
+  $('.Main-Loader').toggleClass('Hidden');
+    // if (!$('.Main-loader').hasClass('Hidden')) {
+    //   // This prevents scroll on loader
+    // //   $('html').css({ 'overflow': 'hidden', 'height': '100%' });
+    // } else {
+    // //   $('html').css({ 'overflow-y': 'scroll', 'height': '100%' });
+    // }
+}
+
+
+var get_client = function(route){
+		
+	var output;
+	$.ajax({
+		url: route,
+		type: "GET",
+		async: true,
+		success: function (data) {
+			output = data;
+			return output;
+		},
+		error: function () {}
+	}); // ajax synchronus request 
+	return output;
+
+}
+
 
 //////////////////////////////
 // 							//
@@ -273,44 +318,3 @@ $('.OpenFilters').click(function(){
 });
 
 
-//////////////////////////////
-// 							//
-//        LOADER            //
-//                          //
-//////////////////////////////
-
-$(document).ajaxStart(function(){
-    toggleLoader();
-});
-
-$(document).ajaxComplete(function(){
-	toggleLoader();
-});
-
-function toggleLoader(){
-  $('.Main-Loader').toggleClass('Hidden');
-    // if (!$('.Main-loader').hasClass('Hidden')) {
-    //   // This prevents scroll on loader
-    // //   $('html').css({ 'overflow': 'hidden', 'height': '100%' });
-    // } else {
-    // //   $('html').css({ 'overflow-y': 'scroll', 'height': '100%' });
-    // }
-}
-
-
-var get_client = function(route){
-		
-	var output;
-	$.ajax({
-		url: route,
-		type: "GET",
-		async: true,
-		success: function (data) {
-			output = data;
-			return output;
-		},
-		error: function () {}
-	}); // ajax synchronus request 
-	return output;
-
-}
