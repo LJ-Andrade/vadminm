@@ -30,7 +30,7 @@
 		 	<div class="title">
 			    <h2>Cliente: {{ $pedido->cliente->razonsocial}}</h2>
 				<div id="ClientData" data-pedidoid="{{ $pedido->id }}" data-clientid="{{ $pedido->cliente->id }}"></div>
-				<div id="TipoInput" class="small-text" data-tipocte="{{ $pedido->cliente->tipo_id }}">{{ $tipocte }}</div>
+				<div id="TipoCte" class="small-text" data-tipocte="{{ $pedido->cliente->tipo_id }}">{{ $tipocte }}</div>
 				<div class="small-text">Pedido N°: {{ $pedido->id }} </div>
 				<div class="right text-right">Creado el <br> {{ transDateT($pedido->created_at) }}</div>
             </div>		
@@ -70,40 +70,42 @@
 						</div>
 					</div>
 
-					{{-- Product Setter --}}
+					{{-- Product Finder --}}
 					<div class="col-md-12">
 						<hr class="softhr">
 						<div class="col-md-3">
-							{!! Form::label('buscarporcodigo','Código de Producto') !!}
-							{!! Form::text('buscarporcodigo', null, ['id' => 'CodigoInput', 'class' => 'form-control']) !!} 
+							{!! Form::label('searchbycode','Código de Producto') !!}
+							{!! Form::text('searchbycode', null, ['id' => 'cfCodigoInput', 'class' => 'form-control']) !!} 
 						</div>
 						<div class="col-md-3">
-							{!! Form::label('productonombre', 'Nombre') !!}
-							{!! Form::text('precio', null, ['id' => 'PrecioInput', 'class' => 'form-control']) !!} 
+							{!! Form::label('searchbyname', 'Nombre') !!}
+							{!! Form::text('searchbyname', null, ['id' => 'cfNombreInput', 'class' => 'form-control']) !!} 
+							<input class="typeahead form-control" style="margin:0px auto;width:300px;" type="text">
 						</div>
 						<div class="col-md-3">
 							{!! Form::label('cantidad','Cantidad') !!}
-							{!! Form::text('cantidad', null, ['id' => 'CantidadInput', 'class' => 'form-control']) !!} 
+							{!! Form::text('cantidad', null, ['id' => 'cfCantidadInput', 'class' => 'form-control']) !!} 
 						</div>
 						<div class="col-md-3">
 							{!! Form::label('precio','Precio') !!}
-							{!! Form::text('precio', null, ['id' => 'PrecioInput', 'class' => 'form-control']) !!} 
+							{!! Form::text('precio', null, ['id' => 'cfPrecioInput', 'class' => 'form-control']) !!} 
+						</div>
+						{{-- Display Product Name --}}
+						<div class="col-md-12 horiz-container">
+							<div id="CfOutputPreview" class="inner Hidden"></div>
+							<div id="DisplayErrorOutPut" class="inner Hidden"></div>
 						</div>
 						{{-- Store Product --}}
 						<div class="col-md-3 horizontal-btn-container">
 							<button id="AddItem" class="btn btnSquareHoriz buttonOk" ><i class="ion-plus-round"></i> Agregar</button>
 						</div>
-						{{-- Display Product Name --}}
-						<div class="col-md-12 horiz-container">
-							<div id="DisplayOutPut" class="inner Hidden"></div>
-							<div id="DisplayErrorOutPut" class="inner Hidden"></div>
-						</div>
-						{{-- Advanced Search Product --}}
-						<div class="col-md-12">
-							<button class="btn button buttonOther" data-toggle="modal" data-target="#NewItemModal" ><i class="ion-ios-search"></i> Buscar Producto</button>
-						</div>
 					</div>
+					<br>
 
+						{{-- Advanced Search Product --}}
+					{{-- 	<div class="col-md-12">
+							<button class="btn button buttonOther" data-toggle="modal" data-target="#NewItemModal" ><i class="ion-ios-search"></i> Buscar Producto</button>
+						</div> --}}
 					
 					
 				
@@ -164,8 +166,9 @@
 
 @section('scripts')
 	<script type="text/javascript" src="{{ asset('plugins/jqueryfiler/jquery.filer.min.js')}} "></script>
-	<script type="text/javascript" src="{{ asset('plugins/colorpicker/spectrum.js')}} "></script>
-	<script type="text/javascript" src="{{ asset('plugins/colorpicker/jquery.spectrum-es.js')}} "></script>
+	{{-- <script type="text/javascript" src="{{ asset('plugins/colorpicker/spectrum.js')}} "></script>
+	<script type="text/javascript" src="{{ asset('plugins/colorpicker/jquery.spectrum-es.js')}} "></script> --}}
+	<script type="text/javascript" src="{{ asset('plugins/typeahead-autocomplete/typeahead.jquery.min.js')}} "></script>
 	<script type="text/javascript" src="{{ asset('js/jslocal/forms.js') }}" ></script>
 	@include('vadmin.components.ajaxscripts');
 @endsection
@@ -175,112 +178,82 @@
 	<script>
 
 		// Select Product With Code
-		$("#CodigoInput").on( "keydown", function(e) {
-			var id      = $(this).val();
-			if(e.which == 13) {
-				sarch_product(id);
-			}
-		});
+		// $("#CodigoInput").on( "keydown", function(e) {
+		// 	var id      = $(this).val();
+		// 	if(e.which == 13) {
+		// 		search_product(id);
+		// 	}
+		// });
 		
+
+
+		$('#AddItem').on('click',function(e){
+
+			var codigo   = $('#cfCodigoInput').val();
+			var nombre   = $('#cfNombreInput').val();
+			var cantidad = $('#cfCantidadInput').val();
+			var precio   = $('#cfPrecioInput').val();
+			var preview  = $('#CfOutputPreview');
+
+			
+			preview.removeClass('Hidden');
+			preview.html(codigo+', '+nombre);
+
+		});
+
+
 		// Select Product With Modal
-		$('#ModalProductSelectBtn').on('click',function(e){
+		// $('#ModalProductSelectBtn').on('click',function(e){
 			
-			var id = $("#ProductOnlySelect option:selected").val();
-			sarch_product(id);
-			var codigo   = $('#CodigoInput').val(id);
-			$('#NewItemModal').modal('toggle');
+		// 	var id = $("#ProductOnlySelect option:selected").val();
+		// 	search_product(id);
+		// 	var codigo   = $('#CodigoInput').val(id);
+		// 	$('#NewItemModal').modal('toggle');
 
-		});
+		// });
 
-		$('#AddItem').click(function(){
+		// $('#AddItem').click(function(){
 			
-			var clientid    = $('#ClientData').data('clientid');
-			var pedidoid    = $('#ClientData').data('pedidoid');
-			var codigo      = $('#CodigoInput').val();
-			var cantidad    = $('#CantidadInput').val();
-			var precio      = $('#PrecioInput').val();
-			var tipo        = $('#TipoInput').data('tipocte');
-			var route       = "{{ url('vadmin/ajax_store_pedidoitem') }}";
-			var erroroutput = $('#DisplayErrorOutPut');
-			var proceed     = $('#DisplayOutPut').data('proceed');
-			// console.log('Id de Cliente: ' + clientid + ' - Id de Pedido: ' + pedidoid + ' - Código: ' + codigo + ' - Cantidad: ' + cantidad + ' - Tipo de Cliente: ' + tipo);
+		// 	var clientid    = $('#ClientData').data('clientid');
+		// 	var pedidoid    = $('#ClientData').data('pedidoid');
+		// 	var codigo      = $('#CodigoInput').val();
+		// 	var cantidad    = $('#CantidadInput').val();
+		// 	var precio      = $('#PrecioInput').val();
+		// 	var tipo        = $('#TipoInput').data('tipocte');
+		// 	var route       = "{{ url('vadmin/ajax_store_pedidoitem') }}";
+		// 	var erroroutput = $('#DisplayErrorOutPut');
+		// 	var proceed     = $('#DisplayOutPut').data('proceed');
+		// 	// console.log('Id de Cliente: ' + clientid + ' - Id de Pedido: ' + pedidoid + ' - Código: ' + codigo + ' - Cantidad: ' + cantidad + ' - Tipo de Cliente: ' + tipo);
 
-			if(codigo==''){
-				erroroutput.html('Debe ingresar un código');
-				erroroutput.removeClass('Hidden');
-			} else if(cantidad=='') {
-				erroroutput.html('Debe ingresar una cantidad');
-				erroroutput.removeClass('Hidden');
-			} else if(precio=='') {
-				erroroutput.html('Debe ingresar un valor');
-				erroroutput.removeClass('Hidden');
+		// 	if(codigo==''){
+		// 		erroroutput.html('Debe ingresar un código');
+		// 		erroroutput.removeClass('Hidden');
+		// 	} else if(cantidad=='') {
+		// 		erroroutput.html('Debe ingresar una cantidad');
+		// 		erroroutput.removeClass('Hidden');
+		// 	} else if(precio=='') {
+		// 		erroroutput.html('Debe ingresar un valor');
+		// 		erroroutput.removeClass('Hidden');
 
-			} else {
+		// 	} else {
 
-				$.ajax({
-					url: route,
-					method: 'post',             
-					dataType: "json",
-					data: {cliente_id: clientid, pedido_id: pedidoid, producto_id: codigo, cantidad: cantidad, valor: precio},
-					success: function(data){
-						location.reload();
-						// console.log(data);	
-					},
-					error: function(data)
-					{
-						erroroutput.html('El producto no existe');
-						erroroutput.removeClass('Hidden');
-					},
-				});
-			}
-		});
-
-
-
-	/////////////////////////////////////////////////
-    //           SEARCH PRODUCT FUNCTION           //
-    /////////////////////////////////////////////////
-
-	function sarch_product(id) {	
-		var route   = "{{ url('vadmin/get_product_and_price') }}/"+id+"";
-		var tipocte = $('#TipoInput').data('tipocte');
-		var output  = $('#DisplayOutPut');
-		var erroroutput = $('#DisplayErrorOutPut');
-		
-		$.ajax({
-			url: route,
-			method: 'post',             
-			dataType: "json",
-			data: {id: id, tipocte: tipocte},
-			success: function(data){
-				console.log(data.exist);
-				if(data.exist == 1){
-					output.html('<b>Producto: </b>' + data.producto + ' | <b>Precio:</b> ' + data.precio + '<br> Precio de Oferta: ' + data.preciooferta + ' (Cantidad: ' + data.cantoferta + ')');
-					output.removeClass('Hidden');
-					erroroutput.html('');
-					$('#PrecioInput').val(data.precio);
-				} else {
-					output.html('El producto no existe');
-					output.removeClass('Hidden');
-					erroroutput.html('');
-				}
-			
-			},
-			error: function(data)
-			{
-				output.html(data.responseText);
-				output.removeClass('Hidden');
-				//
-				$('#Error').html(data.responseText);
-				console.log(data);	
-			},
-		});
-	}
-
-
-
-
-
+		// 		$.ajax({
+		// 			url: route,
+		// 			method: 'post',             
+		// 			dataType: "json",
+		// 			data: {cliente_id: clientid, pedido_id: pedidoid, producto_id: codigo, cantidad: cantidad, valor: precio},
+		// 			success: function(data){
+		// 				location.reload();
+		// 				// console.log(data);	
+		// 			},
+		// 			error: function(data)
+		// 			{
+		// 				erroroutput.html('El producto no existe');
+		// 				erroroutput.removeClass('Hidden');
+		// 			},
+		// 		});
+		// 	}
+		// });
 
 
 

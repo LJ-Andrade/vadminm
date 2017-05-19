@@ -84,7 +84,25 @@ class ProductosController extends Controller
         }
     }
 
-    
+    public function ajax_keyup_search(Request $request)
+    {   
+       
+        if ($request->ajax())
+        { 
+
+                if (isset($_GET['query'])){ 
+                    $query = $_GET['query'];
+                }
+            
+
+                $users = Producto::where('nombre', 'LIKE', '%'.$query.'%' )->get();
+
+                
+                return response()->json($users);
+
+        }
+    }
+
     public function calculatePrice($id, $tipocte)
     {
 

@@ -143,5 +143,117 @@
 	});
 
 
+	/////////////////////////////////////////////////
+	//              PRODUCT Finder                 //
+	/////////////////////////////////////////////////
+
+	// -- Inputs --
+
+	// cfCodigoInput
+	// cfNombreInput
+	// cfCantidadInput
+	// cfPrecioInput
+	
+	// -- Extra Data --
+
+	// TipoCte
+
+	// -- Action --
+
+	// AddItem
+
+	// -- Outputs --
+
+	// CfOutputPreview
+
+	$("#cfCodigoInput").on( "keydown", function(e) {
+		var id      = $(this).val();
+		var tipocte = $('#TipoCte').data('tipocte');
+		if(e.which == 13) {
+			setProductById(id, tipocte);
+		}
+	});
+
+
+	// Sino funca esto rápido tirar los resultados desde el controlador y despues se ve.
+
+		// By Name or Email
+	$(document).on("keyup", "#cfNombreInput", function(e){
+		e.preventDefault();
+		var query = $(this).val();
+		
+		// var url = "{{ url('vadmin/ajax_list_search') }}/search?query="+query+"&role="+role+"";
+		var url = "{{ url('vadmin/ajax_product_search') }}/search?query="+query;
+
+			$.ajax({
+				type: 'get',
+				url: url,
+				beforeSend: function(){
+				},
+				success: function(data){
+					console.log(data[0].nombre);
+					productos = data[0];
+					// productos = data;
+					// var obj = jQuery.parseJSON(data);
+					// console.log( obj.name === "John" );
+					// console.log(data);
+					// $.each( data, function( key, value ) {
+					// 	console.log( key + ": " + value );
+					// });
+				},
+				error: function(data){
+					console.log(data)
+					$('#Error').html(data.responseText);
+				}
+			});
+		
+	});
+
+
+
+	function setProductById(id, tipocte) {	
+	
+		var route   = "{{ url('vadmin/get_product_and_price') }}/"+id+"";
+		var nombre   = $('#cfNombreInput');
+
+		console.log('Id de Producto: ' + id);
+		console.log('Tipo de Cliente: ' + tipocte);
+		var output  = $('#CfOutputPreview');
+		var erroroutput = $('#DisplayErrorOutPut');
+		
+		$.ajax({
+			url: route,
+			method: 'post',             
+			dataType: "json",
+			data: {id: id, tipocte: tipocte},
+			success: function(data){
+				console.log(data.exist);
+				if(data.exist == 1){
+					output.removeClass('Hidden');
+					nombre.val(data.producto);
+					erroroutput.html('');
+					
+					output.html('<b>Producto: </b>' + data.producto + ' | <b>Precio:</b> ' + data.precio + '<br> Precio de Oferta: ' + data.preciooferta + ' (Cantidad: ' + data.cantoferta + ')');
+					$('#PrecioInput').val(data.precio);
+				} else {
+					erroroutput.html('');
+					output.removeClass('Hidden');
+					nombre.val('');
+					output.html('El producto no existe');
+				}
+			
+			},
+			error: function(data)
+			{
+				output.html(data.responseText);
+				output.removeClass('Hidden');
+				//
+				$('#Error').html(data.responseText);
+				console.log(data);	
+			},
+		});
+	}
+
+
     
 </script>
