@@ -162,9 +162,7 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 
 	Route::get('get_product/{id}', 'Productos\ProductosController@get_product');
 	
-	Route::get('ajax_product_search/{search?}', 'Productos\ProductosController@ajax_keyup_search');
-	// Route::get('ajax_list_search/{search?}', 'UsersController@ajax_list_search');
-	Route::get('autocomplete', array('as'=>'autocomplete','uses'=>'Productos\ProductosController@ajax_autocomplete'));
+	Route::get('ajax_autocomplete/{query?}', 'Productos\ProductosController@ajax_autocomplete');
 	Route::post('get_product_and_price/{id}', 'Productos\ProductosController@get_product_and_price');
 
 

@@ -175,37 +175,46 @@
 	});
 
 
-	// Sino funca esto rápido tirar los resultados desde el controlador y despues se ve.
+
+	$('#autocomplete').autocomplete({
+		// var url = "{{ url('vadmin/ajax_product_search') }}/search?query="+query;
+		var url = 
+		serviceUrl: "{{ url('vadmin/ajax_autocomplete') }}"
+		//onSelect: function (suggestion) {
+		//	alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+		//}
+	});
+
 
 		// By Name or Email
-	$(document).on("keyup", "#cfNombreInput", function(e){
+	$(document).on("keyup", "#autocsomplete", function(e){
 		e.preventDefault();
 		var query = $(this).val();
 		
-		// var url = "{{ url('vadmin/ajax_list_search') }}/search?query="+query+"&role="+role+"";
-		var url = "{{ url('vadmin/ajax_product_search') }}/search?query="+query;
 
-			$.ajax({
-				type: 'get',
-				url: url,
-				beforeSend: function(){
-				},
-				success: function(data){
-					console.log(data[0].nombre);
-					productos = data[0];
-					// productos = data;
-					// var obj = jQuery.parseJSON(data);
-					// console.log( obj.name === "John" );
-					// console.log(data);
-					// $.each( data, function( key, value ) {
-					// 	console.log( key + ": " + value );
-					// });
-				},
-				error: function(data){
-					console.log(data)
-					$('#Error').html(data.responseText);
-				}
-			});
+
+
+			//$.ajax({
+			//	type: 'get',
+			//	url: url,
+			//	beforeSend: function(){
+			//	},
+			//	success: function(data){
+			//		console.log(data[0].nombre);
+			//		productos = data[0];
+			//		// productos = data;
+			//		// var obj = jQuery.parseJSON(data);
+			//		// console.log( obj.name === "John" );
+			//		// console.log(data);
+			//		// $.each( data, function( key, value ) {
+			//		// 	console.log( key + ": " + value );
+			//		// });
+			//	},
+			//	error: function(data){
+			//		console.log(data)
+			//		$('#Error').html(data.responseText);
+			//	}
+			//});
 		
 	});
 

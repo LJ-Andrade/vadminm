@@ -79,8 +79,8 @@
 						</div>
 						<div class="col-md-3">
 							{!! Form::label('searchbyname', 'Nombre') !!}
-							{!! Form::text('searchbyname', null, ['id' => 'cfNombreInput', 'class' => 'form-control']) !!} 
-							<input class="typeahead form-control" style="margin:0px auto;width:300px;" type="text">
+							{{-- {!! Form::text('searchbyname', null, ['id' => 'cfNombreInput', 'class' => 'form-control']) !!}  --}}
+							<input type="text" name="country" id="autocomplete"/>
 						</div>
 						<div class="col-md-3">
 							{!! Form::label('cantidad','Cantidad') !!}
@@ -168,7 +168,7 @@
 	<script type="text/javascript" src="{{ asset('plugins/jqueryfiler/jquery.filer.min.js')}} "></script>
 	{{-- <script type="text/javascript" src="{{ asset('plugins/colorpicker/spectrum.js')}} "></script>
 	<script type="text/javascript" src="{{ asset('plugins/colorpicker/jquery.spectrum-es.js')}} "></script> --}}
-	<script type="text/javascript" src="{{ asset('plugins/typeahead-autocomplete/typeahead.jquery.min.js')}} "></script>
+	<script type="text/javascript" src="{{ asset('plugins/ajaxautocomplete/jquery.autocomplete.min.js')}} "></script>
 	<script type="text/javascript" src="{{ asset('js/jslocal/forms.js') }}" ></script>
 	@include('vadmin.components.ajaxscripts');
 @endsection

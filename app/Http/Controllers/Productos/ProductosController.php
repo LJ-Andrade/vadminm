@@ -84,23 +84,26 @@ class ProductosController extends Controller
         }
     }
 
-    public function ajax_keyup_search(Request $request)
+    public function ajax_autocomplete(Request $request)
     {   
        
-        if ($request->ajax())
-        { 
+    // echo '{"suggestions": ["United Arab Emirates", "United Kingdom", "United States"]}';
 
-                if (isset($_GET['query'])){ 
-                    $query = $_GET['query'];
-                }
-            
+        //if ($request->ajax())
+        //{ 
 
-                $users = Producto::where('nombre', 'LIKE', '%'.$query.'%' )->get();
+        //        // if (isset($_GET['query'])){ 
+        //        //     $query = $_GET['query'];
+        //        // }
+            $query =  $request;
+            dd($query);
+                // $users = Producto::where('nombre', 'LIKE', '%'.$query.'%' )->get();
 
                 
-                return response()->json($users);
+                // $response = json_encode($users);
+                // return response()->json($response);
 
-        }
+        //}
     }
 
     public function calculatePrice($id, $tipocte)
