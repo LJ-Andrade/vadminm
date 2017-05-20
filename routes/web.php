@@ -164,7 +164,8 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	
 	Route::get('ajax_autocomplete/{query?}', 'Productos\ProductosController@ajax_autocomplete');
 	Route::post('get_product_and_price/{id}', 'Productos\ProductosController@get_product_and_price');
-
+	// Route::get('search/autocomplete', 'Productos\ProductosController@autocomplete');
+	
 
 
 	Route::get('/productos_subfamilias/{id}', 'Productos\ProductosController@ajax_subfamilias');
@@ -201,3 +202,6 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 });
 
 
+
+
+Route::get('/autocomplete', array('as' => 'autocomplete', 'uses'=>'Productos\ProductosController@product_autocomplete')); //Instead of Theme your Controller name

@@ -27,7 +27,6 @@
                     <span><i class="ion-plus-round"></i> Creación de Nuevo Item</span>
                     <a href="{{ url('vadmin/pedidositems') }}"><div class="close-btn2"><i class="ion-close-round"></i></div></a>
                 </div>
-                
                 <div class=" col-md-12 form-group">
                     {!! Form::label('pedido', 'Pedido:') !!}
                     {!! Form::select('pedido', $pedidos, null, ['id' => 'PedidoSelect', 'class' => 'form-control Select-Chosen', 'placeholder' => 'Ingrese el ID del pedido']) !!} 

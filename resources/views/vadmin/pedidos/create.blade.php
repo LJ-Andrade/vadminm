@@ -26,6 +26,7 @@
 	<div class="big-form">
 		<div class="row inner-row">
 			{{-- /// --}}
+			
 			<div class="col-md-6 col-sm-6 col-xs-12">
 				<div class="form-group">
 					{!! Form::label('cliente', 'Cliente') !!}
@@ -45,6 +46,10 @@
 				</div>
 				<div class="col-md-12">
 					{!! Form::open(['url' => 'vadmin/pedidos', 'method' => 'POST', 'id' => 'NewItemForm']) !!}
+						<div class="col-md-12">
+							Autor: {{ Auth::user()->name }}
+							<input type="text" name="user_id" class="Hidden" value="{{ Auth::user()->id }}">
+						</div>
 						 {!! Form::text('cliente_id', null, ['id' => 'ClienteIdOutput', 'class' => 'form-control Hidden', 'required' => '']) !!} 
 						<button id="GeneratePedidoBtn" class="btnSm buttonOk"> Generar Pedido</button>
 					{!! Form::close() !!}

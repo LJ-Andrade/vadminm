@@ -47,6 +47,7 @@
 						  </ul>
 					 </li>
 				</ul>
+				@if ( Auth::user()->type =='superadmin' or Auth::user()->type =='admin')
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Nuevo
@@ -56,6 +57,7 @@
 							<li><a href="{{ route('productos.create') }}"><i class="ion-ios-gear"></i>Producto</a></li>
 							<li><a href="{{ route('pedidos.create') }}"><i class="ion-paper-airplane"></i>Pedido</a></li>
 							<li><a href="{{ route('clientes.create') }}"><i class="ion-ios-briefcase"></i>Cliente</a></li>
+							<li><a href="{{ route('proveedores.create') }}"><i class="ion-ios-people"></i> Proveedores</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">
@@ -66,6 +68,7 @@
 							<li><a href="{{ route('productos.index') }}"><i class="ion-ios-gear"></i> Productos</a></li>
 							<li><a href="{{ route('pedidos.index') }}"><i class="ion-paper-airplane"></i> Pedidos</a></li>
 							<li><a href="{{ route('clientes.index') }}"><i class="ion-ios-briefcase"></i> Clientes</a></li>
+							<li><a href="{{ route('proveedores.index') }}"><i class="ion-ios-people"></i> Proveedores</a></li>
 							<li role="separator" class="divider"></li>
 							<li><a href="{{ route('listas.index') }}"><i class="ion-clipboard"></i> Listas de Precios</a></li>
 							<li><a href="{{ route('users.index') }}"><i class="ion-ios-people"></i> Usuarios</a></li>
@@ -104,6 +107,43 @@
 						</ul>
 					</li>
 				</ul>
+				@else
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Nuevo
+						<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="{{ route('facturas.create') }}"><i class="ion-printer"></i>Factura</a></li>
+							<li><a href="{{ route('productos.create') }}"><i class="ion-ios-gear"></i>Producto</a></li>
+							<li><a href="{{ route('pedidos.create') }}"><i class="ion-paper-airplane"></i>Pedido</a></li>
+							<li><a href="{{ route('clientes.create') }}"><i class="ion-ios-briefcase"></i>Cliente</a></li>
+							<li><a href="{{ route('proveedores.create') }}"><i class="ion-ios-people"></i> Proveedor</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Listados
+						<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="{{ route('facturas.index') }}"><i class="ion-printer"></i>Facturas</a></li>
+							<li><a href="{{ route('productos.index') }}"><i class="ion-ios-gear"></i> Productos</a></li>
+							<li><a href="{{ route('pedidos.index') }}"><i class="ion-paper-airplane"></i> Pedidos</a></li>
+							<li><a href="{{ route('clientes.index') }}"><i class="ion-ios-briefcase"></i> Clientes</a></li>
+							<li><a href="{{ route('proveedores.index') }}"><i class="ion-ios-people"></i> Proveedores</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="{{ route('listas.index') }}"><i class="ion-clipboard"></i> Listas de Precios</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Varios
+						<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li role="separator" class="divider"></li>
+							<li><a href="{{ route('direntregas.index') }}"><i class="ion-android-pin"></i> Direcciones de Entrega</a></li>
+							<li><a href="{{ route('fletes.index') }}"><i class="ion-paper-airplane"></i> Fleteros</a></li>
+						</ul>
+					</li>
+				</ul>
+				@endif
 		  </div>
 	 </div>
 </nav>

@@ -84,27 +84,20 @@ class ProductosController extends Controller
         }
     }
 
-    public function ajax_autocomplete(Request $request)
-    {   
-       
-    // echo '{"suggestions": ["United Arab Emirates", "United Kingdom", "United States"]}';
 
-        //if ($request->ajax())
-        //{ 
+    public function product_autocomplete(Request $request){
 
-        //        // if (isset($_GET['query'])){ 
-        //        //     $query = $_GET['query'];
-        //        // }
-            $query =  $request;
-            dd($query);
-                // $users = Producto::where('nombre', 'LIKE', '%'.$query.'%' )->get();
+            $term = $request->term;
 
-                
-                // $response = json_encode($users);
-                // return response()->json($response);
+            $queries = Producto::where('nombre', 'LIKE', '%'.$term.'%' )->take(6)->get();
 
-        //}
+            foreach ($queries as $query)
+            {
+                $results[] = ['id' => $query->id, 'value' => $query->nombre]; //you can take custom values as you want
+            }
+            return response()->json($results);
     }
+    
 
     public function calculatePrice($id, $tipocte)
     {

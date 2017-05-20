@@ -34,7 +34,7 @@
 
                     <div class="content">
                         {{-- Column --}}
-                        <div class="col-xs-6 col-sm-2 col-md-2 inner">
+                        <div class="col-xs-6 col-sm-1 col-md-1 inner">
                         	<span><b>N°: {{ $item->id }}  </b></span>
                         </div>
                         {{-- Column --}}
@@ -61,7 +61,7 @@
 
                         </div>                        
 						<div class="col-xs-6 col-sm-3 col-md-3 pull-right">
-							{{ transDateT($item->created_at) }}
+							{{ transDateT($item->created_at) }} <span class="small">( {{ $item->user->name }} ) </span>
                         </div>                        
 
                     </div>
@@ -71,9 +71,9 @@
 					</div>
                     {{-- Hidden Action Buttons --}}
                     <div class="List-Actions lists-actions Hidden">
-						<a href="{{ url('/vadmin/pedidos/' . $item->id . '/edit') }}" class="btnSmall buttonOk" data-id="{{ $item->id }}">
+					{{-- 	<a href="{{ url('/vadmin/pedidos/' . $item->id . '/edit') }}" class="btnSmall buttonOk" data-id="{{ $item->id }}">
 							<i class="ion-ios-compose-outline"></i>
-						</a>
+						</a> --}}
 						<a href="{{ url('vadmin/pedidos/'. $item->id) }}" class="btnSmall buttonOther">
 							<i class="ion-ios-search"></i>
 						</a>

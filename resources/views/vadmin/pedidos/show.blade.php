@@ -21,6 +21,8 @@
 	{!! Html::style('plugins/jqueryfiler/themes/jquery.filer-dragdropbox-theme.css') !!}
 	{!! Html::style('plugins/jqueryfiler/jquery.filer.css') !!}
 	{!! Html::style('plugins/colorpicker/spectrum.css') !!}
+	{!! Html::style('plugins/jqueryUi/jquery-ui.min.css') !!}
+	
 @endsection
 {{-- CONTENT --}}
 @section('content')
@@ -32,7 +34,8 @@
 				<div id="ClientData" data-pedidoid="{{ $pedido->id }}" data-clientid="{{ $pedido->cliente->id }}"></div>
 				<div id="TipoCte" class="small-text" data-tipocte="{{ $pedido->cliente->tipo_id }}">{{ $tipocte }}</div>
 				<div class="small-text">Pedido N°: {{ $pedido->id }} </div>
-				<div class="right text-right">Creado el <br> {{ transDateT($pedido->created_at) }}</div>
+				<div class="right text-right">Creado el <br> {{ transDateT($pedido->created_at) }} <br> Autor: {{ $pedido->user->name }}</div>
+				
             </div>		
 			<div class="content">
 				<div class="row">
@@ -79,16 +82,20 @@
 						</div>
 						<div class="col-md-3">
 							{!! Form::label('searchbyname', 'Nombre') !!}
-							{{-- {!! Form::text('searchbyname', null, ['id' => 'cfNombreInput', 'class' => 'form-control']) !!}  --}}
-							<input type="text" name="country" id="autocomplete"/>
+							{!! Form::text('searchbyname', null, ['id' => 'cfNombreInput', 'class' => 'form-control']) !!}
+							
 						</div>
 						<div class="col-md-3">
 							{!! Form::label('cantidad','Cantidad') !!}
 							{!! Form::text('cantidad', null, ['id' => 'cfCantidadInput', 'class' => 'form-control']) !!} 
 						</div>
 						<div class="col-md-3">
-							{!! Form::label('precio','Precio') !!}
-							{!! Form::text('precio', null, ['id' => 'cfPrecioInput', 'class' => 'form-control']) !!} 
+							{!! Form::label('precio','Precio') !!} <br>
+							@if( Auth::user()->type =='superadmin' or Auth::user()->type =='admin' )
+							{!! Form::text('precio', null, ['id' => 'cfPrecioInput', 'class' => 'form-control']) !!}
+							@else
+							<span id="cfPrecioDisplayUser"></span>
+							@endif
 						</div>
 						{{-- Display Product Name --}}
 						<div class="col-md-12 horiz-container">
@@ -101,6 +108,7 @@
 						</div>
 					</div>
 					<br>
+
 
 						{{-- Advanced Search Product --}}
 					{{-- 	<div class="col-md-12">
@@ -168,38 +176,15 @@
 	<script type="text/javascript" src="{{ asset('plugins/jqueryfiler/jquery.filer.min.js')}} "></script>
 	{{-- <script type="text/javascript" src="{{ asset('plugins/colorpicker/spectrum.js')}} "></script>
 	<script type="text/javascript" src="{{ asset('plugins/colorpicker/jquery.spectrum-es.js')}} "></script> --}}
-	<script type="text/javascript" src="{{ asset('plugins/ajaxautocomplete/jquery.autocomplete.min.js')}} "></script>
+	<script type="text/javascript" src="{{ asset('plugins/jqueryUi/jquery-ui.min.js')}} "></script>
 	<script type="text/javascript" src="{{ asset('js/jslocal/forms.js') }}" ></script>
-	@include('vadmin.components.ajaxscripts');
+	@include('vadmin.components.ajaxscripts')
 @endsection
 
 @section('custom_js')
 
 	<script>
 
-		// Select Product With Code
-		// $("#CodigoInput").on( "keydown", function(e) {
-		// 	var id      = $(this).val();
-		// 	if(e.which == 13) {
-		// 		search_product(id);
-		// 	}
-		// });
-		
-
-
-		$('#AddItem').on('click',function(e){
-
-			var codigo   = $('#cfCodigoInput').val();
-			var nombre   = $('#cfNombreInput').val();
-			var cantidad = $('#cfCantidadInput').val();
-			var precio   = $('#cfPrecioInput').val();
-			var preview  = $('#CfOutputPreview');
-
-			
-			preview.removeClass('Hidden');
-			preview.html(codigo+', '+nombre);
-
-		});
 
 
 		// Select Product With Modal

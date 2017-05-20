@@ -11,7 +11,7 @@ class Pedido extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['cliente_id', 'estado', 'facturado'];
+    protected $fillable = ['cliente_id', 'estado', 'facturado', 'user_id'];
 
     public function pedidositems()
     {
@@ -21,6 +21,11 @@ class Pedido extends Model
     public function cliente()
     {
     	return $this->belongsTo('App\Cliente');
+    }
+
+    public function user()
+    {
+    	return $this->belongsTo('App\User');
     }
     
 }

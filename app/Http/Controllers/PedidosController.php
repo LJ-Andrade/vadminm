@@ -85,7 +85,7 @@ class PedidosController extends Controller
     public function store(Request $request)
     {
         $pedido = new Pedido($request->all());
-
+        
         $pedido->save();
         
         Session::flash('flash_message', 'Pedido generado!');
