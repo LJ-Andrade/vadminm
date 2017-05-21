@@ -16,6 +16,7 @@
 
 
 .navbar
+	font-size: 1rem
 	.container-fluid
 		padding-left: 0
 	@include transition(0.3s)
@@ -36,7 +37,11 @@
 			font-size: 1rem
 			color: #000 !important
 
-
+.navbar-left
+	li a
+		padding: 8px 5px 5px
+	img
+		width: 36px
 @media (min-width: 768px)
 	.navbar
 		.dropdown-menu

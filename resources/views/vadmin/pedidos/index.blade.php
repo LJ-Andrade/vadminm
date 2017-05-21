@@ -10,7 +10,7 @@
 	@section('options')
 		<div class="actions">
             <a href="{{ url('vadmin/pedidos/create') }}" class="btn btnSm buttonOther">Nuevo Pedido</a>
-            <button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button>
+          {{--   <button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button> --}}
 		</div>	
 	@endsection
 @endsection
@@ -59,9 +59,9 @@
 								}
 							?>
 
-                        </div>                        
+                        </div>
 						<div class="col-xs-6 col-sm-3 col-md-3 pull-right">
-							{{ transDateT($item->created_at) }} <span class="small">( {{ $item->user->name }} ) </span>
+							{{ transDateT($item->created_at) }} @if(is_null( $item->user->name ))  @else <span class="small"> ( {{ $item->user->name }} ) @endif  </span>
                         </div>                        
 
                     </div>

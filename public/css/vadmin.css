@@ -303,6 +303,10 @@ hr {
   right: 10px;
 }
 
+.medium-card {
+  margin-bottom: 10px;
+}
+
 .medium-card .inner {
   position: relative;
   border-radius: 5px;
@@ -412,6 +416,10 @@ hr {
   border-radius: 5px;
   padding: 10px;
   margin: 10px;
+}
+
+.card-filled {
+  margin-bottom: 10px;
 }
 
 .card-filled .inner {
@@ -1178,7 +1186,7 @@ hr {
 
 .header span.title {
   font-weight: 400;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .header span.subtitle {
@@ -1569,7 +1577,7 @@ hr {
 }
 
 .horizontal-btn-container {
-  padding-top: 30px;
+  padding-top: 0px;
 }
 
 .softhr {
@@ -1824,6 +1832,7 @@ hr {
 }
 
 .navbar {
+  font-size: 1rem;
   -webkit-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
 }
@@ -1855,6 +1864,14 @@ hr {
 .navbar .dropdown-menu a {
   font-size: 1rem;
   color: #000 !important;
+}
+
+.navbar-left li a {
+  padding: 8px 5px 5px;
+}
+
+.navbar-left img {
+  width: 36px;
 }
 
 @media (min-width: 768px) {

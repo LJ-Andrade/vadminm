@@ -182,7 +182,7 @@
 	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div class="form-group">
 			{!! Form::label('estado', 'Estado') !!}
-			{!! Form::select('estado', ['activo' => 'Listar', 'pausado' => 'No Listar'], null, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
+			{!! Form::select('estado', ['activo' => 'Listar', 'pausado' => 'No Listar'], null, ['class' => 'form-control Select-Chosen', 'required' => '']) !!}
 		</div>
 	</div>
 </div>

@@ -5,7 +5,7 @@
 @section('header_title', 'Inicio | ')
 
 @section('header_subtitle')
-	Bienvenid@ <b>{{ Auth::user()->name }}</b>
+	Bienvenido <b>{{ Auth::user()->name }}</b>
 @endsection
 
 @section('styles')
@@ -33,9 +33,32 @@
 					<div class="row">
 						<div class="col-md-12 title">
 							<span><b>Actualizar Stock</b></span>
-						<br>Rediseñando...
 						</div>
+						{!! Form::open(['method' => 'POST', 'id' => 'UpdateStockForm']) !!}	
+						<div class="col-md-6">
+							{!! Form::label('familia_id', 'Familia') !!}
+							{!! Form::select('familia_id', $familias, null, ['id' => 'FamiliasSelect', 'class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una familia', 'required' => '']) !!}
+							{!! Form::label('producto', 'Producto') !!}
+							<select name="producto" id="ProductSelect" class="form-control Select-Chosen" required="" placeholder="Seleccione una subfamilia">
+							</select>
+						</div>
+						<div class="col-md-6">
+							{!! Form::label('familia_id', 'Subfamilia') !!}
+							<select name="subfamilia_id" id="SubfamiliasSelect" class="form-control Select-Chosen" required="" placeholder="Seleccione una subfamilia">
+							</select>
 						
+						</div>
+						{{-- <div class="col-md-12">
+							{!! Form::label('codigo', 'Código') !!}
+							{!! Form::text('codigo', null, ['id' => 'ProductCode', 'class' => 'form-control', 'placeholder' => 'Buscar por código']) !!}
+						</div> --}}
+						<div class="col-md-12">
+							<div id="ProductOutput">
+							
+							</div>
+						</div>
+						{!! Form::close() !!}
+
 						<button id="UpdateStockBtn" class="btnSmSquare buttonOther right-bottom">Actualizar</button>
 					</div>
 				</div>

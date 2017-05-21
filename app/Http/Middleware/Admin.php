@@ -21,7 +21,8 @@ class Admin
         if ($user->type == 'superadmin' || $user->type == 'admin') {
             return $next($request);
         } else {
-            return redirect()->guest('guest');
+            return $next($request);
+            // return redirect()->guest('guest');
         }
     }
 }

@@ -9,7 +9,8 @@
 	@section('header_title', 'Listado de Proveedores') 
 	@section('options')
 		<div class="actions">
-            <a href="{{ url('vadmin/proveedores/create') }}" class="btn btnSm buttonOther">Nueva</a>
+		
+            <a href="{{ url('vadmin/proveedores/create') }}" class="btn btnSm buttonOther">Nuevo proveedor</a>
             <button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button>
 		</div>	
 	@endsection

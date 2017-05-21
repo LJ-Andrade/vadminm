@@ -94,6 +94,7 @@
 							@if( Auth::user()->type =='superadmin' or Auth::user()->type =='admin' )
 							{!! Form::text('precio', null, ['id' => 'cfPrecioInput', 'class' => 'form-control']) !!}
 							@else
+							{!! Form::text('precio', null, ['id' => 'cfPrecioInput', 'class' => 'form-control Hidden']) !!}
 							<span id="cfPrecioDisplayUser"></span>
 							@endif
 						</div>

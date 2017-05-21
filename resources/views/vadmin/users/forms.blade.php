@@ -55,7 +55,12 @@
                  {{--   {!! Form::label('password', 'Contraseña:') !!}
                     <input class="form-control" name="password" type="password" value="" required="">--}}
                     {!! Form::label('type', 'Permisos:') !!}
+                    @if ( Auth::user()->type =='superadmin')
                     {!! Form::select('type', ['user' => 'Usuario','admin' => 'Admin', 'superadmin' => 'SuperAdmin'], null, ['id' => 'EditType', 'class' => 'form-control', 'placeholder' => 'Seleccione una opcion', 'required' => '']) !!}
+                    @elseif (Auth::user()->type =='admin')
+                    {!! Form::select('type', ['user' => 'Usuario','admin' => 'Admin'], null, ['id' => 'EditType', 'class' => 'form-control', 'placeholder' => 'Seleccione una opcion', 'required' => '']) !!}
+                    @else
+                    @endif
                 </div>
                  <div class="col-md-6">
                     {!! Form::label('role', 'Rol') !!}

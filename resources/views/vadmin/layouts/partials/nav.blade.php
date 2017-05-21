@@ -9,8 +9,9 @@
 				</button>
 		  </div>
 		  <div class="collapse navbar-collapse" id="expand-nav">
-				<ul class="nav navbar-nav navbar-left">
-					 <li><a href="{{ url('/vadmin') }}">VADmin | Panel de Control</a></li>
+				<ul class="nav navbar-nav navbar-left"> 
+					 {{-- <li><a href="{{ url('/vadmin') }}">VADmin | Panel de Control</a></li> --}}
+					 <li><a href="{{ url('/vadmin') }}"><img src="{{ asset('images/logos/vadminlogo.png') }}" alt=""></a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					 <li class="dropdown user-menu">
@@ -48,23 +49,23 @@
 					 </li>
 				</ul>
 				@if ( Auth::user()->type =='superadmin' or Auth::user()->type =='admin')
-				<ul class="nav navbar-nav navbar-right">
+				<ul class="nav navbar-nav">
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Nuevo
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="{{ route('facturas.create') }}"><i class="ion-printer"></i>Factura</a></li>
+							{{-- <li><a href="{{ route('facturas.create') }}"><i class="ion-printer"></i>Factura</a></li> --}}
 							<li><a href="{{ route('productos.create') }}"><i class="ion-ios-gear"></i>Producto</a></li>
 							<li><a href="{{ route('pedidos.create') }}"><i class="ion-paper-airplane"></i>Pedido</a></li>
 							<li><a href="{{ route('clientes.create') }}"><i class="ion-ios-briefcase"></i>Cliente</a></li>
-							<li><a href="{{ route('proveedores.create') }}"><i class="ion-ios-people"></i> Proveedores</a></li>
+							<li><a href="{{ route('proveedores.create') }}"><i class="ion-ios-people"></i> Proveedor</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Listados
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="{{ route('facturas.index') }}"><i class="ion-printer"></i>Facturas</a></li>
+						{{-- 	<li><a href="{{ route('facturas.index') }}"><i class="ion-printer"></i>Facturas</a></li> --}}
 							<li><a href="{{ route('productos.index') }}"><i class="ion-ios-gear"></i> Productos</a></li>
 							<li><a href="{{ route('pedidos.index') }}"><i class="ion-paper-airplane"></i> Pedidos</a></li>
 							<li><a href="{{ route('clientes.index') }}"><i class="ion-ios-briefcase"></i> Clientes</a></li>
@@ -103,17 +104,17 @@
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="{{ url('/') }}"><i class="ion-ios-monitor-outline"></i> Ver Web</a></li>
-							<li><a href="{{ route('desarrollo.index') }}"><i class="ion-paper-airplane"></i> Mapa de Desarrollo</a></li>
+							<li><a href="https://trello.com/b/mxWo2W9W/vadminm" target="_blank"><i class="ion-paper-airplane"></i> Mapa de Desarrollo</a></li>
 						</ul>
 					</li>
 				</ul>
 				@else
-				<ul class="nav navbar-nav navbar-right">
+				<ul class="nav navbar-nav">
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Nuevo
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="{{ route('facturas.create') }}"><i class="ion-printer"></i>Factura</a></li>
+						{{-- 	<li><a href="{{ route('facturas.create') }}"><i class="ion-printer"></i>Factura</a></li> --}}
 							<li><a href="{{ route('productos.create') }}"><i class="ion-ios-gear"></i>Producto</a></li>
 							<li><a href="{{ route('pedidos.create') }}"><i class="ion-paper-airplane"></i>Pedido</a></li>
 							<li><a href="{{ route('clientes.create') }}"><i class="ion-ios-briefcase"></i>Cliente</a></li>
@@ -124,7 +125,7 @@
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Listados
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="{{ route('facturas.index') }}"><i class="ion-printer"></i>Facturas</a></li>
+							{{-- <li><a href="{{ route('facturas.index') }}"><i class="ion-printer"></i>Facturas</a></li> --}}
 							<li><a href="{{ route('productos.index') }}"><i class="ion-ios-gear"></i> Productos</a></li>
 							<li><a href="{{ route('pedidos.index') }}"><i class="ion-paper-airplane"></i> Pedidos</a></li>
 							<li><a href="{{ route('clientes.index') }}"><i class="ion-ios-briefcase"></i> Clientes</a></li>
