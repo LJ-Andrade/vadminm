@@ -5,7 +5,7 @@
 	//                   LOADER                    //
 	/////////////////////////////////////////////////
 
-	var loaderSm = function loaderSm(text){
+	var loaderSm = function(text){
 		var loader = '<img src="{{ asset("images/gral/loader-sm.svg") }}"/>' + text;
 		return loader;
 	}

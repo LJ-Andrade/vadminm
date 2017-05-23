@@ -1408,6 +1408,7 @@ hr {
   white-space: nowrap;
   overflow: hidden !important;
   text-overflow: ellipsis;
+  font-size: 1rem;
 }
 
 .main-list .item-row .content .inner-tags {

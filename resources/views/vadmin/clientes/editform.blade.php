@@ -46,15 +46,15 @@
 	{{-- Provinces --}}
 	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div class="form-group">
-			{!! Form::label('provincia', 'Provincia') !!}
-			{!! Form::select('provincia',  $provincias, $cliente->provincia_id, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
+			{!! Form::label('provincia_id', 'Provincia') !!}
+			{!! Form::select('provincia_id',  $provincias, $cliente->provincia_id, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
 		</div>
 	</div>
 	{{-- Loc. --}}
 	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div class="form-group">
-			{!! Form::label('localidad', 'Localidad') !!}
-			{!! Form::select('localidad',  $localidades, $cliente->localidad_id, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
+			{!! Form::label('localidad_id', 'Localidad') !!}
+			{!! Form::select('localidad_id',  $localidades, $cliente->localidad_id, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
 		</div>
 	</div>
 	{{-- Postal Code --}}

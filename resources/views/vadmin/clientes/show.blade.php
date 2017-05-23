@@ -27,7 +27,7 @@
 		 	<div class="title">
 				{{--  <span class="medium-text"></span> <br>--}}
 			    <span class="big-text">{{ $cliente->razonsocial }}</span><br>
-                <span class="small-text">Cód. {{ $cliente->id }}</span>
+				<span class="small-text">Código: {{ $cliente->id }}</span>
             </div>
 
 

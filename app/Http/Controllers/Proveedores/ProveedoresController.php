@@ -76,34 +76,50 @@ class ProveedoresController extends Controller
         return view('vadmin.proveedores.show', compact('proveedor'));
     }
 
+    //////////////////////////////////////////////////
+    //                  EDIT                        //
+    //////////////////////////////////////////////////
+    
     public function edit($id)
     {
-        $proveedor = Proveedor::findOrFail($id);
+        $proveedor   = Proveedor::findOrFail($id);
+        $provincias  = Provincia::orderBy('name', 'ASC')->pluck('name', 'id');
+        $localidades = Localidade::orderBy('name', 'ASC')->pluck('name', 'id');
+        $iva         = Iva::orderBy('name', 'ASC')->pluck('name', 'id');
 
-        return view('vadmin.proveedores.edit', compact('proveedor'));
+        return view('vadmin.proveedores.edit')
+            ->with('proveedor', $proveedor)
+            ->with('provincias', $provincias)
+            ->with('localidades', $localidades)
+            ->with('iva', $iva);
     }
 
     public function update($id, Request $request)
     {
-
-        $this->validate($request,[
-            'nombre'              => 'required|unique:proveedores,nombre',
-        ],[
-            'nombre.required'     => 'Debe ingresar un nombre',
-            'nombre.unique'      => 'El item ya existe',
-        ]);
-
-
+        // $this->validate($request,[
+        //     'nombre'              => 'required|unique:proveedores,nombre',
+        // ],[
+        //     'nombre.required'     => 'Debe ingresar un nombre',
+        //     'nombre.unique'      => 'El item ya existe',
+        // ]);
         
         $requestData = $request->all();
         
         $proveedor = Proveedor::findOrFail($id);
         $proveedor->update($requestData);
 
-        Session::flash('flash_message', 'Proveedor updated!');
+        $proveedor = Proveedor::findOrFail($id);
+        $proveedor->fill($request->all());
+        $proveedor->save();
+
+        Session::flash('flash_message', 'Proveedor actualizado');
 
         return redirect('vadmin/proveedores');
     }
+
+    //////////////////////////////////////////////////
+    //                  DESTROY                     //
+    //////////////////////////////////////////////////
 
     // ---------- Delete -------------- //
     public function destroy($id)
