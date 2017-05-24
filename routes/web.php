@@ -196,12 +196,20 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::resource('facturas', 'Facturas\FacturasController');
 	Route::get('ajax_get_pedidos/{id}', 'PedidosController@ajax_get_pedidos');
 
+	// ------------------- Reparaciones --------------------- //
+	Route::resource('reparaciones', 'ReparacionesController');
+	Route::post('ajax_store_reparacionesitems/{id}', 'ReparacionesController@ajax_store');
+	Route::get('ajax_get_cliente/{id}', 'ClientesController@ajax_get');
+	Route::post('ajax_store_reparacionesitem', 'ReparacionesitemsController@ajax_store_item');
+
 	// Developer Map
 	Route::resource('desarrollo', 'DesarrolloController');
-
+	Route::post('ajax_store_reparacion/{id}', 'DesarrolloController@ajax_store');
 });
 
 
 
 
 Route::get('/autocomplete', array('as' => 'autocomplete', 'uses'=>'Productos\ProductosController@product_autocomplete')); //Instead of Theme your Controller name
+
+Route::resource('vadmin/reparaciones-items', 'ReparacionesItemsController');

@@ -59,6 +59,7 @@
 							<li><a href="{{ route('pedidos.create') }}"><i class="ion-paper-airplane"></i>Pedido</a></li>
 							<li><a href="{{ route('clientes.create') }}"><i class="ion-ios-briefcase"></i>Cliente</a></li>
 							<li><a href="{{ route('proveedores.create') }}"><i class="ion-ios-people"></i> Proveedor</a></li>
+							<li><a href="{{ route('reparaciones.create') }}"><i class="ion-ios-people"></i> Reparación</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">
@@ -70,6 +71,7 @@
 							<li><a href="{{ route('pedidos.index') }}"><i class="ion-paper-airplane"></i> Pedidos</a></li>
 							<li><a href="{{ route('clientes.index') }}"><i class="ion-ios-briefcase"></i> Clientes</a></li>
 							<li><a href="{{ route('proveedores.index') }}"><i class="ion-ios-people"></i> Proveedores</a></li>
+							<li><a href="{{ route('reparaciones.index') }}"><i class="ion-ios-people"></i> Reparaciones</a></li>
 							<li role="separator" class="divider"></li>
 							<li><a href="{{ route('listas.index') }}"><i class="ion-clipboard"></i> Listas de Precios</a></li>
 							<li><a href="{{ route('users.index') }}"><i class="ion-ios-people"></i> Usuarios</a></li>

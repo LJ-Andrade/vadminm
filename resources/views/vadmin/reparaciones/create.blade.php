@@ -1,13 +1,13 @@
 
 @extends('vadmin.layouts.main')
 
-@section('title', 'Vadmin | Pedidos')
+@section('title', 'Vadmin | Reparaciones')
 
 @section('header')
-	@section('header_title', 'Creación de Pedidos') 
+	@section('header_title', 'Ingreso de Reparación') 
 	@section('options')
 		<div class="actions">
-			<a href="{{ url('vadmin/pedidos') }}"><button type="button" class="animated fadeIn btnSm buttonOther">Volver</button></a>
+			<a href="{{ url('vadmin/reparaciones') }}"><button type="button" class="animated fadeIn btnSm buttonOther">Volver</button></a>
 		</div>	
 	@endsection
 @endsection
@@ -45,13 +45,13 @@
 					<div  id="ClientNameOutput" class="output-inner"></div>
 				</div>
 				<div class="col-md-12">
-					{!! Form::open(['url' => 'vadmin/pedidos', 'method' => 'POST', 'id' => 'NewItemForm']) !!}
+					{!! Form::open(['url' => 'vadmin/reparaciones', 'method' => 'POST', 'id' => 'NewItemForm']) !!}
 						<div class="col-md-12">
 							Autor: {{ Auth::user()->name }}
 							<input type="text" name="user_id" class="Hidden" value="{{ Auth::user()->id }}">
 						</div>
 						 {!! Form::text('cliente_id', null, ['id' => 'ClienteIdOutput', 'class' => 'form-control Hidden', 'required' => '']) !!} 
-						<button id="GeneratePedidoBtn" class="btnSm buttonOk"> Generar Pedido</button>
+						<button id="GeneratePedidoBtn" class="btnSm buttonOk"> Generar Solicitud de Reparación</button>
 					{!! Form::close() !!}
 				</div>
 			</div>
@@ -79,14 +79,15 @@
 @section('custom_js')
 	<script>
 
-		$('#GeneratePedidoBtn').click(function(e){
-			e.preventDefault();
+	
+	$('#GeneratePedidoBtn').click(function(e){
+		e.preventDefault();
 
-			var id    = $('#ClientNameOutput').val();
-			var route = "{{ url('vadmin/ajax_store_pedido') }}/"+id+"";
-			$('#ClientNameOutput').html(loaderSm('Creando pedido...'));
-			$('#NewItemForm').submit();
-		});
+		var id    = $('#ClientNameOutput').val();
+		var route = "{{ url('vadmin/ajax_store_reparacion') }}/"+id+"";
+		$('#ClientNameOutput').html(loaderSm('Ingresando solicitud de reparación...'));
+		$('#NewItemForm').submit();
+	});
 
     </script>
 @endsection
