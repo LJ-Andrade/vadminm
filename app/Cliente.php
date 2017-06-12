@@ -51,7 +51,7 @@ class Cliente extends Model
     // }
 
     public function tipoct(){
-    	return $this->belongsTo('App\Tipoct', 'id');
+    	return $this->belongsTo('App\Tipoct', 'tipo_id');
     }
 
     public function direntregas(){

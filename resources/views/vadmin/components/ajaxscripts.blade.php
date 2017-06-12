@@ -9,6 +9,11 @@
 		var loader = '<img src="{{ asset("images/gral/loader-sm.svg") }}"/>' + text;
 		return loader;
 	}
+	var loaderRow = $('#LoaderRow');
+	loaderRow.hide();
+
+	var smallLoader  = '<img src="{{ asset("images/gral/loader-sm.svg") }}"/> Actualizando...';
+
 
 	/////////////////////////////////////////////////
 	//            SUBFAMILIAS - AJAX               //
@@ -70,21 +75,31 @@
 		$('#OutputInput').val(productstock);
 	});
 
-	// Stock Update
-	$('#UpdateStockBtn').click(function(){
-		var id      = $("#OutputInput").data('id');
-		var value = $("#OutputInput").val();
-		var route   = "{{ url('vadmin/update_prod_stock') }}/"+id+"";
-
-		var success = alert_ok('Ok','Stock Actualizado');
-		updateProduct(route, id, value, success);
-		$("#ProductOutput").html('');
-
-	});
-
 
 	/////////////////////////////////////////////////
-	//            SUBFAMILIAS - AJAX               //
+	//            PRODUCT UPDATE STOCK             //
+	/////////////////////////////////////////////////
+
+	// Update when click on #UpdateStockBtn
+	$('#UpdateStockBtn').click(function(){
+		var id    = $("#SumStock").data('productid');
+		var route = "{{ url('vadmin/update_prod_stock') }}/"+id+"";
+		var value =  $("#SumStock").val();
+		sumStock(route, id, value);
+	});
+
+	// Update when press ENTER on #SumStock
+	$("#SumStock").on("keypress", function(e) {
+		if(e.which == 13) {
+			var id    = $(this).data('productid');
+			var route = "{{ url('vadmin/update_prod_stock') }}/"+id+"";
+			var value = $(this).val();
+			sumStock(route, id, value);
+		}
+	});
+
+	/////////////////////////////////////////////////
+	//                CLIENT FINDER                //
 	/////////////////////////////////////////////////
 	
 
@@ -114,8 +129,6 @@
 					console.log(data);
 				}
 			}); 
-
-		
 	});
 
 	$("#CodigoCliente").on( "keydown", function(e) {
@@ -149,10 +162,10 @@
 
 	// -- Inputs --
 
-	// cfCodigoInput
-	// cfNombreInput
-	// cfCantidadInput
-	// cfPrecioInput
+	// CfCodigoInput
+	// CfNombreInput
+	// CfCantidadInput
+	// CfPrecioInput
 	
 	// -- Extra Data --
 
@@ -167,37 +180,43 @@
 	// CfOutputPreview
 
 	// Search By Code
-	$("#cfCodigoInput").on( "keydown", function(e) {
-		var id      = $(this).val();
-		var tipocte = $('#TipoCte').data('tipocte');
+	$("#CfCodigoInput").on( "keydown", function(e) {
+		var id        = $(this).val();
+		var tipocte   = $('#TipoCte').data('tipocte');
+		var operacion = $('#Operacion').val();
 		if(e.which == 13) {
-			setProductAndPrice(id, tipocte);
+			setProductAndPrice(id, tipocte, operacion);
 		}
 	});
 
 	// Search By Name Autocomplete Product Name Input
-	$('#cfNombreInput').autocomplete({
+	
+	$('#CfNombreInput').autocomplete({
 		source: "{!!URL::route('autocomplete')!!}",
 		minlength: 1,
 		autoFocus: true,
+		search: function(){
+			$('#CfLoader').html('<img src="{{ asset("images/gral/loader-sm.svg") }}"/>');
+		},
 		select:function(e,ui)
 		{
 			// $('#searchname').val(ui.item.value);
-			console.log(ui.item.id);
-			var id      = ui.item.id;
-			var tipocte = $('#TipoCte').data('tipocte');
-			setProductAndPrice(id, tipocte );
-			$('#cfCodigoInput').val(id);
+			// console.log(ui.item.id);
+			var id        = ui.item.id;
+			var tipocte   = $('#TipoCte').data('tipocte');
+			var operacion = $('#Operacion').val();
+			setProductAndPrice(id, tipocte, operacion);
+			$('#CfCodigoInput').val(id);
 		}
 	});
 
 	// Set Ammount and look for offer
-	$("#cfCantidadInput").on( "keydown", function(e) {
+	$("#CfCantidadInput").on( "keydown", function(e) {
 		var cantofertainput = $(this).val();
 		var cantofertamin   = $('#CantOfertaMin').html();
 		var preciooferta    = $('#PrecioOferta').html();
-		var precioInput     = $('#cfPrecioInput');
-		var precioDisplay   = $('#cfPrecioDisplayUser');
+		var precioInput     = $('#CfPrecioInput');
+		var precioDisplay   = $('#CfPrecioDisplayUser');
 		var originalprice   = $('#OriginalPrice').html();
 		
 		if(e.which == 13) {
@@ -213,36 +232,52 @@
 
 
 	// Display Product Info
-	function setProductAndPrice(id, tipocte) {	
+	function setProductAndPrice(id, tipocte, operacion) {	
 	
 		var route         = "{{ url('vadmin/get_product_and_price') }}/"+id+"";
-		var nombre        = $('#cfNombreInput');
-		var precioInput   = $('#cfPrecioInput');
-		var precioDisplay = $('#cfPrecioDisplayUser');
+		var nombre        = $('#CfNombreInput');
+		var precioInput   = $('#CfPrecioInput');
+		var precioDisplay = $('#CfPrecioDisplayUser');
 		var output        = $('#CfOutputPreview');
+		var cfloader      = $('#CfLoader');
 		var erroroutput   = $('#DisplayErrorOutPut');
 		
 		$.ajax({
 			url: route,
 			method: 'post',             
 			dataType: "json",
-			data: {id: id, tipocte: tipocte},
+			data: {id: id, tipocte: tipocte, operacion: operacion},
+			beforeSend: function(){
+				cfloader.html('<img src="{{ asset("images/gral/loader-sm.svg") }}"/>');
+			},
 			success: function(data){
-				console.log(data.exist);
+				// console.log(data.exist);
 				if(data.exist == 1){
-					output.removeClass('Hidden');
 					nombre.val(data.producto);
 					nombre.trigger("chosen:updated");
-					precioInput.val(data.precio);
 					precioDisplay.html(data.precio);
 					erroroutput.html('');
-					
-					output.html("<b>Producto: </b>" + data.producto + " | <b>Precio:</b> <span id='OriginalPrice'>" + data.precio + "</span><br> Precio de Oferta: <span id='PrecioOferta'>" + data.preciooferta + " </span> (Cantidad: <span id='CantOfertaMin'>" + data.cantoferta + "</span>)");
-				} else {
-					erroroutput.html('');
+					cfloader.html('');
 					output.removeClass('Hidden');
-					nombre.val('');
+					output.html("");
+
+					if(data.operacion == 'pedido'){ 
+						output.html("<b>Producto: </b>" + data.producto + " | <b>Precio:</b> <span id='OriginalPrice'>" + data.precio + "</span><br> Precio de Oferta: <span id='PrecioOferta'>" + data.preciooferta + " </span> (Cantidad: <span id='CantOfertaMin'>" + data.cantoferta + "</span>)");
+						precioInput.val(data.precio);
+					}
+					
+					if(data.operacion == 'reparacion'){ 
+						output.html("<b>Producto: </b>" + data.producto);
+					}
+					
+					// console.log(data.operacion);
+				} else {
+					output.removeClass('Hidden');
 					output.html('El producto no existe');
+					nombre.val('');
+					erroroutput.html('');
+					erroroutput.addClass('Hidden');
+					cfloader.html('');
 				}
 			
 			},
@@ -258,55 +293,36 @@
 	}
 
 
-	
-	$('#AddItem').on('click',function(e){
 
-		var preview  = $('#CfOutputPreview');
-
-		var clientid    = $('#ClientData').data('clientid');
-		var pedidoid    = $('#ClientData').data('pedidoid');
-		var codigo      = $('#cfCodigoInput').val();
-		var nombre      = $('#cfNombreInput').val();
-		var cantidad    = $('#cfCantidadInput').val();
-		var precio      = $('#cfPrecioInput').val();
-		var tipo        = $('#TipoInput').data('tipocte');
-		var route       = "{{ url('vadmin/ajax_store_pedidoitem') }}";
+	function addItem(route, data){ 
+		var preview     = $('#CfOutputPreview');
 		var erroroutput = $('#DisplayErrorOutPut');
-		var proceed     = $('#DisplayOutPut').data('proceed');
-		// console.log('Id de Cliente: ' + clientid + ' - Id de Pedido: ' + pedidoid + ' - Código: ' + codigo + ' - Cantidad: ' + cantidad + ' - Tipo de Cliente: ' + tipo);
 
-		if(codigo==''){
-			erroroutput.html('Debe ingresar un código');
-			erroroutput.removeClass('Hidden');
-		} else if(cantidad=='') {
-			erroroutput.html('Debe ingresar una cantidad');
-			erroroutput.removeClass('Hidden');
-		} else if(precio=='') {
-			erroroutput.html('Debe ingresar un valor');
-			erroroutput.removeClass('Hidden');
+		$.ajax({
+			url: route,
+			method: 'post',             
+			dataType: "json",
+			data: data,
+			beforeSend: function(){
+				loaderRow.show();
+			},
+			success: function(data){
+				location.reload();
+				loaderRow.hide();
+				// console.log(data);	
+			},
+			error: function(data)
+			{
+				// console.log(data);
+				loaderRow.hide();
+				$('#Error').html(data.responseText);
+				erroroutput.html('El producto no existe');
+				erroroutput.removeClass('Hidden');
+			},
+		});
 
-		} else {
-
-			$.ajax({
-				url: route,
-				method: 'post',             
-				dataType: "json",
-				data: {cliente_id: clientid, pedido_id: pedidoid, producto_id: codigo, cantidad: cantidad, valor: precio},
-				success: function(data){
-					location.reload();
-					// console.log(data);	
-				},
-				error: function(data)
-				{
-					erroroutput.html('El producto no existe');
-					erroroutput.removeClass('Hidden');
-				},
-			});
-		}
-
-
-
-	});
+	}
+	
 
     
 </script>

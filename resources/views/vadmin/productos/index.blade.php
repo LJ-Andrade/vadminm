@@ -76,75 +76,40 @@
 	<script type="text/javascript">
 
 	/////////////////////////////////////////////////
-    //                 LIST                        // 
+    //                UPADTE STATUS                //
     /////////////////////////////////////////////////
 
+	$(document).on('click', '.UpdateStatusBtn', function(e) { 
 
-	// $(document).ready(function(){
-	// 	ajax_list();
-	// });
+		var id           = $(this).data('id');
+		var route        = "{{ url('/vadmin/update_prod_status') }}/"+id+"";
+		var statusBtn    = $('#UpdateStatusBtn'+id);
+		var switchstatus = statusBtn.data('switchstatus');
+		var statusBtn    = $(this).children();	
 
-	// var ajax_list = function(){
-
-	// 	$.ajax({
-	// 		type: 'get',
-	// 		url: '{{ url('vadmin/ajax_list_productos') }}',
-	// 		success: function(data){
-	// 			$('#List').empty().html(data);
-	// 		},
-	// 		error: function(data){
-	// 			console.log(data)
-	// 			// $('#Loader').hide();
-	// 			//$('#Error').html(data.responseText);
-	// 		}
-	// 	});
-	// }
-
-	// // Pagination
-	// $(document).on("click", ".pagination li a", function(e){
-	// 	e.preventDefault();
-
-	// 	var url     = $(this).attr('href');
-
-	// 	$.ajax({
-	// 		type: 'get',
-	// 		url: url,
-	// 		success: function(data){
-	// 			$('#List').empty().html(data);
-	// 		},
-	// 		complete: function(){
-	// 		},
-	// 		error: function(data){
-	// 			console.log(data)
-	// 		}
-	// 	});
-	// });
-
-	// // By Id or Description
-	// $(document).on("keyup", "#SearchForm", function(e){
-	// 	e.preventDefault();
-	// 	var name  = $('#SearchByName').val();
-	// 	var id    = $('#SearchById').val();
-	// 	var url = "{{ url('vadmin/ajax_list_search_productos') }}/search?id="+id+"&nombre="+name+"";
-
-	// 	$.ajax({
-	// 		type: 'get',
-	// 		url: url,
-	// 		success: function(data){
-	// 			$('#List').empty().html(data);
-	// 			toggleLoader();	
-	// 		},
-	// 		complete: function(data){
-	// 			toggleLoader();	
-	// 		},
-	// 		error: function(data){
-	// 			console.log(data)
-	// 			toggleLoader();	
-	// 		}
-	// 	});		
-	// });
-
-
+		$.ajax({
+			
+			url: route,
+			method: 'post',             
+			dataType: 'json',
+			data: { id: id, estado: switchstatus
+			},
+			success: function(data){
+				var updatedStatus = (data.lastStatus);
+				var iconStatus    = '';
+				location.reload();
+			},
+			complete: function(data){
+				toggleLoader();
+			},
+			error: function(data)
+			{
+				$('#Error').html(data.responseText);
+				
+			},
+		});
+	});
+	
 	/////////////////////////////////////////////////
     //                  DELETE                     //
     /////////////////////////////////////////////////
@@ -212,7 +177,7 @@
 			data: {id: id},
 			success: function(data){
 				$('#BatchDeleteBtn').addClass('Hidden');
-				ajax_list();
+				location.reload();
 				console.log(data);
 			},
 			complete: function(){
@@ -226,39 +191,7 @@
 		});
 	}
 
-	// ------ Update Article Status ------ //
-	$(document).on('click', '.UpdateStatusBtn', function(e) { 
 
-		var id           = $(this).data('id');
-		var route        = "{{ url('/vadmin/update_prod_status') }}/"+id+"";
-		var statusBtn    = $('#UpdateStatusBtn'+id);
-		var switchstatus = statusBtn.data('switchstatus');
-		var statusBtn    = $(this).children();	
-
-		$.ajax({
-			
-			url: route,
-			method: 'post',             
-			dataType: 'json',
-			data: { id: id, estado: switchstatus
-			},
-			success: function(data){
-				var updatedStatus = (data.lastStatus);
-				var iconStatus    = '';
-				ajax_list();
-			},
-			complete: function(data){
-				toggleLoader();
-			},
-			error: function(data)
-			{
-				$('#Error').html(data.responseText);
-				
-			},
-		});
-	});
-
-	
 	/////////////////////////////////////////////////
     //                PRICES MODAL                 //
     /////////////////////////////////////////////////

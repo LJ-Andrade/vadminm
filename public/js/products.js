@@ -68,18 +68,41 @@ $("#PjeEspecialIpt").keyup(function (e) {
 /////////////////////////////////////////////////
 
 
-function updateProduct(route,id,value,success){
+function updateProduct(route, id, value, success){
     var data = {route: route, id: id, value: value};
     $.post(route, data, function(data) {
         // console.log(data);
     })
     .done(function(data) {
         success;
-
     })
     .fail(function(data) {
         // console.log(data);
     });
 }
+
+function sumStock(route, id, value){
+    var data = {route: route, id: id, value: value};
+
+    $.ajax({
+        url: route,
+        type: 'post',
+        dataType: 'json',
+        data: data,
+        beforeSend: function(){
+            $('#UpdateStockBtn').html('Actualizando...');
+        },
+        success: function(data){
+            $('#UpdateStockBtn').html('Actualizar');
+            location.reload();
+        },
+        error: function(data){
+            console.log(data);
+        }
+    }); 
+
+}
+
+
 
 

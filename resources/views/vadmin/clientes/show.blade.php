@@ -30,7 +30,6 @@
 				<span class="small-text">Código: {{ $cliente->id }}</span>
             </div>
 
-
 			<div class="content">
 				<div class="row">
 					<div class="col-md-6">
@@ -66,13 +65,13 @@
 						@if(is_null($cliente->listas)) @else {{ $cliente->listas->name }} @endif <br>
 						<b>Tipo:</b>    
 	
-						@if(is_null($cliente->tipoct->name)) @else {{ $cliente->tipoct->name }} @endif  <br>
+						@if(is_null($cliente->tipoct)) @else {{ $cliente->tipoct->name }} @endif  <br>
 						<b>Descuento:</b>    
 						@if(is_null($cliente->descuento)) @else {{ $cliente->descuento }} @endif  
 					</div>
 
 					<div class="col-md-6">
-						<b>Vendedor:</b>          
+						<b>Vendedor:</b>  
 						@if(is_null($cliente->user)) @else {{ $cliente->user->name }} @endif <br>
 
 						<b>Zona:</b>                
@@ -105,6 +104,14 @@
 			
 			
 		</div>
+		
+		<div class="col-md-12">
+			<div class="pull-right">
+				<a href="{{ url('vadmin/clientes/' .  $cliente->id . '/edit') }}"><button class="button btnGreen">Editar Cliente</button></a>
+			</div>
+		</div>
+	
+
 		
 		<button id="BatchDeleteBtn" class="button buttonCancel batchDeleteBtn Hidden"><i class="ion-ios-trash-outline"></i> Eliminar seleccionados</button>
 	</div>  

@@ -10,7 +10,7 @@ class CreatePedidosTable extends Migration
     {
         Schema::create('pedidos', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('estado');
+            $table->enum('estado', ['1','2','3'])->default('1');
             $table->boolean('facturado');
             $table->integer('cliente_id')->unsigned();
             $table->foreign('cliente_id')->references('id')->on('clientes');

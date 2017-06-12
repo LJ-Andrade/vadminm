@@ -12,9 +12,9 @@ class Reparacion extends Model
 
     protected $fillable = ['cliente_id', 'estado', 'facturado', 'user_id'];
 
-    public function pedidositems()
+    public function reparacionesitems()
     {
-		return $this->hasMany('App\Pedidositem');
+		return $this->hasMany('App\Reparacionesitem');
 	}
 
     public function cliente()

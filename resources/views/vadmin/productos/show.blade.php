@@ -23,6 +23,8 @@
 {{-- CONTENT --}}
 @section('content')
     <div class="container">
+        <div id="Error"></div>
+		<input type="text" id="Operacion" class="Hidden" value="producto">{{-- This shows product data display--}}
 		<div class="row big-card">	
             <div class="title">
                 <span class="medium-text">{{ $producto->familia->nombre }} > {{ $producto->subfamilia->nombre }}</span> <br>
@@ -45,7 +47,7 @@
                             @endif
                         </div>
                     </div>
-                      <div class="col-md-6">
+                    <div class="col-md-6">
                         <div class="subtitle">Stock </div>
                         <b>Stock actual:</b> 
                         @if ( $producto->stockactual < $producto->stockmin )
@@ -53,10 +55,20 @@
                         @else {{ $producto->stockactual }} @endif <br>
                         <b>Stock mínimo:</b> {{ $producto->stockmin }} |
                         <b>Stock máximo:</b> {{ $producto->stockmax }} <br>
-                        {{-- Update Stock Modal Trigger --}}
-                        <button class="btnSm buttonOther" data-toggle="modal" data-target="#UpdateStockModal">Actualizar Stock</button>
-                    </div>
 
+                        {{-- Update Stock --}}
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                {!! Form::label('sumstock', 'Cantidad') !!}
+                                {!! Form::number('sumstock', null, ['id' => 'SumStock', 'class' => 'form-control', 'data-productid' => $producto->id]) !!}
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button" id="UpdateStockBtn" class="btn btnBlue">Actualizar</button>
+                        </div>
+                        {{-- /Update Stock --}}
+                    </div>
                     <div class="col-md-6">
                         <div class="subtitle">Proveedor</div>
                         <b>Proveedor:</b> @if(is_null($producto->proveedor->nombre)) @else {{ $producto->proveedor->nombre }} @endif <br>
@@ -99,79 +111,50 @@
                 </div>
                 <hr class="softhr">
 			</div> {{-- /Content --}}
-                    
-            <div class="right-bottom">
-                <span class="small-text">Última actualización: <b>{{ transDateT($producto->updated_at) }}</b></span><br>
-                <a href="{{ url('vadmin/productos/' . $producto->id . '/edit') }}" data-id="{{ $producto->id }}">
-                    <button class="btnSm buttonOk">Editar Producto</button> 
-                </a>
+            <div class="row sect-footer">
+                <div class="right-bottom">
+                    <span class="small-text">Última actualización: <b>{{ transDateT($producto->updated_at) }}</b></span><br>
+                    <a href="{{ url('vadmin/productos/' . $producto->id . '/edit') }}" data-id="{{ $producto->id }}">
+                        <button class="btnSm buttonOk">Editar Producto</button> 
+                    </a>
+                </div>
             </div>
 		</div> {{-- /Row Big-Card --}}
 	</div> {{-- /Container --}}
-	<div id="Error"></div>	
 
-        {{-- Stock Update Modal --}}
-    	@component('vadmin.components.modal')
-            @slot('id', 'UpdateStockModal')
-            @slot('title', 'Actualización de Stock')
-            @slot('content')
-                {!! Form::open(['method' => 'POST', 'id' => 'UpdateStockForm', 'class' => '', 'data-parsley-validate' => '']) !!}	
-                    {!! Form::label('stock', 'Stock:') !!}	
-                    {!! Form::text('stock', $producto->stockactual, ['id' => 'NewStock', 'class' => 'form-control']) !!}
-                {!! Form::close() !!}
-            @endslot
-            @slot('ok_button')
-                <button id="UpdateStockBtn" class="button buttonOk">Actualizar</button>
-            @endslot
-	    @endcomponent
 
-        {{-- Price Update Modal --}}
-        @component('vadmin.components.modal')
-            
-            @slot('id', 'UpdatePriceModal')
-                    
-            @slot('title', 'Actualización de Costo')
-            
-            @slot('content')
-                {!! Form::open(['method' => 'POST', 'id' => 'UpdatePriceForm', 'class' => '', 'data-parsley-validate' => '']) !!}	
-                    {!! Form::label('preciocosto', 'Costo:') !!}	
-                    {!! Form::text('preciocosto', $producto->preciocosto, ['id' => 'NewPrice', 'class' => 'form-control']) !!}
-                {!! Form::close() !!}
-            @endslot
-            
-            @slot('ok_button')
-                <button id="UpdatePriceBtn" class="button buttonOk">Actualizar</button>
-            @endslot
+    {{-- Price Update Modal --}}
+    @component('vadmin.components.modal')
+        
+        @slot('id', 'UpdatePriceModal')
+                
+        @slot('title', 'Actualización de Costo')
+        
+        @slot('content')
+            {!! Form::open(['method' => 'POST', 'id' => 'UpdatePriceForm', 'class' => '', 'data-parsley-validate' => '']) !!}	
+                {!! Form::label('preciocosto', 'Costo:') !!}	
+                {!! Form::text('preciocosto', $producto->preciocosto, ['id' => 'NewPrice', 'class' => 'form-control']) !!}
+            {!! Form::close() !!}
+        @endslot
+        
+        @slot('ok_button')
+            <button id="UpdatePriceBtn" class="button buttonOk">Actualizar</button>
+        @endslot
 
-        @endcomponent
+    @endcomponent
 
 
 @endsection
 
 @section('scripts')
+	@include('vadmin.components.ajaxscripts')
     <script type="text/javascript" src="{{ asset('js/products.js') }}" ></script>
 @endsection
 
 @section('custom_js')
     <script>	
 
-        /////////////////////////////////////////////////
-		//            UPDATE STOCK - AJAX              //
-		/////////////////////////////////////////////////
 
-        $("#UpdateStockForm").on("submit", function (e) {
-            e.preventDefault();
-            $('#UpdateStockBtn').click();
-        });
-
-        $('#UpdateStockBtn').on('click',function(){
-            var id      = "{{  $producto->id  }}";
-            var value   = $('#NewStock').val();
-            var route   = "{{ url('vadmin/update_prod_stock') }}/"+id+"";
-            var success = location.reload();
-            updateProduct(route, id, value, success);
-        });
-        
         /////////////////////////////////////////////////
 		//            UPDATE PRICE - AJAX              //
 		/////////////////////////////////////////////////
@@ -185,7 +168,7 @@
             var id      = "{{  $producto->id  }}";
             var data    = $('#NewPrice').val();
             var route   = "{{ url('vadmin/update_prod_costprice') }}/"+id+"";
-            var success = location.reload();
+            var success = location.reload(); 
             updateProduct(route, id, data, success);
         });
 

@@ -30,16 +30,27 @@
 			<input type="checkbox" class="BatchDelete" data-id="{{ $user->id }}">
 		</div>
 		{{-- Hidden Action Buttons --}}
+		
 		<div class="List-Actions lists-actions Hidden">
-			<a class="ShowEditBtn btnSmall buttonOk" data-id="{{ $user->id }}">
+			@if ($user->type =='superadmin')
+			@else
+			<a class="ShowEditBtn btnSmall btnGreen" data-id="{{ $user->id }}">
 				<i class="ion-ios-compose-outline"></i>
 			</a>
-			<a target="_blank" class="btnSmall buttonOther">
+			@endif
+			<a target="_blank" class="btnSmall btnBlue">
 				<i class="ion-ios-search"></i>
 			</a>
-			<button class="Delete btnSmall buttonCancel" data-id="{!! $user->id !!}">
-				<i class="ion-ios-trash-outline"></i>
-			</button>
+			@if(Auth::user()->id == $user->id)
+
+			@else
+				@if ( $user->type =='superadmin')
+				@else
+				<button class="Delete btnSmall btnRed" data-id="{!! $user->id !!}">
+					<i class="ion-ios-trash-outline"></i>
+				</button>
+				@endif
+			@endif
 			<a class="Close-Actions-Btn btn btn-danger btn-close">
 				<i class="ion-ios-close-empty"></i>
 			</a>

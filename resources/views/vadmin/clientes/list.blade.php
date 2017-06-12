@@ -20,7 +20,7 @@
 			</div>
             <div class="col-md-3">
             	<span class="small-text">@if(is_null($item->iva)) @else {{ $item->iva->name }} @endif</span> <br>
-				<span class="small-text">@if(is_null($item->listas)) @else {{ $item->listas->name }} @endif</span>
+				<span class="small-text">@if(is_null($item->cuit)) @else {{ $item->cuit }} @endif</span>
             </div>
 		</div>
 		{{-- Batch Delete --}} 

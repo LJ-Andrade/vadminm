@@ -22,19 +22,22 @@ class ReparacionesController extends Controller
 
     public function index(Request $request)
     {
-        $keyword = $request->get('search');
+        $key = $request->get('show');
         $perPage = 25;
-
-        if (!empty($keyword)) {
-            $reparaciones = Reparacion::where('nombre', 'LIKE', "%$keyword%")
-				
-                ->paginate($perPage);
+        
+        if (!empty($key)) {
+            if ($key=='5') {
+                $reparaciones = Reparacion::paginate($perPage);
+            } else {
+                $reparaciones = Reparacion::where('estado', '=', "$key")->paginate($perPage);
+            }
         } else {
-            $reparaciones = Reparacion::paginate($perPage);
+            $reparaciones = Reparacion::where('estado', '!=', "4")->paginate($perPage);
         }
 
         return view('vadmin.reparaciones.index', compact('reparaciones'));
     }
+
 
     public function ajax_get_reparaciones($id)
     {
@@ -50,10 +53,8 @@ class ReparacionesController extends Controller
                 "response"   => 1,
                 "reparaciones" => $reparaciones
             ]);
-            
+        
         }
-
-
     }
 
     //////////////////////////////////////////////////
@@ -63,7 +64,7 @@ class ReparacionesController extends Controller
 
     public function create()
     {
-        $clientes  = Cliente::orderBy('razonsocial', 'DESC')->pluck('razonsocial', 'id');
+        $clientes  = Cliente::orderBy('razonsocial', 'ASC')->pluck('razonsocial', 'id');
         $productos = Producto::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         return view('vadmin.reparaciones.create')
             ->with('clientes', $clientes)
@@ -84,7 +85,6 @@ class ReparacionesController extends Controller
 
     }
 
-
     public function store(Request $request)
     {        
         $reparacion = new Reparacion($request->all());
@@ -92,7 +92,6 @@ class ReparacionesController extends Controller
         
         return redirect('vadmin/reparaciones/'.$reparacion->id);
     }
-
 
     //////////////////////////////////////////////////
     //                 SHOW                         //
@@ -104,9 +103,9 @@ class ReparacionesController extends Controller
         $productos  = Producto::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $cantidades = Reparacionesitem::where('reparacion_id', '=', $id)->pluck('cantidad');
         $valores    = Reparacionesitem::where('reparacion_id', '=', $id)->pluck('valor');
-        $familias   = Familia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
-
+        // $familias   = Familia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $tipo       = Tipoct::where('id', '=', $reparacion->cliente->tipo_id)->first();
+
         if($tipo == null){
           $tipocte = '';
         } else {
@@ -118,13 +117,29 @@ class ReparacionesController extends Controller
             $total += ($cantidades[$i] * $valores[$i]);
         }
 
-
         return view('vadmin.reparaciones.show')
             ->with('reparacion', $reparacion)
             ->with('productos', $productos)
             ->with('tipocte', $tipocte)
-            ->with('total', $total)
-            ->with('familias', $familias);
+            ->with('total', $total);
+    }
+
+    //////////////////////////////////////////////////
+    //               UPDATE STATUS                  //
+    //////////////////////////////////////////////////
+
+    public function updateStatus(Request $request, $id)
+    {
+
+        $reparacion = Reparacion::find($id);
+        $reparacion->estado = $request->estado;            
+        // dd($request->estado);
+        $reparacion->save();
+
+        return response()->json([
+            "lastStatus" => $reparacion->estado,
+        ]);
+
     }
 
     //////////////////////////////////////////////////
@@ -170,7 +185,9 @@ class ReparacionesController extends Controller
     {
         $item = Reparacion::find($id);
         $item->delete();
-        echo 1;
+        return response()->json([
+            "result"   => 1
+        ]);
     }
 
 
@@ -180,9 +197,11 @@ class ReparacionesController extends Controller
         foreach ($request->id as $id) {
         
             $item  = Reparacion::find($id);
-            Reparaciones::destroy($id);
+            Reparacion::destroy($id);
         }
-        echo 1;
+        return response()->json([
+            "result"   => 1
+        ]);
     }
 
 

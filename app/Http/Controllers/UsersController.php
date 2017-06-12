@@ -80,7 +80,7 @@ class UsersController extends Controller
             //     $users = User::where('name', 'LIKE', '%'.$query.'%' )->orWhere('email', 'LIKE', '%'.$query.'%')->paginate(10);    
             // }
                 
-        return view('vadmin/users/list')->with('users', $users);  
+            return view('vadmin/users/list')->with('users', $users);  
         }
         // $users = User::where('name', '=', $name )->paginate(10);    
     }

@@ -69,6 +69,7 @@
 				$('#Error').html(data.responseText);
 			}
 		});
+		
 	}
 
 	// Pagination

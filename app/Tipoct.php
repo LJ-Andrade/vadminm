@@ -14,7 +14,7 @@ class Tipoct extends Model
 
     public function clientes()
     {
-    	return $this->hasMany('App\Cliente', 'tipo_id');
+    	return $this->hasMany('App\Cliente', 'id');
     }
 
 }

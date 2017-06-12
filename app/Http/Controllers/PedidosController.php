@@ -24,13 +24,17 @@ class PedidosController extends Controller
 
     public function index(Request $request)
     {
-        $keyword = $request->get('search');
+        $key     = $request->get('show');
         $perPage = 20;
 
-        if (!empty($keyword)) {
-            $pedidos = Pedido::where('nombre', 'LIKE', "%$keyword%")->paginate($perPage);
+        if (!empty($key)) {
+            if ($key=='5') {
+                $pedidos = Pedido::paginate($perPage);
+            } else {
+                $pedidos = Pedido::where('estado', '=', "$key")->paginate($perPage);
+            }
         } else {
-            $pedidos = Pedido::paginate($perPage);
+            $pedidos = Pedido::where('estado', '!=', "3")->paginate($perPage);
         }
 
         return view('vadmin.pedidos.index', compact('pedidos'));
@@ -60,7 +64,7 @@ class PedidosController extends Controller
 
     public function create()
     {
-        $clientes  = Cliente::orderBy('razonsocial', 'DESC')->pluck('razonsocial', 'id');
+        $clientes  = Cliente::orderBy('razonsocial', 'ASC')->pluck('razonsocial', 'id');
         $productos = Producto::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         return view('vadmin.pedidos.create')
             ->with('clientes', $clientes)
@@ -103,9 +107,9 @@ class PedidosController extends Controller
         $productos  = Producto::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $cantidades = Pedidositem::where('pedido_id', '=', $id)->pluck('cantidad');
         $valores    = Pedidositem::where('pedido_id', '=', $id)->pluck('valor');
-        $familias    = Familia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
-
+        // $familias   = Familia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $tipo       = Tipoct::where('id', '=', $pedido->cliente->tipo_id)->first();
+
         if($tipo == null){
           $tipocte = '';
         } else {
@@ -122,8 +126,24 @@ class PedidosController extends Controller
             ->with('productos', $productos)
             ->with('tipocte', $tipocte)
             ->with('pedido', $pedido)
-            ->with('total', $total)
-            ->with('familias', $familias);
+            ->with('total', $total);
+    }
+
+    //////////////////////////////////////////////////
+    //               UPDATE STATUS                  //
+    //////////////////////////////////////////////////
+    
+    public function updateStatus(Request $request, $id)
+    {
+
+        $pedido = Pedido::find($id);
+        $pedido->estado = $request->estado;            
+        $pedido->save();
+
+        return response()->json([
+            "lastStatus" => $pedido->estado,
+        ]);
+
     }
 
     //////////////////////////////////////////////////

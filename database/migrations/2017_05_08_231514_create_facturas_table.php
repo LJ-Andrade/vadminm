@@ -11,7 +11,9 @@ class CreateFacturasTable extends Migration
         Schema::create('facturas', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('numero');
-            $table->string('tipo');
+            $table->enum('tipo', ['A','B']);
+            $table->integer('cae');
+            $table->enum('estado', ['0','1'])->default('0');
             $table->string('centroemisor');
             $table->string('direntrega');
             $table->string('flete');

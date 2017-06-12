@@ -14,6 +14,8 @@ class CreatePedidositemsTable extends Migration
             $table->foreign('cliente_id')->references('id')->on('clientes');
             $table->integer('pedido_id')->unsigned();
             $table->foreign('pedido_id')->references('id')->on('pedidos');
+            $table->integer('factura')->unsigned();
+            $table->foreign('factura')->references('id')->on('facturas');
             $table->integer('producto_id')->unsigned();
             $table->foreign('producto_id')->references('id')->on('productos');
             $table->integer('cantidad');

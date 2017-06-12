@@ -176,7 +176,7 @@ hr {
 }
 
 .green-back {
-  background-color: #D8BE55;
+  background-color: #dc9f1d;
 }
 
 .red-back {
@@ -190,23 +190,16 @@ hr {
 .big-card {
   background-color: #fff;
   position: relative;
-  padding-bottom: 45px;
   box-shadow: 5px 2px 8px -5px rgba(0, 0, 0, 0.55);
 }
 
-.big-card .right-bottom {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  text-align: right;
-}
-
-.big-card .right-bottom .small-text {
-  font-size: 0.9rem;
+.big-card .table-responsive {
+  padding: 0 10px;
 }
 
 .big-card .title {
-  background-color: #ffd9d9;
+  background-color: #59596C;
+  color: #fff;
   padding: 10px;
   position: relative;
 }
@@ -295,6 +288,11 @@ hr {
 
 .big-card .content .item-row:hover .delete-item i:hover {
   color: red;
+}
+
+.big-card .sect-footer {
+  boder: 1px solid red;
+  height: 50px;
 }
 
 .big-card .right-bottom {
@@ -440,6 +438,11 @@ hr {
   margin-top: 15px;
 }
 
+.wd-container {
+  background-color: #fff;
+  padding: 20px 10px;
+}
+
 .big-list {
   padding-right: 10px;
   margin-bottom: 10px;
@@ -547,6 +550,7 @@ hr {
 .big-form .output-data .output-inner {
   padding: 10px;
   background-color: #fbfbfb;
+  margin-bottom: 10px;
 }
 
 .main-form .form-container {
@@ -1008,56 +1012,59 @@ hr {
   background-color: transparent;
 }
 
-.buttonOk {
+.buttonOk, .btnGreen {
   background-color: #8DBB61;
   color: #fff;
 }
 
-.buttonOk:hover {
+.buttonOk:hover, .btnGreen:hover {
   background-color: #9FD56B;
+  color: #fff;
 }
 
-.buttonCancel {
+.buttonCancel, .btnRed {
   background-color: #D05C5C;
   color: #fff;
 }
 
-.buttonCancel:hover {
+.buttonCancel:hover, .btnRed:hover {
   background-color: #C47777;
-}
-
-.buttonEdit {
-  background-color: #D8BE55;
   color: #fff;
 }
 
-.buttonEdit:hover {
-  background-color: #E2CF83;
+.buttonEdit, .btnYellow {
+  background-color: #dc9f1d;
+  color: #fff;
 }
 
-.buttonOther {
+.buttonEdit:hover, .btnYellow:hover {
+  background-color: #ceaa5f;
+  color: #fff;
+}
+
+.buttonOther, .btnBlue {
   background-color: #5D76C9;
   color: #fff;
 }
 
-.buttonOther:hover {
+.buttonOther:hover, .btnBlue:hover {
   background-color: #7689C8;
 }
 
-.buttonOther:active, .buttonOther:focus {
+.buttonOther:active, .buttonOther:focus, .btnBlue:active, .btnBlue:focus {
   color: #fff;
 }
 
-.buttonGrey {
+.buttonGrey, .btnGrey {
   background-color: #ccc;
   color: #000;
 }
 
-.buttonGrey:hover {
+.buttonGrey:hover, .btnGrey:hover {
   background-color: #f9f9f9;
 }
 
-.buttonGrey:active, .buttonGrey:focus {
+.buttonGrey:active, .buttonGrey:focus, .btnGrey:active, .btnGrey:focus {
   color: #000;
 }
 
@@ -1265,10 +1272,13 @@ hr {
 
 .search-filters {
   position: relative;
-  background-color: #59596C;
-  padding: 5px;
+  background-color: #f3f3f3;
+  box-shadow: -3px 19px 11px -14px rgba(0, 0, 0, 0.4);
+  padding: 10px;
   z-index: 999;
   display: none;
+  margin-bottom: 10px;
+  border: 1px solid #fbd0d0;
 }
 
 .search-filters .navbar-form {
@@ -1283,7 +1293,7 @@ hr {
 .search-filters label {
   font-weight: 300;
   margin: 0;
-  color: #fff;
+  color: #383838;
 }
 
 .search-filters .hide-desk {

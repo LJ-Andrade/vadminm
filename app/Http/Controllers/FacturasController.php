@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Facturas;
+namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Factura;
 use App\Cliente;
+use App\Pedidositem;
 use Illuminate\Http\Request;
 use Session;
 
@@ -53,8 +54,6 @@ class FacturasController extends Controller
             'name.unique'       => 'El item ya existe',
         ]);
 
-
-        
         $requestData = $request->all();
         
         Factura::create($requestData);
@@ -63,6 +62,34 @@ class FacturasController extends Controller
 
         return redirect('vadmin/facturas');
     }
+
+    //////////////////////////////////////////////////
+    //                  SHOW                        //
+    //////////////////////////////////////////////////
+
+    public function prepare_fc(Request $request)
+    {
+
+        $cliente = Cliente::where('id', '=', $request->clienteid)->first();
+        $items   = $request->items;
+
+        // Cambiar en pedidositems el id de pedido_id y ponerselo a factura_id
+
+        $fc      = new Factura();
+        $fc->cliente_id   = $request->clienteid;
+        $fc->centroemisor = 'CentroTest';
+        $fc->save();
+        
+
+
+        return response()->json([
+            "id"    => $fc->id,
+        ]);
+
+        // return view('vadmin.facturas.show')
+        //     ->with('fc', $fc);
+    }
+
 
     //////////////////////////////////////////////////
     //                  SHOW                        //

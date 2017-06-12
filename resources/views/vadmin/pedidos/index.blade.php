@@ -10,7 +10,7 @@
 	@section('options')
 		<div class="actions">
             <a href="{{ url('vadmin/pedidos/create') }}" class="btn btnSm buttonOther">Nuevo Pedido</a>
-          {{--   <button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button> --}}
+            <button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button>
 		</div>	
 	@endsection
 @endsection
@@ -45,17 +45,17 @@
 							<?php
 								switch($item->estado)
 								{
-									case 'Pendiente':
-										echo "<span class='custom-badge red-back'>".$item->estado."</span>";
+									case '1':
+										echo "<span class='custom-badge red-back'>Pendiente</span>";
 										break;
-									case 'Preparado':
-										echo "<span class='custom-badge green-back'>".$item->estado."</span>";
+									case '2':
+										echo "<span class='custom-badge green-back'>Preparado</span>";
 										break;
-									case 'Enviado':
-										echo "<span class='custom-badge blue-back'>".$item->estado."</span>";
+									case '3':
+										echo "<span class='custom-badge blue-back'>Enviado</span>";
 										break;
 									default:
-										echo "<span class='custom-badge blue-back'>".$item->estado."</span>";
+										echo "<span class='custom-badge blue-back'>Sin estado</span>";
 								}
 							?>
 

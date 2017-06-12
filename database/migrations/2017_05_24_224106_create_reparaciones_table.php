@@ -14,7 +14,7 @@ class CreateReparacionesTable extends Migration
     {
         Schema::create('reparaciones', function(Blueprint $table) {
             $table->increments('id');
-            $table->enum('estado', ['espera','reparacion','reparado','enviado'])->default('espera');
+            $table->enum('estado', ['1','2','3','4'])->default('1');
             $table->boolean('facturado');
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users');

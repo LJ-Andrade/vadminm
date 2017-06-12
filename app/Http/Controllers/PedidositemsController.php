@@ -62,9 +62,9 @@ class PedidositemsController extends Controller
 
     public function ajax_store_item(Request $request)
     {
-        $item    = new Pedidositem($request->all());
+        $item     = new Pedidositem($request->all());
         $item->save();
-        $newitem = Pedidositem::findOrFail($item->id);
+        $newitem  = Pedidositem::findOrFail($item->id);
         $producto = $newitem->producto->nombre;
         return response()->json([
 
@@ -111,14 +111,6 @@ class PedidositemsController extends Controller
         return view('vadmin.pedidositems.edit', compact('pedidositem'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
     public function update($id, Request $request)
     {
 
@@ -130,7 +122,6 @@ class PedidositemsController extends Controller
         ]);
 
 
-        
         $requestData = $request->all();
         
         $pedidositem = Pedidositem::findOrFail($id);
@@ -141,7 +132,28 @@ class PedidositemsController extends Controller
         return redirect('vadmin/pedidositems');
     }
 
-    // ---------- Delete -------------- //
+    //////////////////////////////////////////////////
+    //                 FACTURACION                  //
+    //////////////////////////////////////////////////
+
+
+    public function get_pedidositems_fc($id)
+    {
+        $pedidositems = Pedidositem::where('cliente_id', '=', $id)->get();
+        $cliente      = Cliente::where('id', '=', $id)->first();
+
+        return view('vadmin/facturas/pedidoslist')
+            ->with('pedidositems', $pedidositems)
+            ->with('cliente', $cliente);      
+
+    }
+
+
+
+    //////////////////////////////////////////////////
+    //                    DESTROY                   //
+    //////////////////////////////////////////////////
+    
     public function destroy($id)
     {
         $item = Pedidositem::find($id);

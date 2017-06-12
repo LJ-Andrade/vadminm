@@ -16,7 +16,7 @@
 					@endif
 				</div>
 				<span><b>{{ $item->nombre }}</b></span><br>
-				<span class="small">Cód.: {{ $item->subfamilia->id.'-'.$item->id }}</span>
+				<span class="small">Cód.: {{ $item->familia->id.'-'.$item->subfamilia->id.'-'.$item->id }}</span>
 			</div>
 			{{-- Column --}}
 			<div class="col-xs-6 col-sm-3 col-md-4 mobile-hide inner-tags">

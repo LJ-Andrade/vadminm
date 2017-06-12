@@ -9,7 +9,7 @@
 	@section('header_title', 'Listado de Reparaciones') 
 	@section('options')
 		<div class="actions">
-            <a href="{{ url('vadmin/reparaciones/create') }}" class="btn btnSm buttonOther">Nueva</a>
+            <a href="{{ url('vadmin/reparaciones/create') }}" class="btn btnSm buttonOther">Nueva Reparación</a>
             <button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button>
 		</div>	
 	@endsection
@@ -34,22 +34,52 @@
 
                     <div class="content">
                         {{-- Column --}}
-                        <div class="col-xs-6 col-sm-4 col-md-4 inner">
-                            <div class="col-md-1">{{ $item->id }}</div> | <span><b>{{ $item->name }}</b></span>
+                        <div class="col-xs-6 col-sm-1 col-md-1 inner">
+                        	<span><b>N°: {{ $item->id }}  </b></span>
                         </div>
                         {{-- Column --}}
-                        <div class="col-xs-6 col-sm-3 col-md-4 mobile-hide inner-tags">
+                        <div class="col-xs-6 col-sm-4 col-md-4 inner-tags">
+							Cliente: {{ $item->cliente->razonsocial }}
+                        </div>      
+						<div class="col-xs-6 col-sm-3 col-md-3">
+							<?php
+								switch($item->estado)
+								{
+									case '1':
+										echo "<span class='custom-badge red-back'>Pendiente</span>";
+										break;
+									case '2':
+										echo "<span class='custom-badge blue-back'>En reparación</span>";
+										break;
+									case '3':
+										echo "<span class='custom-badge green-back'>Reparado</span>";
+										break;
+									case '4':
+										echo "<span class='custom-badge green-back'>Entregado</span>";
+										break;
+									default:
+										echo "<span class='custom-badge blue-back'>Sin Estado</span>";
+								}
+							?>
+
+                        </div>
+						<div class="col-xs-6 col-sm-3 col-md-3 pull-right">
+							{{ transDateT($item->created_at) }} 
+							@if(is_null( $item->user))  
+							@else <span class="small"> ( {!! $item->user->name !!} ) </span>
+							@endif  
                         </div>                        
+
                     </div>
- 					{{-- Batch Delete --}} 
+                    {{-- Batch Delete --}} 
 					<div class="batch-delete-checkbox">
 						<input type="checkbox" class="BatchDelete" data-id="{{ $item->id }}">
 					</div>
                     {{-- Hidden Action Buttons --}}
                     <div class="List-Actions lists-actions Hidden">
-						<a href="{{ url('/vadmin/reparaciones/' . $item->id . '/edit') }}" class="btnSmall buttonOk" data-id="{{ $item->id }}">
+					{{-- 	<a href="{{ url('/vadmin/pedidos/' . $item->id . '/edit') }}" class="btnSmall buttonOk" data-id="{{ $item->id }}">
 							<i class="ion-ios-compose-outline"></i>
-						</a>
+						</a> --}}
 						<a href="{{ url('vadmin/reparaciones/'. $item->id) }}" class="btnSmall buttonOther">
 							<i class="ion-ios-search"></i>
 						</a>
@@ -104,7 +134,7 @@
 
 	function delete_item(id, route) {	
 
-		var route = "{{ url('vadmin/ajax_delete_%crudNameSingular%') }}/"+id+"";
+		var route = "{{ url('vadmin/ajax_delete_reparacion') }}/"+id+"";
 
 		$.ajax({
 			url: route,
@@ -113,7 +143,7 @@
 			data: {id: id},
 			success: function(data){
 				console.log(data);
-				if (data == 1) {
+				if (data.result == 1) {
 					$('#Id'+id).hide(200);
 					alert_ok('Ok!','Eliminación completa');
 				} else {
@@ -147,7 +177,7 @@
 	// ---- Delete ---- //
 	function batch_delete_item(id) {
 
-		var route = "{{ url('vadmin/ajax_batch_delete_%crudName%') }}/"+id+"";
+		var route = "{{ url('vadmin/ajax_batch_delete_reparaciones') }}/"+id+"";
 
 		$.ajax({
 			url: route,
@@ -159,8 +189,7 @@
 					$('#Id'+id[i]).hide(200);
 				}
 				$('#BatchDeleteBtn').addClass('Hidden');
-				ajax_list();
-				// $('#Error').html(data.responseText);
+				location.reload();
 				// console.log(data);
 			},
 			error: function(data)

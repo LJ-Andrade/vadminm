@@ -82,15 +82,15 @@
 	{{-- Condicion de venta --}}
 	<div class="col-md-4 col-sm-6 col-xs-12">
 		<div class="form-group">
-			{!! Form::label('condicventas', 'Condiciones de Vta.') !!}
-			{!! Form::select('condicventas', $condicventas, $cliente->condicventas_id, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
+			{!! Form::label('condicventas_id', 'Condiciones de Vta.') !!}
+			{!! Form::select('condicventas_id', $condicventas, $cliente->condicventas_id, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
 		</div>
 	</div>
 	{{-- Lista de Precios --}}
 	<div class="col-md-4 col-sm-6 col-xs-12">
 		<div class="form-group">
-			{!! Form::label('listas', 'Lista de Precios') !!}
-			{!! Form::select('listas', $lista, $cliente->listas_id, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
+			{!! Form::label('listas_id', 'Lista de Precios') !!}
+			{!! Form::select('listas_id', $lista, $cliente->listas_id, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
 		</div>
 	</div>
 </div>
@@ -122,15 +122,15 @@
 	{{-- Flete --}}
 	<div class="col-md-4 col-sm-6 col-xs-12">
 		<div class="form-group">
-			{!! Form::label('zona', 'Zona') !!}
-			{!! Form::select('zona', $zona, $cliente->zona_id, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
+			{!! Form::label('zona_id', 'Zona') !!}
+			{!! Form::select('zona_id', $zona, $cliente->zona_id, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
 		</div>
 	</div>
 	{{-- Flete --}}
 	<div class="col-md-4 col-sm-6 col-xs-12">
 		<div class="form-group">
-			{!! Form::label('flete', 'Flete') !!}
-			{!! Form::select('flete', $flete, $cliente->flete_id, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
+			{!! Form::label('flete_id', 'Flete') !!}
+			{!! Form::select('flete_id', $flete, $cliente->flete_id, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
 		</div>
 	</div>
 </div>

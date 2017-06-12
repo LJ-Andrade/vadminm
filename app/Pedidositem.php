@@ -23,7 +23,7 @@ class Pedidositem extends Model
     	return $this->belongsTo('App\Cliente');
     }
 
-     public function producto()
+    public function producto()
     {
     	return $this->belongsTo('App\Producto');
     }

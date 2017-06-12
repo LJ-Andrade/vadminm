@@ -63,16 +63,14 @@ class ReparacionesItemsController extends Controller
 
     public function ajax_store_item(Request $request)
     {
-        $item    = new Reparacionesitem($request->all());
+        $item     = new Reparacionesitem($request->all());
         $item->save();
-        $newitem = Pedidositem::findOrFail($item->id);
+        $newitem  = Reparacionesitem::findOrFail($item->id);
         $producto = $newitem->producto->nombre;
         return response()->json([
-
             'producto' => $producto,
             'cantidad' => $item->cantidad,
             'valor'    => $item->valor
-
         ]);
     }
 
@@ -108,26 +106,9 @@ class ReparacionesItemsController extends Controller
         return view('vadmin.reparacionesitems.edit', compact('reparacionesitem'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
     public function update($id, Request $request)
     {
 
-        $this->validate($request,[
-            'name'              => 'required|unique:reparaciones-items,name',
-        ],[
-            'name.required'     => 'Debe ingresar un nombre',
-            'name.unique'      => 'El item ya existe',
-        ]);
-
-
-        
         $requestData = $request->all();
         
         $reparacionesitem = ReparacionesItem::findOrFail($id);
@@ -143,7 +124,9 @@ class ReparacionesItemsController extends Controller
     {
         $item = Reparacionesitem::find($id);
         $item->delete();
-        echo 1;
+        return response()->json([
+            "result"   => 1
+        ]);
     }
 
 
@@ -155,7 +138,9 @@ class ReparacionesItemsController extends Controller
             $item  = Reparacionesitem::find($id);
             ReparacionesItem::destroy($id);
         }
-        echo 1;
+        return response()->json([
+            "result"   => 1
+        ]);
     }
 
 

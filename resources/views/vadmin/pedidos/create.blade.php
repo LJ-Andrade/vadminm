@@ -4,7 +4,7 @@
 @section('title', 'Vadmin | Pedidos')
 
 @section('header')
-	@section('header_title', 'Creación de Pedidos') 
+	@section('header_title', 'Nuevo Pedido') 
 	@section('options')
 		<div class="actions">
 			<a href="{{ url('vadmin/pedidos') }}"><button type="button" class="animated fadeIn btnSm buttonOther">Volver</button></a>

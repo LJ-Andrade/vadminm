@@ -74,11 +74,12 @@ class ProductosController extends Controller
         } else {
 
             $price = $this->calculatePrice($id, $tipocte);
-            return response()->json(['producto'       => $producto->nombre,
+            return response()->json(['operacion'      => $request->operacion,
+                                     'producto'       => $producto->nombre,
                                      'precio'         => $price,
                                      'preciooferta'   => $producto->preciooferta,
-                                     'cantoferta' => $producto->cantoferta,
-                                     'exist' => 1
+                                     'cantoferta'     => $producto->cantoferta,
+                                     'exist'          => 1
                                     ]);
 
         }
@@ -392,12 +393,13 @@ class ProductosController extends Controller
     //////////////////////////////////////////////////
     public function updateStock(Request $request, $id)
     {
-            $producto = Producto::find($id);
-            $producto->stockactual = $request->value;   
+            $producto      = Producto::find($id);
+            $newStockValue = $request->value;
+            $producto->stockactual = $producto->stockactual + $newStockValue;
             $producto->save();
 
             return response()->json([
-                "response" => 'Done'
+                "response" => '1'
             ]);
 
     }
