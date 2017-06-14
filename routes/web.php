@@ -75,6 +75,7 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 
 	Route::get('get_client/{id}', 'ClientesController@get_client');
 	Route::get('get_client_data/{id}', 'ClientesController@get_client_data');
+	
 
 	// Searcher
 	Route::get('ajax_list_search_clientes/{search?}', 'ClientesController@ajax_list_search');
@@ -133,7 +134,7 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::post('ajax_delete_familia/{id}', 'Familias\FamiliasController@destroy');
 	Route::post('ajax_batch_delete_familias/{id}', 'Familias\FamiliasController@ajax_batch_delete');
 	
-	// ------ Listado de Familias ------- //
+	// ------ Listado de SubFamilias ------- //
 	Route::resource('subfamilias', 'Subfamilias\SubfamiliasController');
 	Route::post('ajax_delete_subfamilia/{id}', 'Subfamilias\SubfamiliasController@destroy');
 	Route::post('ajax_batch_delete_subfamilias/{id}', 'Subfamilias\SubfamiliasController@ajax_batch_delete');

@@ -155,23 +155,23 @@
 			</div>
 			<div class="col-md-4">
 				{!! Form::label('searchbyname', 'Nombre') !!}
-				{!! Form::text('searchbyname', null, ['id' => 'CfNombreInput', 'class' => 'form-control']) !!}
+				{!! Form::text('searchbyname', null, ['id' => 'PfNameInput', 'class' => 'form-control']) !!}
 			</div>
 			<div class="col-md-2">
 				{!! Form::label('searchbycode','Código') !!}
-				{!! Form::text('searchbycode', null, ['id' => 'CfCodigoInput', 'class' => 'form-control']) !!} 
+				{!! Form::text('searchbycode', null, ['id' => 'PfCodeInput', 'class' => 'form-control']) !!} 
 			</div>
 			<div class="col-md-3">
 				{!! Form::label('cantidad','Cantidad') !!}
-				{!! Form::text('cantidad', null, ['id' => 'CfCantidadInput', 'class' => 'form-control']) !!} 
+				{!! Form::text('cantidad', null, ['id' => 'PfAmmountInput', 'class' => 'form-control']) !!} 
 			</div>
 			<div class="col-md-3">
 				{!! Form::label('precio','Precio') !!} <br>
 				@if( Auth::user()->type =='superadmin' or Auth::user()->type =='admin' )
-				{!! Form::text('precio', null, ['id' => 'CfPrecioInput', 'class' => 'form-control']) !!}
+				{!! Form::text('precio', null, ['id' => 'PfPriceInput', 'class' => 'form-control']) !!}
 				@else
-				{!! Form::text('precio', null, ['id' => 'CfPrecioInput', 'class' => 'form-control Hidden']) !!}
-				<span id="CfPrecioDisplayUser"></span>
+				{!! Form::text('precio', null, ['id' => 'PfPriceInput', 'class' => 'form-control ']) !!}
+				<span id="PfPriceDisplayUser"></span>
 				@endif
 			</div>
 			{{-- Preview Product Name --}}
@@ -250,6 +250,7 @@
 	<script type="text/javascript" src="{{ asset('plugins/jqueryUi/jquery-ui.min.js')}} "></script>
 	<script type="text/javascript" src="{{ asset('js/jslocal/forms.js') }}" ></script>
 	@include('vadmin.components.ajaxscripts')
+	@include('vadmin.facturas.scripts')
 @endsection
 
 @section('custom_js')
@@ -346,6 +347,13 @@
 			outputerror.removeClass('Hidden');
 		}
 	}
+
+
+	
+
+
+
+
 
 	/////////////////////////////////////////////////////////
 	//                    MAKE FC                          //
