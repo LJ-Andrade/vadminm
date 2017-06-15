@@ -25,7 +25,7 @@ class Factura extends Model
      *
      * @var array
      */
-    protected $fillable = ['numero'];
+    protected $fillable = ['numero', 'tipo_fc', 'cae', 'centroemisor', 'estado', 'direntrega', 'flete_id', 'vendedor_id', 'cliente_id'];
 
     
 }

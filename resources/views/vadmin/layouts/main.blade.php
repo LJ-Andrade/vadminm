@@ -13,6 +13,7 @@
 	<link rel="shortcut icon" href="{{ asset('webimages/logos/favicon.png') }}">
 	<!-- Styles -->
 	<link rel="stylesheet" type="text/css" href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('plugins/jqueryUi/jquery-ui.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('plugins/animate/animate.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('plugins/ionicons/ionicons.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('plugins/validation/parsley.css') }}">
@@ -40,6 +41,7 @@
 
 		<script type="text/javascript" src="{{ asset('plugins/jquery/jquery-3.3.1.min.js') }}" ></script>
 		<script type="text/javascript" src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}" ></script>
+		<script type="text/javascript" src="{{ asset('plugins/jqueryUi/jquery-ui.min.js')}} "></script>
 		<script type="text/javascript" src="{{ asset('plugins/sweetalert/sweetalert2.min.js') }}" ></script>
 		<script type="text/javascript" src="{{ asset('plugins/validation/parsley.min.js') }}" ></script>
 		<script type="text/javascript" src="{{ asset('plugins/validation/es/parsley-es.min.js') }}" ></script>

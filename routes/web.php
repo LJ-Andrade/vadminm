@@ -74,6 +74,7 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::post('ajax_batch_delete_clientes/{id}', 'ClientesController@ajax_batch_delete');
 
 	Route::get('get_client/{id}', 'ClientesController@get_client');
+	Route::get('get_client_data/{id}', 'ClientesController@get_client_data');
 
 	// Searcher
 	Route::get('ajax_list_search_clientes/{search?}', 'ClientesController@ajax_list_search');
@@ -221,3 +222,5 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 
 
 Route::get('/autocomplete', array('as' => 'autocomplete', 'uses'=>'Productos\ProductosController@product_autocomplete')); //Instead of Theme your Controller name
+
+Route::get('/client_autocomplete', array('as' => 'client_autocomplete', 'uses'=>'ClientesController@client_autocomplete')); //Instead of Theme your Controller name

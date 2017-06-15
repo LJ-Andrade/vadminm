@@ -325,4 +325,13 @@
 	
 
     
+	/////////////////////////////////////////////////
+	//              DESARROLLANDO                  //
+	/////////////////////////////////////////////////
+
+	function getClientData(route){
+		return  $.get(route, function(data){});
+	}
+
+
 </script>

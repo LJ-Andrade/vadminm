@@ -132,10 +132,37 @@ class ClientesController extends Controller
     public function get_client($id)
     {
 
-       $cliente = Cliente::where('id', '=', $id)->first();
+       $client = Cliente::where('id', '=', $id)->first();
        
-       return response()->json(['cliente' => $cliente]);
+       return response()->json(['client' => $client]);
 
+    }
+
+    public function get_client_data($id)
+    {
+
+       $client = Cliente::where('id', '=', $id)->first();
+
+       $client->tipo_id  = $client->tipoct->name;
+       $client->vendedor = $client->user->name;
+       $client->flete_id = $client->flete->name;
+       
+       return response()->json(['client' => $client]);
+
+    }
+
+    
+    public function client_autocomplete(Request $request){
+
+        $input = $request->term;
+
+        $queries = Cliente::where('razonsocial', 'LIKE', '%'.$input.'%' )->take(10)->get();
+
+        foreach ($queries as $query)
+        {
+            $results[] = ['id' => $query->id, 'value' => $query->razonsocial]; //you can take custom values as you want
+        }
+        return response()->json($results);
     }
 
     //////////////////////////////////////////////////

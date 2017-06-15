@@ -11,7 +11,7 @@
 		  <div class="collapse navbar-collapse" id="expand-nav">
 				<ul class="nav navbar-nav navbar-left"> 
 					 {{-- <li><a href="{{ url('/vadmin') }}">VADmin | Panel de Control</a></li> --}}
-					 <li><a href="{{ url('/vadmin') }}"><img src="{{ asset('images/logos/vadminlogo.png') }}" alt=""></a></li>
+					 <li><a href="{{ url('/vadmin') }}"><img src="{{ asset('images/logos/vadminlogo.png') }}" class="img-responsive" alt=""></a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					 <li class="dropdown user-menu">

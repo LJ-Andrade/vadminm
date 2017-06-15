@@ -123,6 +123,7 @@
 		margin-top: 15px
 
 
+
 .profile-card
 	text-align: center
 	@include flex-column
@@ -193,6 +194,31 @@
 .wd-container
 	background-color: #fff
 	padding: 20px 10px
+	margin-bottom: 20px
+	margin-top: 20px
+	position: relative
+	.title
+		padding: 4px 6px
+		padding-left: 6px
+		background-color: #f5f5f5
+		margin-bottom: 15px
+		span
+			font-size: 1rem
+			font-weight: 700
+	.closeButton
+		position: absolute
+		padding: 1px 8px
+		width: 25px
+		height: 25px
+		right: -10px
+		top: -10px
+		background-color: #e2e2e2
+		border-radius: 50%
+		font-size: 0.8rem
+		z-index: 999
+		@include transition(0.2s)
+		&:hover
+			cursor: pointer
 
 //////////////////////////////////////
 //                                  //
@@ -309,6 +335,40 @@ $phvFsize: 0.9rem
 		position: fixed
 		top: 15px
 		right: 15px
+
+// --------- Narrow Form ------------ //
+.narrow-form
+	@include flex-column
+	.inner
+		padding: 10px
+		border: 1px solid #ccc
+		border-top: 10px solid $dark4
+		background-color: #fff
+		margin-bottom: 20px
+		@include box-shadow
+		width: 450px
+		max-width: 100%
+		hr
+			border
+		.sub-title
+			margin-top: 15px
+			padding: 7px 6px 3px
+			padding-left: 6px
+			background-color: #f5f5f5
+			span
+				font-size: 1rem
+				font-weight: 700
+			i.icon
+				padding-top: 4px
+				font-size: 1rem
+				margin-right: 8px
+				margin-left: 8px
+		.output-box
+			background: #f9f9f9
+			padding: 10px
+			margin-top: 10px
+			margin-bottom: 10px
+
 
 // --------- Centered Form ------------ //
 

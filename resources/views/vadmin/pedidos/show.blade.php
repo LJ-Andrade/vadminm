@@ -20,9 +20,7 @@
 @section('styles')
 	{!! Html::style('plugins/jqueryfiler/themes/jquery.filer-dragdropbox-theme.css') !!}
 	{!! Html::style('plugins/jqueryfiler/jquery.filer.css') !!}
-	{!! Html::style('plugins/colorpicker/spectrum.css') !!}
-	{!! Html::style('plugins/jqueryUi/jquery-ui.min.css') !!}
-	
+	{!! Html::style('plugins/colorpicker/spectrum.css') !!}	
 @endsection
 {{-- CONTENT --}}
 @section('content')
@@ -138,7 +136,6 @@
 				@endif
 			</div>
 			{{-- Display Product Name --}}
-			
 			<div class="col-md-12 horiz-container">
 				<div id="CfOutputPreview" class="inner Hidden"></div>
 				<div id="DisplayErrorOutPut" class="inner Hidden"></div>
@@ -166,7 +163,6 @@
 	<script type="text/javascript" src="{{ asset('plugins/jqueryfiler/jquery.filer.min.js')}} "></script>
 	{{-- <script type="text/javascript" src="{{ asset('plugins/colorpicker/spectrum.js')}} "></script>
 	<script type="text/javascript" src="{{ asset('plugins/colorpicker/jquery.spectrum-es.js')}} "></script> --}}
-	<script type="text/javascript" src="{{ asset('plugins/jqueryUi/jquery-ui.min.js')}} "></script>
 	<script type="text/javascript" src="{{ asset('js/jslocal/forms.js') }}" ></script>
 	@include('vadmin.components.ajaxscripts')
 @endsection
