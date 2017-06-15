@@ -148,6 +148,7 @@ class ClientesController extends Controller
        $client->flete_id = $client->flete->name;
        
        return response()->json(['client' => $client]);
+       //ok
 
     }
 
