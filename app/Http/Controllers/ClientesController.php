@@ -143,7 +143,7 @@ class ClientesController extends Controller
 
        $client = Cliente::where('id', '=', $id)->first();
 
-       $client->tipo_id  = $client->tipoct->name;
+       $client->tipocte  = $client->tipoct->name;
        $client->vendedor = $client->user->name;
        $client->flete_id = $client->flete->name;
        

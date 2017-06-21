@@ -163,9 +163,14 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::post('update_prod_status/{id}', 'Productos\ProductosController@updateStatus');
 
 	Route::get('get_product/{id}', 'Productos\ProductosController@get_product');
+	Route::get('test/{id}', 'Productos\ProductosController@test');
 	
 	Route::get('ajax_autocomplete/{query?}', 'Productos\ProductosController@ajax_autocomplete');
 	Route::post('get_product_and_price/{id}', 'Productos\ProductosController@get_product_and_price');
+
+	
+	Route::post('get_product_data/{id}', 'Productos\ProductosController@get_product_data');
+
 	// Route::get('search/autocomplete', 'Productos\ProductosController@autocomplete');
 
 	Route::get('/productos_subfamilias/{id}', 'Productos\ProductosController@ajax_subfamilias');
@@ -211,7 +216,7 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::resource('facturas', 'FacturasController');
 	Route::post('get_pedidositems_fc/{id}', 'PedidositemsController@get_pedidositems_fc');
 	Route::post('prepare_fc', 'FacturasController@prepare_fc');
-	Route::post('crear_fc', 'FacturasController@create_fc');
+	Route::post('get_fc_data', 'FacturasController@get_fc_data');
 	
 	Route::get('ajax_get_pedidos/{id}', 'PedidosController@ajax_get_pedidos');
 

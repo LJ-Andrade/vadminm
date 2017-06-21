@@ -12,7 +12,7 @@
 
 	@section('options')
 		<div class="actions">
-			<a href="{{ url('vadmin/pedidos') }}"><button type="button" class="animated fadeIn btnSm buttonOther">Volver</button></a>
+			<a href="{{ url('vadmin/facturas') }}"><button type="button" class="animated fadeIn btnSm buttonOther">Volver</button></a>
 		</div>	
 	@endsection
 @endsection
@@ -22,6 +22,7 @@
 	{!! Html::style('plugins/jqueryfiler/themes/jquery.filer-dragdropbox-theme.css') !!}
 	{!! Html::style('plugins/jqueryfiler/jquery.filer.css') !!}
 	{!! Html::style('plugins/colorpicker/spectrum.css') !!}
+	{!! Html::style('plugins/jqueryUiTabulator/tabulator.min.css') !!}
 @endsection
 
 @section('content')
@@ -72,7 +73,7 @@
 	</div>
  		
 	{{-- //// FC BODY //// --}}
-	<div id="FcBody" class="big-form Hidden">
+	<div id="FcBody" class="big-form">
 		<div class="row inner-row">
 			<div class="col-md-6 col-xs-12 pull-right text-right">
 			<b>Fecha:</b> {{ date("d/m/y") }} <br>
@@ -87,6 +88,7 @@
 				<div><b>		CUIT:        </b> <span id="Cuit"></span></div>
 				<div><b>		Vendedor:    </b> <span id="Vendedor"></span></div>
 				<div><b>		TipoCte:     </b> <span id="TipoCte"></span></div>
+				<input id="TipoCteId" type="text" name="tipoctid" class="Hidden">
 				<div><b>		Flete:       </b> <span id="Flete"></span></div>
 			</div>
 		</div>
@@ -94,32 +96,35 @@
 		<div class="inner-row">
 			<div id="SmallLoader"></div>
 			<div class="table-responsive">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Cod.</th>
-							<th>Producto</th>
-							<th>Cantidad</th>
-							<th>P.Unit.</th>
-							<th>Iva</th>
-							<th>SubTotal</th>
-						</tr>
-					</thead>
+				{!! Form::open(['url' => 'vadmin/get_fc_data', 'method' => 'POST', 'id' => 'FcForm']) !!}
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Cod.</th>
+								<th>Producto</th>
+								<th class="mw50">Cantidad</th>
+								<th class="mw100">P.Unit.</th>
+								<th class="mw50">Iva</th>
+								<th>SubTotal</th>
+							</tr>
+						</thead>
+						{{-- Fc Items --}}
 					
-					{!! Form::open(['url' => 'vadmin/crear_fc', 'method' => 'POST', 'id' => 'NewFcForm']) !!}
-					<tbody>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td>TOTAL: $ <b></b></td>
-						</tr>
-					</tbody>
-					{!! Form::close() !!}
+						<tbody id="FcItems">
+						</tbody>
 					
-				</table>
+						<tbody>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td>Subtotal: </td>
+								<td id="SubTotal"></td>
+							</tr>
+						</tbody>
+					</table>
+				{!! Form::close() !!}
 			</div>
 
 			@component('vadmin.components.loaderRow')
@@ -147,7 +152,7 @@
 	<button id="PendingOrdersBtn" class="btn btnSquareHoriz btnYellow" ><i class="ion-plus-round"></i> Pedidos Pendientes</button>
 	</div> {{-- / big-form FC BODY--}}
 	{{-- //// Product Finder //// --}}
-	<div id="ProductFinder" class="wd-container Hidden">
+	<div id="ProductFinder" class="wd-container ">
 		<div class="CloseBtn closeButton"><i class="ion-close-round"></i></div>
 		<div class="row">
 			<div class="col-md-12">
@@ -174,16 +179,17 @@
 				<span id="PfPriceDisplayUser"></span>
 				@endif
 			</div>
-			{{-- Preview Product Name --}}
+			{!! Form::text('precio', null, ['id' => 'PfProductIva', 'class' => 'form-control Hidden']) !!}
 			
+			{{-- Preview Product Name --}}
 			<div class="col-md-12 horiz-container">
-				<div id="CfOutputPreview" class="inner Hidden"></div>
+				<div id="PfOutputPreview" class="inner Hidden"></div>
 				<div id="DisplayErrorOutPut" class="inner Hidden"></div>
-				<div id="CfLoader"></div>
+				<div id="PfLoader"></div>
 			</div>
 			{{-- Add Product To Fc --}}
 			<div class="col-md-3 horizontal-btn-container">
-				<button id="AddItem" class="btn btnSquareHoriz buttonOk" ><i class="ion-plus-round"></i> Agregar</button>
+				<button id="AddItemtBtn" class="btn btnSquareHoriz buttonOk" ><i class="ion-plus-round"></i> Agregar</button>
 			</div>
 			
 		</div>
@@ -225,18 +231,13 @@
 				</table>
 			</div>
 			
-		{{-- Add Product To Fc --}}
-		<div class="col-md-3 horizontal-btn-container">
-			<button id="" class="btn btnSquareHoriz buttonOk" ><i class="ion-plus-round"></i> Agregar</button>
-		</div>
+			{{-- Add Product To Fc --}}
+			<div class="col-md-3 horizontal-btn-container">
+				<button id="" class="btn btnSquareHoriz buttonOk" ><i class="ion-plus-round"></i> Agregar</button>
+			</div>
 		</div>
 
 	</div> {{-- /wd-container Pedidos --}}
-
-
-
-
-	
 
 </div>  
 @endsection
@@ -248,6 +249,7 @@
 	<script type="text/javascript" src="{{ asset('plugins/colorpicker/jquery.spectrum-es.js')}} "></script>
 	<script type="text/javascript" src="{{ asset('plugins/mask/mask.min.js') }}" ></script>
 	<script type="text/javascript" src="{{ asset('plugins/jqueryUi/jquery-ui.min.js')}} "></script>
+	<script type="text/javascript" src="{{ asset('plugins/jqueryUiTabulator/tabulator.min.js') }}" ></script>
 	<script type="text/javascript" src="{{ asset('js/jslocal/forms.js') }}" ></script>
 	@include('vadmin.components.ajaxscripts')
 	@include('vadmin.facturas.scripts')
@@ -255,183 +257,6 @@
 
 @section('custom_js')
 	<script>
-
-	$('#OpenFcBtn').click(function(){
-		$('#FcBody').removeClass('Hidden');
-		$('#ClientFinder').addClass('Hidden');
-	});
-	
-
-	$('#ProductFinderBtn').click(function(){
-		$('#ProductFinder').removeClass('Hidden');
-	});
-	
-	$('#PendingOrdersBtn').click(function(){
-		$('#PendingOrders').removeClass('Hidden');
-	});
-
-	$('.CloseBtn').click(function(){
-		$(this).parent().addClass('Hidden');
-	});
-
-	/////////////////////////////////////////////////////////
-	//             Get and Set Client Data                 //
-	/////////////////////////////////////////////////////////
-
-	// Get Client Data On Button Click
-	$('#ClientByCodeBtn').click(function(){
-		// Get Client Full Data
-		
-		var id         = $('#ClientByCode').val();
-		var route      = "{{ url('vadmin/get_client') }}/"+id+"";
-		
-		getClientData(route).done(function(data){
-			
-			if (data.client != null){
-				var id          = data.client['id'];
-				var razonsocial = data.client['razonsocial'];
-			} 
-			// Send Client Data to Output
-			output(id, razonsocial)
-
-		});
-	});
-
-	// Get Client Data OnKeydown
-	$("#ClientByCode").on("keydown", function(e) {
-		if(e.which == 13) {
-			$('#ClientByCodeBtn').click();
-		}
-	});
-	
-	// Get Client Data On Autocomplete Input
-	$('#ClientAutoComplete').autocomplete({
-		source: "{!!URL::route('client_autocomplete')!!}",
-		minlength: 1,
-		autoFocus: true,
-		search: function(){
-			$('#SmallLoader').html(loaderSm('Buscando...'));
-		},
-		select:function(e,data)
-		{
-			var id    = data.item.id;
-			var route = "{{ url('vadmin/get_client') }}/"+id+"";
-
-			// Get Client Full Data
-			getClientData(route).done(function(data){
-				var id          = data.client['id'];
-				var razonsocial = data.client['razonsocial'];
-
-				// Send Client Data to Output
-				output(id, razonsocial)
-			});
-			
-		},
-		response: function(event, ui) {
-			$('#SmallLoader').html('');
-		},
-	});
-
-	// Print Selected Data and Fill Inputs
-	function output(id, razonsocial){
-		var output      = $('#ClientData');
-		var outputerror = $('#ClientError');
-
-		if(id != null){
-			$('#ClienteIdOutput').val(id);
-			$('#ClientOutPut').removeClass('Hidden');
-			output.html('Cód.:' + id + ' | ' + razonsocial);
-			outputerror.addClass('Hidden');
-		} else {
-			$('#ClientOutPut').addClass('Hidden');
-			outputerror.removeClass('Hidden');
-		}
-	}
-
-
-	
-
-
-
-
-
-	/////////////////////////////////////////////////////////
-	//                    MAKE FC                          //
-	/////////////////////////////////////////////////////////
-
-	$('#OpenFcBtn').click(function(e){
-		e.preventDefault();
-		var id    = $('#ClienteIdOutput').val();
-		var route = "{{ url('vadmin/get_client_data') }}/"+id+"";
-		
-		var razonsocial = '';
-		var cuit        = '';
-		var tipocte     = '';
-		var vendedor    = '';
-		var flete       = '';
-
-		// Get Client Data
-		getClientData(route).done(function(data){
-			
-			if (data.client != null){
-				razonsocial = $('#RazonSocial').html(data.client['razonsocial']);
-				cuit        = $('#Cuit').html(data.client['cuit']);
-				tipocte     = $('#TipoCte').html(data.client['tipo_id']);
-				vendedor    = $('#Vendedor').html(data.client['vendedor']);
-				flete       = $('#Flete').html(data.client['flete_id']);
-
-				
-				
-				
-				
-				
-
-			}
-
-			console.log(data.client);
-			console.log(razonsocial);
-			console.log(cuit);
-			console.log(tipocte);
-			console.log(vendedor);
-			console.log(flete);
-			
-		});
-		
-	});
-
-	// Get all pedidositems and clientdata Function
-	function get_pedidositems(id) {
-
-		var client = $('#ClientNameOutput');
-		var output = $('#OutPut');
-		var loader = $('#SmallLoader');
-		var route  = "{{ url('vadmin/get_pedidositems_fc') }}/"+id+"";
-
-		$.ajax({
-			url: route,
-			type: 'post',
-			beforeSend: function(){
-				output.removeClass('Hidden');
-				loader.removeClass('Hidden');
-				loader.html(loaderSm('Buscando...'));
-			},
-			success: function(data){
-				$('#FullOutput').html(data);
-				loader.addClass('Hidden');
-			},
-			error: function(data){
-				console.log('Error');
-				$('#Error').html(data.responseText);
-			}
-		}); 
-	
-	}
-
-
-	/////////////////////////////////////////////////////////
-	//                    Perform FC                       //
-	/////////////////////////////////////////////////////////
-
 
 
     </script>

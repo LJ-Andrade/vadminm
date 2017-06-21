@@ -85,20 +85,42 @@ class ProductosController extends Controller
         }
     }
 
-
-    public function product_autocomplete(Request $request){
-
-            $term = $request->term;
-
-            $queries = Producto::where('nombre', 'LIKE', '%'.$term.'%' )->take(6)->get();
-
-            foreach ($queries as $query)
-            {
-                $results[] = ['id' => $query->id, 'value' => $query->nombre]; //you can take custom values as you want
-            }
-            return response()->json($results);
+    public function test($id){
+        $product = Producto::where('id', '=', $id)->first();
+        echo $product->condiva;
     }
-    
+
+    public function get_product_data(Request $request)
+    {
+        $tipocte  = $request->tipocte;
+        $id       = $request->id;
+        
+        $product = Producto::where('id', '=', $id)->first();
+        
+        if($product == null)
+        {
+            return response()->json(['exist'        => 0,
+                                     'product'      => 'No existe',
+                                     'price'        => '0',
+                                     'offerprice'   => '0',
+                                     'offerammount' => '0',
+                                     'iva'          => '0'
+                                    ]);
+        } else {
+            $price = $this->calculatePrice($id, $tipocte);
+                                     
+            return response()->json(['exist'        => 1,
+                                     'product'      => $product->nombre,
+                                     'price'        => $price,
+                                     'offerprice'   => $product->preciooferta,
+                                     'offerammount' => $product->cantoferta,
+                                     'iva'          => $product->condiva
+                                    ]);
+        }
+
+    }
+
+
 
     public function calculatePrice($id, $tipocte)
     {
@@ -109,13 +131,15 @@ class ProductosController extends Controller
         
         // Calculate Cost
         switch ($producto->monedacompra) {
+            // Pesos
             case 1:
                 $costo = $producto->costopesos;
                 break;
-            case 2:
-                
+            // Dolar
+            case 2:  
                 $costo = $producto->costodolar * $dolarsist->valor;
                 break;
+            // Euro
             case 3:
                 $costo = $producto->costopesos * $eurosist->valor;
                 break;
@@ -145,6 +169,19 @@ class ProductosController extends Controller
     }
 
 
+    public function product_autocomplete(Request $request){
+
+            $term = $request->term;
+
+            $queries = Producto::where('nombre', 'LIKE', '%'.$term.'%' )->take(6)->get();
+
+            foreach ($queries as $query)
+            {
+                $results[] = ['id' => $query->id, 'value' => $query->nombre]; //you can take custom values as you want
+            }
+            return response()->json($results);
+    }
+    
 
     //////////////////////////////////////////////////
     //                  CREATE                      //

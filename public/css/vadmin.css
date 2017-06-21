@@ -587,6 +587,22 @@ hr {
   margin-bottom: 10px;
 }
 
+.big-form input {
+  padding-left: 10px;
+}
+
+.big-form input.ro {
+  border: 0;
+}
+
+.big-form input.mw50 {
+  max-width: 50px;
+}
+
+.big-form input.mw100 {
+  max-width: 100px;
+}
+
 .main-form .form-container {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1917,6 +1933,21 @@ hr {
   .horiz-double-input .inner2 {
     max-width: 200px;
   }
+}
+
+.fcItemRow {
+  position: relative;
+  max-width: 900px;
+}
+
+.fcItemRow .deleteRow {
+  max-width: 20px;
+  opacity: 0;
+}
+
+.fcItemRow:hover .deleteRow {
+  cursor: pointer;
+  opacity: 1;
 }
 
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {

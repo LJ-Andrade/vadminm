@@ -91,6 +91,12 @@ class FacturasController extends Controller
     }
 
 
+    public function get_fc_data(Request $request)
+    {
+        dd($request->all());
+        
+    }
+
     //////////////////////////////////////////////////
     //                  SHOW                        //
     //////////////////////////////////////////////////
