@@ -170,7 +170,11 @@
 		var originalPrice   = $('#OriginalPrice').html();
 		
 		if(e.which == 13) {
-			if (offerAmmount >= minOfferAmmount){
+			//console.log('Cantidad ' + offerAmmount);
+			//console.log('Cantidad minima ' + minOfferAmmount);
+			//var test = (parseInt(offerAmmount) >= parseInt(minOfferAmmount));
+			//console.log('La cantidad es mayor o igual a la minima :' + test);
+			if (parseInt(offerAmmount) >= parseInt(minOfferAmmount)){
 				priceDisplay.html(recOfferPrice);
 				priceInput.val(recOfferPrice);
 			} else {
@@ -211,8 +215,8 @@
 							"<td><input name='items["+itemnum+"][name] type='text'   value='"+ name +"' class='ro' readonly /></td>"+
 							"<td><input name='items["+itemnum+"][ammount] type='number' value='"+ parseFloat(ammount) +"' class='mw50' /></td>"+
 							"<td><input name='items["+itemnum+"][price] type='number' value='"+ parseFloat(price) +"' class='mw100' /></td>"+
-							"<td><input name='items["+itemnum+"][iva] type='number' value='"+ parseFloat(itemIva) +"' class='ro ItemIva' readonly />(" + parseFloat(iva) + "%)</td>"+
-							"<td><input name='items["+itemnum+"][subtotal] type='number' value='"+ parseFloat(subtotalItem) +"' class='ro mw100 SubTotals' /></td>"+
+							"<td><input name='items["+itemnum+"][iva] type='number' value='"+ parseFloat(itemIva) +"' class='ro ItemIva IvaSubtotals' readonly />(" + parseFloat(iva) + "%)</td>"+
+							"<td><input name='items["+itemnum+"][subtotal] type='number' value='"+ parseFloat(subtotalItem) +"' class='ro mw100 SubTotals' readonly /></td>"+
 							"<td class='DeleteRow deleteRow'><i class='ion-minus-circled'></i></td>"+
 						  "</tr>";
 			itemnum += 1;
@@ -220,11 +224,13 @@
 			$('#FcItems').append(result);
 			// Calc Items Subtotals
 			calcSubtotal();
+			// Calc Items Iva Subtotal
+			calcIvaSum();
+			// Calc Items Total
+			calcTotal();
 		}
 
 	});
-
-	console.log(itemnum);
 
 
 	// Delete Item Row
@@ -232,17 +238,46 @@
 		$(this).parent().remove();
 		// Calc subtot again
 		calcSubtotal();
+		calcIvaSum();
+		calcTotal();
 	});
+
+	function calcTotal(){
+		
+		var ivas = 0;
+		$('.IvaSubtotals').each(function(){
+			ivas += parseFloat($(this).val());
+		});
+
+		var subtots = 0;
+		$('.SubTotals').each(function(){
+			subtots += parseFloat($(this).val());
+		});
+		var totals = ivas + subtots;
+		$('#Total').html('<b>$' + totals + '</b>');
+		$('#TotalInput').val(totals);
+
+	}
+
+	function calcIvaSum(){
+		$('#IvaSubTotal').val('');
+		var sum = 0;
+		$('.IvaSubtotals').each(function(){
+			sum += parseFloat($(this).val());
+			$('#IvaSubTotal').html('<b>$' + sum +'</b>');
+		});
+		$('#IvaSubtotalInput').val(sum);
+	}
 
     // Calc FC Items Price Subtotal No Iva.
 	function calcSubtotal(){
 		$('#SubTotal').val('');
 		var sum = 0;
-		console.log()
 		$('.SubTotals').each(function(){
 			sum += parseFloat($(this).val());
-			$('#SubTotal').html('$' + sum +'</b>');
+			$('#SubTotal').html('<b>$' + sum +'</b>');
 		});
+		$('#SubTotalInput').val(sum);
 	}
 
 
@@ -351,6 +386,10 @@
 				tipocteid   = $('#TipoCteId').val(data.client['tipo_id'])
 				vendedor    = $('#Vendedor').html(data.client['vendedor']);
 				flete       = $('#Flete').html(data.client['flete_id']);
+
+				// Fill Main FC OutPuts 
+				$('#RazonSocialInput').val(data.client['razonsocial']);
+				$('#CuitInput').val(data.client['cuit']);
 			}
 
 		});
@@ -387,10 +426,13 @@
 
 
 	/////////////////////////////////////////////////////////
-	//                    Perform FC                       //
+	//                  Collect FC Data                    //
 	/////////////////////////////////////////////////////////
 
 	
+
+
+
 	$(document).on("click", '#MakeFcBtn', function(e){
 		e.preventDefault();
 
@@ -403,16 +445,7 @@
 
 		var form        = $('#FcForm tr').serializeArray();
 		
-		console.log(form);
-
 		$('#FcForm').submit();
-
-		console.log("Razon Social: "+ razonSocial);
-		console.log("Cuit: "+ cuit);
-		console.log("Vendedor: "+ vendedor);
-		console.log("Tipo Cte: "+ tipoCte);
-		console.log("Tipo Cte Id: "+ tipoCteId);
-		console.log("Flete: "+ flete);
 
 
 	});

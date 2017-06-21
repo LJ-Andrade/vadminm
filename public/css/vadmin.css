@@ -1950,6 +1950,10 @@ hr {
   opacity: 1;
 }
 
+.custom-table-body tr > td {
+  border-top: 0px !important;
+}
+
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
   border: 0;
   background-color: #212129;
