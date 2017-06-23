@@ -99,10 +99,6 @@
 
 
 	
-
-
-
-	
 	/////////////////////////////////////////////////
 	//              PRODUCT Finder                 //
 	/////////////////////////////////////////////////
@@ -213,9 +209,10 @@
 			var result = "<tr id='ItemId"+itemnum+"' class='fcItemRow'>"+
 							"<td><input name='items["+itemnum+"][code] type='number' value='"+ code +"' class='ro mw100' readonly /></td>"+
 							"<td><input name='items["+itemnum+"][name] type='text'   value='"+ name +"' class='ro' readonly /></td>"+
-							"<td><input name='items["+itemnum+"][ammount] type='number' value='"+ parseFloat(ammount) +"' class='mw50' /></td>"+
-							"<td><input name='items["+itemnum+"][price] type='number' value='"+ parseFloat(price) +"' class='mw100' /></td>"+
-							"<td><input name='items["+itemnum+"][iva] type='number' value='"+ parseFloat(itemIva) +"' class='ro ItemIva IvaSubtotals' readonly />(" + parseFloat(iva) + "%)</td>"+
+							"<td><input name='items["+itemnum+"][ammount] type='number' value='"+ parseFloat(ammount) +"' class='mw50 AmmountCorrection' /></td>"+
+							"<td><input name='items["+itemnum+"][price] type='number' value='"+ parseFloat(price) +"' class='mw100 SubtotCorrection' /></td>"+
+							"<td><input value='"+ parseFloat(price) +"' class='UnitPrice Hidden' /></td>"+
+							"<td class='Hidden'><input name='items["+itemnum+"][iva] type='number' value='"+ parseFloat(itemIva) +"' class='ro ItemIva IvaSubtotals' readonly />(" + parseFloat(iva) + "%)</td>"+
 							"<td><input name='items["+itemnum+"][subtotal] type='number' value='"+ parseFloat(subtotalItem) +"' class='ro mw100 SubTotals' readonly /></td>"+
 							"<td class='DeleteRow deleteRow'><i class='ion-minus-circled'></i></td>"+
 						  "</tr>";
@@ -231,7 +228,36 @@
 		}
 
 	});
+	
+	// Ammount Correction
+	$(document).on("keydown", '.AmmountCorrection', function(e){
+		
+		// var unitprice = $(this).closest('tr').find('td .SubtotCorrection').val();
+		var unitprice = $(this).closest('tr').find('td .UnitPrice').val();
 
+		
+		// var unitprice    = $(this).closest('tr').find('td .SubtotCorrection');
+		// var unitprice   = $(this).closest('tr').find('td .PriceByUnit > input').val();
+		var newammount  = $(this).val();
+
+		
+		if(e.which == 13) {
+
+			var newsubtotal     = parseInt(newammount) * parseInt(unitprice);
+		
+			$(this).closest('tr').find('td .SubtotCorrection').val(newsubtotal);
+			var newSutotalInput = $(this).closest('tr').find('td .SubTotals');
+			newSutotalInput.val(newsubtotal);
+
+			calcSubtotal();
+			calcIvaSum();
+			calcTotal();
+			
+			
+			
+		}
+
+	});		
 
 	// Delete Item Row
 	$(document).on("click", '#FcItems .fcItemRow .DeleteRow', function(){
@@ -241,6 +267,7 @@
 		calcIvaSum();
 		calcTotal();
 	});
+ 
 
 	function calcTotal(){
 		

@@ -72,7 +72,7 @@
 	</div>
  		
 	{{-- //// FC BODY //// --}}
-	<div id="FcBody" class="big-form Hidden">
+	<div id="FcBody" class="big-form Hidde">
 		<div class="row inner-row">
 			<div class="col-md-6 col-xs-12 pull-right text-right">
 			<b>Fecha:</b> {{ date("d/m/y") }} <br>
@@ -96,18 +96,19 @@
 			<div id="SmallLoader"></div>
 			<div class="table-responsive">
 				{!! Form::open(['url' => 'vadmin/get_fc_data', 'method' => 'POST', 'id' => 'FcForm']) !!}
-					<input id="RazonSocialInput" name='razonsocial' type='' />
-					<input id="CuitInput" name='cuit' type='' />
+					<input id="RazonSocialInput" name='razonsocial' type='hidden' />
+					<input id="CuitInput" name='cuit' type='hidden' />
 					
 					<table class="table">
 						<thead>
 							<tr>
 								<th>Cod.</th>
-								<th>Producto</th>
+								<th>Detalle</th>
 								<th class="mw50">Cantidad</th>
 								<th class="mw100">P.Unit.</th>
-								<th class="mw50">Iva</th>
-								<th>SubTotal</th>
+								{{-- <th class="mw50">Iva</th> --}}
+								<th>Subtotal</th>
+								<th></th>
 							</tr>
 						</thead>
 						{{-- Fc Items --}}
@@ -120,28 +121,28 @@
 								<td></td>
 								<td></td>
 								<td></td>
-								<td></td>
-								<td>Iva: </td>
+								<td>Iva: </td> 
 								<td id="IvaSubTotal"></td>
+								<td></td>
 								<input id="IvaSubtotalInput" name='ivasubtotal' type='hidden'  />
 							</tr>
 							<tr>
 								<td></td>
 								<td></td>
 								<td></td>
-								<td></td>
 								<td>Subtotal: </td>
 								<td id="SubTotal"></td>
+								<td></td>
 								<input id="SubTotalInput" name='subtotal' type='hidden'  />
 							</tr>
 							<tr>
 								<td></td>
 								<td></td>
 								<td></td>
-								<td></td>
+								<input id="TotalInput" name='total' type='hidden'  />
 								<td>Total: </td>
 								<td id="Total"></td>
-								<input id="TotalInput" name='total' type='hidden'  />
+								<td></td>
 							</tr>
 						</tbody>
 					</table>
@@ -173,7 +174,7 @@
 	<button id="PendingOrdersBtn" class="btn btnSquareHoriz btnYellow" ><i class="ion-plus-round"></i> Pedidos Pendientes</button>
 	</div> {{-- / big-form FC BODY--}}
 	{{-- //// Product Finder //// --}}
-	<div id="ProductFinder" class="wd-container Hidden">
+	<div id="ProductFinder" class="wd-container Hidde">
 		<div class="CloseBtn closeButton"><i class="ion-close-round"></i></div>
 		<div class="row">
 			<div class="col-md-12">
