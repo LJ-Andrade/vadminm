@@ -203,16 +203,17 @@
 			// Calc Price * Ammount
 			var subtotalItem = parseFloat(price) * parseFloat(ammount);
 			// Calc Iva
+			console.log("Cantidad " + ammount);
 			var itemIva      = parseFloat(subtotalItem) * parseFloat(iva) / 100;
+			console.log("Iva total " + itemIva)
 			// Make Row
 			
 			var result = "<tr id='ItemId"+itemnum+"' class='fcItemRow'>"+
 							"<td><input name='items["+itemnum+"][code] type='number' value='"+ code +"' class='ro mw100' readonly /></td>"+
 							"<td><input name='items["+itemnum+"][name] type='text'   value='"+ name +"' class='ro' readonly /></td>"+
 							"<td><input name='items["+itemnum+"][ammount] type='number' value='"+ parseFloat(ammount) +"' class='mw50 AmmountCorrection' /></td>"+
-							"<td><input name='items["+itemnum+"][price] type='number' value='"+ parseFloat(price) +"' class='mw100 SubtotCorrection' /></td>"+
-							"<td><input value='"+ parseFloat(price) +"' class='UnitPrice Hidden' /></td>"+
-							"<td class='Hidden'><input name='items["+itemnum+"][iva] type='number' value='"+ parseFloat(itemIva) +"' class='ro ItemIva IvaSubtotals' readonly />(" + parseFloat(iva) + "%)</td>"+
+							"<td><input name='items["+itemnum+"][price] type='number' value='"+ parseFloat(price) +"' class='mw100 SubtotCorrection' /></td>"+							
+							"<td class='Hid'><input name='items["+itemnum+"][iva] type='number' value='"+ parseFloat(itemIva) +"' class='ro ItemIva IvaSubtotals' readonly />(" + parseFloat(iva) + "%)</td>"+
 							"<td><input name='items["+itemnum+"][subtotal] type='number' value='"+ parseFloat(subtotalItem) +"' class='ro mw100 SubTotals' readonly /></td>"+
 							"<td class='DeleteRow deleteRow'><i class='ion-minus-circled'></i></td>"+
 						  "</tr>";
@@ -232,32 +233,37 @@
 	// Ammount Correction
 	$(document).on("keydown", '.AmmountCorrection', function(e){
 		
-		// var unitprice = $(this).closest('tr').find('td .SubtotCorrection').val();
-		var unitprice = $(this).closest('tr').find('td .UnitPrice').val();
-
+		var newIva      = $(this).closest('tr').find('td .IvaSubtotals');
 		
-		// var unitprice    = $(this).closest('tr').find('td .SubtotCorrection');
-		// var unitprice   = $(this).closest('tr').find('td .PriceByUnit > input').val();
-		var newammount  = $(this).val();
 
-		
 		if(e.which == 13) {
 
-			var newsubtotal     = parseInt(newammount) * parseInt(unitprice);
+			var newammount  = $(this).val();
+			var unitPrice   = $(this).closest('tr').find('td .UnitPrice').val();
+			var newSubtotal = parseInt(newammount) * parseInt(unitPrice);
+
+			calcRowValues(unitPrice, newammount, );
 		
-			$(this).closest('tr').find('td .SubtotCorrection').val(newsubtotal);
-			var newSutotalInput = $(this).closest('tr').find('td .SubTotals');
-			newSutotalInput.val(newsubtotal);
+			var newIva          = newSubtotal
+			//$(this).closest('tr').find('td .SubtotCorrection').val(newsubtotal);
+			newSutotalInput.val(newSubtotal);
+		}
+
+	});
+
+	function calcRowValues(unitPrice, ammount, iva){
+
+			var subtotalInput = $(this).closest('tr').find('td .SubTotals');
+
 
 			calcSubtotal();
 			calcIvaSum();
 			calcTotal();
 			
-			
-			
-		}
 
-	});		
+	}
+
+
 
 	// Delete Item Row
 	$(document).on("click", '#FcItems .fcItemRow .DeleteRow', function(){
@@ -287,6 +293,7 @@
 	}
 
 	function calcIvaSum(){
+		
 		$('#IvaSubTotal').val('');
 		var sum = 0;
 		$('.IvaSubtotals').each(function(){
@@ -294,10 +301,12 @@
 			$('#IvaSubTotal').html('<b>$' + sum +'</b>');
 		});
 		$('#IvaSubtotalInput').val(sum);
+	
 	}
 
     // Calc FC Items Price Subtotal No Iva.
 	function calcSubtotal(){
+		
 		$('#SubTotal').val('');
 		var sum = 0;
 		$('.SubTotals').each(function(){
@@ -305,6 +314,7 @@
 			$('#SubTotal').html('<b>$' + sum +'</b>');
 		});
 		$('#SubTotalInput').val(sum);
+	
 	}
 
 

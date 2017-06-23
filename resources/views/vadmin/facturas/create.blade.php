@@ -106,8 +106,8 @@
 								<th>Detalle</th>
 								<th class="mw50">Cantidad</th>
 								<th class="mw100">P.Unit.</th>
-								{{-- <th class="mw50">Iva</th> --}}
-								<th>Subtotal</th>
+								<th class="mw50">Iva</th>
+								<th class="mw50">Subtot</th>
 								<th></th>
 							</tr>
 						</thead>
