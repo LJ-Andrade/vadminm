@@ -63,12 +63,11 @@ Route::get('/', [
 //               SECTIONS                      //
 /////////////////////////////////////////////////
 
-
-
 Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(){
 
 	// ------ Clientes ------- //
 	Route::resource('clientes', 'ClientesController');
+		
 	Route::get('ajax_list_clients/{page?}', 'ClientesController@ajax_list');
 	Route::post('ajax_delete_cliente/{id}', 'ClientesController@destroy');
 	Route::post('ajax_batch_delete_clientes/{id}', 'ClientesController@ajax_batch_delete');
@@ -79,7 +78,10 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 
 	// Searcher
 	Route::get('ajax_list_search_clientes/{search?}', 'ClientesController@ajax_list_search');
-	// Route::get('ajax_list_search_clientes/{id?}', 'ClientesController@ajax_list_search');
+
+	// ------------------- Cuenta Corriente Clientes --------------------- //
+	Route::get('clientes/cuenta/{id}', 'ClientesController@cuenta');
+
 
 	// ------ Provincias ------- //
 	Route::resource('provincias', 'Provincias\ProvinciasController');
@@ -214,15 +216,16 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 
 	// ------------------- Facturación --------------------- //
 	Route::resource('facturas', 'FacturasController');
-	Route::post('get_pedidositems_fc/{id}', 'PedidositemsController@get_pedidositems_fc');
-	Route::post('prepare_fc', 'FacturasController@prepare_fc');
+	Route::get('get_pending_orders/{id?}', 'FacturasController@get_pending_orders');
 	Route::post('get_fc_data', 'FacturasController@get_fc_data');
-	
-	Route::get('ajax_get_pedidos/{id}', 'PedidosController@ajax_get_pedidos');
+
+	// Route::get('ajax_get_pedidos/{id}', 'PedidosController@ajax_get_pedidos');
 
 	// Developer Map
 	Route::resource('desarrollo', 'DesarrolloController');
 	Route::post('ajax_store_reparacion/{id}', 'DesarrolloController@ajax_store');
+
+
 
 });
 

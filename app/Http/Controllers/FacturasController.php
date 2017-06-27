@@ -61,11 +61,40 @@ class FacturasController extends Controller
         Session::flash('flash_message', 'Factura added!');
 
         return redirect('vadmin/facturas');
+    }   
+
+    public function get_fc_data(Request $request)
+    {
+        dd($request->all());
+        
     }
 
     //////////////////////////////////////////////////
     //                  SHOW                        //
     //////////////////////////////////////////////////
+
+    public function get_pending_orders($id)
+    {
+        $pedidositems = Pedidositem::where('cliente_id', '=', $id)->get();
+        
+        
+        //  return response()->json([
+        //     "result"   => 'Done',
+        //     "data" => $pedidositems
+        // ]);
+
+
+        return view('vadmin/facturas/pedidoslist')->with('pedidositems', $pedidositems);   
+        
+    }
+
+        
+    public function ajax_list(Request $request)
+    {
+        $users = User::orderBy('id', 'DESC')->paginate(12);
+    }
+
+
 
     public function prepare_fc(Request $request)
     {
@@ -90,12 +119,6 @@ class FacturasController extends Controller
         //     ->with('fc', $fc);
     }
 
-
-    public function get_fc_data(Request $request)
-    {
-        dd($request->all());
-        
-    }
 
     //////////////////////////////////////////////////
     //                  SHOW                        //

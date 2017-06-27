@@ -41,8 +41,7 @@
 				var razonsocial = data.client['razonsocial'];
 			} 
 			// Send Client Data to Output
-			output(id, razonsocial)
-
+			output(id, razonsocial);
 		});
 	});
 
@@ -81,6 +80,38 @@
 		},
 	});
 
+
+	
+	// Get all pedidositems and clientdata Function
+	function get_pedidositems(id) {
+
+		var client = $('#ClientNameOutput');
+		var output = $('#OutPut');
+		var loader = $('#SmallLoader');
+		var route  = "{{ url('vadmin/get_pending_orders') }}/"+id+"";
+
+		$.ajax({
+			url: route,
+			type: 'post',
+			beforeSend: function(){
+				output.removeClass('Hidden');
+				loader.removeClass('Hidden');
+				loader.html(loaderSm('Buscando...'));
+			},
+			success: function(data){
+				$('#PendingOrdersList').html(data);
+				loader.addClass('Hidden');
+				console.log(data);
+			},
+			error: function(data){
+				console.log('Error');
+				console.log(data);
+				$('#PendingOrdersList').html(data.responseText);
+			}
+		}); 
+	
+	}
+
 	// Print Selected Data and Fill Inputs
 	function output(id, razonsocial){
 		var output      = $('#ClientData');
@@ -97,8 +128,23 @@
 		}
 	}
 
+	/////////////////////////////////////////////////
+	//                  FC Type                    //
+	/////////////////////////////////////////////////	
+
 
 	
+	$("#TipoFcSelect").on( "change", function(e) {
+		var tipofcid = $("#TipoFcSelect option:selected").val();
+		var namefc   = $("#TipoFcSelect option:selected").html();
+		
+		// To Fc
+		$('#TipoFcId').val(tipofcid);
+		$('#TipoFcName').val(namefc);
+	
+	});	
+
+
 	/////////////////////////////////////////////////
 	//              PRODUCT Finder                 //
 	/////////////////////////////////////////////////
@@ -166,10 +212,6 @@
 		var originalPrice   = $('#OriginalPrice').html();
 		
 		if(e.which == 13) {
-			//console.log('Cantidad ' + offerAmmount);
-			//console.log('Cantidad minima ' + minOfferAmmount);
-			//var test = (parseInt(offerAmmount) >= parseInt(minOfferAmmount));
-			//console.log('La cantidad es mayor o igual a la minima :' + test);
 			if (parseInt(offerAmmount) >= parseInt(minOfferAmmount)){
 				priceDisplay.html(recOfferPrice);
 				priceInput.val(recOfferPrice);
@@ -185,95 +227,187 @@
 	// Add a mew item (product) to FC
 	$('#AddItemtBtn').click(function(){
 
-		var name        = $('#PfNameInput').val();
-		var code        = $('#PfCodeInput').val();
-		var ammount     = $('#PfAmmountInput').val();
-		var price       = $('#PfPriceInput').val();
-		var iva         = $('#PfProductIva').val();
-		var erroroutput = $('#DisplayErrorOutPut');
-		var output      = $('#PfOutputPreview');
+		var itemsCount = countItems();
+		console.log(itemsCount);
+		if (itemsCount <= 5 ) {
 
-		if (name == '' || code == '' || ammount == '' || price == ''){
-			erroroutput.html('');
-			erroroutput.removeClass('Hidden');
-			erroroutput.html('Falta completar un campo');
+			var name        = $('#PfNameInput').val();
+			var code        = $('#PfCodeInput').val();
+			var ammount     = $('#PfAmmountInput').val();
+			var price       = $('#PfPriceInput').val();
+			var iva         = $('#PfProductIva').val();
+			var erroroutput = $('#DisplayErrorOutPut');
+			var output      = $('#PfOutputPreview');
+
+			if (name == '' || code == '' || ammount == '' || price == ''){
+				erroroutput.html('');
+				erroroutput.removeClass('Hidden');
+				erroroutput.html('Falta completar un campo');
+			} else {
+				output.html('');
+				output.addClass('Hidden');
+				// Calc Price * Ammount
+				var subtotalItem = parseFloat(price) * parseFloat(ammount);
+				// Calc Iva
+				var itemIva      = parseFloat(subtotalItem) * parseFloat(iva) / 100;
+				// Make Row
+				
+				var result = "<tr id='ItemId"+itemnum+"' class='fcItemRow'>"+
+								"<td><input name='items["+itemnum+"][code] type='number' value='"+ code +"' class='ro mw100' readonly /></td>"+
+								"<td><input name='items["+itemnum+"][name] type='text'   value='"+ name +"' class='ro' readonly /></td>"+
+								"<td><input name='items["+itemnum+"][ammount] type='number' value='"+ parseFloat(ammount) +"' class='mw50 AmmountCorrection' /></td>"+
+								"<td><input name='items["+itemnum+"][price] type='number' value='"+ parseFloat(price) +"' class='mw100 UnitPrice' /></td>"+							
+								"<td class='Hid'><input name='items["+itemnum+"][iva] type='number' value='"+ parseFloat(itemIva) +"' data-ivapercent='" + parseFloat(iva) + "' class='ro ItemIva IvaSubtotals' readonly />(" + parseFloat(iva) + "%)</td>"+
+								"<td><input name='items["+itemnum+"][subtotal] type='number' value='"+ parseFloat(subtotalItem) +"' class='ro mw100 SubTotals' readonly /></td>"+
+								"<td class='DeleteRow deleteRow'><i class='ion-minus-circled'></i></td>"+
+							"</tr>";
+				itemnum += 1;
+				//Print row
+				$('#FcItems').append(result);
+				
+				recalcTotals();
+
+				// Show ammount of added items to FC
+				countItems();
+			}
+
 		} else {
-			output.html('');
-			output.addClass('Hidden');
-			// Calc Price * Ammount
-			var subtotalItem = parseFloat(price) * parseFloat(ammount);
-			// Calc Iva
-			console.log("Cantidad " + ammount);
-			var itemIva      = parseFloat(subtotalItem) * parseFloat(iva) / 100;
-			console.log("Iva total " + itemIva)
-			// Make Row
+			alert_error('Alto','Ya se ha agregado la cantidad máxima de items');
+		}
+
+	});
+	
+	var ordersToDeletion = [];
+
+	$(document).on("click", '.PendigOrderBtn', function(e){
+		var itemsCount = countItems();
+		console.log(itemsCount);
+		if (itemsCount <= 5 ) {
+
+			var orderid      = $(this).data('orderid');
+			var code         = $(this).data('id');
+			var name         = $(this).data('name');
+			var ammount      = $(this).data('ammount');
+			var price        = $(this).data('price');
+			var subtotalItem = $(this).data('subtotal');
+			var iva          = $(this).data('iva');
 			
-			var result = "<tr id='ItemId"+itemnum+"' class='fcItemRow'>"+
-							"<td><input name='items["+itemnum+"][code] type='number' value='"+ code +"' class='ro mw100' readonly /></td>"+
-							"<td><input name='items["+itemnum+"][name] type='text'   value='"+ name +"' class='ro' readonly /></td>"+
-							"<td><input name='items["+itemnum+"][ammount] type='number' value='"+ parseFloat(ammount) +"' class='mw50 AmmountCorrection' /></td>"+
-							"<td><input name='items["+itemnum+"][price] type='number' value='"+ parseFloat(price) +"' class='mw100 SubtotCorrection' /></td>"+							
-							"<td class='Hid'><input name='items["+itemnum+"][iva] type='number' value='"+ parseFloat(itemIva) +"' class='ro ItemIva IvaSubtotals' readonly />(" + parseFloat(iva) + "%)</td>"+
-							"<td><input name='items["+itemnum+"][subtotal] type='number' value='"+ parseFloat(subtotalItem) +"' class='ro mw100 SubTotals' readonly /></td>"+
-							"<td class='DeleteRow deleteRow'><i class='ion-minus-circled'></i></td>"+
-						  "</tr>";
+			var itemIva      = parseFloat(subtotalItem) * parseFloat(iva) / 100;
+
+			var result = "<tr id='ItemId"+itemnum+"' class='fcItemRow fcItemRowPending'>"+
+								"<td><input name='items["+itemnum+"][code] type='number' value='"+ code +"' class='ro mw100' readonly /></td>"+
+								"<td><input name='items["+itemnum+"][name] type='text'   value='"+ name +"' class='ro' readonly /></td>"+
+								"<td><input name='items["+itemnum+"][ammount] type='number' value='"+ parseFloat(ammount) +"' class='mw50 AmmountCorrection' /></td>"+
+								"<td><input name='items["+itemnum+"][price] type='number' value='"+ parseFloat(price) +"' class='mw100 UnitPrice' /></td>"+							
+								"<td class='Hid'><input name='items["+itemnum+"][iva] type='number' value='"+ parseFloat(itemIva) +"' data-ivapercent='" + parseFloat(iva) + "' class='ro ItemIva IvaSubtotals' readonly />(" + parseFloat(iva) + "%)</td>"+
+								"<td><input name='items["+itemnum+"][subtotal] type='number' value='"+ parseFloat(subtotalItem) +"' class='ro mw100 SubTotals' readonly /></td>"+
+								"<td class='DeleteRow deleteRow' data-id="+ code +" data-orderid="+ orderid +"><i class='ion-minus-circled'></i></td>"+
+							"</tr>";
 			itemnum += 1;
 			//Print row
+			$(this).parent().parent().hide();
 			$('#FcItems').append(result);
-			// Calc Items Subtotals
-			calcSubtotal();
-			// Calc Items Iva Subtotal
-			calcIvaSum();
-			// Calc Items Total
-			calcTotal();
+
+
+			ordersToDeletion.push(orderid);
+
+			recalcTotals();
+			console.log(ordersToDeletion);
+
+			// Show ammount of added items to FC
+			countItems();
+		} else {
+			alert_error('Alto','Ya se ha agregado la cantidad máxima de items');
 		}
+
 
 	});
 	
 	// Ammount Correction
 	$(document).on("keydown", '.AmmountCorrection', function(e){
-		
-		var newIva      = $(this).closest('tr').find('td .IvaSubtotals');
-		
 
 		if(e.which == 13) {
 
-			var newammount  = $(this).val();
-			var unitPrice   = $(this).closest('tr').find('td .UnitPrice').val();
-			var newSubtotal = parseInt(newammount) * parseInt(unitPrice);
+			var newAmmount     = $(this).val();
+			var unitPrice      = $(this).closest('tr').find('td .UnitPrice').val();
+			var ivaPercent     = $(this).closest('tr').find('td .IvaSubtotals').data('ivapercent');
+			var subtotalOutput = $(this).closest('tr').find('td .SubTotals');
+			var ivaOutput      = $(this).closest('tr').find('td .IvaSubtotals');
 
-			calcRowValues(unitPrice, newammount, );
-		
-			var newIva          = newSubtotal
-			//$(this).closest('tr').find('td .SubtotCorrection').val(newsubtotal);
-			newSutotalInput.val(newSubtotal);
+			// Calculations
+			var newSubtotal    = parseFloat(newAmmount) * parseFloat(unitPrice);
+			var newIva         = (newSubtotal * parseFloat(ivaPercent) / 100);
+
+			// Set results
+			subtotalOutput.val(newSubtotal);
+			ivaOutput.val(newIva);
+			
+			// Recalculate totals
+			recalcTotals();
+
+			countItems();
+	
 		}
 
 	});
 
-	function calcRowValues(unitPrice, ammount, iva){
+	// Price Correction
+	$(document).on("keydown", '.UnitPrice', function(e){
 
-			var subtotalInput = $(this).closest('tr').find('td .SubTotals');
+		if(e.which == 13) {
 
+			var ammount        = $(this).closest('tr').find('td .AmmountCorrection').val();
+			var unitPrice      = $(this).val();
+			var ivaPercent     = $(this).closest('tr').find('td .IvaSubtotals').data('ivapercent');
+			var subtotalOutput = $(this).closest('tr').find('td .SubTotals');
+			var ivaOutput      = $(this).closest('tr').find('td .IvaSubtotals');
 
-			calcSubtotal();
-			calcIvaSum();
-			calcTotal();
+			// Calculations
+			var newSubtotal    = parseFloat(ammount) * parseFloat(unitPrice);
+			var newIva         = (newSubtotal * parseFloat(ivaPercent) / 100);
+
+			// Set results
+			subtotalOutput.val(newSubtotal);
+			ivaOutput.val(newIva);
 			
+			// Recalculate totals
+			recalcTotals();
+		
+		}
 
-	}
+	});
 
-
-
-	// Delete Item Row
+	// Delete Item Row (New Orders)
 	$(document).on("click", '#FcItems .fcItemRow .DeleteRow', function(){
 		$(this).parent().remove();
 		// Calc subtot again
+		recalcTotals();
+	});
+
+	// Delete Item Row (Pending Orders)
+	$(document).on("click", '#FcItems .fcItemRowPending .DeleteRow', function(){
+		// $(this).parent().remove();
+		var id      = $(this).data('id');
+		var orderid = $(this).data('orderid');
+		$('#PoId'+orderid).show();
+		console.log('Id a borrar: '+orderid);
+		
+		var index = ordersToDeletion.indexOf(orderid);
+		
+		ordersToDeletion.splice(index, 1);
+		console.log(ordersToDeletion);
+		// Calc subtot again
+		recalcTotals();
+
+		countItems();
+	});
+
+
+	function recalcTotals(){
 		calcSubtotal();
 		calcIvaSum();
 		calcTotal();
-	});
- 
+	}
 
 	function calcTotal(){
 		
@@ -315,6 +449,16 @@
 		});
 		$('#SubTotalInput').val(sum);
 	
+	}
+
+	function countItems(){
+
+		var counter = $('#CantItems');
+		var rowCount = $('#FcItems tr').length;
+		counter.html('');
+		counter.html(rowCount);
+		return rowCount+1;
+
 	}
 
 
@@ -412,78 +556,111 @@
 		var tipocteid   = '';
 		var vendedor    = '';
 		var flete       = '';
+		var categIva    = '';
+
 
 		// Get Client Data
 		getClientData(route).done(function(data){
 			
 			if (data.client != null){
-				razonsocial = $('#RazonSocial').html(data.client['razonsocial']);
-				cuit        = $('#Cuit').html(data.client['cuit']);
-				tipocte     = $('#TipoCte').html(data.client['tipocte']);
-				tipocteid   = $('#TipoCteId').val(data.client['tipo_id'])
-				vendedor    = $('#Vendedor').html(data.client['vendedor']);
-				flete       = $('#Flete').html(data.client['flete_id']);
+				var code        = id;
+				var razonSocial = data.client['razonsocial'];
+				var cuit        = data.client['cuit'];
+				var tipocte     = data.client['tipocte'];
+				var tipocteid   = data.client['tipo_id'];
+				var vendedor    = data.client['vendedor'];
+				var flete       = data.client['flete_id'];
+				var categIva    = data.client['categiva'];
+				var categIvaId  = data.client['categiva_id'];
+				var dirFiscal   = data.client['dirfiscal'];
+				
+				$('#RazonSocial').html(razonSocial);
+				$('#Cuit').html(cuit);
+				$('#TipoCte').html(tipocte);
+				$('#TipoCteId').val(tipocteid)
+				$('#Vendedor').html(vendedor);
+				$('#Flete').html(flete);
 
-				// Fill Main FC OutPuts 
-				$('#RazonSocialInput').val(data.client['razonsocial']);
-				$('#CuitInput').val(data.client['cuit']);
+
+				// Data to FC 			
+				$('#ClientIdFC').val(id);
+				$('#RazonSocialFC').val(razonSocial);
+				$('#DirFiscalFc').val(dirFiscal);
+				$('#CuitFC').val(cuit);
+				$('#CategIvaFc').val(categIva);
+				$('#CategIvaIdFc').val(categIvaId);
+				
 			}
 
 		});
 		
+		get_pending_orders(id);
+		
 	});
 
-	// Get all pedidositems and clientdata Function
-	function get_pedidositems(id) {
+	
 
-		var client = $('#ClientNameOutput');
-		var output = $('#OutPut');
-		var loader = $('#SmallLoader');
-		var route  = "{{ url('vadmin/get_pedidositems_fc') }}/"+id+"";
-
+	// Get All Pending order Items
+	function get_pending_orders(id){
+		var route  = "{{ url('vadmin/get_pending_orders') }}/"+id+"";
+		
 		$.ajax({
+			type: 'get',
 			url: route,
-			type: 'post',
-			beforeSend: function(){
-				output.removeClass('Hidden');
-				loader.removeClass('Hidden');
-				loader.html(loaderSm('Buscando...'));
-			},
 			success: function(data){
-				$('#FullOutput').html(data);
-				loader.addClass('Hidden');
+				// console.log(data);
+				$('#PendingOrdersList').empty().html(data);
+				$('#PendingOrdersList').html(data.responseText);
 			},
 			error: function(data){
-				console.log('Error');
-				$('#Error').html(data.responseText);
+				console.log(data);
+				$('#PendingOrdersList').html(data.responseText);
 			}
-		}); 
-	
-	}
+		});
 
+	}
 
 	/////////////////////////////////////////////////////////
 	//                  Collect FC Data                    //
 	/////////////////////////////////////////////////////////
 
-	
-
-
 
 	$(document).on("click", '#MakeFcBtn', function(e){
 		e.preventDefault();
 
-		var razonSocial = $('#RazonSocial').text();
-		var cuit        = $('#Cuit').text();
-		var vendedor    = $('#Vendedor').text();
-		var tipoCte     = $('#TipoCte').text();
-		var tipoCteId   = $('#TipoCteId ').val();
-		var flete       = $('#Flete').text();
+		// ********** Recordar de validar cuando no hayan items cargados ********* //
 
-		var form        = $('#FcForm tr').serializeArray();
+		//Validations
+		// Check if FC Type is selected
+		var fcType    = $('#TipoFcSelect option:selected').val();
+		// var fcContent = $('#FcItems option:selected').lenght;
+		// console.log(fcContent);
+		// if(fcContent){
+		// 	console.log('ok');
+			
+		// } else {
+		// 	alert_error('Alto','No se han ingresado items');
+		// }
+
+		if(fcType == 0){
+			alert_error('Alto','No se ha seleccionado tipo de factura');
+		} 
+		// else if(fcContent == 0) {
+		// 	alert_error('Alto','No se han ingresado items');
+		// }
+		 else {
+			// var form        = $('#FcForm');
+			// var data = JSON.stringify( $(form).serializeArray() ); //  <-----------
+
+			// console.log( data );
+			// return false; //don't submit
+			// // console.log(form);
+			// console.log('Se deben borrar los items de pedidos ' + ordersToDeletion);
 		
-		$('#FcForm').submit();
+			$('#FcForm').submit();
 
+		}
+	
 
 	});
 

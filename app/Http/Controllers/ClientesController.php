@@ -38,7 +38,7 @@ class ClientesController extends Controller
            
             } else if ($code !='') {
                 // Search by Name or Email
-                $clientes = Cliente::where('id', 'LIKE', "%$code%")->paginate($perPage);
+                $clientes = Cliente::where('id', '=', "$code")->paginate($perPage);
             } else {
                 // Seatch All
                 $clientes = Cliente::paginate($perPage);
@@ -46,23 +46,6 @@ class ClientesController extends Controller
 
         return view('vadmin.clientes.index')->with('clientes', $clientes);
     }
-
-
-    // public function index(Request $request)
-    // {
-    //     $keyword = $request->get('search');
-    //     $perPage = 25;
-
-    //     if (!empty($keyword)) {
-    //         $clientes = Cliente::where('name', 'LIKE', "%$keyword%")
-				
-    //             ->paginate($perPage);
-    //     } else {
-    //         $clientes = Cliente::paginate($perPage);
-    //     }
-
-    //     return view('vadmin.clientes.index')->with('clientes', $clientes);
-    // }
 
     //////////////////////////////////////////////////
     //                  LIST                        //
@@ -77,11 +60,6 @@ class ClientesController extends Controller
     public function ajax_get($id)
     {
         $cliente = Cliente::findOrFail($id);
-
-        // return response()->json([
-        //     "cliente" => $cliente
-        // ]);
-        
         return response()->json($cliente);
 
     }
@@ -143,16 +121,22 @@ class ClientesController extends Controller
 
        $client = Cliente::where('id', '=', $id)->first();
 
-       $client->tipocte  = $client->tipoct->name;
-       $client->vendedor = $client->user->name;
-       $client->flete_id = $client->flete->name;
+       $client->tipocte     = $client->tipoct->name;
+       $client->vendedor    = $client->user->name;
+       $client->flete_id    = $client->flete->name;
+       $client->categiva    = $client->iva->name;
+       $client->dirfiscal   = $client->dirfiscal;
+       // IMPORTANT This Id is given by webservice 
+       $client->categiva_id = $client->iva_id;
        
+    //    dd($client);
        return response()->json(['client' => $client]);
 
     }
 
     
-    public function client_autocomplete(Request $request){
+    public function client_autocomplete(Request $request)
+    {
 
         $input = $request->term;
 
@@ -164,6 +148,24 @@ class ClientesController extends Controller
         }
         return response()->json($results);
     }
+    
+    //////////////////////////////////////////////////
+    //                  CREATE                      //
+    //////////////////////////////////////////////////
+
+    public function cuenta($id)
+    {
+
+        $client = Cliente::where('id', '=', $id)->first();
+        $incomings = 'Datos de cuenta corrientes';
+
+        return view('vadmin.clientes.cuenta')
+            ->with('incomings', $incomings)
+            ->with('client', $client);
+    }
+    
+
+
 
     //////////////////////////////////////////////////
     //                  CREATE                      //

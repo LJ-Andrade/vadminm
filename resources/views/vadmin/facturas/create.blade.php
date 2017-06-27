@@ -54,7 +54,7 @@
 					<h4>Cliente seleccionado:</h4>
 					<div id="ClientData"></div>
 					<div id="OutPutForm">
-						{!! Form::open(['url' => 'vadmin/pedidos', 'method' => 'POST', 'id' => 'NewItemForm']) !!}
+						{!! Form::open(['method' => 'POST', 'id' => 'NewItemForm']) !!}
 							<div class="col-md-12">
 								<input type="text" name="user_id" class="Hidden" value="{{ Auth::user()->id }}">
 							</div>
@@ -72,21 +72,22 @@
 	</div>
  		
 	{{-- //// FC BODY //// --}}
-	<div id="FcBody" class="big-form Hidde">
+	<div id="FcBody" class="big-form Hidden">
 		<div class="row inner-row">
 			<div class="col-md-6 col-xs-12 pull-right text-right">
 			<b>Fecha:</b> {{ date("d/m/y") }} <br>
 			<b>Factura:</b>
-			<select name="tipo_fc" id="">
-				<option value="A">A</option>
-				<option value="B">B</option>
+			<select name="tipo_fc" id="TipoFcSelect"  class="big-select">
+				<option value="0" selected disabled></option>
+				<option value="A-30">A</option>
+				<option value="B-40">B</option>
 			</select>
 			</div>
 			<div class="col-md-6 col-xs-12">
 				<div><b>		Razón Social:</b> <span id="RazonSocial"></span></div>
 				<div><b>		CUIT:        </b> <span id="Cuit"></span></div>
 				<div><b>		Vendedor:    </b> <span id="Vendedor"></span></div>
-				<div><b>		TipoCte:     </b> <span id="TipoCte"></span></div>
+				<div><b>		Tipo:     </b> <span id="TipoCte"></span></div>
 				<input id="TipoCteId" type="text" name="tipoctid" class="Hidden">
 				<div><b>		Flete:       </b> <span id="Flete"></span></div>
 			</div>
@@ -96,8 +97,16 @@
 			<div id="SmallLoader"></div>
 			<div class="table-responsive">
 				{!! Form::open(['url' => 'vadmin/get_fc_data', 'method' => 'POST', 'id' => 'FcForm']) !!}
-					<input id="RazonSocialInput" name='razonsocial' type='hidden' />
-					<input id="CuitInput" name='cuit' type='hidden' />
+					{{-- Sending data to FC --}}
+					<input id="ClientIdFC" name='razonsocial' type='hidden' />
+					<input id="RazonSocialFC" name='razonsocial' type='hidden' />
+					<input id="DirFiscalFc" name='dirfiscal' type='hidden' />
+					<input id="CuitFC" name='cuit' type='hidden' />
+					<input id="CategIvaFc" name='categiva' type='hidden' />
+					<input id="CategIvaIdFc" name='categivaid' type='hidden' />
+					<input id="TipoFcId" name='tipofcid' type='hidden' />
+					<input id="TipoFcName" name='tipofcname' type='hidden' />
+					
 					
 					<table class="table">
 						<thead>
@@ -107,7 +116,7 @@
 								<th class="mw50">Cantidad</th>
 								<th class="mw100">P.Unit.</th>
 								<th class="mw50">Iva</th>
-								<th class="mw50">Subtot</th>
+								<th class="mw50">Subtotal</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -121,28 +130,28 @@
 								<td></td>
 								<td></td>
 								<td></td>
+								<td></td>
 								<td>Iva: </td> 
 								<td id="IvaSubTotal"></td>
-								<td></td>
 								<input id="IvaSubtotalInput" name='ivasubtotal' type='hidden'  />
 							</tr>
 							<tr>
 								<td></td>
 								<td></td>
 								<td></td>
+								<td></td>
 								<td>Subtotal: </td>
 								<td id="SubTotal"></td>
-								<td></td>
 								<input id="SubTotalInput" name='subtotal' type='hidden'  />
 							</tr>
 							<tr>
 								<td></td>
 								<td></td>
 								<td></td>
+								<td></td>
 								<input id="TotalInput" name='total' type='hidden'  />
 								<td>Total: </td>
 								<td id="Total"></td>
-								<td></td>
 							</tr>
 						</tbody>
 					</table>
@@ -160,7 +169,7 @@
 				<div class="col-md-12">
 					<hr class="softhr">
 					<div class="col-md-6">
-						<div>Cantidad de items: </div> <br>
+						<div>Cantidad de items: <span id="CantItems">0</span> </div> <br>
 						
 					</div>
 					<div class="col-md-6 text-right">
@@ -170,11 +179,11 @@
 				</div>
 			</div>
 		</div>
-	<button id="ProductFinderBtn" class="btn btnSquareHoriz btnBlue" ><i class="ion-plus-round"></i> Agregar Item</button>
-	<button id="PendingOrdersBtn" class="btn btnSquareHoriz btnYellow" ><i class="ion-plus-round"></i> Pedidos Pendientes</button>
+		<button id="ProductFinderBtn" class="btn btnSquareHoriz btnBlue" ><i class="ion-plus-round"></i> Agregar Item</button>
+		<button id="PendingOrdersBtn" class="btn btnSquareHoriz btnYellow" ><i class="ion-plus-round"></i> Pedidos Pendientes</button>
 	</div> {{-- / big-form FC BODY--}}
 	{{-- //// Product Finder //// --}}
-	<div id="ProductFinder" class="wd-container Hidde">
+	<div id="ProductFinder" class="wd-container Hidden">
 		<div class="CloseBtn closeButton"><i class="ion-close-round"></i></div>
 		<div class="row">
 			<div class="col-md-12">
@@ -225,39 +234,9 @@
 			<div class="col-md-12">
 				<div class="title">Pedidos Pendientes</div>
 			</div>
-			<div class="col-md-12 table-responsive">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>Cod.</th>
-							<th>Producto</th>
-							<th>Cantidad</th>
-							<th>P.Unit.</th>
-							<th>Iva</th>
-							<th>SubTotal</th>
-						</tr>
-					</thead>
-					
-
-					<tbody>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</tbody>
-					
-				</table>
-			</div>
-			
-			{{-- Add Product To Fc --}}
-			<div class="col-md-3 horizontal-btn-container">
-				<button id="" class="btn btnSquareHoriz buttonOk" ><i class="ion-plus-round"></i> Agregar</button>
-			</div>
 		</div>
+		<div id="PendingOrdersList"></div>
+
 
 	</div> {{-- /wd-container Pedidos --}}
 

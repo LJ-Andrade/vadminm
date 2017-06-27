@@ -1,7 +1,7 @@
 @section('searcher')
 
 @if(isset($_GET['name']) or isset($_GET['code']))
-<a href="{{ url('vadmin/clientes') }}"><button type="button" class="btnSmall buttonOk">Mostrar Todos</button></a> <br><br>
+<a href="{{ url('vadmin/cuentas') }}"><button type="button" class="btnSmall buttonOk">Mostrar Todos</button></a> <br><br>
 Resultados de la búsqueda:
 @endif
 <div class="row header-options">

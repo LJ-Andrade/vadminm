@@ -8,7 +8,7 @@ html {
 body {
   height: 100%;
   overflow-x: hidden;
-  font-size: 18px;
+  font-size: 16.5px;
   background-color: #fcfcfc;
   color: #383838;
   font-family: "Lato", sans-serif;
@@ -1952,6 +1952,22 @@ hr {
 
 .custom-table-body tr > td {
   border-top: 0px !important;
+}
+
+.custom-tr input.ro {
+  border: 0;
+}
+
+.custom-tr input.mw50, .custom-tr .mw50 {
+  max-width: 50px;
+}
+
+.custom-tr input.mw100 {
+  max-width: 100px;
+}
+
+.big-select {
+  font-size: 1.7rem;
 }
 
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {

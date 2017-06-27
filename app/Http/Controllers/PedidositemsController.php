@@ -132,23 +132,6 @@ class PedidositemsController extends Controller
         return redirect('vadmin/pedidositems');
     }
 
-    //////////////////////////////////////////////////
-    //                 FACTURACION                  //
-    //////////////////////////////////////////////////
-
-
-    public function get_pedidositems_fc($id)
-    {
-        $pedidositems = Pedidositem::where('cliente_id', '=', $id)->get();
-        $cliente      = Cliente::where('id', '=', $id)->first();
-
-        return view('vadmin/facturas/pedidoslist')
-            ->with('pedidositems', $pedidositems)
-            ->with('cliente', $cliente);      
-
-    }
-
-
 
     //////////////////////////////////////////////////
     //                    DESTROY                   //
