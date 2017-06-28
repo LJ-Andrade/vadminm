@@ -79,8 +79,8 @@
 			<b>Factura:</b>
 			<select name="tipo_fc" id="TipoFcSelect"  class="big-select">
 				<option value="0" selected disabled></option>
-				<option value="A-30">A</option>
-				<option value="B-40">B</option>
+				<option value="20">A</option>
+				<option value="40">B</option>
 			</select>
 			</div>
 			<div class="col-md-6 col-xs-12">
@@ -98,7 +98,7 @@
 			<div class="table-responsive">
 				{!! Form::open(['url' => 'vadmin/get_fc_data', 'method' => 'POST', 'id' => 'FcForm']) !!}
 					{{-- Sending data to FC --}}
-					<input id="ClientIdFC" name='razonsocial' type='hidden' />
+					<input id="ClientIdFC" name='clientid' type='hidden' />
 					<input id="RazonSocialFC" name='razonsocial' type='hidden' />
 					<input id="DirFiscalFc" name='dirfiscal' type='hidden' />
 					<input id="CuitFC" name='cuit' type='hidden' />
@@ -106,6 +106,7 @@
 					<input id="CategIvaIdFc" name='categivaid' type='hidden' />
 					<input id="TipoFcId" name='tipofcid' type='hidden' />
 					<input id="TipoFcName" name='tipofcname' type='hidden' />
+					<div id="MarkAsFcDone"></div>
 					
 					
 					<table class="table">

@@ -66,4 +66,8 @@ class Cliente extends Model
     	return $this->hasMany('App\Pedidositem');
     }
 
+    public function facturas(){
+    	return $this->hasMany('App\Factura');
+    }
+
 }

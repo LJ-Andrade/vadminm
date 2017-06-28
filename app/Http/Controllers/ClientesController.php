@@ -18,6 +18,7 @@ use App\Zona;
 use App\Lista;
 use App\Direntrega;
 use App\Tipoct;
+use App\Factura;
 
 class ClientesController extends Controller
 {
@@ -126,10 +127,10 @@ class ClientesController extends Controller
        $client->flete_id    = $client->flete->name;
        $client->categiva    = $client->iva->name;
        $client->dirfiscal   = $client->dirfiscal;
-       // IMPORTANT This Id is given by webservice 
+       // ********** IMPORTANT This Id is given by webservice  ********** //
        $client->categiva_id = $client->iva_id;
        
-    //    dd($client);
+       // dd($client);
        return response()->json(['client' => $client]);
 
     }
@@ -150,18 +151,21 @@ class ClientesController extends Controller
     }
     
     //////////////////////////////////////////////////
-    //                  CREATE                      //
+    //                 ACCOUNTS                     //
     //////////////////////////////////////////////////
 
-    public function cuenta($id)
+    public function account($id)
     {
 
-        $client = Cliente::where('id', '=', $id)->first();
-        $incomings = 'Datos de cuenta corrientes';
+        $fcs       = Factura::where('cliente_id', '=', $id)->get();
+        $incomings = Factura::where('cliente_id', '=', $id)->sum('total');
+        
+        $client    = Cliente::where('id', '=', $id)->first();
 
         return view('vadmin.clientes.cuenta')
-            ->with('incomings', $incomings)
-            ->with('client', $client);
+            ->with('client', $client)
+            ->with('fcs', $fcs)
+            ->with('incomings', $incomings);
     }
     
 

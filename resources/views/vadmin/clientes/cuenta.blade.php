@@ -28,7 +28,33 @@
 		<div class="row">
 			<div id="Error"></div>	
 			<div class="row">
-				{{ $incomings }}
+				<div id="FcBody" class="big-form">
+					<div class="inner-row">
+						<div class="table-responsive">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Facturado</th>
+										<th>Pagos</th>
+									</tr>
+								</thead>
+								<tbody id="FcItems">
+									@foreach( $fcs as $fc)
+									<tr>
+										<td>$ {{ $fc->total }}</td>
+										<td>$ 0 </td>
+									</tr>
+									@endforeach
+									<tr>
+										<td>
+											Debe: <b>$ {{ $incomings }} </b>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
 			</div>
 			<br>
 		</div>

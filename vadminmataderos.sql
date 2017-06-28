@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-06-2017 a las 04:24:18
+-- Tiempo de generación: 28-06-2017 a las 09:04:52
 -- Versión del servidor: 10.1.19-MariaDB
 -- Versión de PHP: 5.6.28
 
@@ -55,8 +55,8 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `razonsocial`, `cuit`, `dirfiscal`, `codpostal`, `limitcred`, `telefono`, `celular`, `email`, `descuento`, `tipo_id`, `iva_id`, `provincia_id`, `localidad_id`, `condicventas_id`, `listas_id`, `user_id`, `zona_id`, `flete_id`, `created_at`, `updated_at`) VALUES
-(1, 'CONSUMIDOR FINAL', '', '', 0, 0, NULL, NULL, NULL, '', 2, 1, NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL),
-(2, 'CHALITA MARIA CAMILA', '11111111111', 'Dir 1234', 1212, 500000, '4545-4545', NULL, NULL, '3000', 1, 2, 1, 6, NULL, NULL, 3, NULL, NULL, NULL, NULL),
+(1, 'CONSUMIDOR FINAL', '9999999999', 'Av. No', 0, 0, NULL, NULL, NULL, '', 2, 1, NULL, NULL, NULL, 1, 3, 1, 1, NULL, NULL),
+(2, 'CHALITA MARIA CAMILA', '15878756548', 'Dir 1234', 1212, 500000, '4545-4545', '15-1515-1515', 'chalita@hotmail.com', '3000', 1, 2, 1, 6, 1, 1, 3, 1, 2, '2017-06-07 03:00:00', '2017-06-19 03:00:00'),
 (3, 'CEMICA SUDAMERICANA S.R.L.', '22222222222', '', 0, 0, NULL, NULL, NULL, '', 1, 2, NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL),
 (4, 'ACEVEDO ABEL   (ARRECIFES)', '3333333333', '', 0, 0, NULL, NULL, NULL, '', 2, 1, NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL),
 (5, 'BENITO', '4444444444', '', 0, 0, NULL, NULL, NULL, '', 1, 1, NULL, NULL, NULL, NULL, 3, NULL, NULL, NULL, NULL),
@@ -327,14 +327,18 @@ INSERT INTO `direntregas` (`id`, `name`, `telefono`, `localidad_id`, `provincia_
 
 CREATE TABLE `facturas` (
   `id` int(10) UNSIGNED NOT NULL,
-  `numero` int(11) NOT NULL,
-  `tipo` enum('X','A','B') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'X',
+  `numero` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipo_fc_id` enum('20','40') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tipo_fc` enum('A','B') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `cae` int(11) NOT NULL,
-  `estado` enum('1','0') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `estado` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `centroemisor` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `direntrega` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `flete` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `vendedor` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `direntrega_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `iva` decimal(50,0) NOT NULL,
+  `subtotal` decimal(50,0) NOT NULL,
+  `total` decimal(50,0) NOT NULL,
+  `flete_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `vendedor_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `cliente_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -344,8 +348,9 @@ CREATE TABLE `facturas` (
 -- Volcado de datos para la tabla `facturas`
 --
 
-INSERT INTO `facturas` (`id`, `numero`, `tipo`, `cae`, `estado`, `centroemisor`, `direntrega`, `flete`, `vendedor`, `cliente_id`, `created_at`, `updated_at`) VALUES
-(1, 0, 'X', 0, '0', 'CentroTest', '', '', '', 2, '2017-06-06 21:16:32', '2017-06-06 21:16:32');
+INSERT INTO `facturas` (`id`, `numero`, `tipo_fc_id`, `tipo_fc`, `cae`, `estado`, `centroemisor`, `direntrega_id`, `iva`, `subtotal`, `total`, `flete_id`, `vendedor_id`, `cliente_id`, `created_at`, `updated_at`) VALUES
+(3, '0000-15878756548', '20', 'A', 1234565, '1', 'CentroEmisor', '2', '4095', '19500', '23595', '2', '2', 2, '2017-06-28 01:29:37', '2017-06-28 01:29:37'),
+(4, '0000-15878756548', '20', 'A', 1234565, '1', 'CentroEmisor', '2', '2730', '13000', '15730', '2', '2', 2, '2017-06-28 09:33:39', '2017-06-28 09:33:39');
 
 -- --------------------------------------------------------
 
@@ -2873,9 +2878,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (23, '2017_04_06_023556_create_productos_table', 10),
 (29, '2017_04_20_185003_create_pedidos_table', 11),
 (30, '2017_04_20_205715_create_pedidositems_table', 11),
-(31, '2017_05_08_231514_create_facturas_table', 12),
 (34, '2017_05_24_224106_create_reparaciones_table', 13),
-(35, '2017_05_24_231300_create_reparaciones_items_table', 13);
+(35, '2017_05_24_231300_create_reparaciones_items_table', 13),
+(37, '2017_05_08_231514_create_facturas_table', 14);
 
 -- --------------------------------------------------------
 
@@ -2939,7 +2944,16 @@ INSERT INTO `pedidos` (`id`, `estado`, `facturado`, `user_id`, `cliente_id`, `cr
 (60, '2', 0, 1, 16, '2017-06-06 01:13:32', '2017-06-06 02:32:57'),
 (61, '1', 0, 1, 16, '2017-06-06 02:38:37', '2017-06-06 02:38:37'),
 (62, '1', 0, 1, 4, '2017-06-06 02:41:33', '2017-06-06 02:41:33'),
-(63, '1', 0, 1, 8, '2017-06-06 21:16:49', '2017-06-06 21:16:49');
+(63, '1', 0, 1, 8, '2017-06-06 21:16:49', '2017-06-06 21:16:49'),
+(64, '1', 0, 1, 97, '2017-06-13 04:52:24', '2017-06-13 04:52:24'),
+(65, '1', 0, 1, 9, '2017-06-13 07:28:45', '2017-06-13 07:28:45'),
+(66, '2', 0, 1, 23, '2017-06-13 08:34:01', '2017-06-13 08:34:26'),
+(67, '3', 0, 1, 2, '2017-06-14 05:44:31', '2017-06-23 01:40:46'),
+(68, '2', 0, 1, 2, '2017-06-23 01:40:04', '2017-06-23 01:40:24'),
+(69, '2', 0, 1, 2, '2017-06-27 03:08:15', '2017-06-27 03:08:23'),
+(70, '1', 0, 1, 2, '2017-06-27 03:11:31', '2017-06-27 03:11:31'),
+(71, '1', 0, 1, 2, '2017-06-27 03:47:47', '2017-06-27 03:47:47'),
+(72, '1', 0, 1, 2, '2017-06-27 10:29:49', '2017-06-27 10:29:49');
 
 -- --------------------------------------------------------
 
@@ -2955,6 +2969,7 @@ CREATE TABLE `pedidositems` (
   `producto_id` int(10) UNSIGNED NOT NULL,
   `cantidad` int(11) NOT NULL,
   `valor` int(11) NOT NULL,
+  `facturado` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2963,33 +2978,39 @@ CREATE TABLE `pedidositems` (
 -- Volcado de datos para la tabla `pedidositems`
 --
 
-INSERT INTO `pedidositems` (`id`, `cliente_id`, `pedido_id`, `factura_id`, `producto_id`, `cantidad`, `valor`, `created_at`, `updated_at`) VALUES
-(89, 8, 57, 0, 2, 12, 7500, '2017-05-29 04:18:08', '2017-05-29 04:18:08'),
-(91, 15, 58, 0, 4, 1, 114, '2017-05-29 05:49:39', '2017-05-29 05:49:39'),
-(92, 15, 58, 0, 2, 2, 7500, '2017-05-29 05:49:55', '2017-05-29 05:49:55'),
-(93, 2, 59, 0, 1, 1, 1250, '2017-05-29 07:06:24', '2017-05-29 07:06:24'),
-(94, 2, 59, 0, 2, 12, 6500, '2017-05-29 07:10:18', '2017-05-29 07:10:18'),
-(95, 16, 60, 0, 2, 12, 6500, '2017-06-06 01:14:02', '2017-06-06 01:14:02'),
-(96, 15, 58, 0, 4, 1, 114, '2017-06-06 01:49:03', '2017-06-06 01:49:03'),
-(97, 15, 58, 0, 1, 1, 1300, '2017-06-06 01:50:46', '2017-06-06 01:50:46'),
-(98, 15, 58, 0, 1, 2, 1300, '2017-06-06 01:50:51', '2017-06-06 01:50:51'),
-(99, 15, 58, 0, 2, 1, 7500, '2017-06-06 01:50:55', '2017-06-06 01:50:55'),
-(100, 15, 58, 0, 3, 1, 720, '2017-06-06 01:51:00', '2017-06-06 01:51:00'),
-(101, 15, 58, 0, 1, 2, 1300, '2017-06-06 01:51:04', '2017-06-06 01:51:04'),
-(102, 15, 58, 0, 3, 1, 720, '2017-06-06 01:51:16', '2017-06-06 01:51:16'),
-(103, 15, 58, 0, 1, 2, 1300, '2017-06-06 01:51:20', '2017-06-06 01:51:20'),
-(104, 15, 58, 0, 2, 1, 7500, '2017-06-06 01:51:24', '2017-06-06 01:51:24'),
-(105, 15, 58, 0, 3, 1, 720, '2017-06-06 01:51:28', '2017-06-06 01:51:28'),
-(106, 15, 58, 0, 2, 1, 7500, '2017-06-06 01:51:32', '2017-06-06 01:51:32'),
-(107, 15, 58, 0, 3, 1, 720, '2017-06-06 01:51:37', '2017-06-06 01:51:37'),
-(108, 15, 58, 0, 3, 2, 720, '2017-06-06 01:51:42', '2017-06-06 01:51:42'),
-(109, 15, 58, 0, 3, 1, 720, '2017-06-06 01:51:46', '2017-06-06 01:51:46'),
-(112, 15, 58, 0, 1, 1, 1300, '2017-06-06 02:01:18', '2017-06-06 02:01:18'),
-(113, 16, 60, 0, 2, 1, 6500, '2017-06-06 02:30:15', '2017-06-06 02:30:15'),
-(114, 16, 61, 0, 2, 5, 6500, '2017-06-06 02:38:44', '2017-06-06 02:38:44'),
-(115, 4, 62, 0, 3, 25, 580, '2017-06-06 02:41:59', '2017-06-06 02:41:59'),
-(116, 16, 60, 0, 4, 1, 105, '2017-06-06 07:28:51', '2017-06-06 07:28:51'),
-(117, 8, 63, 0, 1, 12, 1300, '2017-06-07 01:43:19', '2017-06-07 01:43:19');
+INSERT INTO `pedidositems` (`id`, `cliente_id`, `pedido_id`, `factura_id`, `producto_id`, `cantidad`, `valor`, `facturado`, `created_at`, `updated_at`) VALUES
+(89, 8, 57, 0, 2, 12, 7500, 0, '2017-05-29 04:18:08', '2017-05-29 04:18:08'),
+(91, 15, 58, 0, 4, 1, 114, 0, '2017-05-29 05:49:39', '2017-05-29 05:49:39'),
+(92, 15, 58, 0, 2, 2, 7500, 0, '2017-05-29 05:49:55', '2017-05-29 05:49:55'),
+(93, 2, 59, 0, 1, 1, 1250, 1, '2017-05-29 07:06:24', '2017-06-28 01:27:02'),
+(94, 2, 59, 0, 2, 12, 6500, 1, '2017-05-29 07:10:18', '2017-06-28 01:27:02'),
+(95, 16, 60, 0, 2, 12, 6500, 0, '2017-06-06 01:14:02', '2017-06-06 01:14:02'),
+(96, 15, 58, 0, 4, 1, 114, 0, '2017-06-06 01:49:03', '2017-06-06 01:49:03'),
+(97, 15, 58, 0, 1, 1, 1300, 0, '2017-06-06 01:50:46', '2017-06-06 01:50:46'),
+(98, 15, 58, 0, 1, 2, 1300, 0, '2017-06-06 01:50:51', '2017-06-06 01:50:51'),
+(99, 15, 58, 0, 2, 1, 7500, 0, '2017-06-06 01:50:55', '2017-06-06 01:50:55'),
+(100, 15, 58, 0, 3, 1, 720, 0, '2017-06-06 01:51:00', '2017-06-06 01:51:00'),
+(101, 15, 58, 0, 1, 2, 1300, 0, '2017-06-06 01:51:04', '2017-06-06 01:51:04'),
+(102, 15, 58, 0, 3, 1, 720, 0, '2017-06-06 01:51:16', '2017-06-06 01:51:16'),
+(103, 15, 58, 0, 1, 2, 1300, 0, '2017-06-06 01:51:20', '2017-06-06 01:51:20'),
+(104, 15, 58, 0, 2, 1, 7500, 0, '2017-06-06 01:51:24', '2017-06-06 01:51:24'),
+(105, 15, 58, 0, 3, 1, 720, 0, '2017-06-06 01:51:28', '2017-06-06 01:51:28'),
+(106, 15, 58, 0, 2, 1, 7500, 0, '2017-06-06 01:51:32', '2017-06-06 01:51:32'),
+(107, 15, 58, 0, 3, 1, 720, 0, '2017-06-06 01:51:37', '2017-06-06 01:51:37'),
+(108, 15, 58, 0, 3, 2, 720, 0, '2017-06-06 01:51:42', '2017-06-06 01:51:42'),
+(109, 15, 58, 0, 3, 1, 720, 0, '2017-06-06 01:51:46', '2017-06-06 01:51:46'),
+(112, 15, 58, 0, 1, 1, 1300, 0, '2017-06-06 02:01:18', '2017-06-06 02:01:18'),
+(113, 16, 60, 0, 2, 1, 6500, 0, '2017-06-06 02:30:15', '2017-06-06 02:30:15'),
+(114, 16, 61, 0, 2, 5, 6500, 0, '2017-06-06 02:38:44', '2017-06-06 02:38:44'),
+(115, 4, 62, 0, 3, 25, 580, 0, '2017-06-06 02:41:59', '2017-06-06 02:41:59'),
+(116, 16, 60, 0, 4, 1, 105, 0, '2017-06-06 07:28:51', '2017-06-06 07:28:51'),
+(117, 8, 63, 0, 1, 12, 1300, 0, '2017-06-07 01:43:19', '2017-06-07 01:43:19'),
+(118, 23, 66, 0, 4, 12, 105, 0, '2017-06-13 08:34:17', '2017-06-13 08:34:17'),
+(119, 2, 68, 0, 2, 2, 6500, 1, '2017-06-23 01:40:13', '2017-06-28 01:29:27'),
+(120, 2, 69, 0, 2, 1, 6500, 1, '2017-06-27 03:08:20', '2017-06-28 01:29:27'),
+(121, 2, 71, 0, 2, 1, 6500, 1, '2017-06-27 03:47:54', '2017-06-28 09:33:39'),
+(122, 2, 72, 0, 2, 1, 6500, 1, '2017-06-27 10:29:54', '2017-06-28 09:33:39'),
+(123, 2, 72, 0, 4, 1, 105, 0, '2017-06-27 23:36:39', '2017-06-27 23:36:39');
 
 -- --------------------------------------------------------
 
@@ -3014,7 +3035,7 @@ CREATE TABLE `productos` (
   `nombre` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `estado` enum('activo','pausado') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'activo',
   `codproveedor` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `condiva` int(10) NOT NULL,
+  `condiva` float NOT NULL,
   `stockactual` int(11) NOT NULL,
   `stockmin` int(11) NOT NULL,
   `stockmax` int(11) NOT NULL,
@@ -3041,9 +3062,10 @@ CREATE TABLE `productos` (
 
 INSERT INTO `productos` (`id`, `nombre`, `estado`, `codproveedor`, `condiva`, `stockactual`, `stockmin`, `stockmax`, `monedacompra`, `costopesos`, `costodolar`, `costoeuro`, `pjegremio`, `pjeparticular`, `pjeespecial`, `preciooferta`, `cantoferta`, `moneda_id`, `proveedor_id`, `familia_id`, `subfamilia_id`, `created_at`, `updated_at`) VALUES
 (1, 'Bocha', 'activo', '3232', 21, 50, 20, 100, 2, 0, 100, 0, 25, 30, 20, 1500, 20, 2, 12, 4, 12, '2017-05-04 08:52:52', '2017-05-29 00:02:34'),
-(2, 'Aire3500', 'activo', 'AR3500', 21, 33, 20, 60, 2, 0, 500, 0, 30, 50, 25, 200, 20, 2, 12, 3, 9, '2017-04-27 01:31:47', '2017-05-29 02:34:57'),
-(3, 'Equipo', 'activo', '156', 21, 50, 20, 60, 1, 600, 0, 0, 15, 20, 14, 580, 20, 2, 12, 2, 10, '2017-04-26 15:47:57', '2017-05-29 00:02:37'),
-(4, 'Lavarropas', 'activo', 'WP3500', 21, 50, 20, 90, 3, 5, 0, 0, 20, 30, 18, 6500, 20, 2, 12, 3, 5, '2017-04-26 15:38:02', '2017-04-26 15:47:06');
+(2, 'Aire3500', 'activo', 'AR3500', 21, 33, 20, 60, 2, 0, 500, 0, 30, 50, 25, 200, 20, 2, 12, 3, 9, '2017-04-27 01:31:47', '2017-06-16 20:37:21'),
+(3, 'Equipo', 'activo', '156', 21, 10, 20, 60, 1, 600, 0, 0, 15, 20, 14, 580, 20, 2, 12, 2, 10, '2017-04-26 15:47:57', '2017-06-23 01:43:18'),
+(4, 'Lavarropas', 'activo', 'WP3500', 21, 50, 20, 90, 3, 5, 0, 0, 20, 30, 18, 6500, 20, 2, 12, 3, 5, '2017-04-26 15:38:02', '2017-04-26 15:47:06'),
+(5, 'Turbina', 'activo', '12121212', 10.5, 50, 20, 100, 2, 0, 100, 0, 25, 35, 20, 90, 15, 2, 12, 3, 5, '2017-06-19 21:21:55', '2017-06-19 21:21:55');
 
 -- --------------------------------------------------------
 
@@ -3075,7 +3097,23 @@ CREATE TABLE `proveedores` (
 --
 
 INSERT INTO `proveedores` (`id`, `nombre`, `razonsocial`, `cuit`, `ingbrutos`, `telefonos`, `email`, `direccion`, `pais`, `codpostal`, `notas`, `iva_id`, `localidad_id`, `provincia_id`, `created_at`, `updated_at`) VALUES
-(12, 'Whirpool11', 'Whirpool S.A. 11', '11-11111111-1', '1111', '11111', '1111@hohoo.com', 'DIreccion 1212', 'Argentina', '33', '<p>Notas sobre el proveedor 11</p>', 5, 143, 3, '2017-04-05 05:59:08', '2017-05-23 02:23:06');
+(1, 'LOCIA Y COMPAÑIA S.A.', 'LOCIA Y COMPAÑIA S.A.', '33-60792934-9', '901-927635-5', '4671-6711/1892', 'locia@lociasa.com.ar', 'Laguna 1219', 'Argentina', '1417', NULL, 2, 336, 3, '2017-05-22 14:37:59', '2017-05-22 14:37:59'),
+(2, 'AUTOSAL S.A.', 'AUTOSAL S.A.', '30-60655239-0', '919-700051-7', '4730-0011', 'repuestos@autosal.com.ar', 'Echeverría 930', 'Argentina', 'B1604ABB', '<p>Entrega de repuestos en SALCEDO 1142- Lomas del Mirador</p><p>Vendedor Adolfo Lopez</p>', 2, 207, 2, '2017-05-22 14:44:21', '2017-05-22 14:44:21'),
+(3, 'ANTARCO S.R.L.', 'ANTARCO S.R.L.', '30-51748841-7', '902-865364-1', '4205-1568', 'antarco@antarco.com', 'Brandsen 1663', 'Argentina', 'B1873ARG', NULL, 2, 512, 2, '2017-05-22 14:49:25', '2017-05-22 14:49:25'),
+(4, 'ANSAL REFRIGERACIÓN S.A.', 'ANSAL REFRIGERACIÓN S.A.', '30-51671259-3', '901-925853-2', '4958-2884/2866', 'ansal@ansal.com.ar', 'Otamendi 530/34', 'Argentina', 'C1405BRH', '<p>Alba Aparicio (venta repuestos) int. 31 alba.aparicio@ansal.com.ar</p><p>Martin Medina (cuentas corrientes) int. 41 martin.medina@ansal.com.ar</p>', 2, 1546, 3, '2017-05-22 14:57:15', '2017-05-22 14:57:15'),
+(5, 'WHIRLPOOL', 'WHIRLPOOL ARGENTINA S.R.L.', '30-63634477-6', '902-947490-1', '4480-7132/7405', 'guillermo_russell@whirlpool.com', 'Av. Crovara 2550', 'Argentina', '1766', '<p>Vendedor Guillermo Russell cel. 15-3691-9415</p><p>N° cuenta 359666</p><p><br></p>', 2, 201, 2, '2017-05-22 17:15:49', '2017-05-22 17:15:49'),
+(6, 'ZUL', 'VERZERO GONZALO', '23-26836796-9', '1509965-02', '4682-8856/0744', NULL, 'Av. Directorio 5446', 'Argentina', '1440', NULL, 2, 298, 3, '2017-05-22 17:19:45', '2017-05-22 17:19:45'),
+(7, 'CIRCUITOS FRIOS S.A.', 'CIRCUITOS FRIOS S.A.', '30-71329070-6', '902-476656-0', '4669-6126', 'circuitosfriossa@yahoo.com.ar', 'Juan Sebastián Bach 3575', 'Argentina', '1765', NULL, 2, 194, 2, '2017-05-22 19:49:14', '2017-05-22 19:49:14'),
+(8, 'DPMG', 'DPMG S.A.', '33-71126211-9', '901-33-71126211-9', '4139-6500/6501/4552/4551', 'ventas@dpmg.com.ar', 'Río Cuarto 2091', 'Argentina', 'C1292AAO', '<p>Vendedor Claudio Alvarez&nbsp;</p><p>Cuentas Corrientes Diego &nbsp;15-3644-2916&nbsp;<a href="mailto:diego.dellamonica@dpmg.com.ar" id="yui_3_16_0_ym19_1_1495465117863_31929" style="background: rgb(255, 255, 255); -webkit-padding-start: 0px; margin: 0px; padding: 0px; outline: none; font-family: &quot;Helvetica Neue&quot;, &quot;Segoe UI&quot;, Helvetica, Arial, &quot;Lucida Grande&quot;, sans-serif; font-size: 13px; white-space: nowrap;">diego.dellamonica@dpmg.com.ar</a></p>', 2, 1546, 3, '2017-05-22 19:55:18', '2017-05-22 19:55:18'),
+(9, 'REPUESTOS ROMA', 'FERNANDEZ ROBERTO MATÍAS', '23-34772686-9', '901-23-34772686-9', '5273-4354/55', 'robertofernandez@fyfcomex.com.ar', 'Perú 359 2° piso of. 203', 'Argentina', '1067', NULL, 2, 1546, 3, '2017-05-22 20:01:46', '2017-05-22 20:01:46'),
+(10, 'GRACAR S.A.', 'GRACAR S.A.', '30-67763586-6', '912162-05', '4637-1854', 'gracar@speedy@.com.ar', 'Quirno 463/7', 'Argentina', '1406', NULL, 2, 294, 3, '2017-05-22 20:05:49', '2017-05-22 20:05:49'),
+(11, 'GIACOMINO S.A.', 'GIACOMINO S.A.', '30-50287893-6', '901-30-50287893-6', '4911-2276/2828/1093', 'info@giacomino.com.ar', 'Pepirí 1072', 'Argentina', '1437', NULL, 2, 1546, 3, '2017-05-22 20:16:04', '2017-05-22 20:16:04'),
+(12, 'REPUESTOS SALTA LAMBARE', 'SAMPIETRO JORGE LUIS', '20-13264499-4', '901-930933-6', '4305-7591', 'j_l_sampietro@speedy.com.ar', 'Salta 1773', 'Argentina', '1137', NULL, 2, 1546, 3, '2017-05-22 20:30:25', '2017-05-22 20:30:25'),
+(13, 'MCT', 'INDUSTRIAS MCT S.R.L.', '30-70835483-6', '901-390304-3', '4687-9220', 'mctsrl@speedy.com.ar', 'José León Suarez 2785', 'Argentina', 'C1440EYY', NULL, 2, 1546, 3, '2017-05-22 20:32:51', '2017-05-22 20:32:51'),
+(32, 'PANIZZA', 'DIEGO ADRIAN PANIZZA', '20-20255144-2', '901-20-20251442-2', '4139-6500', NULL, 'Rio Cuarto 2091', 'Argentina', 'C1292AAO', NULL, 2, 1546, 3, '2017-06-08 15:31:28', '2017-06-08 15:31:28'),
+(33, 'FRÍO ÁRTICO', 'FRÍO ÁRTICO S.R.L.', '30-70974079-9', '901-222163-7', '4753-4373/4713-7802', 'administración@frioartico.com.ar', 'Honduras 3865 1°C', 'Argentina', '1180', 'Vendedor Santiago', 2, 1546, 3, '2017-06-08 15:50:03', '2017-06-08 15:50:03'),
+(34, 'M M', 'M M REFRIGERACIÓN S.R.L.', '30-71070438-0', '30710704380', '4713-7802', 'ventas@mmrefrigeracion.com', 'Lincoln 1827', 'Argentina', '1650', 'Vendedor Santiago', 2, NULL, 2, '2017-06-08 16:03:29', '2017-06-08 16:03:29'),
+(35, 'REFRIGERACIÓN OMAR S.R.L.', 'REFRIGERACIÓN OMAR S.R.L.', '30-53691426-5', '901-910493-8', '4641-1454/5321', 'refomar@refomar.com.ar', 'Av. Rivadavia 10501', 'Argentina', 'C1408AAF', '<p>4642-6359</p><p>4644-2140</p><p>4643-0615</p>', 2, 1546, 3, '2017-06-08 16:17:58', '2017-06-08 16:17:58');
 
 -- --------------------------------------------------------
 
@@ -3248,7 +3286,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `avatar`, `password`, `type`, `role`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Leandro', 'javzero@hotmail.com', '1492529279.jpg', '$2y$10$cgDhH3RbTDKqRSm0ALRZteC2EVE2h58QVaXQO1GQ5trzVsrmIEqEm', 'superadmin', 'none', 'NOklUgxH77KWAGipCvwC74IN7bjnTkfB4bvgItFDfuHr2e7zOqWPzhARmZZr', '2009-10-27 06:37:05', '2017-04-18 18:28:00'),
+(1, 'Leandro', 'javzero@hotmail.com', '1492529279.jpg', '$2y$10$cgDhH3RbTDKqRSm0ALRZteC2EVE2h58QVaXQO1GQ5trzVsrmIEqEm', 'superadmin', 'none', 'RrrMnDTHNJcTIIwaOWRl0WEPwxotIXy7zgTgFJyafe8roY2UMrGIGd3btLRO', '2009-10-27 06:37:05', '2017-04-18 18:28:00'),
 (3, 'Julian', 'julian@hotmail.com', '', '$2y$10$Z3WB/YZH8vGmf93N3PTsw.H0AYCf9pMJtDtab/4nZbeDMYYValcKO', 'user', 'seller', NULL, '2017-03-26 07:20:28', '2017-03-28 03:13:12'),
 (4, 'Pablo', 'pablo@hotmail.com', '', '$2y$10$JYcb1N2Sqs2FAtaWB0SekO/GKkJ16SUcdQ/PXH7u0bSdVl1MptFpG', 'admin', 'seller', NULL, '2017-03-20 07:58:24', '2017-03-28 03:46:32'),
 (5, 'Juanjo', 'juanjo@hotmail.com', '', '$2y$10$s06ZXneElpIWSUFhz.h8xe/BzoZaOolL9s1CwWF/oNYPOt0mDSulK', 'admin', 'seller', NULL, '2017-03-20 07:58:35', '2017-03-28 03:52:24'),
@@ -3492,7 +3530,7 @@ ALTER TABLE `direntregas`
 -- AUTO_INCREMENT de la tabla `facturas`
 --
 ALTER TABLE `facturas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT de la tabla `familias`
 --
@@ -3522,7 +3560,7 @@ ALTER TABLE `localidades`
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT de la tabla `monedas`
 --
@@ -3532,12 +3570,12 @@ ALTER TABLE `monedas`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 --
 -- AUTO_INCREMENT de la tabla `pedidositems`
 --
 ALTER TABLE `pedidositems`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
 --
 -- AUTO_INCREMENT de la tabla `pedido_pedidositem`
 --
@@ -3547,12 +3585,12 @@ ALTER TABLE `pedido_pedidositem`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT de la tabla `provincias`
 --
@@ -3637,16 +3675,8 @@ ALTER TABLE `pedidositems`
 --
 ALTER TABLE `productos`
   ADD CONSTRAINT `productos_familia_id_foreign` FOREIGN KEY (`familia_id`) REFERENCES `familias` (`id`),
-  ADD CONSTRAINT `productos_proveedor_id_foreign` FOREIGN KEY (`proveedor_id`) REFERENCES `proveedores` (`id`),
+  ADD CONSTRAINT `productos_proveedor_id_foreign` FOREIGN KEY (`proveedor_id`) REFERENCES `proveedores1` (`id`),
   ADD CONSTRAINT `productos_subfamilia_id_foreign` FOREIGN KEY (`subfamilia_id`) REFERENCES `subfamilias` (`id`);
-
---
--- Filtros para la tabla `proveedores`
---
-ALTER TABLE `proveedores`
-  ADD CONSTRAINT `proveedores_iva_id_foreign` FOREIGN KEY (`iva_id`) REFERENCES `ivas` (`id`),
-  ADD CONSTRAINT `proveedores_localidad_id_foreign` FOREIGN KEY (`localidad_id`) REFERENCES `localidades` (`id`),
-  ADD CONSTRAINT `proveedores_provincia_id_foreign` FOREIGN KEY (`provincia_id`) REFERENCES `provincias` (`id`);
 
 --
 -- Filtros para la tabla `reparaciones`

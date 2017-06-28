@@ -642,6 +642,7 @@
 		// 	alert_error('Alto','No se han ingresado items');
 		// }
 
+
 		if(fcType == 0){
 			alert_error('Alto','No se ha seleccionado tipo de factura');
 		} 
@@ -649,6 +650,14 @@
 		// 	alert_error('Alto','No se han ingresado items');
 		// }
 		 else {
+			var input = "<input name='markAsFcDone["+  +"]' type='' />";
+			var div   = $('#MarkAsFcDone');
+			
+			// Set pendingorders to done
+			$.each( ordersToDeletion, function( index, value ){
+				div.append("<input name='markAsFcDone["+ index +"]' value='"+ value +"' type='hidden' />");
+			});
+			
 			// var form        = $('#FcForm');
 			// var data = JSON.stringify( $(form).serializeArray() ); //  <-----------
 
@@ -656,7 +665,7 @@
 			// return false; //don't submit
 			// // console.log(form);
 			// console.log('Se deben borrar los items de pedidos ' + ordersToDeletion);
-		
+			
 			$('#FcForm').submit();
 
 		}

@@ -10,7 +10,7 @@
 	@section('options')
 		<div class="actions">
             <a href="{{ url('vadmin/facturas/create') }}" class="btn btnSm buttonOther">Nueva</a>
-            <button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button>
+            {{-- <button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button> --}}
 		</div>	
 	@endsection
 @endsection
@@ -28,18 +28,24 @@
 			@include('vadmin.facturas.searcher')
             <div class="col-md-12 animated fadeIn main-list">
                 @foreach($facturas as $item)
+				{{-- dd($item) --}}
                 <div id="Id{{ $item->id }}" class="Item-Row Select-Row-Trigger row item-row simple-list">
                     {{-- Column / Image --}}
                     <div class=""></div>
 
                     <div class="content">
                         {{-- Column --}}
-                        <div class="col-xs-6 col-sm-4 col-md-4 inner">
-                            <div class="col-md-1">{{ $item->id }}</div> | <span><b>{{ $item->name }}</b></span>
+                        <div class="col-xs-6 col-sm-3 col-md-3 inner">
+                            <div class="col-md-1">{{ $item->tipo_fc }}-{{ $item->numero }}</div>
                         </div>
                         {{-- Column --}}
-                        <div class="col-xs-6 col-sm-3 col-md-4 mobile-hide inner-tags">
+                        <div class="col-xs-6 col-sm-3 col-md-3 mobile-hide inner-tags">
+						<span>{{ $item->cliente->razonsocial }}</span>
                         </div>                        
+						<div class="col-md-4">
+							<span>Iva: $ {{ $item->iva }} | Subtotal: $ {{ $item->subtotal }}</span>
+							<span>| Total: $ {{ $item->total }}</span>
+						</div>
                     </div>
  					{{-- Batch Delete --}} 
 					<div class="batch-delete-checkbox">

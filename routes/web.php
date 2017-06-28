@@ -80,7 +80,7 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::get('ajax_list_search_clientes/{search?}', 'ClientesController@ajax_list_search');
 
 	// ------------------- Cuenta Corriente Clientes --------------------- //
-	Route::get('clientes/cuenta/{id}', 'ClientesController@cuenta');
+	Route::get('clientes/cuenta/{id}', 'ClientesController@account');
 
 
 	// ------ Provincias ------- //
