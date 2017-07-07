@@ -82,10 +82,11 @@
 
 	// Update when click on #UpdateStockBtn
 	$('#UpdateStockBtn').click(function(){
-		var id    = $("#SumStock").data('productid');
-		var route = "{{ url('vadmin/update_prod_stock') }}/"+id+"";
-		var value =  $("#SumStock").val();
-		sumStock(route, id, value);
+		var id     = $("#SumStock").data('productid');
+		var route  = "{{ url('vadmin/update_prod_stock') }}/"+id+"";
+		var value  =  $("#SumStock").val();
+		var action = location.reload();
+		sumStock(route, id, value, action);
 	});
 
 	// Update when press ENTER on #SumStock
@@ -94,7 +95,8 @@
 			var id    = $(this).data('productid');
 			var route = "{{ url('vadmin/update_prod_stock') }}/"+id+"";
 			var value = $(this).val();
-			sumStock(route, id, value);
+			var action = location.reload();
+			sumStock(route, id, value, action);
 		}
 	});
 
@@ -333,5 +335,7 @@
 		return  $.get(route, function(data){});
 	}
 
+
+	
 
 </script>

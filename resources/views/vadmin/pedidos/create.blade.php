@@ -85,7 +85,6 @@
 		// Get Client Data On Button Click
 		$('#ClientByCodeBtn').click(function(){
 			// Get Client Full Data
-			
 			var id         = $('#ClientByCode').val();
 			var route      = "{{ url('vadmin/get_client') }}/"+id+"";
 			
@@ -96,8 +95,7 @@
 					var razonsocial = data.client['razonsocial'];
 				} 
 				// Send Client Data to Output
-				output(id, razonsocial)
-
+				output(id, razonsocial);
 			});
 		});
 

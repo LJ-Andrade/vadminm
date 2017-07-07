@@ -13,13 +13,13 @@ $.ajaxSetup({
 
 
 
-$(document).ajaxStart(function(){
-    toggleLoader();
-});
+// $(document).ajaxStart(function(){
+//     toggleLoader();
+// });
 
-$(document).ajaxComplete(function(){
-	toggleLoader();
-});
+// $(document).ajaxComplete(function(){
+// 	toggleLoader();
+// });
 
 function toggleLoader(){
   $('.Main-Loader').toggleClass('Hidden');

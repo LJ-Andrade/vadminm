@@ -134,15 +134,15 @@
 
 
 	
-	$("#TipoFcSelect").on( "change", function(e) {
-		var tipofcid = $("#TipoFcSelect option:selected").val();
-		var namefc   = $("#TipoFcSelect option:selected").html();
+	// $("#TipoFcSelect").on( "change", function(e) {
+	// 	var tipofcid = $("#TipoFcSelect option:selected").val();
+	// 	var namefc   = $("#TipoFcSelect option:selected").html();
 		
-		// To Fc
-		$('#TipoFcId').val(tipofcid);
-		$('#TipoFcName').val(namefc);
+	// 	// To Fc
+	// 	$('#TipoFcId').val(tipofcid);
+	// 	$('#TipoFcName').val(namefc);
 	
-	});	
+	// });	
 
 
 	/////////////////////////////////////////////////
@@ -231,15 +231,15 @@
 		console.log(itemsCount);
 		if (itemsCount <= 5 ) {
 
-			var name        = $('#PfNameInput').val();
+			var description = $('#PfNameInput').val();
 			var code        = $('#PfCodeInput').val();
-			var ammount     = $('#PfAmmountInput').val();
+			var quantity    = $('#PfAmmountInput').val();
 			var price       = $('#PfPriceInput').val();
 			var iva         = $('#PfProductIva').val();
 			var erroroutput = $('#DisplayErrorOutPut');
 			var output      = $('#PfOutputPreview');
 
-			if (name == '' || code == '' || ammount == '' || price == ''){
+			if (description == '' || code == '' || quantity == '' || price == ''){
 				erroroutput.html('');
 				erroroutput.removeClass('Hidden');
 				erroroutput.html('Falta completar un campo');
@@ -247,18 +247,21 @@
 				output.html('');
 				output.addClass('Hidden');
 				// Calc Price * Ammount
-				var subtotalItem = parseFloat(price) * parseFloat(ammount);
+				var subtotalItem = parseFloat(price) * parseFloat(quantity);
 				// Calc Iva
 				var itemIva      = parseFloat(subtotalItem) * parseFloat(iva) / 100;
 				// Make Row
 				
 				var result = "<tr id='ItemId"+itemnum+"' class='fcItemRow'>"+
-								"<td><input name='items["+itemnum+"][code] type='number' value='"+ code +"' class='ro mw100' readonly /></td>"+
-								"<td><input name='items["+itemnum+"][name] type='text'   value='"+ name +"' class='ro' readonly /></td>"+
-								"<td><input name='items["+itemnum+"][ammount] type='number' value='"+ parseFloat(ammount) +"' class='mw50 AmmountCorrection' /></td>"+
-								"<td><input name='items["+itemnum+"][price] type='number' value='"+ parseFloat(price) +"' class='mw100 UnitPrice' /></td>"+							
-								"<td class='Hid'><input name='items["+itemnum+"][iva] type='number' value='"+ parseFloat(itemIva) +"' data-ivapercent='" + parseFloat(iva) + "' class='ro ItemIva IvaSubtotals' readonly />(" + parseFloat(iva) + "%)</td>"+
-								"<td><input name='items["+itemnum+"][subtotal] type='number' value='"+ parseFloat(subtotalItem) +"' class='ro mw100 SubTotals' readonly /></td>"+
+								"<td style='display:none'><input name='items["+itemnum+"][type]'  type='text'   value='?' class='ro mw100' readonly /></td>"+
+								"<td><input name='items["+itemnum+"][code]'                type='number' value='"+ code +"' class='ro mw100' readonly /></td>"+
+								"<td><input name='items["+itemnum+"][description]'         type='text'   value='"+ description +"' class='ro' readonly /></td>"+
+								"<td><input name='items["+itemnum+"][price]'               type='number' value='"+ parseFloat(price) +"' class='mw100 UnitPrice' /></td>"+							
+								"<td><input name='items["+itemnum+"][quantity]'            type='number' value='"+ parseFloat(quantity) +"' class='mw50 AmmountCorrection' /></td>"+
+								"<td><input name='items["+itemnum+"][sum_price]'           type='number' value='"+ parseFloat(subtotalItem) +"' class='ro mw100 SubTotals' readonly /></td>"+
+								"<td class='Hid'><input name='items["+itemnum+"][sum_tax]' type='number' value='"+ parseFloat(itemIva) +"' data-ivapercent='" + parseFloat(iva) + "' class='ro ItemIva IvaSubtotals' readonly />(" + parseFloat(iva) + "%)</td>"+
+								"<td class='Hidden'><input name='items["+itemnum+"][discount]' type='number' value='0' /></td>"+
+								"<td><input name='items["+itemnum+"][total]'           type='number' value='"+ (parseFloat(subtotalItem) + parseFloat(itemIva)) +"' class='ro mw100 SubTotalsTax' readonly /></td>"+
 								"<td class='DeleteRow deleteRow'><i class='ion-minus-circled'></i></td>"+
 							"</tr>";
 				itemnum += 1;
@@ -286,8 +289,8 @@
 
 			var orderid      = $(this).data('orderid');
 			var code         = $(this).data('id');
-			var name         = $(this).data('name');
-			var ammount      = $(this).data('ammount');
+			var description  = $(this).data('name');
+			var quantity     = $(this).data('ammount');
 			var price        = $(this).data('price');
 			var subtotalItem = $(this).data('subtotal');
 			var iva          = $(this).data('iva');
@@ -295,14 +298,27 @@
 			var itemIva      = parseFloat(subtotalItem) * parseFloat(iva) / 100;
 
 			var result = "<tr id='ItemId"+itemnum+"' class='fcItemRow fcItemRowPending'>"+
-								"<td><input name='items["+itemnum+"][code] type='number' value='"+ code +"' class='ro mw100' readonly /></td>"+
-								"<td><input name='items["+itemnum+"][name] type='text'   value='"+ name +"' class='ro' readonly /></td>"+
-								"<td><input name='items["+itemnum+"][ammount] type='number' value='"+ parseFloat(ammount) +"' class='mw50 AmmountCorrection' /></td>"+
-								"<td><input name='items["+itemnum+"][price] type='number' value='"+ parseFloat(price) +"' class='mw100 UnitPrice' /></td>"+							
-								"<td class='Hid'><input name='items["+itemnum+"][iva] type='number' value='"+ parseFloat(itemIva) +"' data-ivapercent='" + parseFloat(iva) + "' class='ro ItemIva IvaSubtotals' readonly />(" + parseFloat(iva) + "%)</td>"+
-								"<td><input name='items["+itemnum+"][subtotal] type='number' value='"+ parseFloat(subtotalItem) +"' class='ro mw100 SubTotals' readonly /></td>"+
+								"<td style='display:none'><input name='items["+itemnum+"][type]'  type='text'   value='?' class='ro mw100' readonly /></td>"+
+								"<td><input name='items["+itemnum+"][code]'                type='number' value='"+ code +"' class='ro mw100' readonly /></td>"+
+								"<td><input name='items["+itemnum+"][description]'         type='text'   value='"+ description +"' class='ro' readonly /></td>"+
+								"<td><input name='items["+itemnum+"][price]'               type='number' value='"+ parseFloat(price) +"' class='mw100 UnitPrice' /></td>"+							
+								"<td><input name='items["+itemnum+"][quantity]'            type='number' value='"+ parseFloat(quantity) +"' class='mw50 AmmountCorrection' /></td>"+
+								"<td><input name='items["+itemnum+"][sum_price]'           type='number' value='"+ parseFloat(subtotalItem) +"' class='ro mw100 SubTotals' readonly /></td>"+
+								"<td class='Hid'><input name='items["+itemnum+"][sum_tax]' type='number' value='"+ parseFloat(itemIva) +"' data-ivapercent='" + parseFloat(iva) + "' class='ro ItemIva IvaSubtotals' readonly />(" + parseFloat(iva) + "%)</td>"+
+								"<td class='Hidden'><input name='items["+itemnum+"][discount]' type='number' value='0' /></td>"+
+								"<td><input name='items["+itemnum+"][total]'           type='number' value='"+ (parseFloat(subtotalItem) + parseFloat(itemIva)) +"' class='ro mw100 SubTotalsTax' readonly /></td>"+
 								"<td class='DeleteRow deleteRow' data-id="+ code +" data-orderid="+ orderid +"><i class='ion-minus-circled'></i></td>"+
 							"</tr>";
+
+			// var result = "<tr id='ItemId"+itemnum+"' class='fcItemRow fcItemRowPending'>"+
+			// 					"<td><input name='items["+itemnum+"][code] type='number' value='"+ code +"' class='ro mw100' readonly /></td>"+
+			// 					"<td><input name='items["+itemnum+"][name] type='text'   value='"+ name +"' class='ro' readonly /></td>"+
+			// 					"<td><input name='items["+itemnum+"][ammount] type='number' value='"+ parseFloat(ammount) +"' class='mw50 AmmountCorrection' /></td>"+
+			// 					"<td><input name='items["+itemnum+"][price] type='number' value='"+ parseFloat(price) +"' class='mw100 UnitPrice' /></td>"+							
+			// 					"<td class='Hid'><input name='items["+itemnum+"][iva] type='number' value='"+ parseFloat(itemIva) +"' data-ivapercent='" + parseFloat(iva) + "' class='ro ItemIva IvaSubtotals' readonly />(" + parseFloat(iva) + "%)</td>"+
+			// 					"<td><input name='items["+itemnum+"][subtotal] type='number' value='"+ parseFloat(subtotalItem) +"' class='ro mw100 SubTotals' readonly /></td>"+
+			// 					"<td class='DeleteRow deleteRow' data-id="+ code +" data-orderid="+ orderid +"><i class='ion-minus-circled'></i></td>"+
+			// 				"</tr>";
 			itemnum += 1;
 			//Print row
 			$(this).parent().parent().hide();
@@ -333,14 +349,16 @@
 			var ivaPercent     = $(this).closest('tr').find('td .IvaSubtotals').data('ivapercent');
 			var subtotalOutput = $(this).closest('tr').find('td .SubTotals');
 			var ivaOutput      = $(this).closest('tr').find('td .IvaSubtotals');
-
+			var totalOutput    = $(this).closest('tr').find('td .SubTotalsTax');
 			// Calculations
 			var newSubtotal    = parseFloat(newAmmount) * parseFloat(unitPrice);
 			var newIva         = (newSubtotal * parseFloat(ivaPercent) / 100);
+			var newTotal       = (newSubtotal+newIva);
 
 			// Set results
 			subtotalOutput.val(newSubtotal);
 			ivaOutput.val(newIva);
+			totalOutput.val(newTotal);
 			
 			// Recalculate totals
 			recalcTotals();
@@ -361,14 +379,16 @@
 			var ivaPercent     = $(this).closest('tr').find('td .IvaSubtotals').data('ivapercent');
 			var subtotalOutput = $(this).closest('tr').find('td .SubTotals');
 			var ivaOutput      = $(this).closest('tr').find('td .IvaSubtotals');
+			var totalOutput    = $(this).closest('tr').find('td .SubTotalsTax');
 
 			// Calculations
 			var newSubtotal    = parseFloat(ammount) * parseFloat(unitPrice);
 			var newIva         = (newSubtotal * parseFloat(ivaPercent) / 100);
-
+			var newTotal       = (newSubtotal+newIva);
 			// Set results
 			subtotalOutput.val(newSubtotal);
 			ivaOutput.val(newIva);
+			totalOutput.val(newTotal);
 			
 			// Recalculate totals
 			recalcTotals();
@@ -420,6 +440,8 @@
 		$('.SubTotals').each(function(){
 			subtots += parseFloat($(this).val());
 		});
+	
+	
 		var totals = ivas + subtots;
 		$('#Total').html('<b>$' + totals + '</b>');
 		$('#TotalInput').val(totals);
@@ -538,9 +560,6 @@
 
 	}
 
-
-	
-
 	/////////////////////////////////////////////////////////
 	//                    FILL FC                          //
 	/////////////////////////////////////////////////////////
@@ -551,6 +570,7 @@
 		var route = "{{ url('vadmin/get_client_data') }}/"+id+"";
 		
 		var razonsocial = '';
+		var tipoFc      = '';
 		var cuit        = '';
 		var tipocte     = '';
 		var tipocteid   = '';
@@ -558,22 +578,40 @@
 		var flete       = '';
 		var categIva    = '';
 
-
 		// Get Client Data
-		getClientData(route).done(function(data){
+		getClientData(route).done(function(data) {
 			
-			if (data.client != null){
+			if (data.client != null) {
 				var code        = id;
+				var tipoFc      = data.client['tipofc'];
+				var tipoFcCode  = data.client['tipofc_code'];
+				var categoria   = data.client['categoria'];
 				var razonSocial = data.client['razonsocial'];
 				var cuit        = data.client['cuit'];
 				var tipocte     = data.client['tipocte'];
 				var tipocteid   = data.client['tipo_id'];
 				var vendedor    = data.client['vendedor'];
 				var flete       = data.client['flete_id'];
-				var categIva    = data.client['categiva'];
 				var categIvaId  = data.client['categiva_id'];
 				var dirFiscal   = data.client['dirfiscal'];
 				
+				// console.log('Id de Cliente: ' + code);
+				// console.log('Tipo de Cliente: ' + tipocte);
+				// console.log('Tipo de Cte Id: ' + tipocteid);
+				// console.log('Razón Social: ' + razonSocial);
+				// console.log('Cuit: ' + cuit);
+				// console.log('Dir fiscal: ' + dirFiscal);
+				// console.log('Categoría: ' + categoria);
+				// console.log('Categ Iva Id: ' + categIvaId);
+				// console.log('Tipo de Fc: ' + tipoFc);
+				// console.log('Tipo Fc Id Afip: ' + tipoFcCode);
+				// console.log('Vendedor: ' + vendedor);
+				// console.log('Flete: ' + flete);
+
+
+				$('#TipoFcSelect').html(tipoFc);
+				$('#TipoFcCode').html(tipoFcCode);
+				$('#IvaCategory').html(categoria);
 				$('#RazonSocial').html(razonSocial);
 				$('#Cuit').html(cuit);
 				$('#TipoCte').html(tipocte);
@@ -581,14 +619,9 @@
 				$('#Vendedor').html(vendedor);
 				$('#Flete').html(flete);
 
-
 				// Data to FC 			
-				$('#ClientIdFC').val(id);
-				$('#RazonSocialFC').val(razonSocial);
-				$('#DirFiscalFc').val(dirFiscal);
-				$('#CuitFC').val(cuit);
-				$('#CategIvaFc').val(categIva);
-				$('#CategIvaIdFc').val(categIvaId);
+				$('#ClientIdFc').val(id);
+
 				
 			}
 
@@ -598,7 +631,6 @@
 		
 	});
 
-	
 
 	// Get All Pending order Items
 	function get_pending_orders(id){
@@ -628,49 +660,74 @@
 	$(document).on("click", '#MakeFcBtn', function(e){
 		e.preventDefault();
 
-		// ********** Recordar de validar cuando no hayan items cargados ********* //
-
-		//Validations
-		// Check if FC Type is selected
-		var fcType    = $('#TipoFcSelect option:selected').val();
-		// var fcContent = $('#FcItems option:selected').lenght;
-		// console.log(fcContent);
-		// if(fcContent){
-		// 	console.log('ok');
-			
+		// Validation (activate when finish testing)
+		var tbody = $("#FcItems");
+		// if (tbody.children().length == 0) {
+		// 	alert_error('Alto','No se han ingresado items');
 		// } else {
-		// 	alert_error('Alto','No se han ingresado items');
+		
+		var clientid = $('#ClientIdFc').val();
+
+		var formdata = $('#StoreFcForm').serialize();
+		var data     = {clientid: clientid, formdata: formdata };
+		var route    = "{{ url('vadmin/generate_json_fc') }}";
+		
+		$.ajax({
+			type: 'POST',
+			url: route,
+			data: formdata,
+			dataType: 'json',
+			success: function(data){
+				// console.log(data);
+				$('#FcPreview').html(data);
+				console.log(JSON.stringify(data))
+
+				// // If webservice connection succeded do store_fc();
+				// store_fc();
+			},
+			error: function(data){
+				$('#FcPreview').html(data.responseText);
+			}
+		});
+
+
+			
 		// }
-
-
-		if(fcType == 0){
-			alert_error('Alto','No se ha seleccionado tipo de factura');
-		} 
-		// else if(fcContent == 0) {
-		// 	alert_error('Alto','No se han ingresado items');
-		// }
-		 else {
-			var input = "<input name='markAsFcDone["+  +"]' type='' />";
-			var div   = $('#MarkAsFcDone');
-			
-			// Set pendingorders to done
-			$.each( ordersToDeletion, function( index, value ){
-				div.append("<input name='markAsFcDone["+ index +"]' value='"+ value +"' type='hidden' />");
-			});
-			
-			// var form        = $('#FcForm');
-			// var data = JSON.stringify( $(form).serializeArray() ); //  <-----------
-
-			// console.log( data );
-			// return false; //don't submit
-			// // console.log(form);
-			// console.log('Se deben borrar los items de pedidos ' + ordersToDeletion);
-			
-			$('#FcForm').submit();
-
-		}
-	
 
 	});
+
+
+	function store_fc(){
+
+		// DO THIS IF FC to AFIP RESULT IS TRUE
+		// --------------------------------------------//
+		// Set pendingorders to done
+		var div   = $('#MarkAsFcDone');
+		$.each( ordersToDeletion, function( index, value ){
+			div.append("<input name='markAsFcDone["+ index +"]' value='"+ value +"' type='hidden' />");
+		});
+		
+		// var jsondata = JSON.stringify( $(form).serializeArray() ); //  <----------- For Testing
+
+		// Data to Store FC
+		var formdata = $('#StoreFcForm').serialize();
+		var route  = "{{ url('vadmin/store_fc') }}";
+
+		// Save FC to DB (Not finished in php yet)
+		$.ajax({
+			type: 'get',
+			url: route,
+			data: formdata,
+			dataType: 'json',
+			success: function(data){
+				// console.log(data);
+				$('#FcPreview').html(data);
+			},
+			error: function(data){
+				$('#FcPreview').html(data.responseText);
+			}
+		});
+		// --------------------------------------------//
+	}
 
 </script>

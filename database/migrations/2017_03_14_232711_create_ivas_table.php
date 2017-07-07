@@ -15,6 +15,8 @@ class CreateIvasTable extends Migration
         Schema::create('ivas', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->integer('afipcode');
+            $table->string('tipofc');
             $table->timestamps();
         });
     }

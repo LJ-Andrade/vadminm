@@ -55,6 +55,7 @@
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="{{ route('facturas.create') }}"><i class="ion-printer"></i>Factura</a></li>
+							<li><a href="{{ route('pagos.create') }}"><i class="ion-document"></i>Recibo</a></li>
 							<li><a href="{{ route('productos.create') }}"><i class="ion-cube"></i>Producto</a></li>
 							<li><a href="{{ route('pedidos.create') }}"><i class="ion-paper-airplane"></i>Pedido</a></li>
 							<li><a href="{{ route('reparaciones.create') }}"><i class="ion-wrench"></i> Reparación</a></li>
@@ -64,7 +65,7 @@
 						</ul>
 					</li>
 					<li class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Listados
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Ver
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 						    <li><a href="{{ route('facturas.index') }}"><i class="ion-printer"></i>Facturas</a></li>
@@ -74,6 +75,8 @@
 							<li role="separator" class="divider"></li>
 							<li><a href="{{ route('clientes.index') }}"><i class="ion-ios-briefcase"></i> Clientes</a></li>
 							<li><a href="{{ route('proveedores.index') }}"><i class="ion-ios-people"></i> Proveedores</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="{{ url('vadmin/buscarcuenta') }}"><i class="ion-social-usd"></i> Cuentas Corrientes</a></li>
 							<li role="separator" class="divider"></li>
 							<li><a href="{{ route('listas.index') }}"><i class="ion-clipboard"></i> Listas de Precios</a></li>
 							<li><a href="{{ route('users.index') }}"><i class="ion-ios-people"></i> Usuarios</a></li>

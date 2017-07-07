@@ -117,6 +117,7 @@ class ClientesController extends Controller
 
     }
 
+
     public function get_client_data($id)
     {
 
@@ -127,10 +128,13 @@ class ClientesController extends Controller
        $client->flete_id    = $client->flete->name;
        $client->categiva    = $client->iva->name;
        $client->dirfiscal   = $client->dirfiscal;
+       $client->tipofc      = $client->iva->tipofc;
+       $client->tipofc_code = $client->iva->afipcode;
+       $client->categoria   = $client->iva->name;
        // ********** IMPORTANT This Id is given by webservice  ********** //
        $client->categiva_id = $client->iva_id;
        
-       // dd($client);
+    //    dd($client);
        return response()->json(['client' => $client]);
 
     }
@@ -168,7 +172,9 @@ class ClientesController extends Controller
             ->with('incomings', $incomings);
     }
     
-
+    public function buscarcuenta(){
+        return view('vadmin.clientes.buscarcuenta');
+    }
 
 
     //////////////////////////////////////////////////

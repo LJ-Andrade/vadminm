@@ -120,6 +120,28 @@ class ProductosController extends Controller
 
     }
 
+    public function get_product_stock($id)
+    {
+        $product = Producto::where('id', '=', $id)->first();
+        if($product == null)
+        {
+            return response()->json(['exist'    => 0,
+                                     'product'  => 'No existe',
+                                     'id'       => '0',
+                                     'stock'    => '0',
+                                     'stockmin' => '0',
+                                     'stockmax' => '0'
+                                    ]);
+        } else {                                     
+            return response()->json(['exist'    => 1,
+                                     'product'  => $product->nombre,
+                                     'id'       => $product->id,
+                                     'stock'    => $product->stockactual,
+                                     'stockmin' => $product->stockmin,
+                                     'stockmax' => $product->stockmax
+                                    ]);
+        }
+    }
 
 
     public function calculatePrice($id, $tipocte)
@@ -436,7 +458,8 @@ class ProductosController extends Controller
             $producto->save();
 
             return response()->json([
-                "response" => '1'
+                "response" => '1',
+                "newstock" => $producto->stockactual
             ]);
 
     }

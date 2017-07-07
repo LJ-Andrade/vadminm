@@ -74,89 +74,33 @@
 	{{-- //// FC BODY //// --}}
 	<div id="FcBody" class="big-form Hidden">
 		<div class="row inner-row">
-			<div class="col-md-6 col-xs-12 pull-right text-right">
+			<div class="col-md-3 col-xs-12 pull-right text-left">
 			<b>Fecha:</b> {{ date("d/m/y") }} <br>
 			<b>Factura:</b>
-			<select name="tipo_fc" id="TipoFcSelect"  class="big-select">
-				<option value="0" selected disabled></option>
-				<option value="20">A</option>
-				<option value="40">B</option>
-			</select>
+			<span id="TipoFcSelect"></span>
+			{{-- En caso que necesiten seleccionar tipo de fc a mano.
+				<select id="TipoFcSelect" name="tipo_fc" class="big-select">
+					<option value="0" selected disabled></option>
+					<option value="20">A</option>
+					<option value="40">B</option>
+				</select> 
+			--}}
 			</div>
-			<div class="col-md-6 col-xs-12">
-				<div><b>		Razón Social:</b> <span id="RazonSocial"></span></div>
-				<div><b>		CUIT:        </b> <span id="Cuit"></span></div>
-				<div><b>		Vendedor:    </b> <span id="Vendedor"></span></div>
-				<div><b>		Tipo:     </b> <span id="TipoCte"></span></div>
+			<div class="col-md-9 col-xs-12">
+				<div><b>Razón Social:</b> <span id="RazonSocial"></span></div>
+				<div><b>CUIT:</b> <span id="Cuit"></span></div>
+				<div><b><span id="IvaCategory"></span></b><br></div>
+				<div><b>Vendedor: </b> <span id="Vendedor"></span></div>
+				<div><b>Tipo: </b> <span id="TipoCte"></span></div>
 				<input id="TipoCteId" type="text" name="tipoctid" class="Hidden">
-				<div><b>		Flete:       </b> <span id="Flete"></span></div>
+				<div><b>Flete: </b> <span id="Flete"></span></div>
 			</div>
 		</div>
 		<hr>
 		<div class="inner-row">
 			<div id="SmallLoader"></div>
 			<div class="table-responsive">
-				{!! Form::open(['url' => 'vadmin/get_fc_data', 'method' => 'POST', 'id' => 'FcForm']) !!}
-					{{-- Sending data to FC --}}
-					<input id="ClientIdFC" name='clientid' type='hidden' />
-					<input id="RazonSocialFC" name='razonsocial' type='hidden' />
-					<input id="DirFiscalFc" name='dirfiscal' type='hidden' />
-					<input id="CuitFC" name='cuit' type='hidden' />
-					<input id="CategIvaFc" name='categiva' type='hidden' />
-					<input id="CategIvaIdFc" name='categivaid' type='hidden' />
-					<input id="TipoFcId" name='tipofcid' type='hidden' />
-					<input id="TipoFcName" name='tipofcname' type='hidden' />
-					<div id="MarkAsFcDone"></div>
-					
-					
-					<table class="table">
-						<thead>
-							<tr>
-								<th>Cod.</th>
-								<th>Detalle</th>
-								<th class="mw50">Cantidad</th>
-								<th class="mw100">P.Unit.</th>
-								<th class="mw50">Iva</th>
-								<th class="mw50">Subtotal</th>
-								<th></th>
-							</tr>
-						</thead>
-						{{-- Fc Items --}}
-					
-						<tbody id="FcItems">
-						</tbody>
-					
-						<tbody class="custom-table-body">
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td>Iva: </td> 
-								<td id="IvaSubTotal"></td>
-								<input id="IvaSubtotalInput" name='ivasubtotal' type='hidden'  />
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td>Subtotal: </td>
-								<td id="SubTotal"></td>
-								<input id="SubTotalInput" name='subtotal' type='hidden'  />
-							</tr>
-							<tr>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<input id="TotalInput" name='total' type='hidden'  />
-								<td>Total: </td>
-								<td id="Total"></td>
-							</tr>
-						</tbody>
-					</table>
-				{!! Form::close() !!}
+				@include('vadmin.facturas.fcform')
 			</div>
 
 			@component('vadmin.components.loaderRow')
@@ -175,7 +119,7 @@
 					</div>
 					<div class="col-md-6 text-right">
 						<button id="MakeFcBtn" type="button" class="btn button buttonOk"><i class="ion-share"></i> Facturar</button>
-						<button type="button" class="btn button grey-back"><i class="ion-ios-printer"></i> Imprimir</button>
+						{{-- <button type="button" class="btn button grey-back"><i class="ion-ios-printer"></i> Imprimir</button> --}}
 					</div>
 				</div>
 			</div>
@@ -183,6 +127,12 @@
 		<button id="ProductFinderBtn" class="btn btnSquareHoriz btnBlue" ><i class="ion-plus-round"></i> Agregar Item</button>
 		<button id="PendingOrdersBtn" class="btn btnSquareHoriz btnYellow" ><i class="ion-plus-round"></i> Pedidos Pendientes</button>
 	</div> {{-- / big-form FC BODY--}}
+
+	{{-- //// Product Finder //// --}}
+	<div id="FcPreview"></div>
+	{{-- //// -------------- //// --}}
+
+
 	{{-- //// Product Finder //// --}}
 	<div id="ProductFinder" class="wd-container Hidden">
 		<div class="CloseBtn closeButton"><i class="ion-close-round"></i></div>

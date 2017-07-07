@@ -63,19 +63,138 @@ class FacturasController extends Controller
         return redirect('vadmin/facturas');
     }   
 
+    public function store_fc(Request $request)
+    {
+        dd($request->all());
+    }
+
+    public function generate_json_fc(Request $request)
+    {
+
+        $client = Cliente::findOrFail($request->clientid);
+     
+        // Json To WebService
+
+        $fcdata  = array( 
+                    "color" => array (
+                        "red" => 41,
+                        "green" => 76,
+                        "blue" => 120
+                    ),
+                    "text" => array (
+                        "phone" => "TelÃ©fono:",
+                        "fax" => "Fax:",
+                        "document_id" => "CUIT:",
+                        "email" => "Email:",
+                        "customer" => "Cliente:",
+                        "invoice_num" => "Nro.:",
+                        "date" => "Fecha:",
+                        "customer_num" => "ID Cliente:",
+                        "page" => "PÃ¡gina",
+                        "of" => "de",
+                        "type" => "Tipo",
+                        "desc" => "DescripciÃ³n",
+                        "price" => "Precio",
+                        "quantity" => "Cant.",
+                        "sum_price" => "Monto",
+                        "sum_tax" => "IVA (21%)",
+                        "pro_total" => "Total",
+                        "sub_total" => "Subtotal",
+                        "tax_rate" => "IVA %",
+                        "shipping" => "EnvÃ­o",
+                        "total" => "Total",
+                        "continued" => "Continua en pag ",
+                        "simbol_left" => "  $    ",
+                        "simbol_right" => ""
+                    ),
+                    "description_left" => "",
+                    "customer_data" => array (
+                        "num" => $client->id,
+                        "name" => $client->razonsocial,
+                        "address" => $client->dirfiscal,
+                        "postal_code" => $client->codpostal,
+                        "city" => $client->provincia->name,
+                        "country" => "Argentina",
+                        "ident" => $client->cuit,
+                        "doc_type" => 80
+                    ),
+                    "company_data" => array (
+                        "name" => "Mataderos Distribuciones",
+                        "address" => "Remedios 5644",
+                        "postal_code" => "1407",
+                        "city" => "Buenos Aires",
+                        "phone" => "+54(11)-4635-8248",
+                        "fax" => "601*1656",
+                        "ident" => "11-11111111-1",
+                        "email" => "distribuidoramataderos@yahoo.com.ar",
+                        "web" => "http:\/\/mataderosdistribuciones.com"
+                    ),
+                    "tipo_comp" => 1,
+                    "pto_vta" => 140,
+                    "invoice_num" => "0140-00000625",
+                    "tax" => 20,
+                    "date" => $request->date,
+                    "products" => $request->items,
+                    // "products2" => array (
+                    //     array(
+                    //     "type" => "P",
+                    //     "code" => "AM233-MP",
+                    //     "description" => "Motherboard Msi S1151 Z270 Gaming Pro",
+                    //     "price" => 3600.00,
+                    //     "quantity" => 1,
+                    //     "sum_price" => 3600.00,
+                    //     "sum_tax" => 756.00,
+                    //     "discount" => 0,
+                    //     "total" => 4356.00
+                    //     ),
+                    //     array(
+                    //     "type" => "P",
+                    //     "code" => "PG2001-SG",
+                    //     "description" => "Parlantes Pc Gamer Genius Gx Sw-g",
+                    //     "price" => 2200.00,
+                    //     "quantity" => 1,
+                    //     "sum_price" => 2200.00,
+                    //     "sum_tax" => 462.00,
+                    //     "discount" => 0,
+                    //     "total" => 2662.00
+                    //     )
+                    // ),
+                    "base" => array(
+                        "subtotal" => $request->subtotal,
+                        "sum_tax" => $request->ivasubtotal,
+                        "discount" => 0,
+                        "total" => $request->total
+                    )
+                );
+                    
+        
+        // $output = json_encode($fcdata);
+        // dd($request->all());
+        dd($fcdata);    
+        return $output;
+
+    }
+
+
     public function get_fc_data(Request $request)
     {
         
         // Set Pending Orders to Done
         // They´re going to keep appearing in orders but not in FC
-        $ordersFcDone = $request->markAsFcDone;
-        foreach ($ordersFcDone as $orderid){
-            
-            $pedidoItem = Pedidositem::findOrFail($orderid);
-            $pedidoItem->facturado = 1;
-            $pedidoItem->save();
 
-        }
+        // if(!$request->markAsFcDone == null) {
+        //     $ordersFcDone = $request->markAsFcDone;
+            
+        //     foreach ($ordersFcDone as $orderid){
+                
+        //         $pedidoItem = Pedidositem::findOrFail($orderid);
+        //         $pedidoItem->facturado = 1;
+        //         $pedidoItem->save();
+
+        //     }
+        // }
+
+       
 
         $cuit = $request->cuit;
      
@@ -97,9 +216,9 @@ class FacturasController extends Controller
         // Si sale todo bien
         $fc->estado  = '1';
 
+         dd($fc);
         $fc->save();
 
-        // dd($fc);
         return redirect('vadmin/facturas');
     }
 
@@ -121,25 +240,6 @@ class FacturasController extends Controller
     }
 
 
-    // ********* Obsolete ? ************* //
-    public function prepare_fc(Request $request)
-    {
-
-        $cliente = Cliente::where('id', '=', $request->clienteid)->first();
-        $items   = $request->items;
-
-        // Cambiar en pedidositems el id de pedido_id y ponerselo a factura_id
-
-        $fc      = new Factura();
-        $fc->cliente_id   = $request->clienteid;
-        $fc->centroemisor = 'CentroTest';
-        $fc->save();
-        
-        return response()->json([
-            "id"    => $fc->id,
-        ]);
-
-    }
 
 
     //////////////////////////////////////////////////
@@ -191,24 +291,24 @@ class FacturasController extends Controller
     //////////////////////////////////////////////////
 
     // ---------- Delete -------------- //
-    public function destroy($id)
-    {
-        $item = Factura::find($id);
-        $item->delete();
-        echo 1;
-    }
+    // public function destroy($id)
+    // {
+    //     $item = Factura::find($id);
+    //     $item->delete();
+    //     echo 1;
+    // }
 
 
-    // ---------- Ajax Bach Delete -------------- //
-    public function ajax_batch_delete(Request $request, $id)
-    {
-        foreach ($request->id as $id) {
+    // // ---------- Ajax Bach Delete -------------- //
+    // public function ajax_batch_delete(Request $request, $id)
+    // {
+    //     foreach ($request->id as $id) {
         
-            $item  = Factura::find($id);
-            Factura::destroy($id);
-        }
-        echo 1;
-    }
+    //         $item  = Factura::find($id);
+    //         Factura::destroy($id);
+    //     }
+    //     echo 1;
+    // }
 
 
 }

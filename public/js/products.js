@@ -81,9 +81,9 @@ function updateProduct(route, id, value, success){
     });
 }
 
-function sumStock(route, id, value){
+function sumStock(route, id, value, action){
     var data = {route: route, id: id, value: value};
-
+    var output = '';
     $.ajax({
         url: route,
         type: 'post',
@@ -94,7 +94,7 @@ function sumStock(route, id, value){
         },
         success: function(data){
             $('#UpdateStockBtn').html('Actualizar');
-            location.reload();
+            // location.reload();
         },
         error: function(data){
             console.log(data);

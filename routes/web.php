@@ -81,7 +81,7 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 
 	// ------------------- Cuenta Corriente Clientes --------------------- //
 	Route::get('clientes/cuenta/{id}', 'ClientesController@account');
-
+	Route::get('buscarcuenta', 'ClientesController@buscarcuenta');
 
 	// ------ Provincias ------- //
 	Route::resource('provincias', 'Provincias\ProvinciasController');
@@ -169,6 +169,7 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	
 	Route::get('ajax_autocomplete/{query?}', 'Productos\ProductosController@ajax_autocomplete');
 	Route::post('get_product_and_price/{id}', 'Productos\ProductosController@get_product_and_price');
+	Route::get('get_product_stock/{id}', 'Productos\ProductosController@get_product_stock');
 
 	
 	Route::post('get_product_data/{id}', 'Productos\ProductosController@get_product_data');
@@ -218,7 +219,10 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::resource('facturas', 'FacturasController');
 	Route::get('get_pending_orders/{id?}', 'FacturasController@get_pending_orders');
 	Route::post('get_fc_data', 'FacturasController@get_fc_data');
-
+	Route::get('store_fc', 'FacturasController@store_fc');
+	Route::post('generate_json_fc', 'FacturasController@generate_json_fc');
+	
+	
 	// Route::get('ajax_get_pedidos/{id}', 'PedidosController@ajax_get_pedidos');
 
 	// Developer Map
@@ -230,6 +234,9 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 });
 
 
-Route::get('/autocomplete', array('as' => 'autocomplete', 'uses'=>'Productos\ProductosController@product_autocomplete')); //Instead of Theme your Controller name
+Route::get('/autocomplete', array('as' => 'autocomplete', 'uses'=>'Productos\ProductosController@product_autocomplete')); 
 
-Route::get('/client_autocomplete', array('as' => 'client_autocomplete', 'uses'=>'ClientesController@client_autocomplete')); //Instead of Theme your Controller name
+Route::get('/client_autocomplete', array('as' => 'client_autocomplete', 'uses'=>'ClientesController@client_autocomplete')); 
+Route::resource('vadmin/pagos', 'PagosController');
+Route::resource('vadmin/cheques', 'ChequesController');
+Route::resource('vadmin/retenciones', 'RetencionesController');
