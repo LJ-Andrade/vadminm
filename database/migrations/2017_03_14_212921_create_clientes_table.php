@@ -17,7 +17,7 @@ class CreateClientesTable extends Migration
             $table->string('razonsocial');
             $table->string('cuit');
             $table->string('dirfiscal');
-            $table->integer('codpostal');
+            $table->string('codpostal');
             $table->string('telefono');
             $table->string('celular');
             $table->string('email');

@@ -1,7 +1,23 @@
-{!! Form::open(['url' => 'vadmin/get_fc_data', 'method' => 'POST', 'id' => 'StoreFcForm']) !!}
-    {{-- Sending data to FC --}}
-    <input class="Hidden" id="ClientIdFc" name='clientid' type='' />
-    <input class="Hidden" name='date' type='' value='{{ date("y-m-d") }}' />
+{!! Form::open(['url' => 'vadmin/generate_fc', 'method' => 'POST', 'id' => 'FcForm']) !!}
+    {{-- Data Required by Webservice 
+
+    pto_vta                        // Punto de Vta
+    invoice_num                    // (?) Numero de factura?
+    tax                            //
+    doc_type  (#DocTypeFc)         // (?)
+    tipo_comp (#TipoCompFc)        // Factura - Nota de Crédito - Nota de Débito
+    
+    //// COLLECT DATA TO FC //// --}}
+    
+    {{--Id de Cliente --}}
+    <input id="ClientIdFc" class="" name='clientid' type='text'  /> <br>
+    {{-- Fecha --}}
+    <input class="" name='date' type='text' value='{{ date("Y-m-d") }}' />
+    {{-- Categoría de Iva --}}
+    <input id="DocTypeFc" class="" name='doc_type' type='text' />
+    {{-- Tipo de Documento(Factura) --}}
+    <input id="TipoCompFc" class="" name='tipo_comp' type='text' />
+
     <div id="MarkAsFcDone"></div>
     
     <table class="table">
@@ -52,4 +68,5 @@
             </tr>
         </tbody>
     </table>
+    <button id="MakeFcBtn" type="submit" class="btn button buttonOk pull-right"><i class="ion-share"></i> Facturar</button>
 {!! Form::close() !!}

@@ -128,22 +128,6 @@
 		}
 	}
 
-	/////////////////////////////////////////////////
-	//                  FC Type                    //
-	/////////////////////////////////////////////////	
-
-
-	
-	// $("#TipoFcSelect").on( "change", function(e) {
-	// 	var tipofcid = $("#TipoFcSelect option:selected").val();
-	// 	var namefc   = $("#TipoFcSelect option:selected").html();
-		
-	// 	// To Fc
-	// 	$('#TipoFcId').val(tipofcid);
-	// 	$('#TipoFcName').val(namefc);
-	
-	// });	
-
 
 	/////////////////////////////////////////////////
 	//              PRODUCT Finder                 //
@@ -226,9 +210,8 @@
 
 	// Add a mew item (product) to FC
 	$('#AddItemtBtn').click(function(){
-
+		// To prevent max 17 items fill
 		var itemsCount = countItems();
-		console.log(itemsCount);
 		if (itemsCount <= 5 ) {
 
 			var description = $('#PfNameInput').val();
@@ -253,15 +236,15 @@
 				// Make Row
 				
 				var result = "<tr id='ItemId"+itemnum+"' class='fcItemRow'>"+
-								"<td style='display:none'><input name='items["+itemnum+"][type]'  type='text'   value='?' class='ro mw100' readonly /></td>"+
-								"<td><input name='items["+itemnum+"][code]'                type='number' value='"+ code +"' class='ro mw100' readonly /></td>"+
-								"<td><input name='items["+itemnum+"][description]'         type='text'   value='"+ description +"' class='ro' readonly /></td>"+
-								"<td><input name='items["+itemnum+"][price]'               type='number' value='"+ parseFloat(price) +"' class='mw100 UnitPrice' /></td>"+							
-								"<td><input name='items["+itemnum+"][quantity]'            type='number' value='"+ parseFloat(quantity) +"' class='mw50 AmmountCorrection' /></td>"+
-								"<td><input name='items["+itemnum+"][sum_price]'           type='number' value='"+ parseFloat(subtotalItem) +"' class='ro mw100 SubTotals' readonly /></td>"+
-								"<td class='Hid'><input name='items["+itemnum+"][sum_tax]' type='number' value='"+ parseFloat(itemIva) +"' data-ivapercent='" + parseFloat(iva) + "' class='ro ItemIva IvaSubtotals' readonly />(" + parseFloat(iva) + "%)</td>"+
-								"<td class='Hidden'><input name='items["+itemnum+"][discount]' type='number' value='0' /></td>"+
-								"<td><input name='items["+itemnum+"][total]'           type='number' value='"+ (parseFloat(subtotalItem) + parseFloat(itemIva)) +"' class='ro mw100 SubTotalsTax' readonly /></td>"+
+								"<td style='display:none'><input name='items["+itemnum+"][type]' type='text'   value='?' class='ro mw100' readonly /></td>"+
+								"<td><input name='items["+itemnum+"][code]'                      type='number' value='"+ code +"' class='ro mw100' readonly /></td>"+
+								"<td><input name='items["+itemnum+"][description]'               type='text'   value='"+ description +"' class='ro' readonly /></td>"+
+								"<td><input name='items["+itemnum+"][price]'                     type='number' value='"+ parseFloat(price) +"' class='mw100 UnitPrice' /></td>"+							
+								"<td><input name='items["+itemnum+"][quantity]'                  type='number' value='"+ parseInt(quantity) +"' step='1' class='mw50 AmmountCorrection' /></td>"+
+								"<td><input name='items["+itemnum+"][sum_price]'                 type='number' value='"+ parseFloat(subtotalItem) +"' class='ro mw100 SubTotals' readonly /></td>"+
+								"<td class='Hid'><input name='items["+itemnum+"][sum_tax]'       type='number' value='"+ parseFloat(itemIva) +"' class='ro ItemIva IvaSubtotals' data-ivapercent='" + parseFloat(iva) + "'  readonly />(" + parseFloat(iva) + "%)</td>"+
+								"<td class='Hidden'><input name='items["+itemnum+"][discount]'   type='number' value='0' /></td>"+
+								"<td><input name='items["+itemnum+"][total]'                     type='number' value='"+ (parseFloat(subtotalItem) + parseFloat(itemIva)) +"' class='ro mw100 SubTotalsTax' readonly /></td>"+
 								"<td class='DeleteRow deleteRow'><i class='ion-minus-circled'></i></td>"+
 							"</tr>";
 				itemnum += 1;
@@ -284,7 +267,6 @@
 
 	$(document).on("click", '.PendigOrderBtn', function(e){
 		var itemsCount = countItems();
-		console.log(itemsCount);
 		if (itemsCount <= 5 ) {
 
 			var orderid      = $(this).data('orderid');
@@ -298,15 +280,15 @@
 			var itemIva      = parseFloat(subtotalItem) * parseFloat(iva) / 100;
 
 			var result = "<tr id='ItemId"+itemnum+"' class='fcItemRow fcItemRowPending'>"+
-								"<td style='display:none'><input name='items["+itemnum+"][type]'  type='text'   value='?' class='ro mw100' readonly /></td>"+
-								"<td><input name='items["+itemnum+"][code]'                type='number' value='"+ code +"' class='ro mw100' readonly /></td>"+
-								"<td><input name='items["+itemnum+"][description]'         type='text'   value='"+ description +"' class='ro' readonly /></td>"+
-								"<td><input name='items["+itemnum+"][price]'               type='number' value='"+ parseFloat(price) +"' class='mw100 UnitPrice' /></td>"+							
-								"<td><input name='items["+itemnum+"][quantity]'            type='number' value='"+ parseFloat(quantity) +"' class='mw50 AmmountCorrection' /></td>"+
-								"<td><input name='items["+itemnum+"][sum_price]'           type='number' value='"+ parseFloat(subtotalItem) +"' class='ro mw100 SubTotals' readonly /></td>"+
-								"<td class='Hid'><input name='items["+itemnum+"][sum_tax]' type='number' value='"+ parseFloat(itemIva) +"' data-ivapercent='" + parseFloat(iva) + "' class='ro ItemIva IvaSubtotals' readonly />(" + parseFloat(iva) + "%)</td>"+
-								"<td class='Hidden'><input name='items["+itemnum+"][discount]' type='number' value='0' /></td>"+
-								"<td><input name='items["+itemnum+"][total]'           type='number' value='"+ (parseFloat(subtotalItem) + parseFloat(itemIva)) +"' class='ro mw100 SubTotalsTax' readonly /></td>"+
+								"<td style='display:none'><input name='items["+itemnum+"][type]' type='text'   value='?'                                  class='ro mw100' readonly /></td>"+
+								"<td><input name='items["+itemnum+"][code]'                      type='number' value='"+ code +"'                         class='ro mw100' readonly /></td>"+
+								"<td><input name='items["+itemnum+"][description]'               type='text'   value='"+ description +"'                  class='ro' readonly /></td>"+
+								"<td><input name='items["+itemnum+"][price]'                     type='number' value='"+ parseFloat(price) +"'            class='mw100 UnitPrice' /></td>"+							
+								"<td><input name='items["+itemnum+"][quantity]'                  type='number' value='"+ parseInt(quantity) +"'  step='1' class='mw50 AmmountCorrection' /></td>"+
+								"<td><input name='items["+itemnum+"][sum_price]'                 type='number' value='"+ parseFloat(subtotalItem) +"'     class='ro mw100 SubTotals' readonly /></td>"+
+								"<td class='Hid'><input name='items["+itemnum+"][sum_tax]'       type='number' value='"+ parseFloat(itemIva) +"'          class='ro ItemIva IvaSubtotals' data-ivapercent='" + parseFloat(iva) + "'  readonly />(" + parseFloat(iva) + "%)</td>"+
+								"<td class='Hidden'><input name='items["+itemnum+"][discount]'   type='number' value='0' /></td>"+
+								"<td><input name='items["+itemnum+"][total]'                     type='number' value='"+ (parseFloat(subtotalItem) + parseFloat(itemIva)) +"' class='ro mw100 SubTotalsTax' readonly /></td>"+
 								"<td class='DeleteRow deleteRow' data-id="+ code +" data-orderid="+ orderid +"><i class='ion-minus-circled'></i></td>"+
 							"</tr>";
 
@@ -328,7 +310,7 @@
 			ordersToDeletion.push(orderid);
 
 			recalcTotals();
-			console.log(ordersToDeletion);
+			console.log('Pedidos a eliminar ' + ordersToDeletion);
 
 			// Show ammount of added items to FC
 			countItems();
@@ -389,10 +371,8 @@
 			subtotalOutput.val(newSubtotal);
 			ivaOutput.val(newIva);
 			totalOutput.val(newTotal);
-			
 			// Recalculate totals
 			recalcTotals();
-		
 		}
 
 	});
@@ -418,7 +398,6 @@
 		console.log(ordersToDeletion);
 		// Calc subtot again
 		recalcTotals();
-
 		countItems();
 	});
 
@@ -440,7 +419,6 @@
 		$('.SubTotals').each(function(){
 			subtots += parseFloat($(this).val());
 		});
-	
 	
 		var totals = ivas + subtots;
 		$('#Total').html('<b>$' + totals + '</b>');
@@ -568,15 +546,6 @@
 		e.preventDefault();
 		var id    = $('#ClienteIdOutput').val();
 		var route = "{{ url('vadmin/get_client_data') }}/"+id+"";
-		
-		var razonsocial = '';
-		var tipoFc      = '';
-		var cuit        = '';
-		var tipocte     = '';
-		var tipocteid   = '';
-		var vendedor    = '';
-		var flete       = '';
-		var categIva    = '';
 
 		// Get Client Data
 		getClientData(route).done(function(data) {
@@ -621,8 +590,6 @@
 
 				// Data to FC 			
 				$('#ClientIdFc').val(id);
-
-				
 			}
 
 		});
@@ -660,71 +627,110 @@
 	$(document).on("click", '#MakeFcBtn', function(e){
 		e.preventDefault();
 
-		// Validation (activate when finish testing)
+		// Validation (Prevents empty FC content)
 		var tbody = $("#FcItems");
-		// if (tbody.children().length == 0) {
-		// 	alert_error('Alto','No se han ingresado items');
-		// } else {
-		
-		var clientid = $('#ClientIdFc').val();
+		if (tbody.children().length == 0) {
+			alert_error('Alto','No se han ingresado items');
+		} else {
 
-		var formdata = $('#StoreFcForm').serialize();
-		var data     = {clientid: clientid, formdata: formdata };
-		var route    = "{{ url('vadmin/generate_json_fc') }}";
-		
+		var formdata = $('#FcForm').serialize();
+		var data     = { formdata: formdata };
+		var route    = "{{ url('vadmin/generate_fc') }}";
+		var message  = $('#FcMessage');
 		$.ajax({
 			type: 'POST',
 			url: route,
 			data: formdata,
 			dataType: 'json',
+			beforeSend(){
+				$('#MakeFcBtn').html('Conectando...');
+			},
 			success: function(data){
-				// console.log(data);
-				$('#FcPreview').html(data);
-				console.log(JSON.stringify(data))
-
-				// // If webservice connection succeded do store_fc();
-				// store_fc();
+				// Send Data to Webservice
+				wsfeConnect(data);
 			},
 			error: function(data){
-				$('#FcPreview').html(data.responseText);
+				message.removeClass('Hidden');
+				message.html(data.responseText);
+				console.log(data);
+			},
+			complete: function(data){
+				$('#MakeFcBtn').html('Facturar');
 			}
 		});
 
-
-			
-		// }
-
+		}
 	});
 
+	function wsfeConnect(fcdata){
+		
+		var cae = "67283492528894";
+		var nro = 2082;
+		var vto = "20170725";
+		store_fc(cae, nro, vto);
+		// var data    = fcdata;
+		// var route   = "{{ url('Feafip/wsfe-client.php') }}";
+		// var message = $('#FcMessage');
+		// $.ajax({
+		// 	type: 'POST',
+		// 	url: route,
+		// 	data: { fcdata: data } ,
+		// 	dataType: 'json',
+		// 	success: function(data){
+		// 		console.log(data);
+		// 		if(data.sucess == true){
+		// 			message.removeClass('Hidden');
+		// 			message.html(data);
+		// 			var pdf =  "{{ url('public/Feafip/facturas') }}/fc-"+data.nroFull+".pdf";
+		// 			window.open(pdf,'_blank');
+		// 			// If webservice connection succeded store fc
+		// 			store_fc();
+		// 		} else {
+		// 			message.removeClass('Hidden');
+		// 			message.html(data.responseText);
+		// 		}
+		// 		$('#MakeFcBtn').html('Facturado !');
+		// 	},
+		// 	error: function(data){
+		// 		console.log('ERROR !');
+		// 		console.log(data);
+		// 		message.removeClass('Hidden');
+		// 		message.html(data.responseText);
+		// 	}
+		// });
+	}
 
-	function store_fc(){
-
+	// Not working yet
+	function store_fc(cae, nro, vto){
 		// DO THIS IF FC to AFIP RESULT IS TRUE
 		// --------------------------------------------//
+		// Data to Store FC
+		var fcdata  = $('#FcForm').serialize() + '&cae=' + cae + '&nro=' + nro + '&vto=' + vto;
+		var route   = "{{ url('vadmin/store_fc') }}";
+		var div     = $('#MarkAsFcDone');
+		var message = $('#FcMessage');
+		// var fcdata   = {data: formdata, cae: cae, nro: nro, vto: vto};
+		
 		// Set pendingorders to done
-		var div   = $('#MarkAsFcDone');
 		$.each( ordersToDeletion, function( index, value ){
 			div.append("<input name='markAsFcDone["+ index +"]' value='"+ value +"' type='hidden' />");
 		});
-		
-		// var jsondata = JSON.stringify( $(form).serializeArray() ); //  <----------- For Testing
-
-		// Data to Store FC
-		var formdata = $('#StoreFcForm').serialize();
-		var route  = "{{ url('vadmin/store_fc') }}";
 
 		// Save FC to DB (Not finished in php yet)
 		$.ajax({
-			type: 'get',
+			type: 'GET',
 			url: route,
-			data: formdata,
-			dataType: 'json',
-			success: function(data){
-				// console.log(data);
-				$('#FcPreview').html(data);
+			dataType: 'JSON',
+			data: fcdata,
+			beforeSend: function(){
+			},
+			success: function(data){ 
+				console.log(data);
+				message.html(data);
 			},
 			error: function(data){
-				$('#FcPreview').html(data.responseText);
+				message.removeClass('Hidden');
+				message.html(data.responseText);
 			}
 		});
 		// --------------------------------------------//

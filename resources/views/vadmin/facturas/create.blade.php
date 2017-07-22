@@ -78,22 +78,18 @@
 			<b>Fecha:</b> {{ date("d/m/y") }} <br>
 			<b>Factura:</b>
 			<span id="TipoFcSelect"></span>
-			{{-- En caso que necesiten seleccionar tipo de fc a mano.
-				<select id="TipoFcSelect" name="tipo_fc" class="big-select">
-					<option value="0" selected disabled></option>
-					<option value="20">A</option>
-					<option value="40">B</option>
-				</select> 
-			--}}
+
 			</div>
 			<div class="col-md-9 col-xs-12">
-				<div><b>Razón Social:</b> <span id="RazonSocial"></span></div>
-				<div><b>CUIT:</b> <span id="Cuit"></span></div>
+				<div id="ClientDataDisplay"></div>
+
+				{{-- <div><b>Razón Social:</b> <span id="RazonSocial"></span></div>
+				<div><b>CUIT: </b>        <span id="Cuit"></span></div>
 				<div><b><span id="IvaCategory"></span></b><br></div>
-				<div><b>Vendedor: </b> <span id="Vendedor"></span></div>
-				<div><b>Tipo: </b> <span id="TipoCte"></span></div>
+				<div><b>Vendedor: </b>    <span id="Vendedor"></span></div>
+				<div><b>Tipo: </b>        <span id="TipoCte"></span></div>
 				<input id="TipoCteId" type="text" name="tipoctid" class="Hidden">
-				<div><b>Flete: </b> <span id="Flete"></span></div>
+				<div><b>Flete: </b>       <span id="Flete"></span></div> --}}
 			</div>
 		</div>
 		<hr>
@@ -118,7 +114,7 @@
 						
 					</div>
 					<div class="col-md-6 text-right">
-						<button id="MakeFcBtn" type="button" class="btn button buttonOk"><i class="ion-share"></i> Facturar</button>
+						{{-- <button id="MakeFcBtn" type="button" class="btn button buttonOk"><i class="ion-share"></i> Facturar</button> --}}
 						{{-- <button type="button" class="btn button grey-back"><i class="ion-ios-printer"></i> Imprimir</button> --}}
 					</div>
 				</div>
@@ -128,11 +124,7 @@
 		<button id="PendingOrdersBtn" class="btn btnSquareHoriz btnYellow" ><i class="ion-plus-round"></i> Pedidos Pendientes</button>
 	</div> {{-- / big-form FC BODY--}}
 
-	{{-- //// Product Finder //// --}}
-	<div id="FcPreview"></div>
-	{{-- //// -------------- //// --}}
-
-
+	
 	{{-- //// Product Finder //// --}}
 	<div id="ProductFinder" class="wd-container Hidden">
 		<div class="CloseBtn closeButton"><i class="ion-close-round"></i></div>
@@ -190,7 +182,9 @@
 
 
 	</div> {{-- /wd-container Pedidos --}}
-
+	{{-- //// -------------- //// --}}
+	<div id="FcMessage" class="wd-container Hidden"></div>
+	{{-- //// -------------- //// --}}
 </div>  
 @endsection
 

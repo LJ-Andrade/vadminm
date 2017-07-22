@@ -37,6 +37,7 @@
                         <div class="col-xs-6 col-sm-1 col-md-1 inner">
                         	<span><b>N°: {{ $item->id }}  </b></span>
                         </div>
+						
                         {{-- Column --}}
                         <div class="col-xs-6 col-sm-4 col-md-4 inner-tags">
 							Cliente: {{ $item->cliente->razonsocial }}

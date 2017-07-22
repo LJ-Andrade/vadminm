@@ -10,6 +10,8 @@ use App\Cliente;
 use App\Pedidositem;
 use Illuminate\Http\Request;
 use Session;
+// use GuzzleHttp\Exception\GuzzleException;
+// use GuzzleHttp\Client;
 
 class FacturasController extends Controller
 {
@@ -44,7 +46,6 @@ class FacturasController extends Controller
         return view('vadmin.facturas.create')->with('clientes', $clientes);
     }
 
-
     public function store(Request $request)
     {
         $this->validate($request,[
@@ -63,19 +64,41 @@ class FacturasController extends Controller
         return redirect('vadmin/facturas');
     }   
 
-    public function store_fc(Request $request)
+    public function get_pending_orders($id)
     {
-        dd($request->all());
+        $pedidositems = Pedidositem::where('cliente_id', '=', $id)->where('facturado', '=', 0)->get();
+        return view('vadmin/facturas/pedidoslist')->with('pedidositems', $pedidositems);   
+        
     }
 
-    public function generate_json_fc(Request $request)
+
+    public function generate_fc(Request $request)
     {
+        $client   = Cliente::findOrFail($request->clientid);
+        
+        // Generate $products Array;
+        if (!($request->items == null)){
+            $products = array();    
+            foreach ($request->items as $item){
 
-        $client = Cliente::findOrFail($request->clientid);
-     
+                $products[] = array( 
+                                "type"        => "P",
+                                "code"        => $item['code'],
+                                "description" => $item['description'],
+                                "price"       => floatval($item['price']),
+                                "quantity"    => intval($item['quantity']),
+                                "sum_price"   => floatval($item['sum_price']),
+                                "sum_tax"     => floatval($item['sum_tax']),
+                                "discount"    => floatval($item['discount']),
+                                "total"       => floatval($item['total']),
+                                );
+            }
+        } else {
+            $products = null;
+        }
+
         // Json To WebService
-
-        $fcdata  = array( 
+        $fcmodel  = array( 
                     "color" => array (
                         "red" => 41,
                         "green" => 76,
@@ -109,7 +132,7 @@ class FacturasController extends Controller
                     ),
                     "description_left" => "",
                     "customer_data" => array (
-                        "num" => $client->id,
+                        "num" => strval($client->id),
                         "name" => $client->razonsocial,
                         "address" => $client->dirfiscal,
                         "postal_code" => $client->codpostal,
@@ -119,63 +142,62 @@ class FacturasController extends Controller
                         "doc_type" => 80
                     ),
                     "company_data" => array (
-                        "name" => "Mataderos Distribuciones",
-                        "address" => "Remedios 5644",
-                        "postal_code" => "1407",
-                        "city" => "Buenos Aires",
-                        "phone" => "+54(11)-4635-8248",
-                        "fax" => "601*1656",
-                        "ident" => "11-11111111-1",
-                        "email" => "distribuidoramataderos@yahoo.com.ar",
-                        "web" => "http:\/\/mataderosdistribuciones.com"
+                        "name" => "Bit Ingeniería",
+                        "address" =>  "Italia 945",
+                        "postal_code" =>  "1708",
+                        "city" => "Castelar",
+                        "phone" => "+54(11)-20923168",
+                        "fax" => "011-1569375707",
+                        "ident" => "20-93980259-3",
+                        "email" => "contacto@bitingenieria.com.ar",
+                        "web" => "http:\/\/www.bitingenieria.com.ar"
                     ),
                     "tipo_comp" => 1,
                     "pto_vta" => 140,
                     "invoice_num" => "0140-00000625",
                     "tax" => 20,
                     "date" => $request->date,
-                    "products" => $request->items,
-                    // "products2" => array (
-                    //     array(
-                    //     "type" => "P",
-                    //     "code" => "AM233-MP",
-                    //     "description" => "Motherboard Msi S1151 Z270 Gaming Pro",
-                    //     "price" => 3600.00,
-                    //     "quantity" => 1,
-                    //     "sum_price" => 3600.00,
-                    //     "sum_tax" => 756.00,
-                    //     "discount" => 0,
-                    //     "total" => 4356.00
-                    //     ),
-                    //     array(
-                    //     "type" => "P",
-                    //     "code" => "PG2001-SG",
-                    //     "description" => "Parlantes Pc Gamer Genius Gx Sw-g",
-                    //     "price" => 2200.00,
-                    //     "quantity" => 1,
-                    //     "sum_price" => 2200.00,
-                    //     "sum_tax" => 462.00,
-                    //     "discount" => 0,
-                    //     "total" => 2662.00
-                    //     )
-                    // ),
+                    "products" => $products,
                     "base" => array(
-                        "subtotal" => $request->subtotal,
-                        "sum_tax" => $request->ivasubtotal,
-                        "discount" => 0,
-                        "total" => $request->total
+                        "subtotal" => floatval($request->subtotal),
+                        "sum_tax" => floatval($request->ivasubtotal),
+                        "discount" => floatval(0),
+                        "total" => floatval($request->total)
                     )
                 );
-                    
+            // dd($fcmodel);
+            return response()->json($fcmodel); 
+    }
+
+    public function store_fc(Request $request)
+    {
         
-        // $output = json_encode($fcdata);
-        // dd($request->all());
-        dd($fcdata);    
-        return $output;
+        $client = Cliente::findOrFail($request->clientid);
+        $fc     = new Factura();
+
+        $fc->numero        = $request->nro;
+        $fc->cae           = $request->cae;
+        $fc->vto           = $request->vto;
+        $fc->pto_vta       = 140;
+        $fc->tipo_fc       = $request->tipofcname;
+        $fc->direntrega_id = '2';
+        $fc->iva           = $request->ivasubtotal;
+        $fc->subtotal      = $request->subtotal;
+        $fc->total         = $request->total;
+        $fc->flete_id      = '2';
+        $fc->vendedor_id   = '2';
+        $fc->cliente_id    = $request->clientid;
+        // Si sale todo bien
+        $fc->estado  = '1';
+
+         dd($fc);
+        $fc->save();
+
 
     }
 
 
+    // Almost obsolete
     public function get_fc_data(Request $request)
     {
         
@@ -226,12 +248,6 @@ class FacturasController extends Controller
     //                  SHOW                        //
     //////////////////////////////////////////////////
 
-    public function get_pending_orders($id)
-    {
-        $pedidositems = Pedidositem::where('cliente_id', '=', $id)->where('facturado', '=', 0)->get();
-        return view('vadmin/facturas/pedidoslist')->with('pedidositems', $pedidositems);   
-        
-    }
 
         
     public function ajax_list(Request $request)

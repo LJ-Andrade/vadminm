@@ -23,61 +23,59 @@
 
 {{-- CONTENT --}}
 @section('content')
-    <div class="container">
+<div class="container">
 		<div class="row">		
-			@include('vadmin.tipocts.searcher')
-            <div class="col-md-12 animated fadeIn main-list">
-                @foreach($tipocts as $item)
-                <div id="Id{{ $item->id }}" class="Item-Row Select-Row-Trigger row item-row simple-list">
-                    {{-- Column / Image --}}
-                    <div class=""></div>
-
-                    <div class="content">
-                        {{-- Column --}}
-                        <div class="col-xs-6 col-sm-4 col-md-4 inner">
-                        	<span><b>{{ $item->name }}</b></span>
-                        </div>
-                        {{-- Column --}}
-                        <div class="col-xs-6 col-sm-3 col-md-4 mobile-hide inner-tags">
-                        </div>                        
-                    </div>
-                    {{-- Hidden Action Buttons --}}
-                    <div class="List-Actions lists-actions Hidden">
-						<a href="{{ url('/vadmin/tipocts/' . $item->id . '/edit') }}" class="btnSmall buttonOk" data-id="{{ $item->id }}">
-							<i class="ion-ios-compose-outline"></i>
-						</a>
-						<a target="_blank" class="btnSmall buttonOther">
-							<i class="ion-ios-search"></i>
-						</a>
-						<button class="Delete btnSmall buttonCancel" data-id="{!! $item->id !!}">
-							<i class="ion-ios-trash-outline"></i>
-						</button>
-						<a class="Close-Actions-Btn btn btn-danger btn-close">
-							<i class="ion-ios-close-empty"></i>
-						</a>
-                    </div>
-					{{-- Batch Delete --}} 
-					<div class="batch-delete-checkbox">
-						<input type="checkbox" class="BatchDelete" data-id="{{ $item->id }}">
-					</div>
-                </div>
-
-                @endforeach
-
-                {{-- If there is no articles published shows this --}}
-                @if(! count($tipocts))
-                <div class="Item-Row item-row empty-row">
-                    No se han encontrado items
-                </div>
-                @endif
-            </div>
-            {!! $tipocts->render(); !!}
-            <br>
-
+			@include('vadmin.ivas.searcher')
+			<div class="table-responsive table-list">          
+				<table class="table table-striped">
+					<thead>
+					<tr>
+						<th></th>
+						<th>Tipo de Cliente</th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+					</thead>
+					<tbody>
+					@foreach($tipocts as $item)
+						<tr id="Id{{ $item->id }}" class="TableList-Row table-list-row">
+							<td class="list-checkbox">
+								<input type="checkbox" class="BatchDelete" data-id="{{ $item->id }}">
+							</td>
+							<td>{{ $item->name }}</td>
+							<td></td>
+							<td></td>
+							<td class="list-actions">
+								<div class="TableList-Actions inner Hidden">
+									<a href="{{ url('/vadmin/tipocts/' . $item->id . '/edit') }}" class="btn action-btn btnGreen" data-id="{{ $item->id }}">
+										<i class="ion-edit"></i>
+									</a>
+									{{-- <a target="_blank" class="btn action-btn btnBlue">
+										<i class="ion-ios-search"></i>
+									</a> --}}
+									<a class="Delete btn action-btn btnRed" data-id="{!! $item->id !!}">
+										<i class="ion-ios-trash-outline"></i>
+									</a>
+									<a class="Close-Actions-Btn btn btn-close btnGrey">
+										<i class="ion-ios-close-empty"></i>
+									</a>
+								</div>
+							</td>
+						</tr>
+					@endforeach
+					@if(! count($tipocts))
+					<tr>
+						<td>No se han encontrado registros</td>
+					</tr>
+					@endif
+					</tbody>
+				</table>
+				{!! $tipocts->render(); !!}
+			</div>
 		</div>
 		<button id="BatchDeleteBtn" class="button buttonCancel batchDeleteBtn Hidden"><i class="ion-ios-trash-outline"></i> Eliminar seleccionados</button>
-	</div>  
-	<div id="Error"></div>
+	</div> 
 	
 @endsection
 
@@ -90,45 +88,19 @@
 	<script type="text/javascript">
 
 	/////////////////////////////////////////////////
-    //                     DELETE                  //
+    //                  DELETE                     //
     /////////////////////////////////////////////////
-
-
+	
 	// -------------- Single Delete -------------- //
 	// --------------------------------------------//
 	$(document).on('click', '.Delete', function(e){
 		e.preventDefault();
-		var id = $(this).data('id');
-		confirm_delete(id, 'Cuidado!','Está seguro?');
+		var id    = $(this).data('id');
+		var route = "{{ url('vadmin/delete_tipocts') }}/"+id+"";
+		deleteRecord(id, route, 'Cuidado!','Este es un registro sensible para el sistema, solo borrelo cuando esté seguro que no está ligado a nada.');
 	});
 
-	function delete_item(id, route) {	
-
-		var route = "{{ url('vadmin/ajax_delete_tipoct') }}/"+id+"";
-
-		$.ajax({
-			url: route,
-			method: 'post',             
-			dataType: "json",
-			data: {id: id},
-			success: function(data){
-				console.log(data);
-				if (data == 1) {
-					$('#Id'+id).hide(200);
-					alert_ok('Ok!','Eliminación completa');
-				} else {
-					alert_error('Ups!','Ha ocurrido un error');
-				}
-			},
-			error: function(data)
-			{
-				$('#Error').html(data.responseText);
-				console.log(data);	
-			},
-		});
-	}
-
-	// -------------- Batch Deletex -------------- //
+	// -------------- Batch Delete --------------- //
 	// --------------------------------------------//
 
 	// ---- Batch Confirm Deletion ---- //
@@ -140,38 +112,9 @@
 		});
 
 		var id = rowsToDelete;
-		confirm_batch_delete(id,'Cuidado!','Está seguro que desea eliminar?');
-		
+		var route = "{{ url('vadmin/delete_tipocts') }}/"+id+"";
+		deleteRecord(id, route, 'Cuidado!','Estos son registros sensibles para el sistema, solo borrelo cuando esté seguro que no estén ligados a nada.');
 	});
-
-	// ---- Delete ---- //
-	function batch_delete_item(id) {
-
-		var route = "{{ url('vadmin/ajax_batch_delete_tipocts') }}/"+id+"";
-
-		$.ajax({
-			url: route,
-			method: 'post',             
-			dataType: "json",
-			data: {id: id},
-			success: function(data){
-				for(i=0; i < id.length ; i++){
-					$('#Id'+id[i]).hide(200);
-				}
-				$('#BatchDeleteBtn').addClass('Hidden');
-				ajax_list();
-				// $('#Error').html(data.responseText);
-				// console.log(data);
-			},
-			error: function(data)
-			{
-				console.log(data);
-				$('#Error').html(data.responseText);
-			},
-		});
-
-	}
-
 	</script>
 
 @endsection

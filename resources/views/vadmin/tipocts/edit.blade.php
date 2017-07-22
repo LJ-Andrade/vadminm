@@ -16,25 +16,22 @@
 @endsection
 
 @section('content')
+
     <div class="container">
-        <div class="small-form container animated fadeIn">
-            @if ($errors->any())
-                <ul class="alert alert-danger">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            @endif
-
-            {!! Form::model($tipoct, [
-                'method' => 'PATCH',
-                'url' => ['/vadmin/tipocts', $tipoct->id],
-                'files' => true
-            ]) !!}
-
-            @include ('vadmin.tipocts.form', ['submitButtonText' => 'Update'])
-
-            {!! Form::close() !!}
+        <div id="Error"></div>
+        <div id="" class="narrow-form">
+            <div class="inner">
+                <div class="title">
+                    <span>Edición de tipo de cliente</span>
+                </div>
+                {!! Form::model($tipoct, [
+                    'method' => 'PATCH',
+                    'url' => ['/vadmin/tipocts', $tipoct->id],
+                    'files' => true
+                ]) !!}
+                @include ('vadmin.tipocts.form', ['submitButtonText' => 'Update'])
+                {!! Form::close() !!}
+            </div>
         </div>
     </div>
 

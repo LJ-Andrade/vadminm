@@ -498,8 +498,12 @@ class Invoice extends FPDF
 			$this->Text(165, 270, 'CAE: ' . $data['CAE']);
 			$this->Text(165, 274, 'VTO: ' . $data['Vto']);
 		}
-
-		return $this->Output($format);
+		// Added By JZ
+		$filename = 'facturas/fc-'.$data['invoice_num'].'.pdf';
+		return $this->Output('F', $filename);
+		
+		// Original Line
+		// return $this->Output($format);
 	}
 
 	private function digitoVerificador( $codigo ){

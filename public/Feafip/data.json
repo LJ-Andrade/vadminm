@@ -1,0 +1,90 @@
+{
+  "color": {
+    "red": 41,
+    "green": 76,
+    "blue": 120
+  },
+  "text": {
+    "phone": "Teléfono:",
+    "fax": "Fax:",
+    "document_id": "CUIT:",
+    "email": "Email:",
+    "customer": "Cliente:",
+    "invoice_num": "Nro.:",
+    "date": "Fecha:",
+    "customer_num": "ID Cliente:",
+    "page": "Página",
+    "of": "de",
+    "type": "Tipo",
+    "desc": "Descripción",
+    "price": "Precio",
+    "quantity": "Cant.",
+    "sum_price": "Monto",
+    "sum_tax": "IVA (21%)",
+    "pro_total": "Total",
+    "sub_total": "Subtotal",
+    "tax_rate": "IVA %",
+    "shipping": "Envío",
+    "total": "Total",
+    "continued": "Continua en pag ",
+    "simbol_left": "  $    ",
+    "simbol_right": ""
+  },
+  "description_left": "",
+  "customer_data": {
+    "num": "10",
+    "name": "Nuevo Cliente",
+    "address": "Dirección del cliente",
+    "postal_code": "31659",
+    "city": "Buenos Aires",
+    "country": "Argentina",
+    "ident": "27-92900786-2",
+    "doc_type": 80
+  },
+  "company_data": {
+    "name": "Bit Ingeniería",
+    "address": "Italia 945",
+    "postal_code": "1708",
+    "city": "Castelar",
+    "phone": "+54(11)-20923168",
+    "fax": "011-1569375707",
+    "ident": "20-93980259-3",
+    "email": "contacto@bitingenieria.com.ar",
+    "web": "http:\/\/www.bitingenieria.com.ar"
+  },
+  "tipo_comp": 1,
+  "pto_vta": 140,
+  "invoice_num": "0140-00000625",
+  "tax": 20,
+  "date": "2016-07-14",
+  "products": [
+    {
+      "type": "P",
+      "code":"AM233-MP",
+      "description": "Motherboard Msi S1151 Z270 Gaming Pro",
+      "price": 3600.00,
+      "quantity": 1,
+      "sum_price": 3600.00,
+      "sum_tax": 756.00,
+      "discount": 0,
+      "total": 4356.00
+    },
+    {
+      "type": "P",
+      "code": "PG2001-SG",
+      "description": "Parlantes Pc Gamer Genius Gx Sw-g",
+      "price": 2200.00,
+      "quantity": 1,
+      "sum_price": 2200.00,
+      "sum_tax": 462.00,
+      "discount": 0,
+      "total": 2662.00
+    }
+  ],
+  "base": {
+    "subtotal": 5800.00,
+    "sum_tax": 1218.00,
+    "discount": 0,
+    "total": 7018.00
+  }
+}

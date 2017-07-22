@@ -1712,6 +1712,83 @@ hr {
   padding-top: 0px;
 }
 
+.table-list .table {
+  box-shadow: 5px 2px 8px -5px rgba(0, 0, 0, 0.55);
+}
+
+.table-list .table > thead {
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+}
+
+.table-list .table > tbody {
+  background-color: #fff;
+}
+
+.table-list .table > tbody > tr > td, .table-list .table > tbody > tr > th, .table-list .table > tfoot > tr > td, .table-list .table > tfoot > tr > th, .table-list .table > thead > tr > td, .table-list .table > thead > tr > th {
+  border: 0;
+}
+
+.table-list .list-checkbox {
+  background-color: #ececec;
+  width: 40px !important;
+  text-align: center;
+}
+
+.table-list .table-list-row:hover {
+  cursor: pointer;
+  background-color: #dcdcdc;
+}
+
+.table-list .table-list-row .list-actions {
+  position: relative;
+  padding: 0 10px;
+  z-index: 5;
+}
+
+.table-list .table-list-row .list-actions .inner {
+  background-color: #ececec;
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 200px;
+  text-align: center;
+  min-height: 40px;
+  padding-top: 2px;
+}
+
+.table-list .table-list-row .list-actions .inner .action-btn {
+  border: 0;
+  border-radius: 5px;
+  margin: 0 2px;
+  padding: 4px 10px;
+  width: 35px;
+  font-size: 1rem;
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+}
+
+.table-list .table-list-row .list-actions .inner .action-btn i {
+  font-size: 1.2rem;
+}
+
+.table-list .table-list-row .list-actions .inner .btn-close {
+  border-radius: 40px;
+  margin-left: 10px;
+  padding: 0px 12px;
+}
+
+.table-list .table-list-row .list-actions .inner .btn-close i {
+  font-size: 1.2rem;
+}
+
+@media (max-width: 765px) {
+  .table-list .list-checkbox {
+    padding: 5px 20px;
+    max-width: 53px;
+  }
+}
+
 .softhr {
   border-top: 1px solid #E4E4E4;
 }

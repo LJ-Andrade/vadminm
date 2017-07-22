@@ -17,19 +17,13 @@
 
 @section('content')
 
-    <div class="container">
-        <div class="small-form container animated fadeIn">
-            @if ($errors->any())
-                <ul class="alert alert-danger">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            @endif
-            {!! Form::open(['url' => 'vadmin/tipocts', 'data-parsley-validate' => '', 'files' => true]) !!}
-
-                @include ('vadmin.tipocts.form');
-
+     <div  class="narrow-form">
+		<div class="inner">
+			<div class="title">
+				<span>Creación de tipo de cliente</span>
+			</div>
+            {!! Form::open(['url' => 'vadmin/tipocts', 'data-parsley-validate' => '']) !!}
+                @include ('vadmin.tipocts.form')
             {!! Form::close() !!}
         </div>
     </div>

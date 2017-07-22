@@ -103,11 +103,8 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::post('ajax_delete_flete/{id}', 'Fletes\FletesController@destroy');
 	Route::post('ajax_batch_delete_fletes/{id}', 'Fletes\FletesController@ajax_batch_delete');
 
-	// ------ Iva Categorías ------- //
-	// Route::resource('iva', 'Iva\IvaController');
-	Route::resource('ivas', 'Ivas\IvasController');
-	Route::post('ajax_delete_iva/{id}', 'Ivas\IvasController@destroy');
-	Route::post('ajax_batch_delete_ivas/{id}', 'Ivas\IvasController@ajax_batch_delete');
+	// ------ Categorías Impositivas ------- //
+	Route::resource('ivas', 'IvasController');
 
 	// ------ Condiciones de Venta ------- //
 	Route::resource('condicventas', 'Condicventas\CondicventasController');
@@ -154,9 +151,8 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::post('ajax_update_dolar/{id}', 'Monedas\MonedasController@updateDolarValue');
 
 	// ------ Tipo de Cliente ------- //
-	Route::resource('tipocts', 'Tipocts\TipoctsController');
-	Route::post('ajax_delete_tipoct/{id}', 'Tipocts\TipoctsController@destroy');
-	Route::post('ajax_batch_delete_tipocts/{id}', 'Tipocts\TipoctsController@ajax_batch_delete');
+	Route::resource('tipocts', 'TipoctsController');
+	
 
 	// ------ Productos ------- //
 	Route::resource('productos', 'Productos\ProductosController');
@@ -165,7 +161,6 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::post('update_prod_status/{id}', 'Productos\ProductosController@updateStatus');
 
 	Route::get('get_product/{id}', 'Productos\ProductosController@get_product');
-	Route::get('test/{id}', 'Productos\ProductosController@test');
 	
 	Route::get('ajax_autocomplete/{query?}', 'Productos\ProductosController@ajax_autocomplete');
 	Route::post('get_product_and_price/{id}', 'Productos\ProductosController@get_product_and_price');
@@ -220,23 +215,24 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::get('get_pending_orders/{id?}', 'FacturasController@get_pending_orders');
 	Route::post('get_fc_data', 'FacturasController@get_fc_data');
 	Route::get('store_fc', 'FacturasController@store_fc');
-	Route::post('generate_json_fc', 'FacturasController@generate_json_fc');
 	
-	
-	// Route::get('ajax_get_pedidos/{id}', 'PedidosController@ajax_get_pedidos');
+	// // Almost obsolete
+	// Route::post('generate_json_fc', 'FacturasController@generate_json_fc');
+
+	Route::post('generate_fc', 'FacturasController@generate_fc');
+	Route::resource('pagos', 'PagosController');
+	Route::resource('cheques', 'ChequesController');
+	Route::resource('retenciones', 'RetencionesController');
 
 	// Developer Map
 	Route::resource('desarrollo', 'DesarrolloController');
 	Route::post('ajax_store_reparacion/{id}', 'DesarrolloController@ajax_store');
 
-
-
+	// DESTROY RECORDS
+	Route::post('delete_ivas/{id}', 'IvasController@destroy');
+	Route::post('delete_tipocts/{id}', 'TipoctsController@destroy');
 });
 
-
+// Autocomplete
 Route::get('/autocomplete', array('as' => 'autocomplete', 'uses'=>'Productos\ProductosController@product_autocomplete')); 
-
 Route::get('/client_autocomplete', array('as' => 'client_autocomplete', 'uses'=>'ClientesController@client_autocomplete')); 
-Route::resource('vadmin/pagos', 'PagosController');
-Route::resource('vadmin/cheques', 'ChequesController');
-Route::resource('vadmin/retenciones', 'RetencionesController');

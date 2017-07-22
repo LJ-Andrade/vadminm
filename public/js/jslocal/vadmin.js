@@ -112,53 +112,6 @@ Mousetrap.bind(['command+k', 'f4'], function(e) {
 	});
 
 
-//--------------------- LISTS ------------------------- //
-
-// ----------------- List Actions---------------------- //
-
-$(document).ready(function(){
-	$(document).on("click",".Select-Row-Trigger",function(e) {
-		$('.List-Actions').addClass('Hidden');
-		$(this).children('.List-Actions').removeClass('Hidden');
-	});
-
-	// Close Actions
-	$(document).on("click",".Close-Actions-Btn",function(e) {
-		e.preventDefault();
-		e.stopPropagation();
-		$(this).parent().addClass('Hidden');
-	})
-});
-
-// ----------------- Batch Delete --------------------- //
-
-$(document).on("click", ".BatchDelete", function(e){
-
-	
-	e.stopPropagation();
-	batch_select(this);
-
-	var checkbox = $(this).prop('checked');
-	if(checkbox){
-		$(this).parent().addClass('row-selected');
-	} else {
-		$(this).parent().removeClass('row-selected');
-	}
-
-});
-
-function batch_select(trigger) {
-	
-	var countSelected = $('input:checkbox:checked').length;
-
-	if(countSelected >= 2) {
-		$('#BatchDeleteBtn').removeClass('Hidden');
-	} else  {
-		$('#BatchDeleteBtn').addClass('Hidden');
-	}
-
-}
-
 
 //-------------- Create Forms --------------------//
 
@@ -193,43 +146,54 @@ $('.CloseDirsEntregaBtn').click(function(){
 //                          //
 //////////////////////////////
 
+// function confirm_delete(id, bigtext, smalltext) {
+// 	swal({
+// 		title: bigtext,
+// 		text: smalltext,
+// 		type: 'warning',
+// 		showCancelButton: true,
+// 		confirmButtonColor: '#3085d6',
+// 		cancelButtonColor: '#d33',
+// 		confirmButtonText: 'ELIMINAR',
+// 		cancelButtonText: 'Cancelar',
+// 		confirmButtonClass: 'button buttonOk',
+// 		cancelButtonClass: 'button buttonCancel',
+// 		buttonsStyling: false
+// 	}).then(function () {
+// 		delete_item(id);
+// 	},
+// 	function (dismiss) {
+// 		if (dismiss == 'cancel') {
+// 		console.log('')
+// 		}
+// 	}
+// 	);
+// }
 
-function confirm_delete(id, bigtext, smalltext) {
-	swal({
-		title: bigtext,
-		text: smalltext,
-		type: 'warning',
-		showCancelButton: true,
-		confirmButtonColor: '#3085d6',
-		cancelButtonColor: '#d33',
-		confirmButtonText: 'ELIMINAR',
-		cancelButtonText: 'Cancelar',
-		confirmButtonClass: 'button buttonOk',
-		cancelButtonClass: 'button buttonCancel',
-		buttonsStyling: false
-	}).then(function () {
-		delete_item(id);
-	});
-}
 
-
-function confirm_batch_delete(id, bigtext, smalltext) {
-	swal({
-		title: bigtext,
-		text: smalltext,
-		type: 'warning',
-		showCancelButton: true,
-		confirmButtonColor: '#3085d6',
-		cancelButtonColor: '#d33',
-		confirmButtonText: 'ELIMINAR',
-		cancelButtonText: 'Cancelar',
-		confirmButtonClass: 'button buttonOk',
-		cancelButtonClass: 'button buttonCancel',
-		buttonsStyling: false
-	}).then(function () {
-		batch_delete_item(id);
-	});
-}
+// function confirm_batch_delete(id, bigtext, smalltext) {
+// 	swal({
+// 		title: bigtext,
+// 		text: smalltext,
+// 		type: 'warning',
+// 		showCancelButton: true,
+// 		confirmButtonColor: '#3085d6',
+// 		cancelButtonColor: '#d33',
+// 		confirmButtonText: 'ELIMINAR',
+// 		cancelButtonText: 'Cancelar',
+// 		confirmButtonClass: 'button buttonOk',
+// 		cancelButtonClass: 'button buttonCancel',
+// 		buttonsStyling: false
+// 	}).then(function () {
+// 		batch_delete_item(id);
+// 	},
+// 	function (dismiss) {
+// 		if (dismiss == 'cancel') {
+// 		console.log('')
+// 		}
+// 	}
+// 	);
+// }
 
 function resetForm(id) {
     document.getElementById(id).reset();

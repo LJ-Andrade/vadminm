@@ -2,7 +2,8 @@
 ini_set('display_errors', 1);
 require_once("wsfe-class.php");
 
-$data = json_decode(file_get_contents(getcwd() ."/".'data.json'), true);
+// $data = json_decode(file_get_contents(getcwd() ."/".'data.json'), true);
+$data = $_POST['fcdata'];
 
 $cust_cuit = floatval(str_replace('-', '', $data['customer_data']['ident']));
 $cust_doc_type = $data['customer_data']['doc_type'];
@@ -46,13 +47,30 @@ if ($wsfe->Login($certificado, $clave, $urlwsaa)) {
                 //cii
             }
         }
-        if ($auth) {
-            $data['invoice_num'] = sprintf('%04d-', $PtoVta) . sprintf('%08d', $nro);
-            $data['CAE'] = $wsfe->RespCAE;
-            $data['Vto'] = $wsfe->RespVencimiento;
-            $data['barcode'] = $cuit . sprintf('%02d', $TipoComp) . sprintf('%04d', $PtoVta) . $wsfe->RespCAE . $wsfe->RespVencimiento;
-            $wsfe->Invoice($data);
-        }
+        // Original Files
+        // if ($auth) {
+            // $data['invoice_num'] = sprintf('%04d-', $PtoVta) . sprintf('%08d', $nro);
+            // $data['CAE'] = $wsfe->RespCAE;
+            // $data['Vto'] = $wsfe->RespVencimiento;
+            // $data['barcode'] = $cuit . sprintf('%02d', $TipoComp) . sprintf('%04d', $PtoVta) . $wsfe->RespCAE . $wsfe->RespVencimiento;
+            // $wsfe->Invoice($data);
+        // }
+
+            if ($auth) {
+                $data['invoice_num'] = sprintf('%04d-', $PtoVta) . sprintf('%08d', $nro);
+                $data['CAE'] = $wsfe->RespCAE;
+                $data['Vto'] = $wsfe->RespVencimiento;
+                $data['Nro'] = $nro;
+                $data['barcode'] = $cuit . sprintf('%02d', $TipoComp) . sprintf('%04d', $PtoVta) . $wsfe->RespCAE . $wsfe->RespVencimiento;
+                // Original Line
+                // $pdf = base64_encode($wsfe->Invoice($data, 'S'));
+                $pdf = $wsfe->Invoice($data);
+                $wsfe->showOK($nro, $data['invoice_num'], $wsfe->RespCAE, $wsfe->RespVencimiento, $pdf);
+                
+            } else {
+                $wsfe->showError($wsfe->ErrorDesc);
+            }
+
     }
 } else {
     echo $wsfe->ErrorDesc;

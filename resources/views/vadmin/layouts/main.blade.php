@@ -47,6 +47,8 @@
 		<script type="text/javascript" src="{{ asset('plugins/validation/es/parsley-es.min.js') }}" ></script>
 		<script type="text/javascript" src="{{ asset('plugins/chosen/chosen.jquery.min.js') }}" ></script>
 		<script type="text/javascript" src="{{ asset('plugins/keyshortcut/keyshortcut.js') }}" ></script>
+		<script type="text/javascript" src="{{ asset('js/vadmin_ui.js') }}" ></script>
+		<script type="text/javascript" src="{{ asset('js/vadmin_corefunctions.js') }}" ></script>
 		<script type="text/javascript" src="{{ asset('js/jslocal/vadmin.js') }}" ></script>
 		@yield('scripts')
 		@yield('custom_js')

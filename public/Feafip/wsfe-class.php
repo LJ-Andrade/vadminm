@@ -38,7 +38,31 @@ class WsFE
     private $Response;
     private $urlCdc;
 
+    public function showError($description)
+    {
+        $errorObj = new stdClass();
+        $errorObj->sucess = false;
+        $errorObj->description = utf8_encode($description);
 
+        header('Content-Type: application/json');
+        echo json_encode($errorObj);
+        die;
+    }
+
+    public function showOK($nro, $nroFull, $cae, $vto, $pdf)
+    {
+        $errorObj = new stdClass();
+        $errorObj->sucess  = true;
+        $errorObj->nro     = $nro;
+        $errorObj->nroFull = $nroFull;
+        $errorObj->cae     = $cae;
+        $errorObj->vto     = $vto;
+        $errorObj->pdf     = $pdf;
+    
+        header('Content-Type: application/json');
+        echo json_encode($errorObj);
+        die;
+    }
     private function CreateTRA($SERVICE)
     {
         $TRA = new SimpleXMLElement(
@@ -460,7 +484,7 @@ class WsFE
 
     function Invoice($data, $format = ''){
         $invoice = new Invoice();
-//        $data = json_decode(file_get_contents('data.json'), true);
+        // $data = json_decode(file_get_contents('data.json'), true);
         return $invoice->Generate($data, $format);
     }
 
@@ -622,7 +646,9 @@ class WsFE
         $this->urlCdc = $url;
     }
 
+
 }
+
 
 
 ?>

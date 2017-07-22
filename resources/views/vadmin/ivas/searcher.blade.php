@@ -21,7 +21,7 @@
             <a href="{{ url('vadmin/ivas') }}"><button type="button" class="btnSmall buttonOk">Todos</button></a>
         {!! Form::close() !!}
         {{-- /Search --}}
-        <div class="btnClose"><i class="ion-close-round"></i></div>		
+        <div class="btnClose2"><i class="ion-close-round"></i></div>		
     </div>
 </div>
 

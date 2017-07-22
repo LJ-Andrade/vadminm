@@ -1139,6 +1139,64 @@ $phvFsize: 0.9rem
 .horizontal-btn-container
 	padding-top: 0px
 	
+// ---------------- NEW ---------------- //
+.table-list
+	// position: relative
+	.table
+		@include box-shadow
+	.table>thead
+		background-color: #fff
+		border-bottom: 1px solid #ccc
+	.table>tbody
+		background-color: #fff
+	.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th
+		border: 0
+	.list-checkbox
+		background-color: #ececec
+		// max-width: 10px
+		width: 40px !important
+		text-align: center
+	.table-list-row
+		&:hover
+			cursor: pointer
+			background-color: #dcdcdc
+		.list-actions
+			position: relative
+			padding: 0 10px
+			z-index: 5
+			.inner
+				background-color: #ececec
+				position: absolute
+				top: 0
+				right: 0
+				min-width: 200px
+				text-align: center
+				min-height: 40px
+				padding-top: 2px
+				.action-btn
+					border: 0
+					border-radius: 5px
+					margin: 0 2px
+					padding: 4px 10px
+					width: 35px
+					font-size: 1rem
+					font-family: $font2
+					font-weight: $f2w1
+					i
+						font-size: 1.2rem
+				.btn-close
+					border-radius: 40px
+					margin-left: 10px
+					padding: 0px 12px
+					i
+						font-size: 1.2rem
+
+@media (max-width: 765px)
+	.table-list
+		.list-checkbox
+			padding: 5px 20px
+			max-width: 53px
+
 //////////////////////////////////////
 //                                  //
 //            DECORATION            //
