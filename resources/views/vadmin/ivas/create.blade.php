@@ -11,25 +11,16 @@
 	@endsection
 @endsection
 
-@section('styles')
-	
-@endsection
 
 @section('content')
 
-<div class="container">
-    <div id="Error"></div>
-    <div  class="narrow-form">
-		<div class="inner">
-			<div class="title">
-				<span>Creación de nueva categoría impositiva</span>
-			</div>
+	@component('vadmin.components.create')
+		@slot('title', 'Creación de categoría impositiva')
+		@slot('form')
 			{!! Form::open(['url' => 'vadmin/ivas', 'data-parsley-validate' => '']) !!}
 				@include('vadmin.ivas.form')
-				{!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Crear', ['class' => 'animated fadeIn button buttonOk']) !!}
 			{!! Form::close() !!}
-		</div>
-    </div>
-</div>
+		@endslot
+	@endcomponent
 
 @endsection

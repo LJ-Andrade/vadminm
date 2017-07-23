@@ -18,7 +18,7 @@
 @section('content')
     <div class="container">
         <div id="Error"></div>
-        <div id="" class="narrow-form">
+        <div class="narrow-form">
             <div class="inner">
                 <div class="title">
                     <span>Creación de nueva categoría impositiva</span>

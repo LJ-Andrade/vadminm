@@ -28,7 +28,7 @@
 			<input type="checkbox" class="BatchDelete" data-id="{{ $item->id }}">
 		</div>
 		{{-- Hidden Action Buttons --}}
-		<div class="List-Actions lists-actions Hidden">
+		<div class="List-Actions lists-actions">
 			<a href="{{ url('vadmin/clientes/cuenta/' . $item->id) }}" class="ShowEditBtn btnSmall buttonOk">
 				<i class="ion-social-usd"></i>
 			</a>

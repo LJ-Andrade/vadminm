@@ -32,19 +32,23 @@
 	<div id="ClientFinder" class="narrow-form">
 		<div class="inner">
 			{{-- Title --}}
-			<div class="sub-title">
+			<div class="title">
 				<span>Seleccionar cliente</span>
 			</div>
-			{{-- By Name Search --}}
-			<div class="form-group">
-				{!! Form::label('cliente', 'Buscar por nombre') !!}
-				{!! Form::text('codigo', null, ['id' => 'ClientAutoComplete', 'class' => 'form-control']) !!}
-			</div>
-			{{-- By Code Search --}}
-			<div class="form-group">
-				{!! Form::label('codigo', 'Buscar por código') !!}
-				{!! Form::number('codigo', null, ['id' => 'ClientByCode', 'class' => 'form-control']) !!}
-				<button id="ClientByCodeBtn" class="btnSm btnBlue"> Buscar</button>
+			<div class="row">
+				<div class="form-group col-md-7">
+					{{-- Search By Name --}}
+					{!! Form::label('cliente', 'Buscar por nombre') !!}
+					{!! Form::text('cliente', null, ['id' => 'ClientAutoComplete', 'class' => 'form-control']) !!}
+				</div>
+				<div class="form-group col-md-5">
+					{{-- Search By Code  --}}
+					{!! Form::label('codigo', 'Buscar por código') !!}
+					{!! Form::number('codigo', null, ['id' => 'ClientByCode', 'class' => 'form-control']) !!}
+				</div>
+				<div class="col-md-12">
+					<button id="ClientByCodeBtn" class="btnSm btnBlue"> Buscar</button>
+				</div>
 			</div>
 		
 			{{-- Output --}}
