@@ -30,7 +30,7 @@
 	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div class="form-group">
 			{!! Form::label('cuit', 'N° de CUIT') !!}
-			{!! Form::text('cuit', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el CUIT',]) !!}
+			{!! Form::text('cuit', $cliente->cuit, ['class' => 'form-control', 'placeholder' => 'Ingrese el CUIT', 'value'=>'', 'maxlength' => '11', 'minlength' => '11', 'data-mask'=>'00-00000000-0']) !!}
 		</div>
 	</div>
 </div>
@@ -47,14 +47,16 @@
 	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div class="form-group">
 			{!! Form::label('provincia_id', 'Provincia') !!}
-			{!! Form::select('provincia_id',  $provincias, $cliente->provincia_id, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
+			{!! Form::select('provincia_id', $provincias, null, ['id' => 'ProvinciasAjax', 'class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opción']) !!}
 		</div>
 	</div>
 	{{-- Loc. --}}
 	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div class="form-group">
 			{!! Form::label('localidad_id', 'Localidad') !!}
-			{!! Form::select('localidad_id',  $localidades, $cliente->localidad_id, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
+			{!! Form::select('localidad_id', $localidades, null, ['id' => 'LocalidadAjax', 'class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opción']) !!}
+			{{--<select name="localidad_id" id="LocalidadAjax" class="form-control Select-Chosen" required="">
+			</select>--}}
 		</div>
 	</div>
 	{{-- Postal Code --}}
@@ -147,9 +149,6 @@
 			<div class="TelInputs">
 			{!! Form::text('telefono', null, ['class' => 'form-control', 'placeholder' => 'Ingrese un teléfono', 'data-mask'=>'0000-0000 | 0000-0000 | 0000-0000']) !!}
 			</div>
-			{{--<div class="AddAnother add-another"><button type="button" class="AddAnotherTelBtn transBtn">
-				<i class="ion-ios-plus-outline"></i> Agregar otro teléfono</button>
-			</div>--}}
 		</div>
 	</div>
 		{{-- Teléfonos --}}

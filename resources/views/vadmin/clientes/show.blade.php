@@ -53,9 +53,17 @@
 						@if(is_null($cliente->provincia)) @else {{ $cliente->provincia->name }} @endif <br>
 						<b>Localidad:</b>    
 						@if(is_null($cliente->localidad)) @else {{ $cliente->localidad->name }} @endif <br>
+						<b>Cód.Postal:</b>    
+						@if(is_null($cliente->codpostal)) @else {{ $cliente->codpostal }} @endif <br>
+						<b>Teléfono:</b>
+						@if(is_null($cliente->telefono)) @else {{ $cliente->telefono }} @endif <br>
+						<b>Celular:</b>
+						@if(is_null($cliente->celular)) @else {{ $cliente->celular }} @endif <br>
+						<b>Email:</b>
+						@if(is_null($cliente->email)) @else {{ $cliente->email }} @endif <br>
 					</div>
 				</div>
-					<hr class="softhr">
+				<hr class="softhr">
 
 				<div class="row">
 					<div class="col-md-6">

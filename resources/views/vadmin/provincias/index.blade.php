@@ -8,7 +8,7 @@
 	@section('header_title', 'Listado de Provincias') 
 	@section('options')
 		<div class="actions">
-            <a href="{{ url('vadmin/provincias/create') }}" class="btn btnSm buttonOther">Nueva</a>
+            <a href="{{ url('vadmin/provincias/create') }}" class="btn btnSm buttonOther"><i class="ion-plus-round"></i> Nueva Provincia</a>
 			<button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button>
 		</div>	
 	@endsection
@@ -22,63 +22,59 @@
 
 {{-- CONTENT --}}
 @section('content')
-	@include('vadmin.provincias.searcher')
-    <div class="container">
+<div class="container">
 		<div class="row">		
-            <div class="col-md-12 animated fadeIn main-list">
-
-                @foreach($provincias as $item)
-                <div id="Id{{ $item->id }}" class="Item-Row Select-Row-Trigger row item-row simple-list">
-                    {{-- Column / Image --}}
-                    <div class=""></div>
-
-                    <div class="content">
-                        {{-- Column --}}
-                        <div class="col-xs-6 col-sm-4 col-md-4 inner">
-                        	<span><b>{{ $item->name }}</b></span>
-                        </div>
-                        {{-- Column --}}
-                        <div class="col-xs-6 col-sm-3 col-md-4 mobile-hide inner-tags">
-                        </div>                        
-                    </div>
-
-					{{-- Batch Delete --}} 
-					<div class="batch-delete-checkbox">
-						<input type="checkbox" class="BatchDelete" data-id="{{ $item->id }}">
-					</div>
-                    {{-- Hidden Action Buttons --}}
-                    <div class="List-Actions lists-actions Hidden">
-                        <a class="ShowEditBtn btnSmall buttonOk" data-id="{{ $item->id }}">
-                            <i class="ion-ios-compose-outline"></i>
-                        </a>
-                        <a target="_blank" class="btnSmall buttonOther">
-                            <i class="ion-ios-search"></i>
-                        </a>
-                        <button class="Delete btnSmall buttonCancel" data-id="{!! $item->id !!}">
-                            <i class="ion-ios-trash-outline"></i>
-                        </button>
-                        <a class="Close-Actions-Btn btn btn-danger btn-close">
-                            <i class="ion-ios-close-empty"></i>
-                        </a>
-                    </div>
-                </div>
-
-                @endforeach
-
-                {{-- If there is no articles published shows this --}}
-                @if(! count($provincias))
-                <div class="Item-Row item-row empty-row">
-                    No se han encontrado items
-                </div>
-                @endif
-            </div>
-            {!! $provincias->render(); !!}
-            <br>
-
+			@include('vadmin.provincias.searcher')
+			<div class="table-responsive table-list">          
+				<table class="table table-striped">
+					<thead>
+					<tr>
+						<th></th>
+						<th>Provincias</th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+					</thead>
+					<tbody>
+					@foreach($provincias as $item)
+						<tr id="Id{{ $item->id }}" class="TableList-Row table-list-row">
+							<td class="list-checkbox">
+								<input type="checkbox" class="BatchDelete" data-id="{{ $item->id }}">
+							</td>
+							<td>{{ $item->name }}</td>
+							<td></td>
+							<td></td>
+							<td class="list-actions">
+								<div class="TableList-Actions inner Hidden">
+									<a href="{{ url('/vadmin/provincias/' . $item->id . '/edit') }}" class="btn action-btn btnGreen" data-id="{{ $item->id }}">
+										<i class="ion-edit"></i>
+									</a>
+									{{-- <a target="_blank" class="btn action-btn btnBlue">
+										<i class="ion-ios-search"></i>
+									</a> --}}
+									<a class="Delete btn action-btn btnRed" data-id="{!! $item->id !!}">
+										<i class="ion-ios-trash-outline"></i>
+									</a>
+									<a class="Close-Actions-Btn btn btn-close btnGrey">
+										<i class="ion-ios-close-empty"></i>
+									</a>
+								</div>
+							</td>
+						</tr>
+					@endforeach
+					@if(! count($provincias))
+					<tr>
+						<td>No se han encontrado registros</td>
+					</tr>
+					@endif
+					</tbody>
+				</table>
+				{!! $provincias->render(); !!}
+			</div>
 		</div>
 		<button id="BatchDeleteBtn" class="button buttonCancel batchDeleteBtn Hidden"><i class="ion-ios-trash-outline"></i> Eliminar seleccionados</button>
-	</div>  
-	<div id="Error"></div>
+	</div> 
 	
 @endsection
 
@@ -86,50 +82,25 @@
 	{{-- Include Scripts Here --}}
 @endsection
 
+
 @section('custom_js')
 
 	<script type="text/javascript">
 
 	/////////////////////////////////////////////////
-    //                     DELETE                  //
+    //                  DELETE                     //
     /////////////////////////////////////////////////
-
-
+	
 	// -------------- Single Delete -------------- //
 	// --------------------------------------------//
 	$(document).on('click', '.Delete', function(e){
 		e.preventDefault();
-		var id = $(this).data('id');
-		confirm_delete(id, 'Cuidado!','Está seguro?');
+		var id    = $(this).data('id');
+		var route = "{{ url('vadmin/delete_provincias') }}/"+id+"";
+		deleteRecord(id, route, 'Cuidado!','Está seguro que desea eliminar esta provincia?');
 	});
 
-	function delete_item(id, route) {	
-
-		var route = "{{ url('vadmin/ajax_delete_provincia') }}/"+id+"";
-
-		$.ajax({
-			url: route,
-			method: 'post',             
-			dataType: "json",
-			data: {id: id},
-			success: function(data){
-				console.log(data);
-				if (data == 1) {
-					$('#Id'+id).hide(200);
-					alert_ok('Ok!','Eliminación completa');
-				} else {
-					alert_error('Ups!','Ha ocurrido un error');
-				}
-			},
-			error: function(data)
-			{
-				$('#Error').html(data.responseText);
-				console.log(data);	
-			},
-		});
-	}
-
-	// -------------- Batch Deletex -------------- //
+	// -------------- Batch Delete --------------- //
 	// --------------------------------------------//
 
 	// ---- Batch Confirm Deletion ---- //
@@ -141,38 +112,10 @@
 		});
 
 		var id = rowsToDelete;
-		confirm_batch_delete(id,'Cuidado!','Está seguro que desea eliminar los usuarios?');
-		
+		var route = "{{ url('vadmin/delete_provincias') }}/"+id+"";
+		deleteRecord(id, route, 'Cuidado!','Está seguro que desea eliminar estas provincias?');
 	});
-
-	// ---- Delete ---- //
-	function batch_delete_item(id) {
-
-		var route = "{{ url('vadmin/ajax_batch_delete_provincias') }}/"+id+"";
-
-		$.ajax({
-			url: route,
-			method: 'post',             
-			dataType: "json",
-			data: {id: id},
-			success: function(data){
-				for(i=0; i < id.length ; i++){
-					$('#Id'+id[i]).hide(200);
-				}
-				$('#BatchDeleteBtn').addClass('Hidden');
-				ajax_list();
-				// $('#Error').html(data.responseText);
-				// console.log(data);
-			},
-			error: function(data)
-			{
-				console.log(data);
-				$('#Error').html(data.responseText);
-			},
-		});
-
-	}
-
 	</script>
 
 @endsection
+

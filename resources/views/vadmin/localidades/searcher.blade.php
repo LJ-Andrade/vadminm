@@ -1,5 +1,9 @@
 @section('searcher')
 
+@if(isset($_GET['search']))
+<a href="{{ url('vadmin/localidades') }}"><button type="button" class="btnSmall buttonOk">Mostrar Todos</button></a>
+@endif
+
 <div class="row header-options">
     <div class="Search-Filters search-filters">
         {{-- Search --}}
@@ -18,7 +22,7 @@
             <a href="{{ url('vadmin.index.blade.php') }}"><button class="btnSmall buttonOk">Todos</button></a>
         {!! Form::close() !!}
         {{-- /Search --}}
-        <div class="btnClose"><i class="ion-close-round"></i></div>		
+        <div class="btnClose2"><i class="ion-close-round"></i></div>		
     </div>
 </div>
 

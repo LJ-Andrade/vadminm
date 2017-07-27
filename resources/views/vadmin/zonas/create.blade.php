@@ -26,6 +26,4 @@
 		@endslot
 	@endcomponent
 
-</div>
-
 @endsection

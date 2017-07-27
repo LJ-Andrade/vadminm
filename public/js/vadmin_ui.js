@@ -16,4 +16,14 @@ $(document).ready(function(){
 		e.stopPropagation();
 		$(this).parent().addClass('Hidden');
 	})
+
+
+
 });
+
+	$('.Select-Row-Trigger').click(function(){
+
+		$('.List-Actions').addClass('Hidden');
+		$(this).children('.List-Actions').removeClass('Hidden');
+
+	});

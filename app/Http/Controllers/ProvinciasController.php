@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Tipoct;
+use App\Provincia;
 use Illuminate\Http\Request;
 use Session;
 
-class TipoctsController extends Controller
+class ProvinciasController extends Controller
 {
+    //////////////////////////////////////////////////
+    //                   VIEW                       //
+    //////////////////////////////////////////////////
 
     public function index(Request $request)
     {
@@ -18,46 +21,48 @@ class TipoctsController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $tipocts = Tipoct::where('name', 'LIKE', "%$keyword%")
-				
-                ->paginate($perPage);
+            $provincias = Provincia::where('name', 'LIKE', "%$keyword%")->paginate($perPage);
         } else {
-            $tipocts = Tipoct::paginate($perPage);
+            $provincias = Provincia::paginate($perPage);
         }
 
-        return view('vadmin.tipocts.index', compact('tipocts'));
+        return view('vadmin.provincias.index', compact('provincias'));
     }
+
+    public function show($id)
+    {
+        $provincia = Provincia::findOrFail($id);
+
+        return view('vadmin.provincias.show', compact('provincia'));
+    }
+
+    //////////////////////////////////////////////////
+    //                   CREATE                     //
+    //////////////////////////////////////////////////
+
 
     public function create()
     {
-        return view('vadmin.tipocts.create');
+        return view('vadmin.provincias.create');
     }
 
     public function store(Request $request)
     {
         $this->validate($request,[
-            'name'           => 'required|unique:tipocts,name',
+            'name'          => 'required|unique:provincias,name'
         ],[
-            'name.required'  => 'Debe ingresar un nombre',
-            'name.unique'    => 'El item ya existe',
+            'name.required'     => 'Debe ingresar un nombre',
+            'name.unique'       => 'La provincia ya existe'
         ]);
 
         $requestData = $request->all();
         
-        Tipoct::create($requestData);
+        Provincia::create($requestData);
 
-        Session::flash('flash_message', 'Tipoct added!');
+        Session::flash('flash_message', 'Provincia agregada');
 
-        return redirect('vadmin/tipocts');
+        return redirect('vadmin/provincias');
     }
-
-    public function show($id)
-    {
-        $tipoct = Tipoct::findOrFail($id);
-
-        return view('vadmin.tipocts.show', compact('tipoct'));
-    }
-
 
     //////////////////////////////////////////////////
     //                  UPDATE                      //
@@ -65,43 +70,41 @@ class TipoctsController extends Controller
 
     public function edit($id)
     {
-        $tipoct = Tipoct::findOrFail($id);
-
-        return view('vadmin.tipocts.edit', compact('tipoct'));
+        $provincia = Provincia::findOrFail($id);
+        return view('vadmin.provincias.edit', compact('provincia'));
     }
 
     public function update($id, Request $request)
-    {   
-
-        $tipoct = Tipoct::findOrFail($id);
+    {
+        $provincia = Provincia::findOrFail($id);
 
         $this->validate($request,[
-            'name'          => 'required|unique:tipocts,name,'.$tipoct->id
+            'name'          => 'required|unique:provincias,name,'.$provincia->id
+                                
         ],[
-            'name.required' => 'Debe ingresar un tipo de cliente',
-            'name.unique'   => 'El tipo de cliente ya existe',
+            'name.required'     => 'Debe ingresar un nombre',
+            'name.unique'       => 'El nombre de la categoría ya existe'
         ]);
+    
+        $provincia->fill($request->all());
+        $provincia = $provincia->save();
 
-        $tipoct->fill($request->all());
-        $tipoct->save();
+        Session::flash('flash_message', 'Provincia actualizada');
 
-        Session::flash('flash_message', 'Tipoct updated!');
-
-        return redirect('vadmin/tipocts');
+        return redirect('vadmin/provincias');
     }
 
-        
     //////////////////////////////////////////////////
     //                  DESTROY                     //
     //////////////////////////////////////////////////
 
     public function destroy(Request $request, $id)
     {   
-        
+
         if(is_array($request->id)) {
             try {
                 foreach ($request->id as $id) {
-                    $record = Tipoct::find($id);
+                    $record = Provincia::find($id);
                     $record->delete();
                 }
                 return response()->json([
@@ -115,7 +118,7 @@ class TipoctsController extends Controller
             }
         } else {
             try {
-                $record = Tipoct::find($id);
+                $record = Provincia::find($id);
                 $record->delete();
                     return response()->json([
                         'success'   => true,
@@ -130,4 +133,6 @@ class TipoctsController extends Controller
         }
     }
 
+
 }
+

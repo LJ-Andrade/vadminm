@@ -11,33 +11,24 @@
 	@endsection
 @endsection
 
-@section('styles')
-	
-@endsection
-
 @section('content')
     <div class="container">
-        <div class="small-form container animated fadeIn">
-            {!! Form::model($localidade, [
-                'method' => 'PATCH',
-                'url' => ['/vadmin/localidades', $localidade->id],
-                'files' => true
-            ]) !!}
-
-            <div class="row inner">
-                <div class="col-md-12 title">
-                    <span><i class="ion-plus-round"></i> Edición de Item</span>
-                    <a href="{{ url('vadmin/localidades') }}"><div class="close-btn2"><i class="ion-close-round"></i></div></a>
+        <div id="Error"></div>
+        <div class="narrow-form">
+            <div class="inner">
+                <div class="title">
+                    <span>Edición de localidad</span>
                 </div>
-                <div class=" col-md-12 form-group">
-                    {!! Form::label('name', 'Nombre:') !!}
-                    {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el nombre del item', 'required' => '', 'maxlength' => '120', 'minlength' => '4']) !!} 
-                </div>
-                <div class="col-md-12 actions">
-                    {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Modificar', ['class' => 'animated fadeIn button buttonOk pull-right']) !!}
-                </div>
+                {!! Form::model($localidad, [
+                    'method' => 'PATCH',
+                    'url' => ['/vadmin/localidades', $localidad->id],
+                    'files' => true
+                ]) !!}
+                @include('vadmin.localidades.form')
+                {!! Form::submit('Editar Localidad', ['class' => 'button btnGreen']) !!}
+                {!! Form::close() !!}
             </div>
-            {!! Form::close() !!}
         </div>
     </div>
+
 @endsection

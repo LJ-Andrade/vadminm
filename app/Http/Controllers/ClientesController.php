@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Session;
 use App\Cliente;
 use App\Provincia;
-use App\Localidade;
+use App\Localidad;
 use App\Iva;
 use App\Condicventa;
 use App\User;
@@ -49,7 +49,7 @@ class ClientesController extends Controller
     }
 
     //////////////////////////////////////////////////
-    //                  LIST                        //
+    //                    VIEW                      //
     //////////////////////////////////////////////////
 
     public function ajax_list(Request $request)
@@ -62,7 +62,16 @@ class ClientesController extends Controller
     {
         $cliente = Cliente::findOrFail($id);
         return response()->json($cliente);
-
+    }
+    
+    public function show($id)
+    {
+        $cliente    = Cliente::findOrFail($id);
+        $dirEntrega = Direntrega::where('client_id', '=', $id);
+ 
+        return view('vadmin.clientes.show')
+            ->with('cliente', $cliente)
+            ->with('dirEntrega', $dirEntrega);
     }
 
     //////////////////////////////////////////////////
@@ -134,12 +143,9 @@ class ClientesController extends Controller
        // ********** IMPORTANT This Id is given by webservice  ********** //
        $client->categiva_id = $client->iva_id;
        
-    //    dd($client);
        return response()->json(['client' => $client]);
-
     }
 
-    
     public function client_autocomplete(Request $request)
     {
 
@@ -186,7 +192,7 @@ class ClientesController extends Controller
     {
         $cliente_id   = Cliente::orderBy('id','DESC')->first();
         $provincias   = Provincia::orderBy('name', 'ASC')->pluck('name', 'id');
-        $localidades  = Localidade::orderBy('name', 'ASC')->pluck('name', 'id');
+        $localidades  = Localidad::orderBy('name', 'ASC')->pluck('name', 'id');
         $iva          = Iva::orderBy('name', 'ASC')->pluck('name', 'id');
         $condicventas = Condicventa::orderBy('name', 'ASC')->pluck('name', 'id');
         $users        = User::where('role', '=', 'seller')->pluck('name', 'id');
@@ -208,18 +214,17 @@ class ClientesController extends Controller
 
     }
 
-    //////////////////////////////////////////////////
-    //                  STORE                       //
-    //////////////////////////////////////////////////
-
     public function store(Request $request)
     {
-        // $this->validate($request,[
-        //     'name'              => 'required|unique:clientes,name',
-        // ],[
-        //     'name.required'     => 'Debe ingresar un item',
-        //     'name.unique'      => 'El cliente ya existe',
-        // ]);
+        $this->validate($request,[
+            'razonsocial'          => 'required|unique:clientes,razonsocial',
+            'cuit'                 => 'required|unique:clientes,cuit'
+        ],[
+            'razonsocial.required' => 'Debe ingresar una razonsocial',
+            'razonsocial.unique'   => 'La razón social ya existe',
+            'cuit.required'        => 'Debe ingresar un Cuit',
+            'cuit.unique'          => 'El Cuit ya existe',
+        ]);
         
         // dd($request->all());
         
@@ -261,23 +266,6 @@ class ClientesController extends Controller
 
 
     //////////////////////////////////////////////////
-    //                  SHOW                        //
-    //////////////////////////////////////////////////
-
-    public function show($id)
-    {
-
-        $cliente    = Cliente::findOrFail($id);
-        $dirEntrega = Direntrega::where('client_id', '=', $id);
- 
-        return view('vadmin.clientes.show')
-            ->with('cliente', $cliente)
-            ->with('dirEntrega', $dirEntrega);
-    }
-
-
-
-    //////////////////////////////////////////////////
     //                  EDIT                        //
     //////////////////////////////////////////////////
 
@@ -287,7 +275,13 @@ class ClientesController extends Controller
         $cliente_id   = Cliente::orderBy('id','DESC')->first();
         $dirEntrega   = Direntrega::where('client_id', '=', $id);
         $provincias   = Provincia::orderBy('name', 'ASC')->pluck('name', 'id');
-        $localidades  = Localidade::orderBy('name', 'ASC')->pluck('name', 'id');
+        $localidades  = Localidad::orderBy('name', 'ASC')->pluck('name', 'id');
+        // If there is no loc saved this prevent the error
+        if(is_null($cliente->localidad)){
+            $locId = ''; 
+            } else { 
+                $locId = $cliente->localidad->id; 
+            }
         $iva          = Iva::orderBy('name', 'ASC')->pluck('name', 'id');
         $condicventas = Condicventa::orderBy('name', 'ASC')->pluck('name', 'id');
         $users        = User::where('role', '=', 'seller')->pluck('name', 'id');
@@ -300,6 +294,7 @@ class ClientesController extends Controller
             ->with('cliente_id', $cliente_id)
             ->with('provincias', $provincias)
             ->with('localidades', $localidades)
+            ->with('locId', $locId)
             ->with('iva', $iva)
             ->with('condicventas', $condicventas)
             ->with('users', $users)
@@ -311,14 +306,18 @@ class ClientesController extends Controller
 
     public function update($id, Request $request)
     {
-        // $this->validate($request,[
-        //     'razonsocial'          => 'required|unique:clientes,razonsocial',
-        // ],[
-        //     'razonsocial.required' => 'Debe ingresar un nombre',
-        //     'razonsocial.unique'   => 'La razon social ya existe',
-        // ]);
-        
         $cliente = Cliente::findOrFail($id);
+        
+        $this->validate($request,[
+            'razonsocial'          => 'required|unique:clientes,razonsocial,'.$cliente->id,
+            'cuit'                 => 'required|unique:clientes,cuit,'.$cliente->id
+        ],[
+            'razonsocial.required' => 'Debe ingresar un nombre',
+            'razonsocial.unique'   => 'La razon social ya existe',
+            'cuit.required'        => 'Debe ingresar un Cuit',
+            'cuit.unique'          => 'El Cuit ya existe'
+        ]);
+        
         $cliente->fill($request->all());
         $cliente->save();
         
@@ -326,27 +325,43 @@ class ClientesController extends Controller
         return redirect('vadmin/clientes');
     }
 
+     //////////////////////////////////////////////////
+    //                  DESTROY                     //
     //////////////////////////////////////////////////
-    //                 DESTROY                      //
-    //////////////////////////////////////////////////
 
-    // ---------- Delete -------------- //
-    public function destroy($id)
-    {
-        $item    = Cliente::find($id);
-        $item->delete();
-        echo 1;
-    }
+    public function destroy(Request $request, $id)
+    {   
 
-
-    // ---------- Ajax Bach Delete -------------- //
-    public function ajax_batch_delete(Request $request, $id)
-    {
-        foreach ($request->id as $id) {
-            $item  = Cliente::find($id);
-            Cliente::destroy($id);
+        if(is_array($request->id)) {
+            try {
+                foreach ($request->id as $id) {
+                    $record = Cliente::find($id);
+                    $record->delete();
+                }
+                return response()->json([
+                    'success'   => true,
+                ]); 
+            }  catch (Exception $e) {
+                return response()->json([
+                    'success'   => false,
+                    'error'    => 'Error: '.$e
+                ]);    
+            }
+        } else {
+            try {
+                $record = Cliente::find($id);
+                $record->delete();
+                    return response()->json([
+                        'success'   => true,
+                    ]);  
+                    
+                } catch (Exception $e) {
+                    return response()->json([
+                        'success'   => false,
+                        'error'    => 'Error: '.$e
+                    ]);    
+                }
         }
-        echo 1;
     }
 
 

@@ -11,7 +11,6 @@
 	@endsection
 @endsection
 
-
 @section('content')
 
 	@component('vadmin.components.create')
@@ -19,6 +18,7 @@
 		@slot('form')
 			{!! Form::open(['url' => 'vadmin/ivas', 'data-parsley-validate' => '']) !!}
 				@include('vadmin.ivas.form')
+				{!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Crear', ['class' => 'animated fadeIn button buttonOk']) !!}
 			{!! Form::close() !!}
 		@endslot
 	@endcomponent

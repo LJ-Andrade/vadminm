@@ -17,30 +17,39 @@
 
 @section('content')
     <div class="container">
-        <div class="small-form container animated fadeIn">
-            {!! Form::model($flete, [
-                'method' => 'PATCH',
-                'url' => ['/vadmin/fletes', $flete->id],
-                'files' => true
-            ]) !!}
-
-            <div class="row inner">
-                <div class="col-md-12 title">
-                    <span><i class="ion-plus-round"></i> Edición de Item</span>
-                    <a href="{{ url('vadminfletes') }}"><div class="close-btn2"><i class="ion-close-round"></i></div></a>
+        <div id="Error"></div>
+        <div class="narrow-form">
+            <div class="inner">
+                <div class="title">
+                    <span>Edición de flete</span>
                 </div>
-                <div class=" col-md-12 form-group">
-                    {!! Form::label('name', 'Nombre:') !!}
-                    {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el nombre del item', 'required' => '', 'maxlength' => '120', 'minlength' => '4']) !!} 
-                </div>
-                <div class="col-md-12 actions">
-                    {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Modificar', ['class' => 'animated fadeIn button buttonOk pull-right']) !!}
-                </div>
+                {!! Form::model($flete, [
+                    'method' => 'PATCH',
+                    'url' => ['/vadmin/fletes', $flete->id],
+                    'files' => true
+                ]) !!}
+                @include('vadmin.fletes.form')
+                {!! Form::submit('Actualizar', ['class' => 'button btnGreen']) !!}
+                {!! Form::close() !!}
             </div>
-            {!! Form::close() !!}
         </div>
     </div>
-
-
 @endsection
 
+@section('scripts')
+	@include('vadmin.components.ajaxscripts')
+@endsection
+
+
+@section('custom_js')
+	<script>
+
+        /////////////////////////////////////////////////
+        //            LOAD LOCALIDADES                 //
+        /////////////////////////////////////////////////
+
+
+
+    
+    </script>
+@endsection

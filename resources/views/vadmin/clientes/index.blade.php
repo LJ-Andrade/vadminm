@@ -47,46 +47,19 @@
 	<script type="text/javascript">
 
 	/////////////////////////////////////////////////
-    //                     DELETE                  //
+    //                  DELETE                     //
     /////////////////////////////////////////////////
-
-
+	
 	// -------------- Single Delete -------------- //
 	// --------------------------------------------//
 	$(document).on('click', '.Delete', function(e){
 		e.preventDefault();
-		var id = $(this).data('id');
-		confirm_delete(id, 'Cuidado!','Está seguro?');
+		var id    = $(this).data('id');
+		var route = "{{ url('vadmin/delete_clients') }}/"+id+"";
+		deleteRecord(id, route, 'Cuidado!','Desea borrar este cliente?');
 	});
 
-	function delete_item(id, route) {	
-
-		var route = "{{ url('vadmin/ajax_delete_cliente') }}/"+id+"";
-
-		$.ajax({
-			url: route,
-			method: 'post',             
-			dataType: "json",
-			data: {id: id},
-			success: function(data){
-				console.log(data);
-				if (data == 1) {
-					$('#Id'+id).hide(200);
-					alert_ok('Ok!','Eliminación completa');
-				} else {
-					alert_error('Ups!','Ha ocurrido un error');
-					$('#Error').html(data.responseText);
-				}
-			},
-			error: function(data)
-			{
-				$('#Error').html(data.responseText);
-				console.log(data);	
-			},
-		});
-	}
-
-	// -------------- Batch Deletex -------------- //
+	// -------------- Batch Delete --------------- //
 	// --------------------------------------------//
 
 	// ---- Batch Confirm Deletion ---- //
@@ -98,43 +71,10 @@
 		});
 
 		var id = rowsToDelete;
-		confirm_batch_delete(id,'Cuidado!','Está seguro que desea eliminar?');
-		
+		var route = "{{ url('vadmin/delete_clients') }}/"+id+"";
+		deleteRecord(id, route, 'Cuidado!','Desea borrar estos clientes?');
 	});
 
-	// ---- Delete ---- //
-	function batch_delete_item(id) {
-
-		var route = "{{ url('vadmin/ajax_batch_delete_clientes') }}/"+id+"";
-
-		$.ajax({
-			url: route,
-			method: 'post',             
-			dataType: "json",
-			data: {id: id},
-			success: function(data){
-				for(i=0; i < id.length ; i++){
-					$('#Id'+id[i]).hide(200);
-				}
-				$('#BatchDeleteBtn').addClass('Hidden');
-				ajax_list();
-				// $('#Error').html(data.responseText);
-				// console.log(data);
-			},
-			error: function(data)
-			{
-				console.log(data);
-				$('#Error').html(data.responseText);
-			},
-		});
-
-	}
-
-
-
-	//// 
-
-	
 
 	</script>
 

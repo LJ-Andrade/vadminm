@@ -26,6 +26,7 @@
             {!! Form::close() !!}
         </div>
     </div>  
+	<div id="Error"></div>
 
 @endsection
 
@@ -34,8 +35,9 @@
 	<script type="text/javascript" src="{{ asset('plugins/jqueryfiler/jquery.filer.min.js')}} "></script>
 	<script type="text/javascript" src="{{ asset('plugins/colorpicker/spectrum.js')}} "></script>
 	<script type="text/javascript" src="{{ asset('plugins/colorpicker/jquery.spectrum-es.js')}} "></script>
-	<script type="text/javascript" src="{{ asset('plugins/mask/mask.min.js') }}" ></script>
 	<script type="text/javascript" src="{{ asset('js/jslocal/forms.js') }}" ></script>
+	
+	@include('vadmin.components.ajaxscripts')
 @endsection
 
 @section('custom_js')

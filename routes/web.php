@@ -69,13 +69,8 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::resource('clientes', 'ClientesController');
 		
 	Route::get('ajax_list_clients/{page?}', 'ClientesController@ajax_list');
-	Route::post('ajax_delete_cliente/{id}', 'ClientesController@destroy');
-	Route::post('ajax_batch_delete_clientes/{id}', 'ClientesController@ajax_batch_delete');
-
 	Route::get('get_client/{id}', 'ClientesController@get_client');
 	Route::get('get_client_data/{id}', 'ClientesController@get_client_data');
-	
-
 	// Searcher
 	Route::get('ajax_list_search_clientes/{search?}', 'ClientesController@ajax_list_search');
 
@@ -84,24 +79,18 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::get('buscarcuenta', 'ClientesController@buscarcuenta');
 
 	// ------ Provincias ------- //
-	Route::resource('provincias', 'Provincias\ProvinciasController');
-	Route::post('ajax_delete_provincia/{id}', 'Provincias\ProvinciasController@destroy');
-	Route::post('ajax_batch_delete_provincias/{id}', 'Provincias\ProvinciasController@ajax_batch_delete');
+	Route::resource('provincias', 'ProvinciasController');
+	Route::get('/get_locs/{id}', 'LocalidadesController@get_locs');
 
 	// ------ Localidades ------- //
-	Route::resource('localidades', 'Localidades\LocalidadesController');
-	Route::post('ajax_delete_localidad/{id}', 'Localidades\LocalidadesController@destroy');
-	Route::post('ajax_batch_delete_localidades/{id}', 'Localidades\LocalidadesController@ajax_batch_delete');
+	Route::resource('localidades', 'LocalidadesController');
+
 
 	// ------ Zonas ------- //
-	Route::resource('zonas', 'Zonas\ZonasController');
-	Route::post('ajax_delete_zona/{id}', 'Zonas\ZonasController@destroy');
-	Route::post('ajax_batch_delete_zonas/{id}', 'Zonas\ZonasController@ajax_batch_delete');
+	Route::resource('zonas', 'ZonasController');
 
 	// ------ Fletes ------- //
-	Route::resource('fletes', 'Fletes\FletesController');
-	Route::post('ajax_delete_flete/{id}', 'Fletes\FletesController@destroy');
-	Route::post('ajax_batch_delete_fletes/{id}', 'Fletes\FletesController@ajax_batch_delete');
+	Route::resource('fletes', 'FletesController');
 
 	// ------ Categorías Impositivas ------- //
 	Route::resource('ivas', 'IvasController');
@@ -153,29 +142,28 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	// ------ Tipo de Cliente ------- //
 	Route::resource('tipocts', 'TipoctsController');
 	
-
 	// ------ Productos ------- //
-	Route::resource('productos', 'Productos\ProductosController');
-	Route::post('ajax_delete_producto/{id}', 'Productos\ProductosController@destroy');
-	Route::post('ajax_batch_delete_productos/{id}', 'Productos\ProductosController@ajax_batch_delete');
-	Route::post('update_prod_status/{id}', 'Productos\ProductosController@updateStatus');
+	Route::resource('productos', 'ProductosController');
+	Route::post('ajax_delete_producto/{id}', 'ProductosController@destroy');
+	Route::post('ajax_batch_delete_productos/{id}', 'ProductosController@ajax_batch_delete');
+	Route::post('update_prod_status/{id}', 'ProductosController@updateStatus');
 
-	Route::get('get_product/{id}', 'Productos\ProductosController@get_product');
+	Route::get('get_product/{id}', 'ProductosController@get_product');
 	
-	Route::get('ajax_autocomplete/{query?}', 'Productos\ProductosController@ajax_autocomplete');
-	Route::post('get_product_and_price/{id}', 'Productos\ProductosController@get_product_and_price');
-	Route::get('get_product_stock/{id}', 'Productos\ProductosController@get_product_stock');
+	Route::get('ajax_autocomplete/{query?}', 'ProductosController@ajax_autocomplete');
+	Route::post('get_product_and_price/{id}', 'ProductosController@get_product_and_price');
+	Route::get('get_product_stock/{id}', 'ProductosController@get_product_stock');
 
 	
-	Route::post('get_product_data/{id}', 'Productos\ProductosController@get_product_data');
+	Route::post('get_product_data/{id}', 'ProductosController@get_product_data');
 
 	// Route::get('search/autocomplete', 'Productos\ProductosController@autocomplete');
 
-	Route::get('/productos_subfamilias/{id}', 'Productos\ProductosController@ajax_subfamilias');
-	Route::get('show_products/{id}', 'Productos\ProductosController@ajax_show_products');
+	Route::get('/productos_subfamilias/{id}', 'ProductosController@ajax_subfamilias');
+	Route::get('show_products/{id}', 'ProductosController@ajax_show_products');
 
-	Route::post('update_prod_stock/{id}', 'Productos\ProductosController@updateStock');
-	Route::post('update_prod_costprice/{id}', 'Productos\ProductosController@updateCostPrice');
+	Route::post('update_prod_stock/{id}', 'ProductosController@updateStock');
+	Route::post('update_prod_costprice/{id}', 'ProductosController@updateCostPrice');
 
 	// ------ Pedidos ------- //
 	Route::resource('pedidos', 'PedidosController');
@@ -229,8 +217,14 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::post('ajax_store_reparacion/{id}', 'DesarrolloController@ajax_store');
 
 	// DESTROY RECORDS
+	Route::post('delete_provincias/{id}', 'ProvinciasController@destroy');
+	Route::post('delete_localidades/{id}', 'LocalidadesController@destroy');
 	Route::post('delete_ivas/{id}', 'IvasController@destroy');
 	Route::post('delete_tipocts/{id}', 'TipoctsController@destroy');
+	Route::post('delete_zonas/{id}', 'ZonasController@destroy');
+	Route::post('delete_clients/{id}', 'ClientesController@destroy');
+	Route::post('delete_fletes/{id}', 'FletesController@destroy');
+	
 });
 
 // Autocomplete

@@ -1,13 +1,10 @@
-<div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
-    {!! Form::label('name', 'Name', ['class' => 'col-md-4 control-label']) !!}
-    <div class="col-md-6">
-        {!! Form::text('name', null, ['class' => 'form-control']) !!}
-        {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
-    </div>
+<div class="form-group">
+    {!! Form::label('name', 'Nombre:') !!}
+    {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el nombre de la localidad', 'required' => '']) !!} 
 </div>
 
 <div class="form-group">
-    <div class="col-md-offset-4 col-md-4">
-        {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Create', ['class' => 'btn btn-primary']) !!}
-    </div>
+    {!! Form::label('province_id', 'Provincia:') !!}
+    {!! Form::select('province_id', $provincias, null, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Ingrese la provincia']) !!} 
 </div>
+

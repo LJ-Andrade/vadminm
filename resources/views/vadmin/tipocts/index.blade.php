@@ -9,7 +9,7 @@
 	@section('header_title', 'Tipos de Cliente') 
 	@section('options')
 		<div class="actions">
-            <a href="{{ url('vadmin/tipocts/create') }}" class="btn btnSm buttonOther">Nuevo Tipo</a>
+            <a href="{{ url('vadmin/tipocts/create') }}" class="btn btnSm buttonOther"><i class="ion-plus-round"></i> Nuevo Tipo</a>
             <button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button>
 		</div>	
 	@endsection
@@ -19,7 +19,6 @@
 @section('styles')
 	{{-- Include Styles Here --}}
 @endsection
-
 
 {{-- CONTENT --}}
 @section('content')

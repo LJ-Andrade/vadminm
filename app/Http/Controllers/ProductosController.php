@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Productos;
+namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -334,16 +334,16 @@ class ProductosController extends Controller
     public function ajax_subfamilias($id) {
 
         $subfamilias = Subfamilia::where('familia_id', '=', $id)->get();
-
         return response()->json($subfamilias);
 
     }
 
     public function ajax_show_products($id)
     {
-        $productos = Producto::where('subfamilia_id', '=', $id)->get();
 
+        $productos = Producto::where('subfamilia_id', '=', $id)->get();
         return response()->json($productos);
+        
     }
 
 

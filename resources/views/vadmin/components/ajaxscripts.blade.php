@@ -14,6 +14,35 @@
 
 	var smallLoader  = '<img src="{{ asset("images/gral/loader-sm.svg") }}"/> Actualizando...';
 
+	/////////////////////////////////////////////////
+	//         SET LOC BY PROV - AJAX              //
+	/////////////////////////////////////////////////
+
+	$('#ProvinciasAjax').on('change',function(e){
+	
+		var id    = e.target.value;
+		var route = "{{ url('vadmin/get_locs') }}/"+id+"";
+		set_localidad(id, route)
+
+	});
+
+	function set_localidad(id, route){
+		
+		$.get(route, function(data){
+			console.log(data);
+			// Vacía el Select de OPTIONS
+			$('#LocalidadAjax').find('option').remove().end();
+			// We add this option to put ProductSelect to work on single product result
+			$('#LocalidadAjax').append("<option value=''>Seleccione una opción</option>");
+			// Recorre Array de data traída por ajax
+			$.each(data, function(index, localidades){
+				// Genera los OPTIONS correspondientes
+				$('#LocalidadAjax').append("<option value='"+localidades.id+"'>"+ localidades.name +"</option>");
+			});
+			// Hace un update del plugin CHOSEN para que se representen los OPTIONS.
+			$('#LocalidadAjax').trigger("chosen:updated");
+		});
+	}
 
 	/////////////////////////////////////////////////
 	//            SUBFAMILIAS - AJAX               //

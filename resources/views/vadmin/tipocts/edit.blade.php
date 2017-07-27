@@ -11,9 +11,6 @@
 	@endsection
 @endsection
 
-@section('styles')
-	
-@endsection
 
 @section('content')
 

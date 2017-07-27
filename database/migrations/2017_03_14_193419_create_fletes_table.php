@@ -15,6 +15,12 @@ class CreateFletesTable extends Migration
         Schema::create('fletes', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('telefono');
+            $table->string('direccion');
+            $table->integer('localidad_id')->unsigned()->nullable();
+            $table->foreign('localidad_id')->references('id')->on('localidades');
+            $table->integer('provincia_id')->unsigned()->nullable();
+            $table->foreign('provincia_id')->references('id')->on('provincias');
             $table->timestamps();
         });
     }

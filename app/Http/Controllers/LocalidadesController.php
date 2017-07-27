@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Iva;
+use App\Localidad;
+use App\Provincia;
 use Illuminate\Http\Request;
 use Session;
 
-class IvasController extends Controller
+class LocalidadesController extends Controller
 {
 
     //////////////////////////////////////////////////
@@ -19,24 +20,29 @@ class IvasController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->get('search');
-        $perPage = 20;
+        $perPage = 25;
 
         if (!empty($keyword)) {
-            $ivas = Iva::where('name', 'LIKE', "%$keyword%")
+            $localidades = Localidad::where('name', 'LIKE', "%$keyword%")
 				
                 ->paginate($perPage);
         } else {
-            $ivas = Iva::paginate($perPage);
+            $localidades = Localidad::orderBy('name','ASC')->paginate($perPage);
         }
 
-        return view('vadmin.ivas.index', compact('ivas'));
+        return view('vadmin.localidades.index', compact('localidades'));
     }
-
 
     public function show($id)
     {
-        $iva = Iva::findOrFail($id);
-        return view('vadmin.ivas.show', compact('iva'));
+        $localidad = Localidad::findOrFail($id);
+        return view('vadmin.localidades.show', compact('localidad'));
+    }
+
+    public function get_locs($id)
+    {        
+        $localidades = Localidad::where('province_id', '=', $id)->get();
+        return response()->json($localidades);
     }
 
     //////////////////////////////////////////////////
@@ -45,31 +51,32 @@ class IvasController extends Controller
 
     public function create()
     {
-        return view('vadmin.ivas.create');
+        $provincias = Provincia::orderBy('name', 'ASC')->pluck('name', 'id');
+        
+        return view('vadmin.localidades.create')->with('provincias', $provincias);
     }
 
     public function store(Request $request)
-    {   
+    {
+
         $this->validate($request,[
-            'name'          => 'required|unique:ivas,name',
-            'afipcode'      => 'required|unique:ivas,afipcode',
-            'tipofc'        => 'required|unique:ivas,tipofc'
+            'name'          => 'required|unique:localidades,name',
+            'province_id'   => 'required'
+
         ],[
-            'name.required'     => 'Debe ingresar un nombre',
-            'name.unique'       => 'El nombre de la categoría ya existe',
-            'afipcode.required' => 'Debe ingresar un código Afip',
-            'afipcode.unique'   => 'El código ya está ingresado en otra categoría',
-            'tipofc.required'   => 'Debe ingresar un tipo de factura',
-            'tipofc.unique'     => 'El tipo de factura ya está en uso en otra categoría',
+            'name.required'        => 'Debe ingresar una localidad',
+            'name.unique'          => 'La localidad ya existe',
+            'province_id.required' => 'Debe ingresar una provincia'
         ]);
+
         
         $requestData = $request->all();
         
-        Iva::create($requestData);
+        Localidad::create($requestData);
 
-        Session::flash('flash_message', 'Se ha creado la categoría'. $request->name );
+        Session::flash('flash_message', 'Localidade added!');
 
-        return redirect('vadmin/ivas');
+        return redirect('vadmin/localidades');
     }
 
     //////////////////////////////////////////////////
@@ -78,35 +85,35 @@ class IvasController extends Controller
 
     public function edit($id)
     {
-        $iva = Iva::findOrFail($id);
-        return view('vadmin.ivas.edit', compact('iva'));
+        $localidad = Localidad::findOrFail($id);
+        $provincias = Provincia::orderBy('name', 'ASC')->pluck('name', 'id');
+
+        return view('vadmin.localidades.edit')
+            ->with('localidad', $localidad)
+            ->with('provincias', $provincias);
+
     }
 
     public function update($id, Request $request)
     {
-
-        $iva = Iva::findOrFail($id);
+        $localidad = Localidad::findOrFail($id);
 
         $this->validate($request,[
-            'name'          => 'required|unique:ivas,name,'.$iva->id,
-            'afipcode'      => 'required|unique:ivas,afipcode,'.$iva->id,
-            'tipofc'        => 'required|unique:ivas,tipofc,'.$iva->id
-                                
+            'name'          => 'required|unique:localidades,name,'.$localidad->id,
+            'province_id'   => 'required'
+
         ],[
-            'name.required'     => 'Debe ingresar un nombre',
-            'name.unique'       => 'El nombre de la categoría ya existe',
-            'afipcode.required' => 'Debe ingresar un código Afip',
-            'afipcode.unique'   => 'El código ya está ingresado en otra categoría',
-            'tipofc.required'   => 'Debe ingresar un tipo de factura',
-            'tipofc.unique'     => 'El tipo de factura ya está en uso en otra categoría',
+            'name.required'        => 'Debe ingresar una localidad',
+            'name.unique'          => 'La localidad ya existe',
+            'province_id.required' => 'Debe ingresar una provincia'
         ]);
-    
-        $iva->fill($request->all());
-        $iva = $iva->save();
+        
+        $localidad->fill($request->all());
+        $localidad = $localidad->save();
 
-        Session::flash('flash_message', 'La categoría fue actualizada');
+        Session::flash('flash_message', 'La localidad fue actualizada');
 
-        return redirect('vadmin/ivas');
+        return redirect('vadmin/localidades');
     }
 
     //////////////////////////////////////////////////
@@ -119,7 +126,7 @@ class IvasController extends Controller
         if(is_array($request->id)) {
             try {
                 foreach ($request->id as $id) {
-                    $record = Iva::find($id);
+                    $record = Localidad::find($id);
                     $record->delete();
                 }
                 return response()->json([
@@ -133,7 +140,7 @@ class IvasController extends Controller
             }
         } else {
             try {
-                $record = Iva::find($id);
+                $record = Localidad::find($id);
                 $record->delete();
                     return response()->json([
                         'success'   => true,
@@ -148,4 +155,5 @@ class IvasController extends Controller
         }
     }
 
-} // End
+
+}

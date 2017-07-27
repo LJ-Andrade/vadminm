@@ -11,17 +11,13 @@
 	@endsection
 @endsection
 
-@section('styles')
-	
-@endsection
-
 @section('content')
     <div class="container">
         <div id="Error"></div>
         <div class="narrow-form">
             <div class="inner">
                 <div class="title">
-                    <span>Creación de nueva categoría impositiva</span>
+                    <span>Edición de categoría impositiva</span>
                 </div>
                 {!! Form::model($iva, [
                     'method' => 'PATCH',
@@ -34,7 +30,6 @@
             </div>
         </div>
     </div>
-
 
 @endsection
 

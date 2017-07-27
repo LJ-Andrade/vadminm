@@ -49,7 +49,8 @@ var deleteRecord = function(id, route, bigtext, smalltext) {
 				// $('#Main-Loader').removeClass('Hidden');
 			},
 			success: function(data){
-				console.log(data);
+				
+				$('#BatchDeleteBtn').addClass('Hidden');
 				if (data.success == true) {
 					$('#Id'+id).hide(200);
 					for(i=0; i < id.length ; i++){

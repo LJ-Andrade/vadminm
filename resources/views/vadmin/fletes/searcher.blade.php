@@ -1,5 +1,9 @@
 @section('searcher')
 
+@if(isset($_GET['search']))
+<a href="{{ url('vadmin/fletes') }}"><button type="button" class="btnSmall buttonOk">Mostrar Todos</button></a>
+@endif
+
 <div class="row header-options">
     <div class="Search-Filters search-filters">
         {{-- Search --}}

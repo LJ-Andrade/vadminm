@@ -9,35 +9,27 @@
 	@section('header_title', 'Categorías Impositivas') 
 	@section('options')
 		<div class="actions">
-            <a href="{{ url('vadmin/ivas/create') }}" class="btn btnSm buttonOther">Nueva</a>
+            <a href="{{ url('vadmin/ivas/create') }}" class="btn btnSm buttonOther">Nueva Categoría</a>
             <button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button>
 		</div>	
 	@endsection
 @endsection
-
-{{-- STYLES--}}
-@section('styles')
-	{{-- Include Styles Here --}}
-@endsection
-
 
 {{-- CONTENT --}}
 @section('content')
     <div class="container">
 		<div class="row">		
 			@include('vadmin.ivas.searcher')
-			<div class="table-responsive table-list">          
-				<table class="table table-striped">
-					<thead>
-					<tr>
-						<th></th>
-						<th>Detalle</th>
-						<th>Tipo Fc</th>
-						<th>Código de Afip</th>
-						<th></th>
-					</tr>
-					</thead>
-					<tbody>
+
+			@component('vadmin.components.tablelist')
+				@slot('tableTitles')
+					<th></th>
+					<th>Detalle</th>
+					<th>Tipo Fc</th>
+					<th>Código de Afip</th>
+					<th></th>
+				@endslot
+				@slot('tableContent')
 					@foreach($ivas as $item)
 						<tr id="Id{{ $item->id }}" class="TableList-Row table-list-row">
 							<td class="list-checkbox">
@@ -64,15 +56,18 @@
 							</td>
 						</tr>
 					@endforeach
+				@endslot
+				@slot('tableEmpty')
 					@if(! count($ivas))
 					<tr>
 						<td>No se han encontrado registros</td>
 					</tr>
 					@endif
-					</tbody>
-				</table>
-				{!! $ivas->render(); !!}
-			</div>
+				@endslot
+				@slot('pagination')
+					{!! $ivas->render(); !!}
+				@endslot
+			@endcomponent
 		</div>
 		<button id="BatchDeleteBtn" class="button buttonCancel batchDeleteBtn Hidden"><i class="ion-ios-trash-outline"></i> Eliminar seleccionados</button>
 	</div>  

@@ -1,7 +1,7 @@
 <div class="col-md-12 animated fadeIn main-list">
 
 	@foreach($clientes as $item)
-	<div id="Id{{ $item->id }}" class="row Item-Row item-row Select-Row-Trigger" data-data="{{ $item }}">
+	<div id="Id{{ $item->id }}" class="row Item-Row item-row Select-Row-Trigger">
 		{{-- Column --}}
 		<div class="noimg">
 		</div>
@@ -28,7 +28,7 @@
 			<input type="checkbox" class="BatchDelete" data-id="{{ $item->id }}">
 		</div>
 		{{-- Hidden Action Buttons --}}
-		<div class="List-Actions lists-actions">
+		<div class="List-Actions lists-actions Hidden">
 			<a href="{{ url('vadmin/clientes/cuenta/' . $item->id) }}" class="ShowEditBtn btnSmall buttonOk">
 				<i class="ion-social-usd"></i>
 			</a>

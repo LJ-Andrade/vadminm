@@ -46,15 +46,16 @@
 	{{-- Provinces --}}
 	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div class="form-group">
-			{!! Form::label('provincia', 'Provincia') !!}
-			{!! Form::select('provincia',  $provincias, null, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
+			{!! Form::label('provincia_id', 'Provincia') !!}
+			{!! Form::select('provincia_id',  $provincias, null, ['id' => 'ProvinciasAjax', 'class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opción']) !!}
 		</div>
 	</div>
 	{{-- Loc. --}}
 	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div class="form-group">
-			{!! Form::label('localidad', 'Localidad') !!}
-			{!! Form::select('localidad',  $localidades, null, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
+			{!! Form::label('localidad_id', 'Localidad') !!}
+			<select name="localidad_id" id="LocalidadAjax" class="form-control Select-Chosen" required="">
+			</select>
 		</div>
 	</div>
 	{{-- Postal Code --}}
@@ -83,7 +84,7 @@
 	<div class="col-md-4 col-sm-6 col-xs-12">
 		<div class="form-group">
 			{!! Form::label('condicventas', 'Condiciones de Vta.') !!}
-			{!! Form::select('condicventas', $condicventas, null, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
+			{!! Form::select('condicventas', $condicventas, null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion']) !!}
 		</div>
 	</div>
 	{{-- Lista de Precios --}}
@@ -145,18 +146,15 @@
 		<div class="form-group multiple-items">
 			{!! Form::label('telefonos', 'Teléfonos') !!}
 			<div class="TelInputs">
-			{!! Form::text('telefono', null, ['class' => 'form-control', 'placeholder' => 'Ingrese un teléfono', 'data-mask'=>'0000-0000 | 0000-0000 | 0000-0000']) !!}
+			{!! Form::text('telefono', null, ['class' => 'form-control', 'placeholder' => 'Ingrese un teléfono']) !!}
 			</div>
-			{{--<div class="AddAnother add-another"><button type="button" class="AddAnotherTelBtn transBtn">
-				<i class="ion-ios-plus-outline"></i> Agregar otro teléfono</button>
-			</div>--}}
 		</div>
 	</div>
 		{{-- Teléfonos --}}
 	<div class="col-md-4 col-sm-6 col-xs-12">
 		<div class="form-group multiple-items">
 			{!! Form::label('celular', 'Celular') !!}
-			{!! Form::text('celular', null, ['class' => 'form-control', 'placeholder' => 'Ingrese un celular', 'data-mask'=>'(00)0000-0000 | (00)0000-0000 | (00)0000-0000']) !!}
+			{!! Form::text('celular', null, ['class' => 'form-control', 'placeholder' => 'Ingrese un celular']) !!}
 		</div>
 	</div>
 	{{-- E-Mail --}}

@@ -10,4 +10,4 @@
         {!! Form::label('tipofc', 'Tipo de Factura:') !!}
         {!! Form::text('tipofc', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el tipo de factura', 'required' => '']) !!} 
     </div>
-    {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Crear', ['class' => 'animated fadeIn button buttonOk']) !!}
+    

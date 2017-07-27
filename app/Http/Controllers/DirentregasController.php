@@ -1,15 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Zonas;
+namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Zona;
+use App\Direntrega;
 use Illuminate\Http\Request;
 use Session;
+use App\Provincia;
+use App\Localidad;
+use App\Cliente;
 
-class ZonasController extends Controller
+class DirentregasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,14 +25,14 @@ class ZonasController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $zonas = Zona::where('name', 'LIKE', "%$keyword%")
+            $direntregas = Direntrega::where('name', 'LIKE', "%$keyword%")
 				
                 ->paginate($perPage);
         } else {
-            $zonas = Zona::paginate($perPage);
+            $direntregas = Direntrega::paginate($perPage);
         }
 
-        return view('vadmin.zonas.index', compact('zonas'));
+        return view('vadmin.direntregas.index', compact('direntregas'));
     }
 
     /**
@@ -39,7 +42,14 @@ class ZonasController extends Controller
      */
     public function create()
     {
-        return view('vadmin.zonas.create');
+        $clientes     = Cliente::orderBy('razonsocial', 'ASC')->pluck('razonsocial', 'id');
+        $provincias   = Provincia::orderBy('name', 'ASC')->pluck('name', 'id');
+        $localidades  = Localidade::orderBy('name', 'ASC')->pluck('name', 'id');
+
+        return view('vadmin.direntregas.create')
+            ->with('clientes', $clientes) 
+            ->with('provincias', $provincias)
+            ->with('localidades', $localidades);
     }
 
     /**
@@ -52,21 +62,23 @@ class ZonasController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'name'              => 'required|unique:zonas,name',
+            'name'              => 'required|unique:direntregas,name',
         ],[
-            'name.required'     => 'Debe ingresar una localidad',
-            'name.unique'      => 'La localidad ya existe',
+            'name.required'     => 'Debe ingresar un nombre',
+            'name.unique'      => 'El item ya existe',
         ]);
-
-
         
-        $requestData = $request->all();
+        $dirEntrega = new Direntrega($request->all());
         
-        Zona::create($requestData);
+        $dirEntrega->cliente_id    = $request->cliente_id;
+        $dirEntrega->provincia_id  = $request->provincia_id;
+        $dirEntrega->localidad_id  = $request->localidad_id;
 
-        Session::flash('flash_message', 'Zona added!');
+        $dirEntrega->save();
 
-        return redirect('vadmin/zonas');
+        Session::flash('flash_message', 'Direntrega added!');
+
+        return redirect('vadmin/direntregas');
     }
 
     /**
@@ -78,9 +90,9 @@ class ZonasController extends Controller
      */
     public function show($id)
     {
-        $zona = Zona::findOrFail($id);
+        $direntrega = Direntrega::findOrFail($id);
 
-        return view('vadmin.zonas.show', compact('zona'));
+        return view('vadmin.direntregas.show', compact('direntrega'));
     }
 
     /**
@@ -92,9 +104,9 @@ class ZonasController extends Controller
      */
     public function edit($id)
     {
-        $zona = Zona::findOrFail($id);
+        $direntrega = Direntrega::findOrFail($id);
 
-        return view('vadmin.zonas.edit', compact('zona'));
+        return view('vadmin.direntregas.edit', compact('direntrega'));
     }
 
     /**
@@ -109,7 +121,7 @@ class ZonasController extends Controller
     {
 
         $this->validate($request,[
-            'name'              => 'required|unique:zonas,name',
+            'name'              => 'required|unique:direntregas,name',
         ],[
             'name.required'     => 'Debe ingresar un nombre',
             'name.unique'      => 'El item ya existe',
@@ -119,18 +131,18 @@ class ZonasController extends Controller
         
         $requestData = $request->all();
         
-        $zona = Zona::findOrFail($id);
-        $zona->update($requestData);
+        $direntrega = Direntrega::findOrFail($id);
+        $direntrega->update($requestData);
 
-        Session::flash('flash_message', 'Zona updated!');
+        Session::flash('flash_message', 'Direntrega updated!');
 
-        return redirect('vadmin/zonas');
+        return redirect('vadmin/direntregas');
     }
 
     // ---------- Delete -------------- //
     public function destroy($id)
     {
-        $item = Zona::find($id);
+        $item = Direntrega::find($id);
         $item->delete();
         echo 1;
     }
@@ -141,8 +153,8 @@ class ZonasController extends Controller
     {
         foreach ($request->id as $id) {
         
-            $item  = Zona::find($id);
-            Zona::destroy($id);
+            $item  = Direntrega::find($id);
+            Direntrega::destroy($id);
         }
         echo 1;
     }
