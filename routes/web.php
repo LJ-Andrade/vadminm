@@ -128,9 +128,9 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::post('ajax_batch_delete_subfamilias/{id}', 'Subfamilias\SubfamiliasController@ajax_batch_delete');
 
 	// ------ Listado de Proveedores ------- //
-	Route::resource('proveedores', 'Proveedores\ProveedoresController');
-	Route::post('ajax_delete_proveedor/{id}', 'Proveedores\ProveedoresController@destroy');
-	Route::post('ajax_batch_delete_proveedores/{id}', 'Proveedores\ProveedoresController@ajax_batch_delete');
+	Route::resource('proveedores', 'ProveedoresController');
+	Route::post('ajax_delete_proveedor/{id}', 'ProveedoresController@destroy');
+	Route::post('ajax_batch_delete_proveedores/{id}', 'ProveedoresController@ajax_batch_delete');
 
 	// ------ Listado de Monedas ------- //
 	Route::resource('monedas', 'Monedas\MonedasController');
@@ -167,8 +167,6 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 
 	// ------ Pedidos ------- //
 	Route::resource('pedidos', 'PedidosController');
-	Route::post('ajax_delete_pedido/{id}', 'PedidosController@destroy');
-	Route::post('ajax_batch_delete_pedidos/{id}', 'PedidosController@ajax_batch_delete');
 	Route::post('update_pedido_status/{id}', 'PedidosController@updateStatus');
 
 	// ------ Generador de Orden de Pedidos e Items ------- //
@@ -224,6 +222,9 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::post('delete_zonas/{id}', 'ZonasController@destroy');
 	Route::post('delete_clients/{id}', 'ClientesController@destroy');
 	Route::post('delete_fletes/{id}', 'FletesController@destroy');
+	Route::post('delete_pedidos/{id}', 'PedidosController@destroy');
+
+
 	
 });
 

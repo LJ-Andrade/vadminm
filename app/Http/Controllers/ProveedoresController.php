@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Proveedores;
+namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Proveedor;
 use App\Provincia;
-use App\Localidade;
+use App\Localidad;
 use App\Iva;
 
 use Illuminate\Http\Request;
@@ -36,7 +36,7 @@ class ProveedoresController extends Controller
     {
         $ultproveedor_id = Proveedor::orderBy('id','DESC')->first();
         $provincias      = Provincia::orderBy('name', 'ASC')->pluck('name', 'id');
-        $localidades     = Localidade::orderBy('name', 'ASC')->pluck('name', 'id');
+        $localidades     = Localidad::orderBy('name', 'ASC')->pluck('name', 'id');
         $iva             = Iva::orderBy('name', 'ASC')->pluck('name', 'id');
 
         return view('vadmin.proveedores.create')
@@ -84,7 +84,7 @@ class ProveedoresController extends Controller
     {
         $proveedor   = Proveedor::findOrFail($id);
         $provincias  = Provincia::orderBy('name', 'ASC')->pluck('name', 'id');
-        $localidades = Localidade::orderBy('name', 'ASC')->pluck('name', 'id');
+        $localidades = Localidad::orderBy('name', 'ASC')->pluck('name', 'id');
         $iva         = Iva::orderBy('name', 'ASC')->pluck('name', 'id');
 
         return view('vadmin.proveedores.edit')

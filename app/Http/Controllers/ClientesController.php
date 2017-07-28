@@ -218,21 +218,21 @@ class ClientesController extends Controller
     {
         $this->validate($request,[
             'razonsocial'          => 'required|unique:clientes,razonsocial',
-            'cuit'                 => 'required|unique:clientes,cuit'
+            // 'cuit'                 => 'required|unique:clientes,cuit'
         ],[
             'razonsocial.required' => 'Debe ingresar una razonsocial',
             'razonsocial.unique'   => 'La razón social ya existe',
             'cuit.required'        => 'Debe ingresar un Cuit',
-            'cuit.unique'          => 'El Cuit ya existe',
+            // 'cuit.unique'          => 'El Cuit ya existe',
         ]);
         
         // dd($request->all());
         
         $cliente = new Cliente($request->all());
-
+        
         $cliente->iva_id          = $request->iva;
-        $cliente->provincia_id    = $request->provincia;
-        $cliente->localidad_id    = $request->localidad;
+        $cliente->provincia_id    = $request->provincia_id;
+        $cliente->localidad_id    = $request->localidad_id;
         $cliente->limitcred       = $request->limitcred;
         $cliente->condicventas_id = $request->condicventas;
         $cliente->listas_id       = $request->listas;
@@ -310,12 +310,12 @@ class ClientesController extends Controller
         
         $this->validate($request,[
             'razonsocial'          => 'required|unique:clientes,razonsocial,'.$cliente->id,
-            'cuit'                 => 'required|unique:clientes,cuit,'.$cliente->id
+            // 'cuit'                 => 'required|unique:clientes,cuit,'.$cliente->id
         ],[
             'razonsocial.required' => 'Debe ingresar un nombre',
             'razonsocial.unique'   => 'La razon social ya existe',
             'cuit.required'        => 'Debe ingresar un Cuit',
-            'cuit.unique'          => 'El Cuit ya existe'
+            // 'cuit.unique'          => 'El Cuit ya existe'
         ]);
         
         $cliente->fill($request->all());

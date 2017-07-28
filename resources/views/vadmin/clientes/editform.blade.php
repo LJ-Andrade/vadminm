@@ -147,7 +147,7 @@
 		<div class="form-group multiple-items">
 			{!! Form::label('telefonos', 'Teléfonos') !!}
 			<div class="TelInputs">
-			{!! Form::text('telefono', null, ['class' => 'form-control', 'placeholder' => 'Ingrese un teléfono', 'data-mask'=>'0000-0000 | 0000-0000 | 0000-0000']) !!}
+			{!! Form::text('telefono', null, ['class' => 'form-control', 'placeholder' => 'Ingrese un teléfono']) !!}
 			</div>
 		</div>
 	</div>
@@ -155,7 +155,7 @@
 	<div class="col-md-4 col-sm-6 col-xs-12">
 		<div class="form-group multiple-items">
 			{!! Form::label('celular', 'Celular') !!}
-			{!! Form::text('celular', null, ['class' => 'form-control', 'placeholder' => 'Ingrese un celular', 'data-mask'=>'(00)0000-0000 | (00)0000-0000 | (00)0000-0000']) !!}
+			{!! Form::text('celular', null, ['class' => 'form-control', 'placeholder' => 'Ingrese un celular']) !!}
 		</div>
 	</div>
 	{{-- E-Mail --}}

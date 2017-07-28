@@ -181,28 +181,43 @@ class PedidosController extends Controller
         echo 'ok';
     }
 
+      //////////////////////////////////////////////////
+    //                  DESTROY                     //
     //////////////////////////////////////////////////
-    //                 DESTROY                      //
-    //////////////////////////////////////////////////
 
-    // ---------- Delete -------------- //
-    public function destroy($id)
-    {
-        $item = Pedido::find($id);
-        $item->delete();
-        echo 1;
-    }
+    public function destroy(Request $request, $id)
+    {   
 
-
-    // ---------- Ajax Bach Delete -------------- //
-    public function ajax_batch_delete(Request $request, $id)
-    {
-        foreach ($request->id as $id) {
-        
-            $item  = Pedido::find($id);
-            Pedido::destroy($id);
+        if(is_array($request->id)) {
+            try {
+                foreach ($request->id as $id) {
+                    $record = Pedido::find($id);
+                    $record->delete();
+                }
+                return response()->json([
+                    'success'   => true,
+                ]); 
+            }  catch (Exception $e) {
+                return response()->json([
+                    'success'   => false,
+                    'error'    => 'Error: '.$e
+                ]);    
+            }
+        } else {
+            try {
+                $record = Pedido::find($id);
+                $record->delete();
+                    return response()->json([
+                        'success'   => true,
+                    ]);  
+                    
+                } catch (Exception $e) {
+                    return response()->json([
+                        'success'   => false,
+                        'error'    => 'Error: '.$e
+                    ]);    
+                }
         }
-        echo 1;
     }
 
 

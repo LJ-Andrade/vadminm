@@ -107,7 +107,7 @@
 
 		var id = rowsToDelete;
 		var route = "{{ url('vadmin/delete_fletes') }}/"+id+"";
-		deleteRecord(id, route, 'Cuidado!','Desea eliminar este flete?');
+		deleteRecord(id, route, 'Cuidado!','Desea eliminar estos fletes?');
 	});
 
 	</script>
