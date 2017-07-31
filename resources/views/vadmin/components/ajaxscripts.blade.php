@@ -323,8 +323,6 @@
 		});
 	}
 
-
-
 	function addItem(route, data){ 
 		var preview     = $('#CfOutputPreview');
 		var erroroutput = $('#DisplayErrorOutPut');
@@ -354,8 +352,78 @@
 
 	}
 	
+	/////////////////////////////////////////////////
+	//              CLIENT  Finder                 //
+	/////////////////////////////////////////////////
 
-    
+	// Get Client Data On Button Click
+	$('#ClientByCodeBtn').click(function(){
+		// Get Client Full Data
+		var id         = $('#ClientByCode').val();
+		var route      = "{{ url('vadmin/get_client') }}/"+id+"";
+		
+		getClientData(route).done(function(data){
+			console.log(data);
+			if (data.client != null){
+				var id          = data.client['id'];
+				var razonsocial = data.client['razonsocial'];
+			} 
+			// Send Client Data to Output
+			output(id, razonsocial);
+		});
+	});
+
+	// Get Client Data OnKeydown
+	$("#ClientByCode").on("keydown", function(e) {
+		if(e.which == 13) {
+			$('#ClientByCodeBtn').click();
+		}
+	});
+	
+	// Get Client Data On Autocomplete Input
+	$('#ClientAutoComplete').autocomplete({
+		source: "{!!URL::route('client_autocomplete')!!}",
+		minlength: 1,
+		autoFocus: true,
+		search: function(){
+			$('#SmallLoader').html(loaderSm('Buscando...'));
+		},
+		select:function(e,data)
+		{
+			var id    = data.item.id;
+			var route = "{{ url('vadmin/get_client') }}/"+id+"";
+
+			// Get Client Full Data
+			getClientData(route).done(function(data){
+				var id          = data.client['id'];
+				var razonsocial = data.client['razonsocial'];
+
+				// Send Client Data to Output
+				output(id, razonsocial)
+			});
+			
+		},
+		response: function(event, ui) {
+			$('#SmallLoader').html('');
+		},
+	});
+
+	// Print Selected Data and Fill Inputs
+	function output(id, razonsocial){
+		var output      = $('#ClientData');
+		var outputerror = $('#ClientError');
+
+		if(id != null){
+			$('#ClienteIdOutput').val(id);
+			$('#ClientOutPut').removeClass('Hidden');
+			output.html('Cód.:' + id + ' | ' + razonsocial);
+			outputerror.addClass('Hidden');
+		} else {
+			$('#ClientOutPut').addClass('Hidden');
+			outputerror.removeClass('Hidden');
+		}
+	}
+
 	/////////////////////////////////////////////////
 	//              DESARROLLANDO                  //
 	/////////////////////////////////////////////////
@@ -363,6 +431,25 @@
 	function getClientData(route){
 		return  $.get(route, function(data){});
 	}
+
+
+	/////////////////////////////////////////////////
+	//                   PAYMENT                   //
+	/////////////////////////////////////////////////
+
+	// $('#AddPaymentEBtn').click(function(e){
+	// 	e.preventDefault();
+	// 	var clientId = $('#ClientId').val();
+	// 	var form     = $('#AddPaymentEForm').serialize(); 
+		
+	// 	// $('#AddPaymentEForm').submit();
+	// 	$('#AddPaymentEForm').submit(function(eventObj) {
+	// 		$(this).append("<input type='hidden' name='client_id' value='" + $client->id +"'/> ");
+	// 		return true;
+	// 	});
+
+
+	// });
 
 
 	

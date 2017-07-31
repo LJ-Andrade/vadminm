@@ -50,6 +50,28 @@ function statusTrd($status) {
 
 }
 
+function paymentType($type) {
+
+    switch ($type) {
+        case 'E':
+            echo 'Efectivo';
+            break;
+        case 'B':
+            echo 'Banco';
+            break;
+        case 'C':
+            echo 'Cheque';
+            break;
+        case 'R':
+            echo 'Retención';
+            break;
+        default:
+            echo 'Desconocido';
+            break;
+    }
+
+}
+
 
 function calcFinalPrice($cost, $pje){
     $result = $cost * $pje / 100;

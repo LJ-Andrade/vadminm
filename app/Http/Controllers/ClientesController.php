@@ -19,6 +19,8 @@ use App\Lista;
 use App\Direntrega;
 use App\Tipoct;
 use App\Factura;
+use App\Pago;
+use Excel;
 
 class ClientesController extends Controller
 {
@@ -67,7 +69,7 @@ class ClientesController extends Controller
     public function show($id)
     {
         $cliente    = Cliente::findOrFail($id);
-        $dirEntrega = Direntrega::where('client_id', '=', $id);
+        $dirEntrega = Direntrega::where('cliente_id', '=', $id);
  
         return view('vadmin.clientes.show')
             ->with('cliente', $cliente)
@@ -132,16 +134,16 @@ class ClientesController extends Controller
 
        $client = Cliente::where('id', '=', $id)->first();
 
-       $client->tipocte     = $client->tipoct->name;
-       $client->vendedor    = $client->user->name;
-       $client->flete_id    = $client->flete->name;
-       $client->categiva    = $client->iva->name;
-       $client->dirfiscal   = $client->dirfiscal;
-       $client->tipofc      = $client->iva->tipofc;
-       $client->tipofc_code = $client->iva->afipcode;
-       $client->categoria   = $client->iva->name;
+       $cliente->tipocte     = $client->tipoct->name;
+       $cliente->vendedor    = $client->user->name;
+       $cliente->flete_id    = $client->flete->name;
+       $cliente->categiva    = $client->iva->name;
+       $cliente->dirfiscal   = $client->dirfiscal;
+       $cliente->tipofc      = $client->iva->tipofc;
+       $cliente->tipofc_code = $client->iva->afipcode;
+       $cliente->categoria   = $client->iva->name;
        // ********** IMPORTANT This Id is given by webservice  ********** //
-       $client->categiva_id = $client->iva_id;
+       $cliente->categiva_id = $client->iva_id;
        
        return response()->json(['client' => $client]);
     }
@@ -165,24 +167,46 @@ class ClientesController extends Controller
     //////////////////////////////////////////////////
 
     public function account($id)
-    {
+    {   
+        $movements  = $this->accountStract($id);
+        $fecha      = date('Y-m-d H:i:s');
 
-        $fcs       = Factura::where('cliente_id', '=', $id)->get();
-        $incomings = Factura::where('cliente_id', '=', $id)->sum('total');
-        
-        $client    = Cliente::where('id', '=', $id)->first();
+        $facturas   = Factura::where('cliente_id', '=', $id)->pluck('numero', 'id');
+        $outcomings = Factura::where('cliente_id', '=', $id)->sum('total');
+        $incomings  = Pago::where('cliente_id', '=', $id)->sum('importe');
+        $totals     = $outcomings - $incomings ;
+
+        $client     = Cliente::where('id', '=', $id)->first();
 
         return view('vadmin.clientes.cuenta')
             ->with('client', $client)
-            ->with('fcs', $fcs)
-            ->with('incomings', $incomings);
+            ->with('movements', $movements)
+            ->with('facturas', $facturas)
+            ->with('totals', $totals)
+            ->with('fecha', $fecha);
     }
     
+    public function exportAccount($id, $type, $filename){
+        Excel::create($filename, function($excel) use($id){
+
+            $excel->sheet('New sheet', function($sheet) use($id) {              
+                $movements  = $this->accountStract($id);                
+                $sheet->loadView('vadmin.clientes.cuentaExport')->with('movements', $movements);
+            });
+
+        })->export('xls');
+    }
+
+    public function accountStract($id){
+        $fcs        = collect(Factura::where('cliente_id', '=', $id)->get());
+        $pagos      = collect(Pago::where('cliente_id', '=', $id)->get());
+        $movements  = $fcs->merge($pagos)->sortByDesc('created_at');
+        return $movements;
+    }
+
     public function buscarcuenta(){
         return view('vadmin.clientes.buscarcuenta');
     }
-
-
     //////////////////////////////////////////////////
     //                  CREATE                      //
     //////////////////////////////////////////////////
@@ -273,7 +297,7 @@ class ClientesController extends Controller
     {
         $cliente      = Cliente::findOrFail($id);
         $cliente_id   = Cliente::orderBy('id','DESC')->first();
-        $dirEntrega   = Direntrega::where('client_id', '=', $id);
+        $dirEntrega   = Direntrega::where('cliente_id', '=', $id);
         $provincias   = Provincia::orderBy('name', 'ASC')->pluck('name', 'id');
         $localidades  = Localidad::orderBy('name', 'ASC')->pluck('name', 'id');
         // If there is no loc saved this prevent the error

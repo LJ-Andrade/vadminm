@@ -320,6 +320,12 @@ hr {
   margin-bottom: 10px;
 }
 
+.medium-card .inner .output-box {
+  padding: 5px 10px;
+  margin-top: 18px;
+  margin-bottom: 14px;
+}
+
 .medium-card .right-bottom {
   position: absolute;
   bottom: 2px;
@@ -1437,6 +1443,32 @@ hr {
   }
 }
 
+.side-bar {
+  background-color: #fff;
+  box-shadow: 5px 2px 8px -5px rgba(0, 0, 0, 0.55);
+  padding: 10px 15px;
+}
+
+.side-bar .title {
+  padding: 5px 10px;
+  background-color: #f9f9f9;
+  margin-bottom: 10px;
+}
+
+.vertical-container {
+  padding: 5px;
+}
+
+.vertical-container .item-title {
+  border-top: 2px solid #ddd;
+  padding-top: 5px;
+  margin-top: 10px;
+}
+
+.vertical-container .option-buttons {
+  margin-bottom: 15px;
+}
+
 .custom-badge {
   display: inline-block;
   min-width: 10px;
@@ -1789,6 +1821,24 @@ hr {
   }
 }
 
+.small-text-table {
+  font-size: 0.8rem;
+}
+
+.small-text-table .pago-test {
+  background-color: #fafffb;
+}
+
+.small-text-table .factura-test {
+  background-color: #ffd2d2;
+}
+
+.small-text-table .totals-tr td {
+  border-top: 2px solid #848484;
+  padding: 20px 8px;
+  background-color: #f9f9f9;
+}
+
 .softhr {
   border-top: 1px solid #E4E4E4;
 }
@@ -1940,6 +1990,14 @@ hr {
 .light-green-back {
   background-color: #dae2d4;
   color: #383838;
+}
+
+.light-grey-back {
+  background-color: #eaeaea;
+}
+
+.inner-grey-back {
+  background-color: #f7f7f7;
 }
 
 .main-loader {

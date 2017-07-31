@@ -22,6 +22,7 @@ class CreateFacturasTable extends Migration
             $table->string('flete_id');
             $table->string('vendedor_id');
             $table->enum('estado', ['0','1'])->default('0');
+            $table->string('op')->defaul('F');
 
             $table->integer('cliente_id')->unsigned();
             $table->foreign('cliente_id')->references('id')->on('clientes');

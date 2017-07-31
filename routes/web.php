@@ -207,8 +207,14 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 
 	Route::post('generate_fc', 'FacturasController@generate_fc');
 	Route::resource('pagos', 'PagosController');
-	Route::resource('cheques', 'ChequesController');
-	Route::resource('retenciones', 'RetencionesController');
+	
+	// Excel Feature
+	Route::get('importExport', 'FileExportController@importExport');
+	Route::get('downloadExcel/{db}/{type}/{filename}', 'FileExportController@downloadExcelFromDb');
+	
+	Route::post('importExcel', 'FileExportController@importExcel');
+
+	Route::get('exportAccount/{id}/{type}/{filename}', 'ClientesController@exportAccount');
 
 	// Developer Map
 	Route::resource('desarrollo', 'DesarrolloController');

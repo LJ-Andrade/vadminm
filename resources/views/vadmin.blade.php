@@ -29,32 +29,30 @@
 		<div class="row">
 			{{-- Stock Update Component --}}
 			<div class="col-md-6 medium-card">
-				<div class="inner light-green-back">
-					<div class="row">
-						<div class="col-md-12 title">
-							<span><b>Actualizar Stock</b></span>
+				<div class="inner light-grey-back">
+				
+					<div class="col-md-12 title">
+						<span><b>Actualizar Stock</b></span>
+					</div>
+					{{-- By Name Search --}}
+					<div class="col-md-6">
+						<div class="form-group">
+							{!! Form::label('productname', 'Buscar por nombre') !!}
+							{!! Form::text('productname', null, ['id' => 'UpdateStockByName', 'class' => 'form-control']) !!}
 						</div>
-						{{-- By Name Search --}}
-						<div class="col-md-6">
-							<div class="form-group">
-								{!! Form::label('productname', 'Buscar por nombre') !!}
-								{!! Form::text('productname', null, ['id' => 'UpdateStockByName', 'class' => 'form-control']) !!}
-							</div>
+					</div>
+					<div class="col-md-6">
+						{{-- By Code Search --}}
+						<div class="form-group">
+							{!! Form::label('productcode', 'Buscar por código') !!}
+							{!! Form::number('productcode', null, ['id' => 'UpdateStockByCode', 'class' => 'form-control']) !!}
 						</div>
-						<div class="col-md-6">
-							{{-- By Code Search --}}
-							<div class="form-group">
-								{!! Form::label('productcode', 'Buscar por código') !!}
-								{!! Form::number('productcode', null, ['id' => 'UpdateStockByCode', 'class' => 'form-control']) !!}
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div id="StockUpdateOutput"></div>
-							<div id="NewStockUpdate" class="Hidden">
-								<input type="text" value="0">
-								<button id="UpdateStockBtnHome" class="btnSm btnBlue">Actualizar</button>
-							</div>
-							
+					</div>
+					<div class="col-md-12">
+						<div id="StockUpdateOutput"></div>
+						<div id="NewStockUpdate" class="Hidden">
+							<input type="text" value="0">
+							<button id="UpdateStockBtnHome" class="btnSm btnBlue">Actualizar</button>
 						</div>
 					</div>
 				</div>
@@ -74,6 +72,50 @@
 					<button class="btnSmSquare buttonOk right-bottom" data-toggle="modal" data-target="#UpdateDolar">Actualizar</button>
 				</div>
 			</div>
+		</div>
+		<br>
+		{{-- Search Client Account--}}
+		<div class="row">
+			<div class="col-md-6 medium-card">
+				<div class="inner light-grey-back">
+					<div class="col-md-12 title">
+						<span><b>Cuentas Corrientes</b></span>
+					</div>
+			
+					<div class="form-group col-md-7">
+						{{-- Search By Name --}}
+						{!! Form::label('cliente', 'Buscar por nombre') !!}
+						{!! Form::text('cliente', null, ['id' => 'ClientAutoComplete', 'class' => 'form-control']) !!}
+					</div>
+					<div class="form-group col-md-5">
+						{{-- Search By Code  --}}
+						{!! Form::label('codigo', 'Buscar por código') !!}
+						{!! Form::number('codigo', null, ['id' => 'ClientByCode', 'class' => 'form-control']) !!}
+					</div>
+					<div class="col-md-12">
+						<button id="ClientByCodeBtn" class="btnSm btnBlue"> Buscar</button>	
+					</div>
+					<div id="ClientOutPut" class="col-md-12 Hidden">
+						<div class="output-box inner-grey-back">
+							<h4><b>Cliente seleccionado:</b></h4>
+							<div id="ClientData"></div>
+							<div id="OutPutForm">
+								{!! Form::open(['url' => '', 'method' => 'POST', 'id' => 'GoToAccountForm']) !!}
+									<div class="col-md-12">
+										<input type="text" name="user_id" class="Hidden" value="{{ Auth::user()->id }}">
+									</div>
+									{!! Form::text('cliente_id', null, ['id' => 'ClienteIdOutput', 'class' => 'form-control Hidden', 'required' => '']) !!} 
+									
+									<button id="GoToAccount" class="button buttonOk"> Ver Cuenta</button>
+								{!! Form::close() !!}
+							</div>
+						</div>
+					</div>
+
+					<div class="clearfix"></div>
+					
+				</div>
+	 		</div> 	
 		</div>
 	 </div>  
 
@@ -117,6 +159,15 @@
 
 	<script type="text/javascript">
 
+		// Search and Redirect to Client Account
+		$('#GoToAccount').click(function(e){
+			e.preventDefault();
+			var id = $('#ClienteIdOutput').val();
+
+			var route  = "{{ url('vadmin/clientes/cuenta') }}/"+id+"";
+			window.location.href = route;
+		});
+
 		$('#ConfirmUpdateDolar').click(function(){
 			var id       = $('#dolarId').val();
 			var newValue = $('#nuevoValorDolar').val();
@@ -147,7 +198,6 @@
 
 		});
 
-
 		// Search By Code
 		$("#UpdateStockByCode").on( "keydown", function(e) {
 			var id     = $(this).val();
@@ -177,7 +227,6 @@
 				getProductStock(route, output);
 			}
 		});
-
 
 		function getProductStock(route, output){
 
