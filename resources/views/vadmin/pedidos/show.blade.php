@@ -49,7 +49,7 @@
 									<th class="txR">Facturado</th>
 								</tr>
 							</thead>
-							{!! Form::open(['url' => 'vadmin/crear_fc', 'method' => 'POST', 'id' => 'NewFcForm']) !!}
+							{!! Form::open(['id' => 'NewFcForm']) !!}
 							<tbody>
 								@if ($pedido->pedidositems->isEmpty() )
 									<th>No hay items ingresados</th>
@@ -181,7 +181,8 @@
 
 	
 	$('#AddItem').on('click',function(e){
-
+		e.preventDefault();
+		
 		var route             = "{{ url('vadmin/ajax_store_pedidoitem') }}";
 		var clientid          = $('#ClientData').data('clientid');
 		var sectionColumnName = 'pedido_id';

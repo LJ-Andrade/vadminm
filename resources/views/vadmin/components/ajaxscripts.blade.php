@@ -292,7 +292,7 @@
 
 	// Display Product Info
 	function setProductAndPrice(id, tipocte, operacion) {	
-	
+		console.log('ok');
 		var route         = "{{ url('vadmin/get_product_and_price') }}/"+id+"";
 		var nombre        = $('#CfNombreInput');
 		var precioInput   = $('#CfPrecioInput');
@@ -311,6 +311,7 @@
 			},
 			success: function(data){
 				// console.log(data.exist);
+				// console.log(data);
 				if(data.exist == 1){
 					nombre.val(data.producto);
 					nombre.trigger("chosen:updated");
@@ -330,7 +331,7 @@
 						output.html("<b>Producto: </b>" + data.producto);
 					}
 					
-					// console.log(data.operacion);
+					console.log(data.operacion);
 				} else {
 					output.removeClass('Hidden');
 					output.html('El producto no existe');
