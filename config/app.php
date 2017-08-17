@@ -191,7 +191,10 @@ return [
         // Crud Generator
         Appzcoder\CrudGenerator\CrudGeneratorServiceProvider::class,
         // Excel Export
-        Maatwebsite\Excel\ExcelServiceProvider::class
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        // Pdf Export
+        Barryvdh\DomPDF\ServiceProvider::class
+        
 
     ],
 
@@ -247,7 +250,10 @@ return [
         // Image Intervention
         'Image' => Intervention\Image\Facades\Image::class,
         // Excel Export
-        'Excel' => Maatwebsite\Excel\Facades\Excel::class
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        // Pdf Export
+        'PDF' => Barryvdh\DomPDF\Facade::class
+        
 
     ],
 

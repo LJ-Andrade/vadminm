@@ -37,26 +37,24 @@
 		
 		@slot('id', 'PriceModal')
 				
-		@slot('title', 'Precios del Producto')
+		@slot('title')
+			<b>Precios del Producto</b>
+		@endslot
 		
 		@slot('content')
 			<div class="row">
 				<div class="col-md-6">
-					<div><b>Dólares</b></div>
-					<div id="PrecioCosto"></div>
 					<div id="PrecioGremio"></div>
 					<div id="PrecioParticular"></div>
 					<div id="PrecioEspecial"></div>
 					<div id="PrecioOferta"></div>
-					<div class="CantOferta"></div>
+					<div id="CantOferta"></div>
 				</div>
 				<div class="col-md-6">
-					<div><b>Pesos</b></div>
-					<div id="PrecioCostoPesos"></div>
-					<div id="PrecioGremioPesos"></div>
-					<div id="PrecioParticularPesos"></div>
-					<div id="PrecioEspecialPesos"></div>
-					<div id="PrecioOfertaPesos"></div>
+					<div><b>Costos</b></div>
+					<div id="MonedaCompra"></div>
+					<div id="PrecioCostoOrig"></div>
+					<div id="PrecioCosto"></div>
 				</div>
 			</div>
 		@endslot
@@ -68,7 +66,7 @@
 @endsection
 
 @section('scripts')
-	{{-- Include Scripts Here --}}
+	<script type="text/javascript" src="{{ asset('js/products.js') }}" ></script>
 @endsection
 
 @section('custom_js')
@@ -76,80 +74,19 @@
 	<script type="text/javascript">
 
 	/////////////////////////////////////////////////
-    //                UPADTE STATUS                //
-    /////////////////////////////////////////////////
-
-	$(document).on('click', '.UpdateStatusBtn', function(e) { 
-
-		var id           = $(this).data('id');
-		var route        = "{{ url('/vadmin/update_prod_status') }}/"+id+"";
-		var statusBtn    = $('#UpdateStatusBtn'+id);
-		var switchstatus = statusBtn.data('switchstatus');
-		var statusBtn    = $(this).children();	
-
-		$.ajax({
-			
-			url: route,
-			method: 'post',             
-			dataType: 'json',
-			data: { id: id, estado: switchstatus
-			},
-			success: function(data){
-				var updatedStatus = (data.lastStatus);
-				var iconStatus    = '';
-				location.reload();
-			},
-			complete: function(data){
-				toggleLoader();
-			},
-			error: function(data)
-			{
-				$('#Error').html(data.responseText);
-				
-			},
-		});
-	});
-	
-	/////////////////////////////////////////////////
     //                  DELETE                     //
     /////////////////////////////////////////////////
-
-
+	
 	// -------------- Single Delete -------------- //
 	// --------------------------------------------//
 	$(document).on('click', '.Delete', function(e){
 		e.preventDefault();
-		var id = $(this).data('id');
-		confirm_delete(id, 'Cuidado!','Está seguro?');
+		var id    = $(this).data('id');
+		var route = "{{ url('vadmin/delete_productos') }}/"+id+"";
+		deleteRecord(id, route, 'Cuidado!','Está seguro de borrar este producto?');
 	});
 
-	function delete_item(id, route) {	
-
-		var route = "{{ url('vadmin/ajax_delete_producto') }}/"+id+"";
-
-		$.ajax({
-			url: route,
-			method: 'post',             
-			dataType: "json",
-			data: {id: id},
-			success: function(data){
-				console.log(data);
-				if (data == 1) {
-					$('#Id'+id).hide(200);
-					alert_ok('Ok!','Eliminación completa');
-				} else {
-					alert_error('Ups!','Ha ocurrido un error');
-				}
-			},
-			error: function(data)
-			{
-				$('#Error').html(data.responseText);
-				console.log(data);	
-			},
-		});
-	}
-
-	// -------------- Batch Deletex -------------- //
+	// -------------- Batch Delete --------------- //
 	// --------------------------------------------//
 
 	// ---- Batch Confirm Deletion ---- //
@@ -161,68 +98,54 @@
 		});
 
 		var id = rowsToDelete;
-		confirm_batch_delete(id,'Cuidado!','Está seguro que desea eliminar?');
-		
+		var route = "{{ url('vadmin/delete_productos') }}/"+id+"";
+		deleteRecord(id, route, 'Cuidado!','Está seguro de borrar estos productos?');
 	});
 
-	// ---- Delete ---- //
-	function batch_delete_item(id) {
+	/////////////////////////////////////////////////
+    //            UPDATE PRODUCT STATUS            //
+    /////////////////////////////////////////////////
 
-		var route = "{{ url('vadmin/ajax_batch_delete_productos') }}/"+id+"";
-
-		$.ajax({
-			url: route,
-			method: 'post',             
-			dataType: "json",
-			data: {id: id},
-			success: function(data){
-				$('#BatchDeleteBtn').addClass('Hidden');
-				location.reload();
-				console.log(data);
-			},
-			complete: function(){
-				toggleLoader();
-			},
-			error: function(data)
-			{
-				console.log(data);
-				$('#Error').html(data.responseText);
-			},
-		});
-	}
-
+	 $(document).on('click', '.UpdateStatusBtn', function(e) { 
+            var id     = $(this).data('id');
+            var route  = "{{ url('/vadmin/update_prod_status') }}/"+id+"";
+            var action = $(this).data('action');
+            updateProductStatus(route, action);
+            
+	});
 
 	/////////////////////////////////////////////////
     //                PRICES MODAL                 //
     /////////////////////////////////////////////////
 
-	$(document).ready(function(){
-		
-		$(document).on('click', '.ShowPriceBtn', function(e) { 
-			var precioCosto   = $(this).data('costo');
-			var pjeGremio     = $(this).data('gremio');
-			var pjeParticular = $(this).data('particular');
-			var pjeEspecial   = $(this).data('especial');
-			var precioOferta  = $(this).data('oferta');
-			var cantOferta    = $(this).data('cantoferta');
-			var dolarSist     = $('#DolarSist').data('dolarsist');
-			console.log(dolarSist);
-			$('#PrecioCosto').html('Precio de costo: <b>u$s ' + precioCosto + '</b>');
-			$('#PrecioGremio').html('Precio al gremio: <b>u$s ' + calcPtje(precioCosto, pjeGremio) + '</b>');
-			$('#PrecioParticular').html('Precio a particular: <b>u$s ' + calcPtje(precioCosto, pjeParticular) + '</b>');
-			$('#PrecioEspecial').html('Precio especial: <b>u$s ' + calcPtje(precioCosto, pjeEspecial) + '</b>');
-			$('#PrecioOferta').html('Precio de oferta: <b>u$s ' + precioOferta + '</b>');
-			$('.CantOferta').html('Cantidad: ' + cantOferta );
+	
+	$(document).on('click', '.ShowPriceBtn', function(e) { 
 
-			$('#PrecioCostoPesos').html('Precio de costo: <b>$ ' + formatNum(precioCosto*dolarSist, 2) + '</b>');
-			$('#PrecioGremioPesos').html('Precio al gremio: <b>$ ' + formatNum(calcPtje(precioCosto, pjeGremio)*dolarSist, 2) + '</b>');
-			$('#PrecioParticularPesos').html('Precio a particular: <b>$ ' + formatNum(calcPtje(precioCosto, pjeParticular)*dolarSist, 2) + '</b>');
-			$('#PrecioEspecialPesos').html('Precio especial: <b>$ ' + formatNum(calcPtje(precioCosto, pjeEspecial)*dolarSist, 2) + '</b>');
-			$('#PrecioOfertaPesos').html('Precio de oferta: <b>$ ' + formatNum(precioOferta*dolarSist, 2) + '</b>');
-			console.log(formatNum(calcPtje(precioCosto, pjeGremio)*dolarSist,2));
-		});
+		var id = $(this).data('id');
+		var route  = "{{ url('vadmin/get_product_full_price') }}/"+id+"";
 		
+		$.ajax({	
+			url: route,
+			method: 'POST',             
+			dataType: 'JSON',
+			success: function(data){
+				$('#PrecioGremio').html('Precio al Gremio: <b>$' + data.gremio + '</b>');
+				$('#PrecioParticular').html('Precio a Particular: <b>$' + data.particular + '</b>');
+				$('#PrecioEspecial').html('Precio Especial: <b>$' + data.especial + '</b>');
+				$('#PrecioOferta').html('Precio de Oferta: <b>$' + data.preciooferta + '</b>');
+				$('#CantOferta').html('Cant. Min. Oferta: <b>$' + data.cantoferta + '</b>');
+				$('#MonedaCompra').html('Moneda de compra: <b>' + data.monedacompra + '</b>');
+				$('#PrecioCostoOrig').html('Costo en ' + data.monedacompra + ': <b>' + data.costo + '</b>');
+				$('#PrecioCosto').html('Costo en Pesos: <b>$' + data.costopesos + '</b>');
+			},
+			error: function(data)
+			{
+				$('#Error').html(data.responseText);
+			},
+		});
 	});
+	
+
 	</script>
 
 @endsection

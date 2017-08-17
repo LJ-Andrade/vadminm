@@ -1,4 +1,12 @@
-
+function toggleLoader(){
+  $('.Main-Loader').toggleClass('Hidden');
+    // if (!$('.Main-loader').hasClass('Hidden')) {
+    //   // This prevents scroll on loader
+    // //   $('html').css({ 'overflow': 'hidden', 'height': '100%' });
+    // } else {
+    // //   $('html').css({ 'overflow-y': 'scroll', 'height': '100%' });
+    // }
+}
 
 //--------------------- LISTS ------------------------- //
 
@@ -17,8 +25,6 @@ $(document).ready(function(){
 		$(this).parent().addClass('Hidden');
 	})
 
-
-
 });
 
 $('.Select-Row-Trigger').click(function(){
@@ -30,34 +36,74 @@ $('.Select-Row-Trigger').click(function(){
 
 // ----------------- Payments --------------------- //
 
-$('#PaymentBDiv').hide();
-$('#PaymentCDiv').hide();
-$('#PaymentRDiv').hide();
+$('#AddPaymentBForm').hide();
+$('#AddPaymentCForm').hide();
+$('#AddPaymentRForm').hide();
 
-// Efectivo Button
+
+// // Efectivo Button
 $('#PaymentEBtn').click(function(){
-	$('.PaymentDivs').hide(100);
-	$('#PaymentModo').val('E');
-	$('#PaymentEDiv').show(200);
+	$('.PaymentForms').hide(100);
+	$('#AddPaymentEForm').show(200);
 });
 
 // Banco Button
 $('#PaymentBBtn').click(function(){
-	$('.PaymentDivs').hide(100);
-	$('#PaymentModo').val('B');
-	$('#PaymentBDiv').show(200);
+	$('.PaymentForms').hide(100);
+	$('#AddPaymentBForm').show(200);
 });
 
-// Cheque Button
-$('#PaymentCBtn').click(function(){
-	$('.PaymentDivs').hide(100);
-	$('#PaymentModo').val('C');
-	$('#PaymentCDiv').show(200);
-});
-
-// Retencion Button
+// // Cheque Button
+// Banco Button
 $('#PaymentRBtn').click(function(){
-	$('.PaymentDivs').hide(100);
-	$('#PaymentModo').val('R');
-	$('#PaymentRDiv').show(200);
+	$('.PaymentForms').hide(100);
+	$('#AddPaymentRForm').show(200);
 });
+
+// // Retencion Button
+// Banco Button
+$('#PaymentCBtn').click(function(){
+	$('.PaymentForms').hide(100);
+	$('#AddPaymentCForm').show(200);
+});
+
+
+
+$('#ClientAccountSidebar').hide();
+
+// ClientAccountSidebar
+$('#ClientAccountSidebarBtn').click(function(){
+
+	$('#ClientAccountSidebar').fadeIn(200);
+	$('#ClientAccountTable').removeClass('col-md-12');
+	$('#ClientAccountTable').addClass('col-md-8');
+});
+
+$('#CloseClientAccountSideBar').click(function(){
+		
+	$('#ClientAccountSidebar').hide(0);
+	$('#ClientAccountTable').addClass('col-md-12');
+	$('#ClientAccountTable').removeClass('col-md-8');
+});
+
+//--------------------- FACTURACION ------------------------- //
+
+$('#OpenFcBtn').click(function(){
+	$('#FcBody').removeClass('Hidden');
+	$('#ClientFinder').addClass('Hidden');
+});
+
+
+$('#ProductFinderBtn').click(function(){
+	$('#ProductFinder').removeClass('Hidden');
+});
+
+$('#PendingOrdersBtn').click(function(){
+	$('#PendingOrders').removeClass('Hidden');
+});
+
+$('.CloseBtn').click(function(){
+	$(this).parent().addClass('Hidden');
+});
+
+

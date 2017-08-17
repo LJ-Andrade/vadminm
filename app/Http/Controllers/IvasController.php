@@ -53,14 +53,14 @@ class IvasController extends Controller
         $this->validate($request,[
             'name'          => 'required|unique:ivas,name',
             'afipcode'      => 'required|unique:ivas,afipcode',
-            'tipofc'        => 'required|unique:ivas,tipofc'
+            'letter'        => 'required|unique:ivas,letter'
         ],[
             'name.required'     => 'Debe ingresar un nombre',
             'name.unique'       => 'El nombre de la categoría ya existe',
             'afipcode.required' => 'Debe ingresar un código Afip',
             'afipcode.unique'   => 'El código ya está ingresado en otra categoría',
-            'tipofc.required'   => 'Debe ingresar un tipo de factura',
-            'tipofc.unique'     => 'El tipo de factura ya está en uso en otra categoría',
+            'letter.required'   => 'Debe ingresar un tipo de factura',
+            'letter.unique'     => 'El tipo de factura ya está en uso en otra categoría',
         ]);
         
         $requestData = $request->all();
@@ -90,15 +90,15 @@ class IvasController extends Controller
         $this->validate($request,[
             'name'          => 'required|unique:ivas,name,'.$iva->id,
             'afipcode'      => 'required|unique:ivas,afipcode,'.$iva->id,
-            'tipofc'        => 'required|unique:ivas,tipofc,'.$iva->id
+            'letter'        => 'required|unique:ivas,letter,'.$iva->id
                                 
         ],[
             'name.required'     => 'Debe ingresar un nombre',
             'name.unique'       => 'El nombre de la categoría ya existe',
             'afipcode.required' => 'Debe ingresar un código Afip',
             'afipcode.unique'   => 'El código ya está ingresado en otra categoría',
-            'tipofc.required'   => 'Debe ingresar un tipo de factura',
-            'tipofc.unique'     => 'El tipo de factura ya está en uso en otra categoría',
+            'letter.required'   => 'Debe ingresar un tipo de factura',
+            'letter.unique'     => 'El tipo de factura ya está en uso en otra categoría',
         ]);
     
         $iva->fill($request->all());

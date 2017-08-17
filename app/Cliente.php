@@ -46,10 +46,6 @@ class Cliente extends Model
     	return $this->belongsTo('App\Flete');
     }
 
-    // public function tipocts(){
-    // 	return $this->belongsTo('App\Tipoct');
-    // }
-
     public function tipoct(){
     	return $this->belongsTo('App\Tipoct', 'tipo_id');
     }
@@ -70,4 +66,7 @@ class Cliente extends Model
     	return $this->hasMany('App\Factura');
     }
 
+    public function comprobantes(){
+    	return $this->hasMany('App\Comprobante');
+    }
 }

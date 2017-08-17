@@ -36,7 +36,7 @@
 								<input type="checkbox" class="BatchDelete" data-id="{{ $item->id }}">
 							</td>
 							<td>{{ $item->name }}</td>
-							<td>{{ $item->tipofc }}</td>
+							<td>{{ $item->letter }}</td>
 							<td>{{ $item->afipcode }}</td>
 							<td class="list-actions">
 								<div class="TableList-Actions inner Hidden">
@@ -68,6 +68,9 @@
 					{!! $ivas->render(); !!}
 				@endslot
 			@endcomponent
+			<div class="warning">			
+				<i class="ion-alert-circled"></i> <b>Atención:</b> Los datos de esta sección son vitales para el funcionamiento del webservice de la Afip. Solo haga cambios si está seguro de los mismos.
+			</div>
 		</div>
 		<button id="BatchDeleteBtn" class="button buttonCancel batchDeleteBtn Hidden"><i class="ion-ios-trash-outline"></i> Eliminar seleccionados</button>
 	</div>  

@@ -17,32 +17,22 @@
 
 @section('content')
     <div class="container">
-        <div class="small-form container animated fadeIn">
-            {!! Form::model($subfamilia, [
-                'method' => 'PATCH',
-                'url' => ['/vadmin/subfamilias', $subfamilia->id],
-                'files' => true
-            ]) !!}
-
-            <div class="row inner">
-                <div class="col-md-12 title">
-                    <span><i class="ion-plus-round"></i> Edición de subfamilia</span>
-                    <a href="{{ url('vadmin/subfamilias') }}"><div class="close-btn2"><i class="ion-close-round"></i></div></a>
+        <div id="Error"></div>
+        <div class="narrow-form">
+            <div class="inner">
+                <div class="title">
+                    <span>Edición de subfamilia</span>
                 </div>
-                <div class=" col-md-12 form-group">
-                    {!! Form::label('familia_id', 'Familia:') !!}
-                    {!! Form::select('familia_id', $familia, null, ['class' => 'form-control', 'placeholder' => 'Seleccione la familia','required' => '']) !!} 
-                    {!! Form::label('nombre', 'Subfamilia:') !!}
-                    {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el nombre de la subfamilia', 'required' => '']) !!} 
-                </div>
-                <div class="col-md-12 actions">
-                    {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Modificar', ['class' => 'animated fadeIn button buttonOk pull-right']) !!}
-                </div>
+                {!! Form::model($subfamilia, [
+                    'method' => 'PATCH',
+                    'url' => ['/vadmin/subfamilias', $subfamilia->id],
+                    'files' => true
+                ]) !!}
+                @include('vadmin.subfamilias.form')
+                {!! Form::submit('Actualizar subfamilia', ['class' => 'button btnGreen']) !!}
+                {!! Form::close() !!}
             </div>
-            {!! Form::close() !!}
         </div>
     </div>
-
-
 @endsection
 

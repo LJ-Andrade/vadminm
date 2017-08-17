@@ -257,6 +257,21 @@
 		margin-top: 5px
 		margin-bottom: 5px
 
+.input-back-red
+	background-color: $cancel
+	color: #fff
+
+.input-back-blue
+	background-color: $blue
+	color: #fff
+
+.input-back-green
+	background-color: $greenL
+	color: #fff
+
+.input-back-grey
+	background-color: $light
+	color: #fff
 
 //////////////////////////////////////
 //                                  //
@@ -277,6 +292,10 @@ $phvFsize: 0.9rem
 	.inner-row
 		label
 			font-size: 1rem
+	.header-right
+		float: right
+	
+
 	.box-container
 		position: relative
 		padding: 10px 20px
@@ -320,6 +339,8 @@ $phvFsize: 0.9rem
 		max-width: 50px
 	input.mw100
 		max-width: 100px
+
+
 
 .main-form
 	.form-container
@@ -645,6 +666,25 @@ $phvFsize: 0.9rem
 	&:hover
 		cursor: pointer
 
+.btnSquareR
+	border: 0
+	border-radius: 5px
+	padding: 5px 15px
+	font-size: 1rem
+	white-space: nowrap
+	vertical-align: middle
+	-webkit-user-select: none
+	-moz-user-select: none
+	-ms-user-select: none
+	user-select: none
+	background-image: none
+	line-height: 1.42857143
+	margin: 4px
+	min-height: 27px
+	@include transition(0.2s)
+	&:hover
+		cursor: pointer
+
 .btnList
 	border: 0
 	padding: 5px 15px
@@ -904,7 +944,7 @@ $phvFsize: 0.9rem
 
 // ------- FILTERS -------- //
 	
-.search-filters
+.search-filters,.options
 	position: relative
 	background-color: #f3f3f3
 	@include box-shadow-floor-big
@@ -936,18 +976,67 @@ $phvFsize: 0.9rem
 					width: 100%
 		.hide-desk
 			display: block
-		
+
+// VISIBLE SEARCHER
+.visible-searcher
+	background-color: #f9f9f9
+	.inner
+		padding: 10px
+		.mr
+			margin-right: 5px
+		.inner-box
+			padding: 5px
+			>div
+				background-color: #eaeaea
+				margin: 5px
+				padding: 5px 10px 5px 20px
+			input
+				margin-right: 10px
+				margin-left: 10px
+				background-color: #f9f9f9
+
+
+
+
+// Header Options
+
+
+
 
 // SIDEBAR
+.side-bar-container
+	.side-bar
+		background-color: #fff
+		@include box-shadow
+		padding: 10px 15px
+		position: relative
+		.title
+			padding: 5px 10px
+			background-color: #f9f9f9
+			margin-bottom: 10px
+		.close-this
+			background-color: #fff
+			color: #000
+			padding: 1px 9px
+			border-radius: 50%
+			font-size: 0.8rem
+			width: 25px
+			height: 25px
+			position: absolute
+			right: 21px
+			top: 16px
+			@include transition(0.2s)
+			&:hover
+				cursor: pointer
 
-.side-bar
-	background-color: #fff
-	@include box-shadow
-	padding: 10px 15px
-	.title
-		padding: 5px 10px
-		background-color: #f9f9f9
-		margin-bottom: 10px
+@media (max-width: 911px)
+	.account-container
+		position: relative
+	.side-bar-container
+		position: absolute
+		width: 100%
+		height: 100%
+		top: 0
 
 .vertical-container
 	padding: 5px
@@ -958,6 +1047,13 @@ $phvFsize: 0.9rem
 	.option-buttons
 		margin-bottom: 15px
 
+.horiz-title
+	border-top: 4px solid #ccc
+	background-color: #f9f9f9
+	padding: 5px 
+	padding-left: 20px
+	margin-top: 10px
+	margin-bottom: 10px
 
 
 
@@ -988,6 +1084,8 @@ $phvFsize: 0.9rem
 //                                  //
 //////////////////////////////////////
 
+.short-input
+	width: auto
 
 .small-form
 	margin-bottom: 25px
@@ -1085,7 +1183,7 @@ $phvFsize: 0.9rem
 			padding: 0 20px
 			@include flex-center
 			@include box-shadow-left
-			background-color: $dark
+			background-color: #ececec
 			z-index: 5
 			.form-group
 				margin-right: 10px
@@ -1187,6 +1285,17 @@ $phvFsize: 0.9rem
 		&:hover
 			cursor: pointer
 			background-color: #dcdcdc
+		.special-input
+			padding: 2px 
+			select
+				border: 0
+				min-width: 115px
+				max-width: 115px
+				-webkit-appearance: none
+				-moz-appearance: none
+				appearance: none
+				option
+					border: 0
 		.list-actions
 			position: relative
 			padding: 0 10px
@@ -1223,13 +1332,20 @@ $phvFsize: 0.9rem
 		.list-checkbox
 			padding: 5px 20px
 			max-width: 53px
+		.table-list-row
+			.special-input
+				padding-top: 1px
 
 .small-text-table
 	font-size: 0.8rem
-	.pago-test
+	.ingreso
 		background-color: #fafffb
-	.factura-test
+	.egreso
 		background-color: #ffd2d2
+	input[disabled]
+		background-color: transparent
+		box-shadow: none
+		border: 0
 	.totals-tr
 		td
 			border-top: 2px solid #848484
@@ -1237,7 +1353,10 @@ $phvFsize: 0.9rem
 			background-color: #f9f9f9
 		td.background
 
-
+.small-list-img
+	max-width: 100%
+	width: 33px
+	margin-right: 5px
 
 //////////////////////////////////////
 //                                  //
@@ -1337,18 +1456,14 @@ $phvFsize: 0.9rem
 
 .alert-success
 	color: #fff
-	background-color: $dark4
+	background-color: $greenL
 	border: 0
-
-
-
 
 //////////////////////////////////////
 //                                  //
 //        FROM JQUERY EVENTS        //
 //                                  //
 //////////////////////////////////////
-
 
 .row-selected
 	background-color: #FE9B9B !important
@@ -1442,7 +1557,6 @@ $phvFsize: 0.9rem
 		.inner2
 			width: auto
 			
-
 .horiz-double-input
 	.inner1
 		width: 70px
@@ -1500,3 +1614,28 @@ $phvFsize: 0.9rem
 
 .big-select
 	font-size: 1.7rem
+
+//////////////////////////////////////
+//                                  //
+//             EXPORT               //
+//                                  //
+//////////////////////////////////////
+
+
+.export-table
+	padding: 20px 10px
+	border: 1px solid #ccc
+	.exp-table-header
+		margin-bottom: 50px
+		padding-bottom: 20px
+		border-bottom: 1px solid #ccc
+		.title
+			font-size: 30px
+			font-weight: 600
+		.title-desc
+			font-size: 18px
+		.left
+    		text-align: left
+		.right
+			float: right
+			text-align: right

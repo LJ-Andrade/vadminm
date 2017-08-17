@@ -65,7 +65,7 @@ Route::get('/', [
 
 Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(){
 
-	// ------ Clientes ------- //
+	// ---------------- Clientes --------------------------------------- //
 	Route::resource('clientes', 'ClientesController');
 		
 	Route::get('ajax_list_clients/{page?}', 'ClientesController@ajax_list');
@@ -74,114 +74,101 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	// Searcher
 	Route::get('ajax_list_search_clientes/{search?}', 'ClientesController@ajax_list_search');
 
-	// ------------------- Cuenta Corriente Clientes --------------------- //
+	// ---------------- Cuenta Corriente Clientes ---------------------- //
 	Route::get('clientes/cuenta/{id}', 'ClientesController@account');
 	Route::get('buscarcuenta', 'ClientesController@buscarcuenta');
 
-	// ------ Provincias ------- //
+	// ---------------- Provincias ------------------------------------- //
 	Route::resource('provincias', 'ProvinciasController');
 	Route::get('/get_locs/{id}', 'LocalidadesController@get_locs');
 
-	// ------ Localidades ------- //
+	// ---------------- Secciones Varias-------------------------------- //
 	Route::resource('localidades', 'LocalidadesController');
-
-
-	// ------ Zonas ------- //
 	Route::resource('zonas', 'ZonasController');
-
-	// ------ Fletes ------- //
 	Route::resource('fletes', 'FletesController');
-
-	// ------ Categorías Impositivas ------- //
 	Route::resource('ivas', 'IvasController');
+	Route::resource('familias', 'FamiliasController');
+	Route::resource('subfamilias', 'SubfamiliasController');
 
-	// ------ Condiciones de Venta ------- //
+	// ---------------- Condiciones de Venta --------------------------- //
 	Route::resource('condicventas', 'Condicventas\CondicventasController');
 	Route::post('ajax_delete_condicventa/{id}', 'Condicventas\CondicventasController@destroy');
 	Route::post('ajax_batch_delete_condicventas/{id}', 'Condicventas\CondicventasController@ajax_batch_delete');
 
-	// ------ Listas de Precios ------- //
+	// ---------------- Listas de Precios ------------------------------- //
 	Route::resource('listas', 'Listas\ListasController');
 	Route::post('ajax_delete_lista/{id}', 'Listas\ListasController@destroy');
 	Route::post('ajax_batch_delete_listas/{id}', 'Listas\ListasController@ajax_batch_delete');
 
-	// ------ Direcciones de Entrega ------- //
-	Route::resource('direntregas', 'Direntregas\DirentregasController');
-	Route::post('ajax_delete_direntrega/{id}', 'Direntregas\DirentregasController@destroy');
-	Route::post('ajax_batch_delete_direntregas/{id}', 'Direntregas\DirentregasController@ajax_batch_delete');
+	// ---------------- Direcciones de Entrega -------------------------- //
+	Route::resource('direntregas', 'DirentregasController');
+	Route::post('ajax_delete_direntrega/{id}', 'DirentregasController@destroy');
+	Route::post('ajax_batch_delete_direntregas/{id}', 'DirentregasController@ajax_batch_delete');
 
+	// ---------------- Listado de Vendedores --------------------------- //
 	Route::get('vendedores', function () {
 		return view('vadmin.vendedores');
 	});
-
-	// ------ Listado de Vendedores ------- //
 	Route::get('vendedores', 'VadminController@vendedores');
-	
-	// ------ Listado de Familias ------- //
-	Route::resource('familias', 'Familias\FamiliasController');
-	Route::post('ajax_delete_familia/{id}', 'Familias\FamiliasController@destroy');
-	Route::post('ajax_batch_delete_familias/{id}', 'Familias\FamiliasController@ajax_batch_delete');
-	
-	// ------ Listado de SubFamilias ------- //
-	Route::resource('subfamilias', 'Subfamilias\SubfamiliasController');
-	Route::post('ajax_delete_subfamilia/{id}', 'Subfamilias\SubfamiliasController@destroy');
-	Route::post('ajax_batch_delete_subfamilias/{id}', 'Subfamilias\SubfamiliasController@ajax_batch_delete');
 
-	// ------ Listado de Proveedores ------- //
+	// ---------------- Listado de Proveedores -------------------------- //
 	Route::resource('proveedores', 'ProveedoresController');
 	Route::post('ajax_delete_proveedor/{id}', 'ProveedoresController@destroy');
 	Route::post('ajax_batch_delete_proveedores/{id}', 'ProveedoresController@ajax_batch_delete');
 
-	// ------ Listado de Monedas ------- //
+	// ---------------- Listado de Monedas ------------------------------ //
 	Route::resource('monedas', 'Monedas\MonedasController');
 	Route::post('ajax_delete_moneda/{id}', 'Monedas\MonedasController@destroy');
 	Route::post('ajax_batch_delete_monedas/{id}', 'Monedas\MonedasController@ajax_batch_delete');
 
 	Route::post('ajax_update_dolar/{id}', 'Monedas\MonedasController@updateDolarValue');
 
-	// ------ Tipo de Cliente ------- //
+	// ---------------- Tipo de Cliente --------------------------------- //
 	Route::resource('tipocts', 'TipoctsController');
 	
-	// ------ Productos ------- //
+	// ---------------- Productos --------------------------------------- //
 	Route::resource('productos', 'ProductosController');
-	Route::post('ajax_delete_producto/{id}', 'ProductosController@destroy');
-	Route::post('ajax_batch_delete_productos/{id}', 'ProductosController@ajax_batch_delete');
+	Route::get('get_product/{id}', 'ProductosController@get_product');
+	Route::get('show_products/{id}', 'ProductosController@ajax_show_products');
+	Route::get('ajax_autocomplete/{query?}', 'ProductosController@ajax_autocomplete');
+	Route::get('/productos_subfamilias/{id}', 'ProductosController@ajax_subfamilias');
+	Route::post('get_product_data/{id}', 'ProductosController@get_product_data');
+	
+	// Updates
+	Route::post('get_product_and_price/{id}', 'ProductosController@get_product_and_price');
+	Route::post('get_product_full_price/{id}', 'ProductosController@get_product_full_price');
+	
+	Route::post('updateCurrencyAndPrice', 'ProductosController@updateCurrencyAndPrice');
+	Route::post('update_prod_costprice/{id}', 'ProductosController@updateCostPrice');
 	Route::post('update_prod_status/{id}', 'ProductosController@updateStatus');
 
-	Route::get('get_product/{id}', 'ProductosController@get_product');
-	
-	Route::get('ajax_autocomplete/{query?}', 'ProductosController@ajax_autocomplete');
-	Route::post('get_product_and_price/{id}', 'ProductosController@get_product_and_price');
+	// Prices Lists
+	Route::get('listas', 'ProductosController@listas')->name('productos.listas');
+	Route::get('exportPricesListPdf/{familias}/{tipocte}', 'ProductosController@exportPricesListPdf');
+	Route::get('exportPricesListExcel/{familias}/{tipocte}', 'ProductosController@exportPricesListExcel');
+	// Stock
+	// Route::get('/productos/stock', 'ProductosController@stock');
+	Route::get('stock', 'ProductosController@stock')->name('productos.stock');
 	Route::get('get_product_stock/{id}', 'ProductosController@get_product_stock');
-
-	
-	Route::post('get_product_data/{id}', 'ProductosController@get_product_data');
-
-	// Route::get('search/autocomplete', 'Productos\ProductosController@autocomplete');
-
-	Route::get('/productos_subfamilias/{id}', 'ProductosController@ajax_subfamilias');
-	Route::get('show_products/{id}', 'ProductosController@ajax_show_products');
-
 	Route::post('update_prod_stock/{id}', 'ProductosController@updateStock');
-	Route::post('update_prod_costprice/{id}', 'ProductosController@updateCostPrice');
 
-	// ------ Pedidos ------- //
+	// ------------------  Pedidos ----------------------------------------- //
 	Route::resource('pedidos', 'PedidosController');
 	Route::post('update_pedido_status/{id}', 'PedidosController@updateStatus');
 
-	// ------ Generador de Orden de Pedidos e Items ------- //
+	// ------------------- Generador de Orden de Pedidos e Items ----------- //
 	Route::post('ajax_store_pedido/{id}', 'PedidosController@ajax_store');
 	Route::post('ajax_store_pedidositems/{id}', 'PedidositemsController@ajax_store');
 	Route::get('ajax_get_cliente/{id}', 'ClientesController@ajax_get');
 	Route::post('ajax_store_pedidoitem', 'PedidositemsController@ajax_store_item');
 	
-	// ---------------- Pedidos Items--------------------- //
+	// ------------------- Pedidos Items ----------------------------------- //
 	Route::resource('pedidositems', 'PedidositemsController');
 	Route::post('ajax_delete_pedidositem/{id}', 'PedidositemsController@destroy');
 	// Route::post('ajax_batch_delete_pedidositems/{id}', 'PedidositemsController@ajax_batch_delete');
 	Route::post('ajax_delete_pedidositem/{id}', 'PedidositemsController@destroy');
 
-	// ------------------- Reparaciones --------------------- //
+	// ------------------- Reparaciones ------------------------------------ //
 	Route::resource('reparaciones', 'ReparacionesController');
 	// Route::post('ajax_store_reparacionesitems/{id}', 'ReparacionesController@ajax_store');
 	Route::get('ajax_get_cliente/{id}', 'ClientesController@ajax_get');
@@ -191,36 +178,44 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::post('ajax_delete_reparacion/{id}', 'ReparacionesController@destroy');
 	Route::post('ajax_batch_delete_reparaciones/{id}', 'ReparacionesController@ajax_batch_delete');
 
-	
-	// ---------------- Reparaciones Items--------------------- //
+	// ------------------- Reparaciones Items------------------------- //
 	Route::resource('reparaciones-items', 'ReparacionesItemsController');
 	Route::post('ajax_delete_reparacionesitem/{id}', 'ReparacionesItemsController@destroy');
 
-	// ------------------- Facturación --------------------- //
-	Route::resource('facturas', 'FacturasController');
-	Route::get('get_pending_orders/{id?}', 'FacturasController@get_pending_orders');
-	Route::post('get_fc_data', 'FacturasController@get_fc_data');
-	Route::get('store_fc', 'FacturasController@store_fc');
-	
-	// // Almost obsolete
-	// Route::post('generate_json_fc', 'FacturasController@generate_json_fc');
-
-	Route::post('generate_fc', 'FacturasController@generate_fc');
-	Route::resource('pagos', 'PagosController');
-	
-	// Excel Feature
-	Route::get('importExport', 'FileExportController@importExport');
-	Route::get('downloadExcel/{db}/{type}/{filename}', 'FileExportController@downloadExcelFromDb');
-	
-	Route::post('importExcel', 'FileExportController@importExcel');
-
-	Route::get('exportAccount/{id}/{type}/{filename}', 'ClientesController@exportAccount');
-
-	// Developer Map
-	Route::resource('desarrollo', 'DesarrolloController');
 	Route::post('ajax_store_reparacion/{id}', 'DesarrolloController@ajax_store');
 
-	// DESTROY RECORDS
+	// ------------------- Tipos de Comprobantes --------------------- //
+	Route::resource('tiposcomprobantes', 'TiposComprobantesController');
+
+	
+	// ------------------- Comprobantes ------------------------------ //
+	Route::resource('comprobantes', 'ComprobantesController');
+	Route::get('get_client_doc_data/{id}', 'ClientesController@get_client_doc_data');
+	Route::get('store_comp', 'ComprobantesController@store_comp');
+	Route::get('get_pending_orders/{id?}', 'ComprobantesController@get_pending_orders');
+	Route::post('generate_comp', 'ComprobantesController@generate_comp');
+
+	// ------------------- Facturación ------------------------------- //
+	// Route::resource('facturas', 'FacturasController');
+	// Route::post('get_fc_data', 'FacturasController@get_fc_data');
+	// Route::get('store_fc', 'FacturasController@store_fc');
+	
+	// ------------------- Movimientos -------------------------- //
+	Route::resource('movimientos', 'MovimientosController');
+	Route::resource('pagos', 'PagosController');
+
+
+	
+	// ----------------------- Exports --------------------------------- //
+	// Client Account
+	Route::get('exportAccountExcel/{id}/{type}/{filename}', 'ClientesController@exportExcel');
+	Route::get('exportAccountPdf/{id}', 'ClientesController@exportPdf');
+
+	Route::get('exportExcel/{model}/{filename}', 'FileExportController@exportExcel');
+
+	Route::get('exportPedidoPdf/{id}/{filename}', 'PedidosController@exportPdf');
+	
+	// ----------------------- DESTROY RECORDS ----------------------- //
 	Route::post('delete_provincias/{id}', 'ProvinciasController@destroy');
 	Route::post('delete_localidades/{id}', 'LocalidadesController@destroy');
 	Route::post('delete_ivas/{id}', 'IvasController@destroy');
@@ -229,11 +224,21 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::post('delete_clients/{id}', 'ClientesController@destroy');
 	Route::post('delete_fletes/{id}', 'FletesController@destroy');
 	Route::post('delete_pedidos/{id}', 'PedidosController@destroy');
+	Route::post('delete_tiposcomprobantes/{id}', 'TiposComprobantesController@destroy');
+	Route::post('delete_productos/{id}', 'ProductosController@destroy');
+	Route::post('delete_familias/{id}', 'FamiliasController@destroy');
+	Route::post('delete_subfamilias/{id}', 'SubfamiliasController@destroy');
 
 
+	// Developer Map
+	Route::resource('desarrollo', 'DesarrolloController');
+	
 	
 });
 
 // Autocomplete
-Route::get('/autocomplete', array('as' => 'autocomplete', 'uses'=>'Productos\ProductosController@product_autocomplete')); 
+Route::get('/autocomplete', array('as' => 'autocomplete', 'uses'=>'ProductosController@product_autocomplete')); 
 Route::get('/client_autocomplete', array('as' => 'client_autocomplete', 'uses'=>'ClientesController@client_autocomplete')); 
+
+
+

@@ -88,53 +88,55 @@
 			{!! Form::select('condicventas_id', $condicventas, $cliente->condicventas_id, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
 		</div>
 	</div>
-	{{-- Lista de Precios --}}
+	{{-- Lista de Precios 
 	<div class="col-md-4 col-sm-6 col-xs-12">
 		<div class="form-group">
 			{!! Form::label('listas_id', 'Lista de Precios') !!}
 			{!! Form::select('listas_id', $lista, $cliente->listas_id, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
 		</div>
-	</div>
-</div>
-<div class="row inner-row">
-	{{-- Tipo --}}
+	</div>--}}
+		{{-- Tipo --}}
 	<div class="col-md-4 col-sm-6 col-xs-12">
 		<div class="form-group">
 			{!! Form::label('tipo_id', 'Tipo') !!}
 			{!! Form::select('tipo_id', $tipo, $cliente->tipo, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
 		</div>
 	</div>
+</div>
+<div class="row inner-row">
+
 	{{-- Descuento --}}
-	<div class="col-md-4 col-sm-6 col-xs-12">
+	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div class="form-group">
 			{!! Form::label('descuento', 'Descuento') !!}
 			{!! Form::text('descuento', null, ['class' => 'form-control', 'placeholder' => 'Descuento a aplicar...']) !!}
 		</div>
 	</div>					
 	{{-- Vendedor Designado --}}
-	<div class="col-md-4 col-sm-6 col-xs-12">
+	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div class="form-group">
 			{!! Form::label('vendedor', 'Vendedor') !!}
 			{!! Form::select('vendedor', $users, $cliente->user_id, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
 		</div>
 	</div>
-
-</div>
-<div class="row inner-row">
-	{{-- Flete --}}
-	<div class="col-md-4 col-sm-6 col-xs-12">
+		{{-- Flete --}}
+	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div class="form-group">
 			{!! Form::label('zona_id', 'Zona') !!}
 			{!! Form::select('zona_id', $zona, $cliente->zona_id, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
 		</div>
 	</div>
 	{{-- Flete --}}
-	<div class="col-md-4 col-sm-6 col-xs-12">
+	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div class="form-group">
 			{!! Form::label('flete_id', 'Flete') !!}
 			{!! Form::select('flete_id', $flete, $cliente->flete_id, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
 		</div>
 	</div>
+
+</div>
+<div class="row inner-row">
+
 </div>
 	{{-- //-------------------------------------------------// --}}
 {{-- Datos de contacto y entrega --}}

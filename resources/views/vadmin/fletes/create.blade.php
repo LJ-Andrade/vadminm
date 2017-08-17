@@ -7,12 +7,12 @@
 	@section('options')
 		<div class="actions">
 			<a href="{{ url('vadmin/fletes') }}"><button type="button" class="animated fadeIn btnSm buttonOther">Volver</button></a>
-		</div>	
+		</div>
 	@endsection
 @endsection
 
 @section('content')
-
+	
 	@component('vadmin.components.create')
 		@slot('title', 'Agregar flete')
 		@slot('form')

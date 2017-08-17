@@ -129,231 +129,9 @@
 		}
 	});
 
-	/////////////////////////////////////////////////
-	//                CLIENT FINDER                //
-	/////////////////////////////////////////////////
-	
-
-	$('#ClienteBySelect').on('change', function(e, p){
-		var id     = $(this).chosen().val();
-		var route  = "{{ url('vadmin/get_client') }}/"+id+"";
-		var output = $('#ClientNameOutput');
-
-		$.ajax({
-				url: route,
-				type: 'get',
-				dataType: 'json',
-				beforeSend: function(){
-					$('#OutPut').removeClass('Hidden');
-					output.html(loaderSm('Buscando...'));
-				},
-				success: function(data){
-					var cliente = data.cliente.razonsocial;
-					var codigo  = data.cliente.id;
-					var cuit    = data.cliente.cuit;
-					output.html('Código: ' + codigo + ' - ' + cliente);
-					$('#ClienteIdOutput').val(codigo);
-					$('#OutPut').removeClass('Hidden');
-					$('#ClienteId').val(codigo);
-				},
-				error: function(data){
-					console.log(data);
-				}
-			}); 
-	});
-
-	$("#CodigoCliente").on( "keydown", function(e) {
-		
-		if(e.which == 13) {
-			var id    = $(this).val();
-			var route = "{{ url('vadmin/get_client') }}/"+id+"";
-			var output = $('#ClientNameOutput');
-
-			$.get(route, function(data){
-				if(data.cliente==null){
-					output.html('El cliente no existe');
-				} else {
-					var cliente = data.cliente.razonsocial;
-					var codigo  = data.cliente.id;
-					var cuit    = data.cliente.cuit;
-					
-					output.html('Código: ' + codigo + ' - ' + cliente);
-					$('#ClienteIdOutput').val(codigo);
-					$('#OutPut').removeClass('Hidden');
-					$('#ClienteId').val(codigo);
-				}	
-			});
-		}
-	});
-
 
 	/////////////////////////////////////////////////
-	//              PRODUCT Finder                 //
-	/////////////////////////////////////////////////
-
-	// -- Inputs --
-
-	// CfCodigoInput
-	// CfNombreInput
-	// CfCantidadInput
-	// CfPrecioInput
-	
-	// -- Extra Data --
-
-	// TipoCte
-
-	// -- Action --
-
-	// AddItem
-
-	// -- Outputs --
-
-	// CfOutputPreview
-
-	// Search By Code
-	$("#CfCodigoInput").on( "keydown", function(e) {
-		var id        = $(this).val();
-		var tipocte   = $('#TipoCte').data('tipocte');
-		var operacion = $('#Operacion').val();
-		if(e.which == 13) {
-			setProductAndPrice(id, tipocte, operacion);
-		}
-	});
-
-	// Search By Name Autocomplete Product Name Input
-	
-	$('#CfNombreInput').autocomplete({
-		source: "{!!URL::route('autocomplete')!!}",
-		minlength: 1,
-		autoFocus: true,
-		search: function(){
-			$('#CfLoader').html('<img src="{{ asset("images/gral/loader-sm.svg") }}"/>');
-		},
-		select:function(e,ui)
-		{
-			// $('#searchname').val(ui.item.value);
-			// console.log(ui.item.id);
-			var id        = ui.item.id;
-			var tipocte   = $('#TipoCte').data('tipocte');
-			var operacion = $('#Operacion').val();
-			setProductAndPrice(id, tipocte, operacion);
-			$('#CfCodigoInput').val(id);
-		}
-	});
-
-	// Set Ammount and look for offer
-	$("#CfCantidadInput").on( "keydown", function(e) {
-		var cantofertainput = $(this).val();
-		var cantofertamin   = $('#CantOfertaMin').html();
-		var preciooferta    = $('#PrecioOferta').html();
-		var precioInput     = $('#CfPrecioInput');
-		var precioDisplay   = $('#CfPrecioDisplayUser');
-		var originalprice   = $('#OriginalPrice').html();
-		
-		if(e.which == 13) {
-			if (cantofertainput >= cantofertamin){
-				precioDisplay.html(preciooferta);
-				precioInput.val(preciooferta);
-			} else {
-				precioDisplay.html(originalprice);
-				precioInput.val(originalprice);
-			}
-		}
-	});
-
-
-	// Display Product Info
-	function setProductAndPrice(id, tipocte, operacion) {	
-	
-		var route         = "{{ url('vadmin/get_product_and_price') }}/"+id+"";
-		var nombre        = $('#CfNombreInput');
-		var precioInput   = $('#CfPrecioInput');
-		var precioDisplay = $('#CfPrecioDisplayUser');
-		var output        = $('#CfOutputPreview');
-		var cfloader      = $('#CfLoader');
-		var erroroutput   = $('#DisplayErrorOutPut');
-		
-		$.ajax({
-			url: route,
-			method: 'post',             
-			dataType: "json",
-			data: {id: id, tipocte: tipocte, operacion: operacion},
-			beforeSend: function(){
-				cfloader.html('<img src="{{ asset("images/gral/loader-sm.svg") }}"/>');
-			},
-			success: function(data){
-				// console.log(data.exist);
-				if(data.exist == 1){
-					nombre.val(data.producto);
-					nombre.trigger("chosen:updated");
-					precioDisplay.html(data.precio);
-					erroroutput.html('');
-					cfloader.html('');
-					output.removeClass('Hidden');
-					output.html("");
-
-					if(data.operacion == 'pedido'){ 
-						output.html("<b>Producto: </b>" + data.producto + " | <b>Precio:</b> <span id='OriginalPrice'>" + data.precio + "</span><br> Precio de Oferta: <span id='PrecioOferta'>" + data.preciooferta + " </span> (Cantidad: <span id='CantOfertaMin'>" + data.cantoferta + "</span>)");
-						precioInput.val(data.precio);
-					}
-					
-					if(data.operacion == 'reparacion'){ 
-						output.html("<b>Producto: </b>" + data.producto);
-					}
-					
-					// console.log(data.operacion);
-				} else {
-					output.removeClass('Hidden');
-					output.html('El producto no existe');
-					nombre.val('');
-					erroroutput.html('');
-					erroroutput.addClass('Hidden');
-					cfloader.html('');
-				}
-			
-			},
-			error: function(data)
-			{
-				output.html(data.responseText);
-				output.removeClass('Hidden');
-				//
-				$('#Error').html(data.responseText);
-				console.log(data);	
-			},
-		});
-	}
-
-	function addItem(route, data){ 
-		var preview     = $('#CfOutputPreview');
-		var erroroutput = $('#DisplayErrorOutPut');
-
-		$.ajax({
-			url: route,
-			method: 'post',             
-			dataType: "json",
-			data: data,
-			beforeSend: function(){
-				loaderRow.show();
-			},
-			success: function(data){
-				location.reload();
-				loaderRow.hide();
-				// console.log(data);	
-			},
-			error: function(data)
-			{
-				// console.log(data);
-				loaderRow.hide();
-				$('#Error').html(data.responseText);
-				erroroutput.html('El producto no existe');
-				erroroutput.removeClass('Hidden');
-			},
-		});
-
-	}
-	
-	/////////////////////////////////////////////////
-	//              CLIENT  Finder                 //
+	//              CLIENT  Finder        OK       //
 	/////////////////////////////////////////////////
 
 	// Get Client Data On Button Click
@@ -363,7 +141,6 @@
 		var route      = "{{ url('vadmin/get_client') }}/"+id+"";
 		
 		getClientData(route).done(function(data){
-			console.log(data);
 			if (data.client != null){
 				var id          = data.client['id'];
 				var razonsocial = data.client['razonsocial'];
@@ -425,7 +202,7 @@
 	}
 
 	/////////////////////////////////////////////////
-	//              DESARROLLANDO                  //
+	//              GET CLIENT DATA                //
 	/////////////////////////////////////////////////
 
 	function getClientData(route){
@@ -434,22 +211,176 @@
 
 
 	/////////////////////////////////////////////////
-	//                   PAYMENT                   //
+	//               REVISAR                       //
 	/////////////////////////////////////////////////
 
-	// $('#AddPaymentEBtn').click(function(e){
-	// 	e.preventDefault();
-	// 	var clientId = $('#ClientId').val();
-	// 	var form     = $('#AddPaymentEForm').serialize(); 
+
+	/////////////////////////////////////////////////
+	//              PRODUCT Finder                 //
+	/////////////////////////////////////////////////
+
+	// -- Inputs --
+
+	// CfCodigoInput
+	// CfNombreInput
+	// CfCantidadInput
+	// CfPrecioInput
+	
+	// -- Extra Data --
+
+	// TipoCte
+
+	// -- Action --
+
+	// AddItem
+
+	// -- Outputs --
+
+	// CfOutputPreview
+
+	// Search By Code
+	$("#CfCodigoInput").on( "keydown", function(e) {
+		var id        = $(this).val();
+		var tipocte   = $('#TipoCte').data('tipocte');
+		var operacion = $('#Operacion').val();
+		if(e.which == 13) {
+			setProductAndPrice(id, tipocte, operacion);
+		}
+	});
+
+	// Search By Name Autocomplete Product Name Input
+	
+	$('#CfNombreInput').autocomplete({
+		source: "{!!URL::route('autocomplete')!!}",
+		minlength: 1,
+		autoFocus: true,
+		search: function(){
+			$('#CfLoader').html('<img src="{{ asset("images/gral/loader-sm.svg") }}"/>');
+		},
+		select:function(e,ui)
+		{
+			// $('#searchname').val(ui.item.value);
+			// console.log(ui.item.id);
+			var id        = ui.item.id;
+			var tipocte   = $('#TipoCte').data('tipocte');
+			var operacion = $('#Operacion').val();
+			setProductAndPrice(id, tipocte, operacion);
+			$('#CfCodigoInput').val(id);
+		}
+	});
+
+	// Set Ammount and look for offer
+	$("#CfCantidadInput").on( "keypress", function(e) {
+		var cantofertainput = $(this).val();
+		var cantofertamin   = $('#CantOfertaMin').html();
+		var preciooferta    = $('#PrecioOferta').html();
+		var precioInput     = $('#CfPrecioInput');
+		var precioDisplay   = $('#CfPrecioDisplayUser');
+		var originalprice   = $('#OriginalPrice').html();
+
+		if(e.which == 13) {
+			if (parseInt(cantofertainput) >= parseInt(cantofertamin)){
+				precioDisplay.html(preciooferta);
+				precioInput.val(preciooferta);
+			} else {
+				precioDisplay.html(originalprice);
+				precioInput.val(originalprice);
+			}
+		}
+	});
+
+
+	// Display Product Info
+	function setProductAndPrice(id, tipocte, operacion) {	
+	
+		var route         = "{{ url('vadmin/get_product_and_price') }}/"+id+"";
+		var nombre        = $('#CfNombreInput');
+		var precioInput   = $('#CfPrecioInput');
+		var precioDisplay = $('#CfPrecioDisplayUser');
+		var output        = $('#CfOutputPreview');
+		var cfloader      = $('#CfLoader');
+		var erroroutput   = $('#DisplayErrorOutPut');
 		
-	// 	// $('#AddPaymentEForm').submit();
-	// 	$('#AddPaymentEForm').submit(function(eventObj) {
-	// 		$(this).append("<input type='hidden' name='client_id' value='" + $client->id +"'/> ");
-	// 		return true;
-	// 	});
+		$.ajax({
+			url: route,
+			method: 'post',             
+			dataType: "json",
+			data: {id: id, tipocte: tipocte, operacion: operacion},
+			beforeSend: function(){
+				cfloader.html('<img src="{{ asset("images/gral/loader-sm.svg") }}"/>');
+			},
+			success: function(data){
+				// console.log(data.exist);
+				if(data.exist == 1){
+					nombre.val(data.producto);
+					nombre.trigger("chosen:updated");
+					precioDisplay.html(data.precio);
+					erroroutput.html('');
+					cfloader.html('');
+					output.removeClass('Hidden');
+					output.html("");
 
+					if(data.operacion == 'pedido'){ 
+						output.html("<b>Producto: </b>" + data.producto + " | <b>Precio:</b> <span id='OriginalPrice'>" + data.precio + "</span><br> Precio de Oferta: <span id='PrecioOferta'>" + data.preciooferta + " </span> (Cantidad: <span id='CantOfertaMin'>" + data.cantoferta + "</span>)");
+						precioInput.val(data.precio);
+						console.log(data);
+					}
+					
+					if(data.operacion == 'reparacion'){ 
+						output.html("<b>Producto: </b>" + data.producto);
+					}
+					
+					// console.log(data.operacion);
+				} else {
+					output.removeClass('Hidden');
+					output.html('El producto no existe');
+					nombre.val('');
+					erroroutput.html('');
+					erroroutput.addClass('Hidden');
+					cfloader.html('');
+				}
+			
+			},
+			error: function(data)
+			{
+				output.html(data.responseText);
+				output.removeClass('Hidden');
+				//
+				$('#Error').html(data.responseText);
+				console.log(data);	
+			},
+		});
+	}
 
-	// });
+	function addItem(route, data){ 
+		var preview     = $('#CfOutputPreview');
+		var erroroutput = $('#DisplayErrorOutPut');
+
+		$.ajax({
+			url: route,
+			method: 'post',             
+			dataType: "json",
+			data: data,
+			beforeSend: function(){
+				loaderRow.show();
+			},
+			success: function(data){
+				location.reload();
+				loaderRow.hide();
+				// console.log(data);	
+			},
+			error: function(data)
+			{
+				// console.log(data);
+				loaderRow.hide();
+				$('#Error').html(data.responseText);
+				erroroutput.html('El producto no existe');
+				erroroutput.removeClass('Hidden');
+			},
+		});
+
+	}
+	
 
 
 	

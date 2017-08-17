@@ -1,11 +1,18 @@
-### VADMIN Documentación
+# VADMIN Documentación
 
 VADmin es un gestor de contenido para empresas.
+
+## Creación automática de Cruds.
+php artisan crud:generate NombreEnPlural --fields="name#string;" --view-path=vadmin --route-group=vadmin
+
+
+## Traer datos de cliente
+User componente
+
 
 ## Funciones Ajax Javascript
 
 Debe estár incluído el componente ajaxscripts.blade.php
-
 
 **Para traer objeto con data de cliente**
 
@@ -19,16 +26,17 @@ getClientData(route).done(function(data){
     output.html(razonsocial);
 });
 
-## Exportar a Exel
+## Exportar a Excel
 
-# Exportar base de datos completa a Excel
+### Exportar tabla de base de datos a Excel
 
-    **Botton:**
-    *Parámetros ('vadmin/RUTA/MODELO/EXTENSION/NOMBRE DE ARCHIVO')*
+    **Boton:**
+    *Parámetros ('vadmin/MODELO/EXTENSION/NOMBRE DE ARCHIVO')*
     
-    <td>
-        <a href="{{ URL::to('vadmin/downloadExcel/Pago/xls',str_replace(' ', '-', $client->razonsocial.'('.$fecha.')')) }}"><button class="btnSmall green-back">Descargar Excel</button></a>
-    </td>
+    <a href="{{ URL::to('vadmin/downloadExcel/Pago/xls',str_replace(' ', '-', $client->razonsocial.'('.$fecha.')')) }}"><button class="btnSmall green-back">Descargar Excel</button></a>
+
+    **Ruta**
+    Route::get('downloadExcel/{db}/{type}/{filename}', 'FileExportController@downloadExcelFromDb');
 
     **Método:**
     *Parámetros (Id de Cliente, Extensión, Nombre de Archivo)*

@@ -1,19 +1,6 @@
-<div class="form-group {{ $errors->has('nombre') ? 'has-error' : ''}}">
-    {!! Form::label('nombre', 'Nombre', ['class' => 'col-md-4 control-label']) !!}
-    <div class="col-md-6">
-        {!! Form::text('nombre', null, ['class' => 'form-control']) !!}
-        {!! $errors->first('nombre', '<p class="help-block">:message</p>') !!}
-    </div>
-</div><div class="form-group {{ $errors->has('valor') ? 'has-error' : ''}}">
-    {!! Form::label('valor', 'Valor', ['class' => 'col-md-4 control-label']) !!}
-    <div class="col-md-6">
-        {!! Form::number('valor', null, ['class' => 'form-control']) !!}
-        {!! $errors->first('valor', '<p class="help-block">:message</p>') !!}
-    </div>
-</div>
-
-<div class="form-group">
-    <div class="col-md-offset-4 col-md-4">
-        {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Create', ['class' => 'btn btn-primary']) !!}
-    </div>
+<div class=" col-md-12 form-group">
+    {!! Form::label('familia_id', 'Familia:') !!}
+    {!! Form::select('familia_id', $familias, null, ['class' => 'form-control', 'placeholder' => 'Seleccione la familia','required' => '']) !!} 
+    {!! Form::label('nombre', 'Subfamilia:') !!}
+    {!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el nombre de la subfamilia', 'required' => '']) !!} 
 </div>

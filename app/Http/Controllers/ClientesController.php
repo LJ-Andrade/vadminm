@@ -18,9 +18,11 @@ use App\Zona;
 use App\Lista;
 use App\Direntrega;
 use App\Tipoct;
-use App\Factura;
+use App\Comprobante;
+use App\Movimiento;
 use App\Pago;
 use Excel;
+use PDF;
 
 class ClientesController extends Controller
 {
@@ -121,13 +123,43 @@ class ClientesController extends Controller
 
     public function get_client($id)
     {
-
-       $client = Cliente::where('id', '=', $id)->first();
-       
-       return response()->json(['client' => $client]);
-
+        
+        $client = Cliente::where('id', '=', $id)->first();
+        
+        if ($client != null) {
+            return response()->json(['client' => $client,
+                                     'letter' => $client->iva->letter]);
+        } else {
+            return response()->json(['client' => 0,
+                                     'letter' => 0]);
+        }
+           
     }
 
+    public function get_client_doc_data($id)
+    {
+        $client = Cliente::where('id', '=', $id)->first();
+        if($client->vendedor){
+            $client->vendedor    = $client->user->name;
+        } else {
+            $client->vendedor = '';
+        }
+
+        if($client->nombreflete){
+            $client->nombreflete = $client->flete->name;
+        } else {
+            $client->nombreflete = '';
+        }
+
+        if($client->direntregas){
+            $client->direntregas = $client->direntregas;
+        } else {
+            $client->direntregas = '';
+        }
+        
+        return response()->json(['client' => $client]);
+
+    }
 
     public function get_client_data($id)
     {
@@ -167,42 +199,62 @@ class ClientesController extends Controller
     //////////////////////////////////////////////////
 
     public function account($id)
-    {   
-        $movements  = $this->accountStract($id);
-        $fecha      = date('Y-m-d H:i:s');
-
-        $facturas   = Factura::where('cliente_id', '=', $id)->pluck('numero', 'id');
-        $outcomings = Factura::where('cliente_id', '=', $id)->sum('total');
-        $incomings  = Pago::where('cliente_id', '=', $id)->sum('importe');
-        $totals     = $outcomings - $incomings ;
-
-        $client     = Cliente::where('id', '=', $id)->first();
-
+    {       
+     
+        $movimientos  = Movimiento::where('cliente_id', '=', $id)->paginate(40);
+        $comprobantes = Comprobante::where('cliente_id', '=', $id)->pluck('nro','id');
+        $client       = Cliente::where('id', '=', $id)->first();
+        $saldo        = Movimiento::where('cliente_id', '=', $id)->orderBy('created_at','desc')->first();
+        if($saldo){
+            $saldo    = $saldo->subtotal;
+        } else {
+            $saldo    = '0';
+        }
+        $fecha        = date('Y-m-d H:i:s');
+        
+        // $data  = $this->accountStract($id);
+        // $movements = $data[0];
+        // $totals    = $data[1];
+        
         return view('vadmin.clientes.cuenta')
+            ->with('movimientos', $movimientos)
             ->with('client', $client)
-            ->with('movements', $movements)
-            ->with('facturas', $facturas)
-            ->with('totals', $totals)
+            ->with('comprobantes', $comprobantes)
+            ->with('saldo', $saldo)
             ->with('fecha', $fecha);
     }
     
-    public function exportAccount($id, $type, $filename){
+    public function exportExcel($id, $type, $filename){
         Excel::create($filename, function($excel) use($id){
 
             $excel->sheet('New sheet', function($sheet) use($id) {              
-                $movements  = $this->accountStract($id);                
-                $sheet->loadView('vadmin.clientes.cuentaExport')->with('movements', $movements);
+                $data  = $this->accountStract($id);
+                $movements = $data[0];
+                $totals    = $data[1];                
+                $sheet->loadView('vadmin.clientes.cuentaExcel', compact ('movements', 'totals'));
             });
 
         })->export('xls');
+    }   
+    
+
+    function exportPdf($id)
+    {   
+        $client    = Cliente::where('id', '=', $id)->first();
+        $client    = $client->razonsocial;
+        $data      = $this->accountStract($id);
+        $movements = $data[0];
+        $totals    = $data[1];
+
+        $pdf = PDF::loadView('vadmin.clientes.cuentaPdf', compact ('movements', 'client', 'totals'));
+        $pdf->setPaper('A4', 'landscape');
+        // Download
+        // return $pdf->download('invoice.pdf');
+        // Show
+        return $pdf->stream('invoice.pdf');
+        
     }
 
-    public function accountStract($id){
-        $fcs        = collect(Factura::where('cliente_id', '=', $id)->get());
-        $pagos      = collect(Pago::where('cliente_id', '=', $id)->get());
-        $movements  = $fcs->merge($pagos)->sortByDesc('created_at');
-        return $movements;
-    }
 
     public function buscarcuenta(){
         return view('vadmin.clientes.buscarcuenta');

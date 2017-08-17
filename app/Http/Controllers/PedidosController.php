@@ -13,6 +13,8 @@ use App\Tipoct;
 use App\Familia;
 use Illuminate\Http\Request;
 use Session;
+use Excel;
+use PDF;
 
 
 class PedidosController extends Controller
@@ -24,18 +26,40 @@ class PedidosController extends Controller
 
     public function index(Request $request)
     {
+                
         $key     = $request->get('show');
+        $name    = $request->get('name');
+        $number  = $request->get('number');
         $perPage = 20;
 
+
         if (!empty($key)) {
+            // Show All Orders (Sended too)
             if ($key=='5') {
                 $pedidos = Pedido::paginate($perPage);
             } else {
-                $pedidos = Pedido::where('estado', '=', "$key")->paginate($perPage);
-            }
+                // Show all orders but sended
+                $pedidos = Pedido::where('estado', '!=', "3")->paginate($perPage);
+            }   
         } else {
-            $pedidos = Pedido::where('estado', '!=', "3")->paginate($perPage);
+            if($number) {
+                $pedidos = Pedido::where('id', '=', "$number")->paginate($perPage);
+            } else {
+                $pedidos = Pedido::where('estado', '!=', "3")->paginate($perPage);
+            }
         }
+
+        
+            // Show orders filtered by Id or Name 
+
+        //     elseif($name) {
+        //         $pedidos = Pedido::where('cliente', '=', "$name")->paginate($perPage);
+        //     } elseif ($number) {
+        //         $pedidos = Pedido::where('id', '=', "$number")->paginate($perPage);
+        //     } else {}
+        //         $pedidos = Pedido::where('estado', '=', "$key")->paginate($perPage);
+        // }  {
+        // }
 
         return view('vadmin.pedidos.index', compact('pedidos'));
     }
@@ -121,12 +145,48 @@ class PedidosController extends Controller
             $total += ($cantidades[$i] * $valores[$i]);
         }
 
-
         return view('vadmin.pedidos.show')
             ->with('productos', $productos)
             ->with('tipocte', $tipocte)
             ->with('pedido', $pedido)
             ->with('total', $total);
+    }
+
+    //////////////////////////////////////////////////
+    //                  EXPORT                      //
+    //////////////////////////////////////////////////
+
+
+    public function exportPdf($id, $filename){
+        $pedido     = Pedido::findOrFail($id);
+        $productos  = Producto::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
+        $cantidades = Pedidositem::where('pedido_id', '=', $id)->pluck('cantidad');
+        $valores    = Pedidositem::where('pedido_id', '=', $id)->pluck('valor');
+        $tipo       = Tipoct::where('id', '=', $pedido->cliente->tipo_id)->first();
+
+        if($tipo == null){
+          $tipocte = '';
+        } else {
+          $tipocte    = $tipo->name;
+        }
+        $x     = count($cantidades);
+        $total = 0;
+        for ($i=0; $i < $x ; $i++) { 
+            $total += ($cantidades[$i] * $valores[$i]);
+        }
+
+        $pdf  = PDF::loadView('vadmin.pedidos.export', compact('pedido', 'tipocte', 'productos', 'valores', 'total'));
+
+        // For Test
+        //  return view('vadmin.pedidos.export')
+        //     ->with('productos', $productos)
+        //     ->with('tipocte', $tipocte)
+        //     ->with('pedido', $pedido)
+        //     ->with('total', $total);
+                
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream($filename);
+
     }
 
     //////////////////////////////////////////////////
@@ -181,7 +241,7 @@ class PedidosController extends Controller
         echo 'ok';
     }
 
-      //////////////////////////////////////////////////
+    //////////////////////////////////////////////////
     //                  DESTROY                     //
     //////////////////////////////////////////////////
 

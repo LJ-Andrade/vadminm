@@ -9,7 +9,7 @@ class Iva extends Model
 
     protected $table = 'ivas';
 
-    protected $fillable = ['name', 'afipcode', 'tipofc'];
+    protected $fillable = ['name', 'afipcode', 'letter'];
 
     protected $primaryKey = 'id';
 

@@ -49,7 +49,7 @@ var deleteRecord = function(id, route, bigtext, smalltext) {
 				// $('#Main-Loader').removeClass('Hidden');
 			},
 			success: function(data){
-				
+				console.log(data);
 				$('#BatchDeleteBtn').addClass('Hidden');
 				if (data.success == true) {
 					$('#Id'+id).hide(200);
@@ -58,7 +58,7 @@ var deleteRecord = function(id, route, bigtext, smalltext) {
 					}
 					alert_ok('Ok!','Eliminación completa');
 				} else {
-					alert_error('Ups!','Ha ocurrido un error');
+					alert_error('Ups!','Ha ocurrido un error (Puede que este registro tenga relación con otros items en el sistema). Debe eliminar primero los mismos.');
 					console.log(data);
 				}
 			},
@@ -75,3 +75,93 @@ var deleteRecord = function(id, route, bigtext, smalltext) {
 	});
 
 }
+
+
+
+/////////////////////////////////////////////////
+//                 FUNCTIONS                   //
+/////////////////////////////////////////////////
+
+function formatNum(num, fixed) {
+    var re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || -1) + '})?');
+    return num.toString().match(re)[0];
+}
+
+
+function reloadPage(){
+	location.reload();
+}
+
+/////////////////////////////////////////////////////////
+//             Get and Set Client Data                 //
+/////////////////////////////////////////////////////////
+
+// ------------------- Get Client -------------------- //
+
+	// // Get Client Data On Button Click
+	// $('#ClientByCodeBtn').click(function(){
+	// 	// Get Client Full Data
+		
+	// 	var id         = $('#ClientByCode').val();
+	// 	var route      = "{{ url('vadmin/get_client') }}/"+id+"";
+		
+	// 	getClientData(route).done(function(data){
+			
+	// 		if (data.client != null){
+	// 			var id          = data.client['id'];
+	// 			var razonsocial = data.client['razonsocial'];
+	// 		} 
+	// 		// Send Client Data to Output
+	// 		output(id, razonsocial);
+	// 	});
+	// });
+
+	// // Get Client Data OnKeydown
+	// $("#ClientByCode").on("keydown", function(e) {
+	// 	if(e.which == 13) {
+	// 		$('#ClientByCodeBtn').click();
+	// 	}
+	// });
+	
+	// // Get Client Data On Autocomplete Input
+	// $('#ClientAutoComplete').autocomplete({
+	// 	source: "{!!URL::route('client_autocomplete')!!}",
+	// 	minlength: 1,
+	// 	autoFocus: true,
+	// 	search: function(){
+	// 		$('#SmallLoader').html(loaderSm('Buscando...'));
+	// 	},
+	// 	select:function(e,data)
+	// 	{
+	// 		var id    = data.item.id;
+	// 		var route = "{{ url('vadmin/get_client') }}/"+id+"";
+
+	// 		// Get Client Full Data
+	// 		getClientData(route).done(function(data){
+	// 			var id          = data.client['id'];
+	// 			var razonsocial = data.client['razonsocial'];
+
+	// 			// Send Client Data to Output
+	// 			output(id, razonsocial)
+	// 		});
+			
+	// 	},
+	// 	response: function(event, ui) {
+	// 		$('#SmallLoader').html('');
+	// 	},
+	// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

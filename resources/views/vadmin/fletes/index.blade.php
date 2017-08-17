@@ -9,6 +9,7 @@
 	@section('options')
 		<div class="actions">
             <a  id="ToNewItem" href="{{ url('vadmin/fletes/create') }}" class="btn btnSm buttonOther"><i class="ion-plus-round"></i> Nuevo Flete</a>
+			<a href=""><button type="button" class="animated fadeIn btnSm buttonOther">Opciones</button></a>
             <button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button>
 		</div>	
 	@endsection
@@ -71,6 +72,14 @@
 				@endslot
 			@endcomponent
 		</div>
+
+		<div class="col-md-3">
+			<div class="form-group">
+				{{-- {!! Form::select('excelcantidad', ['25' => 'Últimos 25', '50' => 'Últimos 50', '*' => 'Todos' ], null, ['id' => 'ExcelAmmount', 'class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!} --}}
+				<a id="ExportExcelBtn" href="{{ URL::to('vadmin/exportExcel/Flete/listado-fletes') }}"><button  class="btnSmall green-back"><i class="ion-android-exit"></i> Exportar a Excel</button></a>
+			</div>
+			{{-- <a href="{{ URL::to('vadmin/exportExcel/'/xls',str_replace(' ', '-', $client->razonsocial.'('.$fecha.')')) }}"><button class="btnSmall blue-back"><i class="ion-android-exit"></i> Descargar Excel</button></a> --}}
+		</div>
 		<button id="BatchDeleteBtn" class="button buttonCancel batchDeleteBtn Hidden"><i class="ion-ios-trash-outline"></i> Eliminar seleccionados</button>
 	</div>  
 	<div id="Error"></div>
@@ -81,6 +90,20 @@
 
 	<script type="text/javascript">
 
+	/////////////////////////////////////////////////
+    //                  DELETE                     //
+    /////////////////////////////////////////////////
+	
+	// $('#ExcelAmmount').on('change', function(e){
+	// 	e.preventDefault();
+	// 	var ammount = $(this).val();
+	// 	var route   = "{{ URL::to('vadmin/exportExcel/Flete/listado-fletes') }}/"+ ammount +"";
+	// 	// href="{{ URL::to('vadmin/exportExcel/Flete/50') }}"
+	// 	$('#ExportExcelBtn').attr('href', route);
+	// 	console.log(route);
+
+
+	// });
 	/////////////////////////////////////////////////
     //                  DELETE                     //
     /////////////////////////////////////////////////

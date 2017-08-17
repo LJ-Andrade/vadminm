@@ -57,7 +57,8 @@ if ($wsfe->Login($certificado, $clave, $urlwsaa)) {
         // }
 
             if ($auth) {
-                $data['invoice_num'] = sprintf('%04d-', $PtoVta) . sprintf('%08d', $nro);
+                // $data['invoice_num'] = sprintf('%04d-', $PtoVta) . sprintf('%08d', $nro);
+                $data['invoice_num'] = sprintf($nro);
                 $data['CAE'] = $wsfe->RespCAE;
                 $data['Vto'] = $wsfe->RespVencimiento;
                 $data['Nro'] = $nro;

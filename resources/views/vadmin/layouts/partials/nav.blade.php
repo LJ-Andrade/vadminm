@@ -54,8 +54,8 @@
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Nuevo
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="{{ route('facturas.create') }}"><i class="ion-printer"></i>Factura</a></li>
-							<li><a href="{{ route('pagos.create') }}"><i class="ion-document"></i>Recibo</a></li>
+							<li><a href="{{ route('comprobantes.create') }}"><i class="ion-printer"></i>Comprobante</a></li>
+							{{-- <li><a href="{{ route('pagos.create') }}"><i class="ion-document"></i>Recibo</a></li> --}}
 							<li><a href="{{ route('productos.create') }}"><i class="ion-cube"></i>Producto</a></li>
 							<li><a href="{{ route('pedidos.create') }}"><i class="ion-paper-airplane"></i>Pedido</a></li>
 							<li><a href="{{ route('reparaciones.create') }}"><i class="ion-wrench"></i> Reparación</a></li>
@@ -68,17 +68,19 @@
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Ver
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-						    <li><a href="{{ route('facturas.index') }}"><i class="ion-printer"></i>Facturas</a></li>
+							<li><a href="{{ route('comprobantes.index') }}"><i class="ion-printer"></i>Comprobantes</a></li>
+						    {{-- <li><a href="{{ route('facturas.index') }}"><i class="ion-printer"></i>Facturas</a></li> --}}							
 							<li><a href="{{ route('pedidos.index') }}"><i class="ion-paper-airplane"></i> Pedidos</a></li>
 							<li><a href="{{ route('reparaciones.index') }}"><i class="ion-wrench"></i> Reparaciones</a></li>
-							<li><a href="{{ route('productos.index') }}"><i class="ion-cube"></i> Productos</a></li>
 							<li role="separator" class="divider"></li>
 							<li><a href="{{ route('clientes.index') }}"><i class="ion-ios-briefcase"></i> Clientes</a></li>
 							<li><a href="{{ route('proveedores.index') }}"><i class="ion-ios-people"></i> Proveedores</a></li>
+							{{-- <li><a href="{{ url('vadmin/buscarcuenta') }}"><i class="ion-social-usd"></i> Cuentas Corrientes</a></li> --}}
 							<li role="separator" class="divider"></li>
-							<li><a href="{{ url('vadmin/buscarcuenta') }}"><i class="ion-social-usd"></i> Cuentas Corrientes</a></li>
+							<li><a href="{{ route('productos.index') }}"><i class="ion-cube"></i> Productos</a></li>
+							<li><a href="{{ url('vadmin/listas') }}"><i class="ion-ios-paper"></i> Listas de Precios</a></li>
+							<li><a href="{{ url('vadmin/stock') }}"><i class="ion-clipboard"></i> Stock</a></li>
 							<li role="separator" class="divider"></li>
-							<li><a href="{{ route('listas.index') }}"><i class="ion-clipboard"></i> Listas de Precios</a></li>
 							<li><a href="{{ route('users.index') }}"><i class="ion-ios-people"></i> Usuarios</a></li>
 						</ul>
 					</li>
@@ -89,12 +91,13 @@
 							<li><a href="{{ route('proveedores.index') }}"><i class="ion-ios-people"></i> Proveedores</a></li>
 							<li><a href="{{ route('familias.index') }}"><i class="ion-ios-people"></i> Familias</a></li>
 							<li><a href="{{ route('subfamilias.index') }}"><i class="ion-ios-people"></i> SubFamilias</a></li>
-							<li><a href="{{ route('tipocts.index') }}"><i class="ion-ios-people"></i> Tipo de Cliente</a></li>
-							<li role="separator" class="divider"></li>
-							<li><a href="{{ route('pedidositems.index') }}"><i class="ion-ios-people"></i> Pedidos Items</a></li>
+							{{-- <li><a href="{{ route('tipocts.index') }}"><i class="ion-ios-people"></i> Tipo de Cliente</a></li> 
+							<li role="separator" class="divider"></li>--}}
+							{{-- <li><a href="{{ route('pedidositems.index') }}"><i class="ion-ios-people"></i> Pedidos Items</a></li> --}}
 							<li role="separator" class="divider"></li>
 							<li><a href="{{ route('condicventas.index') }}"><i class="ion-clipboard"></i> Condiciones de Vta.</a></li>
-							<li><a href="{{ route('ivas.index') }}"><i class="ion-ios-list-outline"></i> Categorías Iva</a></li>
+							{{-- <li><a href="{{ route('tiposcomprobantes.index') }}"><i class="ion-clipboard"></i> Tipos de Comprobantes</a></li>
+							<li><a href="{{ route('ivas.index') }}"><i class="ion-ios-list-outline"></i> Categorías Iva</a></li>--}}
 							<li><a href="{{ route('monedas.index') }}"><i class="ion-social-usd"></i> Monedas</a></li>
 							<li role="separator" class="divider"></li>
 							<li><a href="{{ route('direntregas.index') }}"><i class="ion-android-pin"></i> Direcciones de Entrega</a></li>

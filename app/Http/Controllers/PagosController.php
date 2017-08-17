@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Pago;
 use App\Factura;
+use App\Comprobante;
 use Illuminate\Http\Request;
 use Session;
 
@@ -52,11 +53,10 @@ class PagosController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         if($request->factura_id != null){
             $factura_id = $request->factura_id;
-            $facturaNro = Factura::findOrFail($request->factura_id);
-            $facturaNro = $facturaNro->numero;
+            $facturaNro = Comprobante::findOrFail($request->factura_id);
+            $facturaNro = $facturaNro->nro;
         } else {
             $facturaNro = '';
         }

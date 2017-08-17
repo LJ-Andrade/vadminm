@@ -25,8 +25,9 @@
                 'class'  => 'big-form', 'data-parsley-validate' => '',
                 'files'  => true
             ]) !!}
-
-            @include ('vadmin.productos.editform', ['submitButtonText' => 'Update'])
+            @include('vadmin.productos.form')
+            {!! Form::submit('Actualizar producto', ['class' => 'button btnGreen']) !!}
+            {{-- @include ('vadmin.productos.editform', ['submitButtonText' => 'Update']) --}}
 
             {!! Form::close() !!}
         </div>
@@ -51,8 +52,9 @@
         // Check existing subfamily
         function checkFamily(){
             // var id = $('#FamiliasSelect').attr('id');
-            var id = $("#FamiliasSelectEdit option:selected").val();
+            var id = $("#FamiliasSelect option:selected").val();
             subfamilyLoad(id);
+            console.log(id);
         }
 
         // Set existing family
@@ -61,7 +63,7 @@
         });
 
         // Set existing subfamily
-        $('#FamiliasSelectEdit').on('change',function(e){
+        $('#FamiliasSelect').on('change',function(e){
             var id = e.target.value;
             subfamilyLoad(id);
         });

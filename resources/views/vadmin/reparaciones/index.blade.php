@@ -20,11 +20,11 @@
 	{{-- Include Styles Here --}}
 @endsection
 
-
 {{-- CONTENT --}}
 @section('content')
     <div class="container">
 		<div class="row">		
+		Trabajando en esta sección
 			@include('vadmin.reparaciones.searcher')
             <div class="col-md-12 animated fadeIn main-list">
                 @foreach($reparaciones as $item)

@@ -11,9 +11,8 @@ class Producto extends Model
 
     protected $primaryKey = 'id';
 
-
     protected $fillable = [ 'nombre', 'estado', 'stockactual', 'condiva', 'codproveedor', 'stockmin', 'stockmax', 'monedacompra', 'costopesos', 
-                            'costodolar', 'costoeuro', 'pjegremio', 'pjeparticular', 'pjeespecial', 'preciooferta', 'cantoferta', 'proveedor_id',
+                            'costodolar', 'costoeuro', 'pjegremio', 'pjeparticular', 'pjeespecial', 'pjeoferta', 'cantoferta', 'proveedor_id',
                             'familia_id', 'subfamilia_id' ];
     
     public function proveedor(){

@@ -499,7 +499,7 @@ class Invoice extends FPDF
 			$this->Text(165, 274, 'VTO: ' . $data['Vto']);
 		}
 		// Added By JZ
-		$filename = 'facturas/fc-'.$data['invoice_num'].'.pdf';
+		$filename = 'facturas/'.$data['invoice_num'].'.pdf';
 		return $this->Output('F', $filename);
 		
 		// Original Line

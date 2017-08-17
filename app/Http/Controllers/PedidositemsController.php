@@ -36,6 +36,8 @@ class PedidositemsController extends Controller
         return view('vadmin.pedidositems.index', compact('pedidositems'));
     }
 
+    
+
     //////////////////////////////////////////////////
     //                 CREATE                       //
     //////////////////////////////////////////////////
@@ -132,32 +134,25 @@ class PedidositemsController extends Controller
         return redirect('vadmin/pedidositems');
     }
 
-
     //////////////////////////////////////////////////
-    //                    DESTROY                   //
+    //                  DESTROY                     //
     //////////////////////////////////////////////////
-    
-    public function destroy($id)
-    {
-        $item = Pedidositem::find($id);
-        $item->delete();
 
-        return response()->json([
-            "result"   => 1
-        ]);
-     
-    }
-
-
-    // ---------- Ajax Bach Delete -------------- //
-    public function ajax_batch_delete(Request $request, $id)
-    {
-        foreach ($request->id as $id) {
-        
-            $item  = Pedidositem::find($id);
-            Pedidositem::destroy($id);
-        }
-        echo 1;
+    public function destroy(Request $request, $id)
+    {   
+        try {
+            $record = Pedidositem::find($id);
+            $record->delete();
+                return response()->json([
+                    'success'   => true,
+                ]);  
+                
+            } catch (Exception $e) {
+                return response()->json([
+                    'success'   => false,
+                    'error'    => 'Error: '.$e
+                ]);    
+            }
     }
 
 

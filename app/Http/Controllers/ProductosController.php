@@ -14,9 +14,16 @@ use App\Familia;
 use App\Subfamilia;
 use App\Moneda;
 use App\Iva;
+use App\Tipoct;
+use Excel;
+use PDF;
 
 class ProductosController extends Controller
 {
+
+    //////////////////////////////////////////////////
+    //                  VIEW                        //
+    //////////////////////////////////////////////////
 
     public function index(Request $request)
     {
@@ -57,6 +64,15 @@ class ProductosController extends Controller
 
     }
 
+    public function get_product_full_price($id)
+    {
+        $producto = Producto::where('id', '=', $id)->first();
+        $data = $this->calculateAllPrices($id);
+
+        return response()->json($data);
+
+    }
+
     public function get_product_and_price(Request $request) 
     {
         $tipocte      = $request->tipocte;
@@ -73,21 +89,19 @@ class ProductosController extends Controller
                                      
         } else {
 
-            $price = $this->calculatePrice($id, $tipocte);
+            // $price = $this->calculatePrice($id, $tipocte);
+            $data = $this->calculatePrice($id, $tipocte);
+            $price = $data['price'];
+            $offer = $data['offer'];
             return response()->json(['operacion'      => $request->operacion,
                                      'producto'       => $producto->nombre,
                                      'precio'         => $price,
-                                     'preciooferta'   => $producto->preciooferta,
+                                     'preciooferta'   => $offer,
                                      'cantoferta'     => $producto->cantoferta,
                                      'exist'          => 1
                                     ]);
 
         }
-    }
-
-    public function test($id){
-        $product = Producto::where('id', '=', $id)->first();
-        echo $product->condiva;
     }
 
     public function get_product_data(Request $request)
@@ -107,12 +121,12 @@ class ProductosController extends Controller
                                      'iva'          => '0'
                                     ]);
         } else {
-            $price = $this->calculatePrice($id, $tipocte);
+            $pricedata = $this->calculatePrice($id, $tipocte);
                                      
             return response()->json(['exist'        => 1,
                                      'product'      => $product->nombre,
-                                     'price'        => $price,
-                                     'offerprice'   => $product->preciooferta,
+                                     'price'        => $pricedata['price'],
+                                     'offerprice'   => $pricedata['offer'],
                                      'offerammount' => $product->cantoferta,
                                      'iva'          => $product->condiva
                                     ]);
@@ -174,22 +188,71 @@ class ProductosController extends Controller
         switch ($tipocte) {
             case 1:
                 $price = calcFinalPrice($costo, $producto->pjegremio);
+                $offer = calcFinalPrice($costo, $producto->pjeoferta);
                 break;
             case 2:
                 $price = calcFinalPrice($costo, $producto->pjeparticular);
+                $offer = calcFinalPrice($costo, $producto->pjeoferta);
                 break;
             case 3:
                 $price = calcFinalPrice($costo, $producto->pjeespecial);
+                $offer = calcFinalPrice($costo, $producto->pjeoferta);
                 break;
             default:
                 $price = calcFinalPrice($costo, $producto->pjegremio);
+                $offer = calcFinalPrice($costo, $producto->pjeoferta);
                 break;
         }
 
-        return $price;
+        return array('price' => $price, 'offer' => $offer);
 
     }
 
+    public function calculateAllPrices($id){
+        $producto  = Producto::where('id', '=', $id)->first();
+        $dolarsist = Moneda::where('nombre', '=', 'Dolar')->first();
+        $eurosist  = Moneda::where('nombre', '=', 'Euro')->first();
+
+        switch ($producto->monedacompra) {
+            // Pesos
+            case 1:
+                $costo            = $producto->costopesos;
+                $costopesos       = $producto->costopesos;
+                $monedacompra = 'Pesos';
+                break;
+            // Dolar
+            case 2:  
+                $costopesos   = $producto->costodolar * $dolarsist->valor;
+                $costo        = $producto->costodolar;
+                $monedacompra = 'Dólares';
+                break;
+            // Euro
+            case 3:
+                $costopesos   = $producto->costopesos * $eurosist->valor;
+                $costo        = $producto->costoeuro;
+                $monedacompra = 'Euro';
+                break;
+            default:
+                $costo = $producto->costopesos;
+                break;
+        }
+                $preciogremio     = calcFinalPrice($costopesos, $producto->pjegremio);
+                $precioparticular = calcFinalPrice($costopesos, $producto->pjeparticular);
+                $precioespecial   = calcFinalPrice($costopesos, $producto->pjeespecial);
+                $preciooferta     = calcFinalPrice($costopesos, $producto->pjeoferta);
+
+        
+        return array('monedacompra' => $monedacompra,
+                     'costo'        => $costo,
+                     'costopesos'   => $costopesos,
+                     'gremio'       => $preciogremio,
+                     'particular'   => $precioparticular,
+                     'especial'     => $precioespecial,
+                     'preciooferta' => $preciooferta,
+                     'cantoferta'   => $producto->cantoferta
+                     );
+
+    }
 
     public function product_autocomplete(Request $request){
 
@@ -204,11 +267,203 @@ class ProductosController extends Controller
             return response()->json($results);
     }
     
+    //////////////////////////////////////////////////
+    //                  STOCK                       //
+    //////////////////////////////////////////////////
+
+    public function stock(Request $request)
+    {   
+        // Get Stock Order
+        if($request->get('order')){
+            $order = $request->get('order');
+        } else {
+            $order = 'ASC';
+        }
+
+        // Gey Search Keys
+        $bycode = $request->get('code');
+        $byname = $request->get('name');
+        
+        if($bycode && $byname) {
+            $products      = Producto::where('id', '=', "$bycode")->where('nombre', 'LIKE', "%$byname%")->orderBy('stockactual', "$order")->paginate(20);
+            $searchMessage = 'Descripción con: "'.$byname.'" y código: "'. $bycode.'"';
+        } elseif($bycode) {
+            $products      = Producto::where('id', '=', "$bycode")->orderBy('stockactual', "$order")->paginate(20);
+            $searchMessage = 'Con código: "'.$bycode.'"';
+        } elseif($byname) {
+            $products      = Producto::where('nombre', 'LIKE', "%$byname%")->orderBy('stockactual', "$order")->paginate(20);
+            $searchMessage = 'Descripción con: "'.$byname.'"';
+        } else {
+            $products      = Producto::orderBy('stockactual', $order)->paginate(20);
+            $searchMessage = 'Descripción con: "'.$byname.'"';
+        }
+
+        return view('vadmin.productos.stock')
+            ->with('products', $products)
+            ->with('searchMessage', $searchMessage);
+
+    }
+
+    //////////////////////////////////////////////////
+    //               PRICES LIST                    //
+    //////////////////////////////////////////////////
+
+    public function listas(Request $request)
+    {
+        $familias    = Familia::orderBy('id', 'DESC')->get();
+        $subfamilias = Subfamilia::orderBy('id', 'DESC')->get();
+        $tiposcte    = Tipoct::orderBy('id', 'ASC')->get();
+        $dolarsist   = Moneda::where('id', '=', '2')->first();
+        $eurosist    = Moneda::where('id', '=', '3')->first();
+        $dolarsist   = $dolarsist->valor;
+        $eurosist    = $eurosist->valor;
+
+
+        if($request->get('familias')){
+            
+            $products = Producto::where('familia_id', '=', $request->get('familias'))->paginate(50);
+            $searchMessage = '';
+            
+        } else {
+
+            // Get Stock Order
+            if($request->get('order')){
+                $order = $request->get('order');
+            } else {
+                $order = 'ASC';
+            }
+
+            $searchMessage = '';
+            $products = Producto::orderBy('id', 'ASC')->paginate(50);
+        }    
+        return view('vadmin.productos.listas')
+            ->with('products', $products)
+            ->with('familias', $familias)
+            ->with('subfamilias', $subfamilias)
+            ->with('tiposcte', $tiposcte)
+            ->with('eurosist', $eurosist)
+            ->with('dolarsist', $dolarsist)
+            ->with('searchMessage', $searchMessage);
+
+    }
+
+    public function exportPricesListPdf($familias, $tipocte)
+    {   
+        
+        $dolarsist   = Moneda::where('id', '=', '2')->first();
+        $eurosist    = Moneda::where('id', '=', '3')->first();
+        $dolarsist   = $dolarsist->valor;
+        $eurosist    = $eurosist->valor;
+        if($familias == 'X'){
+            $products   = Producto::orderBy('id', 'ASC')->paginate(50);
+        } else {
+            $products   = Producto::where('familia_id', '=', $familias)->paginate(50);
+        }
+
+        $pdf = PDF::loadView('vadmin.productos.listasexport', compact('products', 'familias', 'subfamilias', 'tipocte', 'eurosist', 'dolarsist', 'searchMessage'));
+
+        // $pdf->setPaper('A4', 'landscape');
+        $pdf->setPaper('A4', 'portrait');
+        return $pdf->download('test.pdf');
+    }
+
+    public function exportPricesListExcel($familias, $tipocte)
+    {
+        
+        $filename = 'Lista de Precios';
+        Excel::create($filename, function($excel) use($familias, $tipocte){
+
+            $excel->sheet('Listado', function($sheet) use($familias, $tipocte) {   
+                                   
+                $dolarsist   = Moneda::where('id', '=', '2')->first();
+                $eurosist    = Moneda::where('id', '=', '3')->first();
+                $dolarsist   = $dolarsist->valor;
+                $eurosist    = $eurosist->valor;
+                if($familias == 'X'){
+                    $products   = Producto::orderBy('id', 'ASC')->paginate(50);
+                } else {
+                    $products   = Producto::where('familia_id', '=', $familias)->paginate(50);
+                }
+                $sheet->loadView('vadmin.productos.listasexport', compact('products', 'familias', 'subfamilias', 'tipocte', 'eurosist', 'dolarsist', 'searchMessage'));
+            });
+
+        })->export('xls');
+    }
+
+    //////////////////////////////////////////////////
+    //                  SHOW                        //
+    //////////////////////////////////////////////////
+
+
+    public function show($id)
+    {
+        $dolarsist    = Moneda::where('id', '=', '2')->first();
+        $eurosist     = Moneda::where('id', '=', '3')->first();
+        $producto     = Producto::findOrFail($id);
+        $monedas      = Moneda::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
+        $fullid       = $producto->familia_id.'-'.$producto->subfamilia_id.'-'.$id;
+        $monedacompra = Moneda::where('id', '=', $producto->monedacompra)->first();
+        switch ($producto->monedacompra) {
+            case 1:
+                $valorcompra     = formatNum($producto->costopesos, 2);
+                $finalgremio     = calcFinalPrice($valorcompra, $producto->pjegremio);
+                $finalparticular = calcFinalPrice($valorcompra, $producto->pjeparticular);
+                $finalespecial   = calcFinalPrice($valorcompra, $producto->pjeespecial);
+                $finaloferta     = calcFinalPrice($valorcompra, $producto->pjeoferta);
+                break;
+            case 2:
+                $valorcompra     = formatNum($producto->costodolar, 2);
+                $finalgremio     = calcFinalPriceConvert($valorcompra, $producto->pjegremio,     $dolarsist->valor);
+                $finalparticular = calcFinalPriceConvert($valorcompra, $producto->pjeparticular, $dolarsist->valor);
+                $finalespecial   = calcFinalPriceConvert($valorcompra, $producto->pjeespecial,   $dolarsist->valor);
+                $finaloferta     = calcFinalPriceConvert($valorcompra, $producto->pjeoferta,     $dolarsist->valor);
+                break;
+            case 3:
+                $valorcompra     = formatNum($producto->costoeuro, 2);
+                $finalgremio     = calcFinalPriceConvert($valorcompra, $producto->pjegremio,     $eurosist->valor);
+                $finalparticular = calcFinalPriceConvert($valorcompra, $producto->pjeparticular, $eurosist->valor);
+                $finalespecial   = calcFinalPriceConvert($valorcompra, $producto->pjeespecial,   $eurosist->valor);
+                $finaloferta     = calcFinalPriceConvert($valorcompra, $producto->pjeoferta,     $eurosist->valor);
+                break;
+            default:
+                $valorcompra = formatNum($producto->costopesos, 2);
+                break;
+        }
+                  
+        return view('vadmin.productos.show')
+            ->with('producto', $producto)
+            ->with('fullid', $fullid)
+            ->with('monedas', $monedas)
+            ->with('monedacompra', $monedacompra)
+            ->with('valorcompra', $valorcompra)
+            ->with('finalgremio', $finalgremio)
+            ->with('finalparticular', $finalparticular)
+            ->with('finalespecial', $finalespecial)
+            ->with('finaloferta', $finaloferta);
+    }
+
+    //////////////////////////////////////////////////
+    //              SHOW PRODUCTS AJAX              //
+    //////////////////////////////////////////////////
+
+    public function ajax_subfamilias($id) {
+
+        $subfamilias = Subfamilia::where('familia_id', '=', $id)->get();
+        return response()->json($subfamilias);
+
+    }
+
+    public function ajax_show_products($id)
+    {
+
+        $productos = Producto::where('subfamilia_id', '=', $id)->get();
+        return response()->json($productos);
+        
+    }
 
     //////////////////////////////////////////////////
     //                  CREATE                      //
     //////////////////////////////////////////////////
-
 
     public function create()
     {
@@ -218,6 +473,7 @@ class ProductosController extends Controller
         $familias     = Familia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $subfamilias  = Subfamilia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $monedas      = Moneda::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
+        $currency     = '';
        
         if(is_null($producto_id)){
             $producto_id = 0;
@@ -228,17 +484,14 @@ class ProductosController extends Controller
             ->with('proveedor', $proveedor)
             ->with('familias', $familias)
             ->with('subfamilias', $subfamilias)
-            ->with('monedas', $monedas);
+            ->with('monedas', $monedas)
+            ->with('currency', $currency);
 
     }
 
-
-    //////////////////////////////////////////////////
-    //                  STORE                       //
-    //////////////////////////////////////////////////
-
     public function store(Request $request)
     {
+        
         $this->validate($request,[
             'nombre'              => 'required|unique:productos,nombre',
             'codproveedor'        => 'required|unique:productos,codproveedor',
@@ -250,6 +503,7 @@ class ProductosController extends Controller
         
         $producto  = new Producto($request->all());
         // Store cost by money type
+        
         switch ($request->monedacompra) {
             case 1:
                 $producto->costopesos    = formatNum($request->costo, 2);
@@ -277,88 +531,21 @@ class ProductosController extends Controller
     }
 
     //////////////////////////////////////////////////
-    //                  SHOW                        //
-    //////////////////////////////////////////////////
-
-
-    public function show($id)
-    {
-        $dolarsist    = Moneda::where('nombre', '=', 'Dolar')->first();
-        $eurosist     = Moneda::where('nombre', '=', 'Euro')->first();
-        $producto     = Producto::findOrFail($id);
-        $monedas      = Moneda::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
-        $fullid       = $producto->familia_id.'-'.$producto->subfamilia_id.'-'.$id;
-        $monedacompra = Moneda::where('id', '=', $producto->monedacompra)->first();
-        
-        switch ($producto->monedacompra) {
-            case 1:
-                $valorcompra     = formatNum($producto->costopesos, 2);
-                $finalgremio     = calcFinalPrice($valorcompra, $producto->pjegremio);
-                $finalparticular = calcFinalPrice($valorcompra, $producto->pjeparticulat);
-                $finalespecial   = calcFinalPrice($valorcompra, $producto->pjeespecial);
-                break;
-            case 2:
-                $valorcompra     = formatNum($producto->costodolar, 2);
-                                  //calcFinalPriceConvert(cost, porcentage, moneyactualvalue);
-                $finalgremio     = calcFinalPriceConvert($valorcompra, $producto->pjegremio,     $dolarsist->valor);
-                $finalparticular = calcFinalPriceConvert($valorcompra, $producto->pjeparticular, $dolarsist->valor);
-                $finalespecial   = calcFinalPriceConvert($valorcompra, $producto->pjeespecial,   $dolarsist->valor);
-                break;
-            case 3:
-                $valorcompra     = formatNum($producto->costoeuro, 2);
-                $finalgremio     = calcFinalPriceConvert($valorcompra, $producto->pjegremio,     $eurosist->valor);
-                $finalparticular = calcFinalPriceConvert($valorcompra, $producto->pjeparticular, $eurosist->valor);
-                $finalespecial   = calcFinalPriceConvert($valorcompra, $producto->pjeespecial,   $eurosist->valor);
-                break;
-            default:
-                $valorcompra = formatNum($producto->costopesos, 2);
-                break;
-        }
-
-          
-        return view('vadmin.productos.show')
-            ->with('producto', $producto)
-            ->with('fullid', $fullid)
-            ->with('monedas', $monedas)
-            ->with('monedacompra', $monedacompra)
-            ->with('valorcompra', $valorcompra)
-            ->with('finalgremio', $finalgremio)
-            ->with('finalparticular', $finalparticular)
-            ->with('finalespecial', $finalespecial);
-    }
-
-    //////////////////////////////////////////////////
-    //              SHOW PRODUCTS AJAX              //
-    //////////////////////////////////////////////////
-
-    public function ajax_subfamilias($id) {
-
-        $subfamilias = Subfamilia::where('familia_id', '=', $id)->get();
-        return response()->json($subfamilias);
-
-    }
-
-    public function ajax_show_products($id)
-    {
-
-        $productos = Producto::where('subfamilia_id', '=', $id)->get();
-        return response()->json($productos);
-        
-    }
-
-
-    //////////////////////////////////////////////////
     //                  EDIT                        //
     //////////////////////////////////////////////////
     
     public function edit($id)
     {
         $producto     = Producto::findOrFail($id);
+        $producto_id  = [];
         $proveedor    = Proveedor::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $familias     = Familia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $subfamilias  = Subfamilia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $monedacompra = Moneda::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $subfamiliaId = $producto->subfamilia->id;
+        $monedas      = Moneda::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
+        $currency     = Moneda::where('id','=', $producto->monedacompra)->first();
+        $currency     = $currency->id;
 
         switch ($producto->monedacompra) {
             case 1:
@@ -374,15 +561,18 @@ class ProductosController extends Controller
                 $costo = $producto->costopesos;
                 break;
         }
-
+        $costoloco = '2323';
         return view('vadmin.productos.edit')
-            ->with('costo', $costo)
+            ->with('costoloco', $costoloco)
             ->with('producto', $producto)
+            ->with('producto_id', $producto_id)
             ->with('proveedor', $proveedor)
             ->with('familias', $familias)
             ->with('subfamilias', $subfamilias)
             ->with('subfamiliaId', $subfamiliaId)
-            ->with('monedacompra', $monedacompra);
+            ->with('monedacompra', $monedacompra)
+            ->with('monedas', $monedas)
+            ->with('currency', $currency);
 
     }
 
@@ -438,11 +628,23 @@ class ProductosController extends Controller
     {
 
         $producto = Producto::find($id);
-        $producto->estado = $request->estado;            
+        
+        switch ($request->action) {
+            case 'activar':
+                $producto->estado = 'activo';
+                break;
+            case 'pausar':
+                $producto->estado = 'pausado';
+                break;
+            default:
+                $producto->estado = 'indefinido';
+                break;
+        }
+             
         $producto->save();
 
         return response()->json([
-            "lastStatus" => $producto->estado,
+            "newstatus" => $producto->estado,
         ]);
 
     }
@@ -483,31 +685,86 @@ class ProductosController extends Controller
     
     }
 
-
-    //////////////////////////////////////////////////
-    //                 DESTROY                      //
-    //////////////////////////////////////////////////
-
-   
-    // ---------- Delete -------------- //
-    public function destroy($id)
+    public function updateCurrencyAndPrice(Request $request)
     {
-        $item = Producto::find($id);
-        $item->delete();
-        echo 1;
-    }
-
-
-    // ---------- Ajax Bach Delete -------------- //
-    public function ajax_batch_delete(Request $request, $id)
-    {
-        foreach ($request->id as $id) {
+        try {
         
-            $item  = Producto::find($id);
-            Producto::destroy($id);
+            $producto  = Producto::find($request->id);
+            $price     = $request->price;
+            $currency  = $request->currency;
+
+            switch ($currency) {
+            case 1:
+                $producto->costopesos = $price;
+                $producto->costodolar = 0;
+                $producto->costoeuro  = 0;
+                break;
+            case 2:
+                $producto->costodolar = $price;    
+                $producto->costopesos = 0;
+                $producto->costoeuro  = 0;
+                break;
+            case 3:
+                $producto->costoeuro  = $price;  
+                $producto->costodolar = 0;
+                $producto->costopesos = 0;
+                break;
+            }
+
+            $producto->monedacompra = $currency;
+            $producto->save();
+            
+            return response()->json([
+                'success'     => true,
+                'message'     => 'Producto Actualizado'
+            ]);
+        
+        } catch (Exception $e) {
+            return response()->json([
+                'success'     => true,
+                'message'     => 'Error: '. $e
+            ]);
         }
-        echo 1;
     }
 
+
+    //////////////////////////////////////////////////
+    //                  DESTROY                     //
+    //////////////////////////////////////////////////
+
+    public function destroy(Request $request, $id)
+    {   
+
+        if(is_array($request->id)) {
+            try {
+                foreach ($request->id as $id) {
+                    $record = Producto::find($id);
+                    $record->delete();
+                }
+                return response()->json([
+                    'success'   => true,
+                ]); 
+            }  catch (\Illuminate\Database\QueryException $e) {
+                return response()->json([
+                    'success'   => false,
+                    'error'    => 'Error: '.$e
+                ]);    
+            }
+        } else {
+            try {
+                $record = Producto::find($id);
+                $record->delete();
+                    return response()->json([
+                        'success'   => true,
+                    ]);  
+                    
+                } catch (\Illuminate\Database\QueryException $e) {
+                    return response()->json([
+                        'success'   => false,
+                        'error'    => 'Error: '.$e
+                    ]);    
+                }
+        }
+    }
 
 }

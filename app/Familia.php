@@ -21,6 +21,5 @@ class Familia extends Model
     {
     	return $this->hasMany('App\Producto');
     }
-
     
 }

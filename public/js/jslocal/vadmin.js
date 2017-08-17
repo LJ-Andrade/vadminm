@@ -10,9 +10,6 @@ $.ajaxSetup({
 //                          //
 //////////////////////////////
 
-
-
-
 // $(document).ajaxStart(function(){
 //     toggleLoader();
 // });
@@ -21,15 +18,7 @@ $.ajaxSetup({
 // 	toggleLoader();
 // });
 
-function toggleLoader(){
-  $('.Main-Loader').toggleClass('Hidden');
-    // if (!$('.Main-loader').hasClass('Hidden')) {
-    //   // This prevents scroll on loader
-    // //   $('html').css({ 'overflow': 'hidden', 'height': '100%' });
-    // } else {
-    // //   $('html').css({ 'overflow-y': 'scroll', 'height': '100%' });
-    // }
-}
+
 
 
 var get_client = function(route){
@@ -44,7 +33,7 @@ var get_client = function(route){
 			return output;
 		},
 		error: function () {}
-	}); // ajax synchronus request 
+	}); 
 	return output;
 
 }
@@ -199,24 +188,7 @@ function resetForm(id) {
     document.getElementById(id).reset();
 }
 
-//////////////////////////////
-// 							//
-//         FORMULES         //
-//                          //
-//////////////////////////////
 
-function formatNum(num, fixed) {
-    var re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || -1) + '})?');
-    return num.toString().match(re)[0];
-}
-
-
-function calcPtje(preciocosto, pjegremio){
-	var calc   = parseFloat(preciocosto) * parseFloat(pjegremio) / 100;
-	var result = parseFloat(preciocosto) + parseFloat(calc);
-	var result = Math.round(result*Math.pow(10,2))/Math.pow(10,2);
-	return result;
-}
 
 
 //////////////////////////////

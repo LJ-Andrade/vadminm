@@ -75,6 +75,12 @@
 			@endcomponent
 
 		</div>
+		{{-- Export Button --}}
+		<div class="col-md-3">
+			<div class="form-group">
+				<a id="ExportExcelBtn" href="{{ URL::to('vadmin/exportExcel/Zona/listado-zonas') }}"><button  class="btnSmall green-back"><i class="ion-android-exit"></i> Exportar a Excel</button></a>
+			</div>
+		</div>
 		<button id="BatchDeleteBtn" class="button buttonCancel batchDeleteBtn Hidden"><i class="ion-ios-trash-outline"></i> Eliminar seleccionados</button>
 	</div>  
 	<div id="Error"></div>

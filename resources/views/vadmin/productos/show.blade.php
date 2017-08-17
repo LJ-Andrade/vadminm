@@ -20,6 +20,7 @@
 @section('styles')
 	{{-- Include Styles Here --}}
 @endsection
+@component('vadmin.components.mainloader')@endcomponent
 {{-- CONTENT --}}
 @section('content')
     <div class="container">
@@ -35,14 +36,18 @@
                 <div class="row">
                     <div class="col-md-12">
                         {{-- Status --}}
-                        <div class="UpdateStatusBtn status" data-id="{!! $producto->id !!}">
+                        <div class="status">
                             @if ($producto->estado == 'activo')
                                 <span class="text"><i class="ion-record active"></i> <b>Estado:</b> En Lista</span> <br>
-                                <button id="UpdateStatusBtn{{$producto->id}}" data-switchstatus="pausado" class="btnXSmall buttonCancel">
+                                <button class="UpdateStatusBtn btnXSmall buttonCancel" data-action="pausar" data-id="{!! $producto->id !!}">
                                 Pausar
                             @elseif ($producto->estado == 'pausado')
                                 <span class="text"><i class="ion-record paused"></i> <b>Estado:</b> Sin Listar</span> <br>
-                                <button id="UpdateStatusBtn{{$producto->id}}" data-switchstatus="activo" class="btnXSmall buttonOk">
+                                <button class="UpdateStatusBtn btnXSmall buttonOk" data-action="activar" data-id="{!! $producto->id !!}">
+                                Activar
+                            @else 
+                                <span class="text"><i class="ion-record paused"></i> <b>Estado:</b> Indefinido</span> <br>
+                                <button class="UpdateStatusBtn btnXSmall buttonOk"  data-action="activar" data-id="{!! $producto->id !!}">
                                 Activar
                             @endif
                         </div>
@@ -78,16 +83,26 @@
                 </div>
                 <hr class="softhr">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
+                        {{-- Update Cost and Currency--}}
                         <div class="subtitle">Precio de Costo</div>
-                        <b>Moneda:</b>  {{ $monedacompra->nombre }}<br>
-                        <b>Valor: </b>  {{ $valorcompra }}<br>
-                        {{-- Update Price Modal Trigger --}}
-                        <button class="btnSm buttonOther" data-toggle="modal" data-target="#UpdatePriceModal">Actualizar Costo</button>
+                        {!! Form::open(['method' => 'POST', 'id' => 'UpdatePriceForm', 'class' => '', 'data-parsley-validate' => '']) !!}
+                            <div class="form-group col-md-6">
+                                {!! Form::label('monedacompra', 'Moneda de Compra') !!}	
+                                {!! Form::select('monedacompra', $monedas, $producto->monedacompra, ['id' => 'NewCurrency', 'class' => 'form-control Selech-Chosen']) !!}
+                            </div>
+                            <div class="form-group col-md-6">
+                                {!! Form::label('preciocosto', 'Costo:') !!}	
+                                {!! Form::text('preciocosto', $valorcompra, ['id' => 'NewPrice', 'class' => 'form-control']) !!}
+                            </div>
+                            <div class="form-group">
+                                <button id="UpdatePriceBtn" class="btnSm buttonOther">Actualizar Costo</button>
+                            </div>
+                        {!! Form::close() !!}
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="subtitle">Precios en Pesos</div>
-                        <table class="small-table">
+                        <table class="col-md-6 small-table">
                             <tr>
                                 <td><b>Gremio</b> {{ $producto->pjegremio }} % </td>
                                 <td><b>$</b> {{ $finalgremio }} </td>                            
@@ -96,18 +111,19 @@
                                 <td><b>Particular:</b> {{ $producto->pjeparticular }} % </td>
                                 <td><b>$ </b>{{ $finalparticular }} </td>
                             </tr>
+                        </table>
+                        <table class="col-md-6 small-table">
                             <tr>
                                 <td><b>Especial: </b> {{ $producto->pjeespecial }} % </td>
                                 <td><b>$</b> {{ $finalespecial }} </b><br></td>
                             </tr>
+                            <tr>
+                                <td><b>Oferta: </b> {{ $producto->pjeoferta }} % </td>
+                                <td><b>$</b> {{ $finaloferta }} </b><br></td>
+                            </tr>
                         </table>
                     </div>
-  
-                    <div class="col-md-4">
-                        <div class="subtitle">Precio de oferta  (pesos) </div>
-                        <b>Precio de oferta:</b> @if(is_null($producto->preciooferta)) @else $ {{ $producto->preciooferta }} @endif <br>
-                        <b>Cantidad mínima:</b> @if(is_null($producto->cantoferta)) @else {{ $producto->cantoferta }} @endif <br>
-                    </div>
+
                 </div>
                 <hr class="softhr">
 			</div> {{-- /Content --}}
@@ -121,29 +137,7 @@
             </div>
 		</div> {{-- /Row Big-Card --}}
 	</div> {{-- /Container --}}
-
-
-    {{-- Price Update Modal --}}
-    @component('vadmin.components.modal')
-        
-        @slot('id', 'UpdatePriceModal')
-                
-        @slot('title', 'Actualización de Costo')
-        
-        @slot('content')
-            {!! Form::open(['method' => 'POST', 'id' => 'UpdatePriceForm', 'class' => '', 'data-parsley-validate' => '']) !!}	
-                {!! Form::label('preciocosto', 'Costo:') !!}	
-                {!! Form::text('preciocosto', $producto->preciocosto, ['id' => 'NewPrice', 'class' => 'form-control']) !!}
-            {!! Form::close() !!}
-        @endslot
-        
-        @slot('ok_button')
-            <button id="UpdatePriceBtn" class="button buttonOk">Actualizar</button>
-        @endslot
-
-    @endcomponent
-
-
+    <div id="Error"></div>
 @endsection
 
 @section('scripts')
@@ -165,11 +159,14 @@
         });
 
         $('#UpdatePriceBtn').on('click',function(){
-            var id      = "{{  $producto->id  }}";
-            var data    = $('#NewPrice').val();
-            var route   = "{{ url('vadmin/update_prod_costprice') }}/"+id+"";
-            var success = location.reload(); 
-            updateProduct(route, id, data, success);
+            var id       = "{{  $producto->id  }}";
+            var price    = $('#NewPrice').val();
+            var currency = $('#NewCurrency option:selected').val();
+            var data     = {id: id,  price: price, currency: currency};
+
+            var route    = "{{ url('vadmin/updateCurrencyAndPrice') }}";
+            var success  = reloadPage();
+            updateCurrencyAndPrice(route, id, data, success);
         });
 
         /////////////////////////////////////////////////
@@ -177,33 +174,14 @@
 		/////////////////////////////////////////////////
 
         $(document).on('click', '.UpdateStatusBtn', function(e) { 
-
-            var id           = $(this).data('id');
-            var route        = "{{ url('/vadmin/update_prod_status') }}/"+id+"";
-            var statusBtn    = $('#UpdateStatusBtn'+id);
-            var switchstatus = statusBtn.data('switchstatus');
-            var statusBtn    = $(this).children();	
-
-            $.ajax({
-                url: route,
-                method: 'post',             
-                dataType: 'json',
-                data: { id: id, estado: switchstatus
-                },
-                success: function(data){
-                    var updatedStatus = (data.lastStatus);
-                    var iconStatus    = '';
-                    location.reload();  
-                },
-                complete: function(data){
-                    toggleLoader();
-                },
-                error: function(data)
-                {
-                    console.log(data);
-                    // $('#Error').html(data.responseText);
-                },
-            });
+            
+            var id     = $(this).data('id');
+            var route  = "{{ url('/vadmin/update_prod_status') }}/"+id+"";
+            var action = $(this).data('action');
+            console.log(id);
+            updateProductStatus(route, action);
+            
         });
+
     </script>
 @endsection

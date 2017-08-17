@@ -1,6 +1,6 @@
 @section('searcher')
 
-@if(isset($_GET['show']))
+@if(isset($_GET['show']) || isset($_GET['number']))
 <a href="{{ url('vadmin/pedidos') }}"><button type="button" class="btnSmall buttonOk">Mostrar Todos</button></a>
 @endif
 <div class="row header-options">
@@ -13,6 +13,14 @@
                 <a href="{{ url('vadmin/pedidos?show=2') }}"><button type="button" class="btn btnSquare btnYellow">Preparado</button></a>
                 <a href="{{ url('vadmin/pedidos?show=3') }}"><button type="button" class="btn btnSquare btnGreen">Enviado</button></a>
                 <a href="{{ url('vadmin/pedidos?show=5') }}"><button type="button" class="btn btnSquare btnBlue">Todos</button></a>
+                 <div class="input-group">
+                    <span class="input-group-btn">
+                    <input type="text" class="form-control" name="number" placeholder="Buscar por número...">
+                        <button class="btn btn-default" type="submit">
+                            <i class="ion-ios-search"></i>
+                        </button>
+                    </span>
+                </div>
             </div>
         {!! Form::close() !!}
         {{-- /Search --}}

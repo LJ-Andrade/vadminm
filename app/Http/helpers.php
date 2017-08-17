@@ -69,8 +69,62 @@ function paymentType($type) {
             echo 'Desconocido';
             break;
     }
-
 }
+
+function movementType($type) {
+
+    switch ($type) {
+        case 'E':
+            echo 'Efectivo';
+            break;
+        case 'B':
+            echo 'Banco';
+            break;
+        case 'C':
+            echo 'Cheque';
+            break;
+        case 'R':
+            echo 'Retención';
+            break;
+        case 'F':
+            echo 'Factura';
+            break;
+        case 'ND':
+            echo 'Nota de Débito';
+            break;
+        case 'NC':
+            echo 'Nota de Crédito';
+            break;
+        default:
+            echo 'Desconocido';
+            break;
+    }
+}
+
+function compType($type){
+
+    switch ($type) {
+        case 'F':
+            $comprobante = 'Factura';
+            break;
+        case 'NC':
+            $comprobante = 'Nota de Crédito';
+            break;
+        case 'ND':
+            $comprobante = 'Nota de Débito';
+            break;
+        default:
+            $comprobante = 'No definido';
+            break;
+    }
+    return $comprobante;
+}
+
+function getUrl(){
+    $url = $_SERVER['REQUEST_URI'];
+    return $url;
+}
+
 
 
 function calcFinalPrice($cost, $pje){
@@ -80,6 +134,10 @@ function calcFinalPrice($cost, $pje){
 }
 
 function calcFinalPriceConvert($cost, $porcentage, $currencyActualValue){
+    // $cost                = floatval($cost);
+    // $porcentage          = floatval($porcentage);
+    // $currencyActualValue = floatval($currencyActualValue);
+
     $porcentage = $cost * $porcentage / 100;
     $result     = $cost + $porcentage;
     $result     = $result * $currencyActualValue;

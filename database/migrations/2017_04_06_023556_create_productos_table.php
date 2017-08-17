@@ -24,10 +24,10 @@ class CreateProductosTable extends Migration
             $table->integer('costopesos');
             $table->integer('costodolar');
             $table->integer('costoeuro');
-            $table->integer('pjegremio');
-            $table->integer('pjeparticular');
-            $table->integer('pjeespecial');
-            $table->integer('preciooferta')->nullabble();
+            $table->float('pjegremio')->nullabble();
+            $table->float('pjeparticular')->nullabble();
+            $table->float('pjeespecial')->nullabble();
+            $table->float('pjeoferta')->nullabble();
             $table->integer('cantoferta')->nullabble();
 
             $table->integer('moneda_id')->unsigned();

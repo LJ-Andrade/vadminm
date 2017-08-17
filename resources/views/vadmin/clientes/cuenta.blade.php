@@ -11,7 +11,9 @@
         | {{ $client->razonsocial }} 
     @endsection
 	@section('options')
-
+		<div class="actions">
+			<button id="ClientAccountSidebarBtn" type="button" class="animated fadeIn btnSm buttonOther">Ingresar Pagos</button>
+		</div>
 	@endsection
 @endsection
 
@@ -25,9 +27,9 @@
 	@component('vadmin.components.mainloader')@endcomponent
 
     <div class="container">
-		<div class="row">
-			<div id="Error"></div>	
-				<div class="col-md-8">
+		<div class="row account-container">
+			<div id="Error"></div>
+				<div id="ClientAccountTable" class="col-md-12">
 					<div class="big-form small-text-table">
 						<div class="inner-row">
 							<div class="table-responsive">
@@ -36,105 +38,66 @@
 										<tr>
 											<th>Movimiento</th>
 											<th>Detalle</th>
-											<th>Factura</th>
+											<th>Pertenece a</th>
 											<th>Importe</th>
-											<th>Fecha</th>
+											<th>Subtotal</th>
+											<th style="text-align:right">Fecha</th>
 										</tr>
 									</thead>
-									<tbody id="FcItems">
-										@foreach( $movements as $item )
-											{{-- Detalle --}}
-											@if($item->op == 'F')
-											<tr class="factura-test">
-												<td><i class="ion-reply"></i> FC N° {{ $item->numero }}</td>
-												<td></td>
-												<td></td>
-												<td>- $ {{ $item->total }}</td>
-												<td>{{ transDateT($item->created_at) }}</td>
-											</tr>
-											@endif
-											@if($item->op == 'P')
-											<tr class="pago-test">
-												<td><i class="ion-forward"></i> 
-													{{ paymentType($item->modo) }}
-												</td>
-												<td>
-													@if($item->ret_nro != null)
-														N° {{$item->ret_nro}} - 
-														{{ $item->ret_tipo }} -
-														{{ $item->ret_jurisdiccion }}
-													@endif
-													@if($item->ch_banco != null)
-														N° {{ $item->ch_banco_nro }} -
-														Cuit: {{ $item->ch_cuit }} <br>
-														Banco: {{ $item->ch_banco }} 
-														({{ $item->ch_sucursal }}) -
-														{{ $item->ch_fechacobro }}
-													@endif
-													@if($item->bco_movimiento != null)
-														{{ $item->bco_movimiento }}
-													@endif
-												</td>
-												<td>@if($item->factura_nro != null)
-													N° {{ $item->factura_nro }}
-													@endif
-												</td>
-												<td>+ ${{ $item->importe }}</td>
-												<td>{{ transDateT($item->created_at) }}</td>
-											</tr>
-											@endif
-										@endforeach
-										<tr class="totals-tr">
-											<td></td>
-											<td></td>
-											<td>
-												@if ($totals < 0)
-												  <b>Saldo a Favor:</b>
-												@elseif($totals == 0)
-													Aún no hay movimientos
-												@else
-												 <b>Debe:</b>
-												@endif
-											</td>
-											<td>
-												@if ($totals < 0)
-												  <b>$ {{ str_replace('-', '', $totals) }} </b>
-												@elseif($totals == 0)
-													
-												@else
-												 <b>$ {{ $totals }} </b>
-												@endif
-
-											</td>
-											<td></td>
-										</tr>
+			
+									<tbody id="MovementItems">
+										@if($movimientos->isEmpty())
 										<tr>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td>
-												<a href="{{ URL::to('vadmin/downloadExcel/Pago/xls',str_replace(' ', '-', $client->razonsocial.'('.$fecha.')')) }}"><button class="btnSmall green-back">Descargar Excel</button></a>
-											</td>
-											<td>
-												<a href="{{ URL::to('vadmin/exportAccount/'.$client->id.'/xls',str_replace(' ', '-', $client->razonsocial.'('.$fecha.')')) }}"><button class="btnSmall green-back"><i class="ion-android-exit"></i> Descargar Excel</button></a>
-											</td>
+											<th>Aún no hay movimientos</th>
 										</tr>
+										@endif
+										@foreach( $movimientos as $item )
+											@if($item->op == 'I')
+											<tr class="ingreso">
+											@elseif($item->op == 'E')
+											<tr class="egreso">
+											@else
+											<tr>
+											@endif
+												<td>{{ movementType($item->modo) }}</td>
+												<td>{{ $item->det1 }} {{ $item->det2 }}</td>
+												<td>@if($item->comprobante_nro)N° {{ $item->comprobante_nro }}@endif</td>
+												{{-- <td><input class="Importe"  disabled type="text" value="{{ $item->importe }}" disabled></td>
+												<td><input  class="Subtotal" disabled type="text" value="" disabled></td> --}}
+												<td>$ {{ $item->importe }}</td>
+												<td>$ {{ $item->subtotal }}</td>
+												<td style="text-align:right">{{ transDateT($item->created_at) }}</td>
+											</tr>
+										@endforeach
 									</tbody>
+									<tr class="totals-tr">
+										<td></td>
+										<td></td>
+										<td></td>
+										<td style="text-align: right"><b>SALDO: $ {{ $saldo }}</b> </td>
+										<td><span id="FinalTotal"></span></td>
+										<td></td>
+									</tr>
 								</table>
 							</div>
 						</div>
+						<a href="{{ URL::to('vadmin/exportAccountPdf/'.$client->id) }}" target="_blank"><button class="btnSmall green-back"><i class="ion-android-exit"></i> Generar Pdf</button></a>
+						<a href="{{ URL::to('vadmin/exportAccountExcel/'.$client->id.'/xls',str_replace(' ', '-', $client->razonsocial.'('.$fecha.')')) }}"><button class="btnSmall blue-back"><i class="ion-android-exit"></i> Descargar Excel</button></a>
 					</div>
 				</div>
-				<div class="col-md-4">
+				{{-- SideBar --}}
+				<div id="ClientAccountSidebar" class="side-bar-container col-md-4">
 					<div class="side-bar">
+						<div id="CloseClientAccountSideBar" class="close-this">X</div>
 						<div class="title">
 							Ingreso de Pagos
 						</div>
-						@include('vadmin.components.payments')
+						@include('vadmin.clientes.payments')
 					</div>
 				</div>	
 			<br>
 		</div>
+		{!! $movimientos->render(); !!}
 		<button id="BatchDeleteBtn" class="button buttonCancel batchDeleteBtn Hidden"><i class="ion-ios-trash-outline"></i> Eliminar seleccionados</button>
 	</div>  
 	
@@ -145,6 +108,36 @@
 @endsection
 
 @section('custom_js')
+	
+	<script>
 
+		function calcSubtotals(){
+			
+			$('#MovementItems tr').each(function(index,value){
+				
+				var value    = $(this).find('td .Importe').val();
+				// Set first subtotal to 0 and get all previous subtotals
+				if(index==0){
+					lastvalue = 0;
+				} else {
+					lastvalue    = $(this).prev().find('td .Subtotal').val();
+				}
+
+				var subtotal = (parseFloat(value) + parseFloat(lastvalue));
+				// console.log('Subtotal: ' + subtotal);
+				
+				$(this).find('td .Subtotal').val(subtotal);
+			});
+			
+			
+			var total = $("#MovementItems tr:last-child .Subtotal").val();
+			
+			$('#FinalTotal').html(total);
+
+		}
+
+		calcSubtotals();
+
+	</script>
 @endsection
 
