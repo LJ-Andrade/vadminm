@@ -80,11 +80,11 @@ class ProductosController extends Controller
         
         $producto     = Producto::where('id', '=', $id)->first();
         if($producto == null){
-            return response()->json(['producto' => 'No existe',
-                                     'precio' => '0',
-                                     'preciooferta'   => '0',
-                                     'cantoferta' => '0',
-                                     'exist' => 0
+            return response()->json(['exist'        => 0, 
+                                     'producto'     => 'No existe',
+                                     'precio'       => '0',
+                                     'preciooferta' => '0',
+                                     'cantoferta'   => '0'
                                     ]);
                                      
         } else {
@@ -93,12 +93,12 @@ class ProductosController extends Controller
             $data = $this->calculatePrice($id, $tipocte);
             $price = $data['price'];
             $offer = $data['offer'];
-            return response()->json(['operacion'      => $request->operacion,
+            return response()->json(['exist'          => 1,
+                                     'operacion'      => $request->operacion,
                                      'producto'       => $producto->nombre,
                                      'precio'         => $price,
                                      'preciooferta'   => $offer,
-                                     'cantoferta'     => $producto->cantoferta,
-                                     'exist'          => 1
+                                     'cantoferta'     => $producto->cantoferta
                                     ]);
 
         }

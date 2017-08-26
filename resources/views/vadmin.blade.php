@@ -16,17 +16,26 @@
 
 @section('content')
 	@component('vadmin.components.mainloader')@endcomponent
-	 <div class="container">
+	 <div class="container dashboard">
 		<div class="row">
 			<span>Tu nivel de permisos es <b>{{ typeTrd(Auth::user()->type) }}</b></span>
-			<hr>
-			{{-- Accesos Directos --}}
-			
-			<a href="{{ route('clientes.index') }}" class="btnSquareR btnBlue"><i class="ion-ios-briefcase"></i> Listado de Cliente</a>
-			<a href="{{ route('clientes.create') }}" class="btnSquareR btnBlue"><i class="ion-plus-round"></i> Nuevo Cliente</a>
-			<a href="{{ route('clientes.index') }}" class="btnSquareR btnGreen"><i class="ion-ios-briefcase"></i> Listado de Productos</a>
-			<a href="{{ route('productos.create') }}" class="btnSquareR btnGreen"><i class="ion-plus-round"></i> Nuevo Producto</a>
-			<hr>	
+			<hr class="softhr">
+				{{-- Accesos Directos --}}
+				<a href="{{ route('clientes.create') }}"><button type="button" class="btn btn-labeled btnGreen">
+					<span class="btn-label"><i class="ion-android-add-circle"></i></span>Cliente</button>
+				</a>
+				<a href="{{ route('pedidos.create') }}"><button type="button" class="btn btn-labeled btnGreen">
+					<span class="btn-label"><i class="ion-android-add-circle"></i></span>Pedido</button>
+				</a>
+				<a href="{{ route('comprobantes.create') }}"><button type="button" class="btn btn-labeled btnGreen">
+					<span class="btn-label"><i class="ion-android-add-circle"></i></span>Comprobante</button>
+				</a>
+				<a href="{{ route('productos.create') }}"><button type="button" class="btn btn-labeled btnGreen">
+					<span class="btn-label"><i class="ion-android-add-circle"></i></span>Producto</button>
+				</a>
+		
+		
+			<hr class="softhr">	
 		</div>
 		<div class="row">
 			<div class="col-md-6 medium-card">

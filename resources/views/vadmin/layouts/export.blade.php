@@ -6,7 +6,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/vadmin.css') }}">
     </head>
-    <body style="background-color: #fff !important">
+    <body style="background-color: #fff !important; padding-top: 0">
         @yield('content')
     </body>
 </html>

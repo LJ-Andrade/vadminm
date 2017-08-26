@@ -42,6 +42,10 @@
 		padding: 8px 5px 5px
 	img
 		width: 36px
+
+.brand-mobile
+	display: none
+
 @media (min-width: 768px)
 	.navbar
 		.dropdown-menu
@@ -59,13 +63,38 @@
 					background-color: #505063
 		.dropdown-menu
 			li
-				padding-top: 10px
-				padding-bottom: 10px
+				padding-top: 2px
+				padding-bottom: 2px
 				a
 					font-size: 1rem
 					color: #fff  !important
 				&:hover
 					background-color: #505063
+	
+	
+	.navbar-left
+		display: none
+
+	// Mobile Dropdown and Logo
+	.navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse 	
+	    max-height: 100vh
+	
+	.brand-mobile
+		display: block
+		position: absolute
+		top: 5px
+		left: 5px
+		width: 50px
+		img
+			width: 25px
+		li
+			height: 50px
+			padding: 0
+			a
+				display: inline-block
+				color: #fff
+
+	
 
 
 

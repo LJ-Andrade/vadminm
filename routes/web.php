@@ -213,7 +213,7 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 
 	Route::get('exportExcel/{model}/{filename}', 'FileExportController@exportExcel');
 
-	Route::get('exportPedidoPdf/{id}/{filename}', 'PedidosController@exportPdf');
+	Route::get('exportPedidoPdf/{id}', 'PedidosController@exportPdf');
 	
 	// ----------------------- DESTROY RECORDS ----------------------- //
 	Route::post('delete_provincias/{id}', 'ProvinciasController@destroy');

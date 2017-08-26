@@ -37,7 +37,6 @@ class PedidositemsController extends Controller
     }
 
     
-
     //////////////////////////////////////////////////
     //                 CREATE                       //
     //////////////////////////////////////////////////
@@ -65,15 +64,16 @@ class PedidositemsController extends Controller
     public function ajax_store_item(Request $request)
     {
         $item     = new Pedidositem($request->all());
+        $item->valor = formatNum($item->valor, 2);
+        // dd($item->valor);
         $item->save();
         $newitem  = Pedidositem::findOrFail($item->id);
         $producto = $newitem->producto->nombre;
+        
         return response()->json([
-
             'producto' => $producto,
             'cantidad' => $item->cantidad,
             'valor'    => $item->valor
-
         ]);
     }
 

@@ -1,4 +1,5 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="brand-mobile"><li><a href="{{ url('/vadmin') }}"><img src="{{ asset('images/logos/vadminlogo.png') }}" class="img-responsive" alt=""> Vadmin</a></li> </div>
 	 <div class="container-fluid">
 		  <div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#expand-nav" aria-expanded="false">

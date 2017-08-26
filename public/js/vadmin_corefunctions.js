@@ -49,7 +49,6 @@ var deleteRecord = function(id, route, bigtext, smalltext) {
 				// $('#Main-Loader').removeClass('Hidden');
 			},
 			success: function(data){
-				console.log(data);
 				$('#BatchDeleteBtn').addClass('Hidden');
 				if (data.success == true) {
 					$('#Id'+id).hide(200);
@@ -57,9 +56,11 @@ var deleteRecord = function(id, route, bigtext, smalltext) {
 						$('#Id'+id[i]).hide(200);
 					}
 					alert_ok('Ok!','Eliminación completa');
+					return true;
 				} else {
 					alert_error('Ups!','Ha ocurrido un error (Puede que este registro tenga relación con otros items en el sistema). Debe eliminar primero los mismos.');
 					console.log(data);
+					return false;
 				}
 			},
 			error: function(data)
@@ -76,6 +77,48 @@ var deleteRecord = function(id, route, bigtext, smalltext) {
 
 }
 
+var deleteAndReload = function(id, route, bigtext, smalltext) {
+	
+	swal({
+		title: bigtext,
+		text: smalltext,
+		type: 'warning',
+		showCancelButton: true,
+		confirmButtonColor: '#3085d6',
+		cancelButtonColor: '#d33',
+		confirmButtonText: 'ELIMINAR',
+		cancelButtonText: 'Cancelar',
+		confirmButtonClass: 'button buttonOk',
+		cancelButtonClass: 'button buttonCancel',
+		buttonsStyling: false
+	}).then(function () {
+		$.ajax({
+			url: route,
+			method: 'POST',             
+			dataType: 'JSON',
+			data: { id: id },
+			beforeSend: function(){
+				// $('#Main-Loader').removeClass('Hidden');
+			},
+			success: function(data){
+				$('#BatchDeleteBtn').addClass('Hidden');
+				if (data.success == true) {
+					alert_ok('Ok!','Eliminación completa');
+					reloadPage();
+				} else {
+					alert_error('Ups!','Ha ocurrido un error (Puede que este registro tenga relación con otros items en el sistema). Debe eliminar primero los mismos.');
+					return false;
+				}
+			},
+			error: function(data)
+			{
+				$('#Error').html(data.responseText);
+				console.log(data);	
+			}
+		});
+	});
+
+}
 
 
 /////////////////////////////////////////////////

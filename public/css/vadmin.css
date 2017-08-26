@@ -1011,6 +1011,12 @@ hr {
   background-color: #fbfbfb;
 }
 
+.btn {
+  margin-bottom: 15px;
+  -webkit-transition: all 0.2s ease 0s;
+  transition: all 0.2s ease 0s;
+}
+
 .button {
   border: 0;
   border-radius: 50px;
@@ -1163,6 +1169,22 @@ hr {
 
 .btnXSmall:hover {
   cursor: pointer;
+}
+
+.btn-label {
+  position: relative;
+  left: -12px;
+  display: inline-block;
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px 0 0 3px;
+  font-size: 1.1rem;
+}
+
+.btn-labeled {
+  padding-top: 0;
+  padding-bottom: 0;
+  font-size: 1.1rem;
 }
 
 .transBtn {
@@ -1355,6 +1377,19 @@ hr {
 
 .close-btn2:hover {
   cursor: pointer;
+}
+
+.button-on-input {
+  border: 0;
+  background-color: #ababc5;
+  color: #fff;
+  -webkit-transition: all 0.2s ease 0s;
+  transition: all 0.2s ease 0s;
+}
+
+.button-on-input:hover {
+  cursor: pointer;
+  background-color: #9FD56B;
 }
 
 .header {
@@ -2274,31 +2309,36 @@ hr {
   font-size: 1.7rem;
 }
 
-.export-table {
-  padding: 20px 10px;
-  border: 1px solid #ccc;
+.export-container {
+  max-width: 750px;
 }
 
-.export-table .exp-table-header {
+.export-container .export-table {
+  padding: 20px 10px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.export-container .export-table .exp-table-header {
   margin-bottom: 50px;
   padding-bottom: 20px;
   border-bottom: 1px solid #ccc;
 }
 
-.export-table .exp-table-header .title {
+.export-container .export-table .exp-table-header .title {
   font-size: 30px;
   font-weight: 600;
 }
 
-.export-table .exp-table-header .title-desc {
+.export-container .export-table .exp-table-header .title-desc {
   font-size: 18px;
 }
 
-.export-table .exp-table-header .left {
+.export-container .export-table .exp-table-header .left {
   text-align: left;
 }
 
-.export-table .exp-table-header .right {
+.export-container .export-table .exp-table-header .right {
   float: right;
   text-align: right;
 }
@@ -2357,6 +2397,10 @@ hr {
   width: 36px;
 }
 
+.brand-mobile {
+  display: none;
+}
+
 @media (min-width: 768px) {
   .navbar .dropdown-menu a {
     font-size: 1rem;
@@ -2373,8 +2417,8 @@ hr {
     background-color: #505063;
   }
   .navbar .dropdown-menu li {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
   }
   .navbar .dropdown-menu li a {
     font-size: 1rem;
@@ -2382,6 +2426,30 @@ hr {
   }
   .navbar .dropdown-menu li:hover {
     background-color: #505063;
+  }
+  .navbar-left {
+    display: none;
+  }
+  .navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse {
+    max-height: 100vh;
+  }
+  .brand-mobile {
+    display: block;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 50px;
+  }
+  .brand-mobile img {
+    width: 25px;
+  }
+  .brand-mobile li {
+    height: 50px;
+    padding: 0;
+  }
+  .brand-mobile li a {
+    display: inline-block;
+    color: #fff;
   }
 }
 
@@ -2436,6 +2504,12 @@ hr {
 .login-back {
   background: url(../images/loginback.jpg) no-repeat center center fixed;
   background-size: cover;
+}
+
+@media (max-width: 675px) {
+  .dashboard {
+    text-align: center;
+  }
 }
 
 .parsley-errors-list {

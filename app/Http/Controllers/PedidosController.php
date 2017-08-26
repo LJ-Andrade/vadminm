@@ -157,13 +157,14 @@ class PedidosController extends Controller
     //////////////////////////////////////////////////
 
 
-    public function exportPdf($id, $filename){
+    public function exportPdf($id){
         $pedido     = Pedido::findOrFail($id);
         $productos  = Producto::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $cantidades = Pedidositem::where('pedido_id', '=', $id)->pluck('cantidad');
         $valores    = Pedidositem::where('pedido_id', '=', $id)->pluck('valor');
         $tipo       = Tipoct::where('id', '=', $pedido->cliente->tipo_id)->first();
-
+        $filename   = 'pedido-n-'.$pedido->id.'.pdf';
+        
         if($tipo == null){
           $tipocte = '';
         } else {
@@ -184,7 +185,7 @@ class PedidosController extends Controller
         //     ->with('pedido', $pedido)
         //     ->with('total', $total);
                 
-        $pdf->setPaper('A4', 'landscape');
+        $pdf->setPaper('A4', 'portrait');
         return $pdf->stream($filename);
 
     }

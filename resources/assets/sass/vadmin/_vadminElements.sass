@@ -609,6 +609,10 @@ $phvFsize: 0.9rem
 //                                  //
 //////////////////////////////////////
 
+.btn
+	margin-bottom: 15px
+	@include transition(0.2s)
+
 .button
 	border: 0
 	border-radius: 50px
@@ -645,7 +649,6 @@ $phvFsize: 0.9rem
 	@include transition(0.2s)
 	&:hover
 		cursor: pointer
-
 
 .btnSmSquare
 	border: 0
@@ -735,6 +738,21 @@ $phvFsize: 0.9rem
 	@include transition(0.2s)
 	&:hover
 		cursor: pointer
+
+.btn-label
+	position: relative
+	left: -12px
+	display: inline-block
+	padding: 6px 12px
+	background: rgba(0,0,0,0.15)
+	border-radius: 3px 0 0 3px
+	font-size: 1.1rem
+
+.btn-labeled
+	padding-top: 0
+	padding-bottom: 0
+	font-size: 1.1rem
+
 
 .transBtn
 	border: 0
@@ -885,7 +903,14 @@ $phvFsize: 0.9rem
 	&:hover
 		cursor: pointer
 
-
+.button-on-input
+	border: 0
+	background-color: $dark4
+	color: #fff
+	@include transition(0.2s)
+	&:hover
+		cursor: pointer
+		background-color: $greenH
 
 //////////////////////////////////////
 //                                  //
@@ -1621,21 +1646,23 @@ $phvFsize: 0.9rem
 //                                  //
 //////////////////////////////////////
 
-
-.export-table
-	padding: 20px 10px
-	border: 1px solid #ccc
-	.exp-table-header
-		margin-bottom: 50px
-		padding-bottom: 20px
-		border-bottom: 1px solid #ccc
-		.title
-			font-size: 30px
-			font-weight: 600
-		.title-desc
-			font-size: 18px
-		.left
-    		text-align: left
-		.right
-			float: right
-			text-align: right
+.export-container
+	max-width: 750px
+	.export-table
+		padding: 20px 10px
+		border: 1px solid #ccc
+		font-size: 14px
+		.exp-table-header
+			margin-bottom: 50px
+			padding-bottom: 20px
+			border-bottom: 1px solid #ccc
+			.title
+				font-size: 30px
+				font-weight: 600
+			.title-desc
+				font-size: 18px
+			.left
+				text-align: left
+			.right
+				float: right
+				text-align: right
