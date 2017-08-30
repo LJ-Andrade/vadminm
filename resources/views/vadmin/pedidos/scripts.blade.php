@@ -28,10 +28,22 @@
 	// 	// });
 	// });
 
-    
+	
+	$(document).on('change', '#PedidoStatus', function(e) { 
+		var id     = $('#PedidoId').val();
+        var status = $(this, 'option:selected').val();
+		changeStatus(id, status);
+	});
+
 	$(document).on('change', '.PedidoStatus', function(e) { 
         var id     = $(this).data('id');
         var status = $(this, 'option:selected').val();
+		changeStatus(id, status);
+	});
+
+
+	function changeStatus(id, status){
+		
 		var route  = "{{ url('/vadmin/update_pedido_status') }}/"+id+"";
 		
 		$.ajax({	
@@ -50,6 +62,7 @@
 				$('#Error').html(data.responseText);
 			},
 		});
-	});
+	}
+
 
 </script>

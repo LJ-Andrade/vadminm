@@ -64,29 +64,35 @@ Route::get('/', [
 /////////////////////////////////////////////////
 
 Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(){
-
+	
 	// ---------------- Clientes --------------------------------------- //
 	Route::resource('clientes', 'ClientesController');
-		
+	
 	Route::get('ajax_list_clients/{page?}', 'ClientesController@ajax_list');
 	Route::get('get_client/{id}', 'ClientesController@get_client');
 	Route::get('get_client_data/{id}', 'ClientesController@get_client_data');
 	// Searcher
 	Route::get('ajax_list_search_clientes/{search?}', 'ClientesController@ajax_list_search');
-
+	
 	// ---------------- Cuenta Corriente Clientes ---------------------- //
 	Route::get('clientes/cuenta/{id}', 'ClientesController@account');
+	
+	Route::get('/cuentas', function () {
+		return view('vadmin.clientes.cuentas');
+	});
+	
 	Route::get('buscarcuenta', 'ClientesController@buscarcuenta');
 
 	// ---------------- Provincias ------------------------------------- //
 	Route::resource('provincias', 'ProvinciasController');
 	Route::get('/get_locs/{id}', 'LocalidadesController@get_locs');
-
+	
 	// ---------------- Secciones Varias-------------------------------- //
 	Route::resource('localidades', 'LocalidadesController');
 	Route::resource('zonas', 'ZonasController');
 	Route::resource('fletes', 'FletesController');
 	Route::resource('ivas', 'IvasController');
+	Route::resource('categorias', 'CategoriasController');
 	Route::resource('familias', 'FamiliasController');
 	Route::resource('subfamilias', 'SubfamiliasController');
 
@@ -117,11 +123,11 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::post('ajax_batch_delete_proveedores/{id}', 'ProveedoresController@ajax_batch_delete');
 
 	// ---------------- Listado de Monedas ------------------------------ //
-	Route::resource('monedas', 'Monedas\MonedasController');
-	Route::post('ajax_delete_moneda/{id}', 'Monedas\MonedasController@destroy');
-	Route::post('ajax_batch_delete_monedas/{id}', 'Monedas\MonedasController@ajax_batch_delete');
+	Route::resource('monedas', 'MonedasController');
+	Route::post('ajax_delete_moneda/{id}', 'MonedasController@destroy');
+	Route::post('ajax_batch_delete_monedas/{id}', 'MonedasController@ajax_batch_delete');
 
-	Route::post('ajax_update_dolar/{id}', 'Monedas\MonedasController@updateDolarValue');
+	Route::post('update_currency_value/{id}', 'MonedasController@updateCurrencyValue');
 
 	// ---------------- Tipo de Cliente --------------------------------- //
 	Route::resource('tipocts', 'TipoctsController');
@@ -228,7 +234,7 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::post('delete_productos/{id}', 'ProductosController@destroy');
 	Route::post('delete_familias/{id}', 'FamiliasController@destroy');
 	Route::post('delete_subfamilias/{id}', 'SubfamiliasController@destroy');
-
+	Route::post('delete_categorias/{id}', 'CategoriasController@destroy');
 
 	// Developer Map
 	Route::resource('desarrollo', 'DesarrolloController');

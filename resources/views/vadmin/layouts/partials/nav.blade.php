@@ -74,6 +74,7 @@
 							<li><a href="{{ route('pedidos.index') }}"><i class="ion-paper-airplane"></i> Pedidos</a></li>
 							<li><a href="{{ route('reparaciones.index') }}"><i class="ion-wrench"></i> Reparaciones</a></li>
 							<li role="separator" class="divider"></li>
+							<li><a href="{{ url('clientes/cuentas') }}"><i class="ion-usd"></i> Cuentas Corrientes</a></li>
 							<li><a href="{{ route('clientes.index') }}"><i class="ion-ios-briefcase"></i> Clientes</a></li>
 							<li><a href="{{ route('proveedores.index') }}"><i class="ion-ios-people"></i> Proveedores</a></li>
 							{{-- <li><a href="{{ url('vadmin/buscarcuenta') }}"><i class="ion-social-usd"></i> Cuentas Corrientes</a></li> --}}
@@ -90,6 +91,8 @@
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="{{ route('proveedores.index') }}"><i class="ion-ios-people"></i> Proveedores</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="{{ route('categorias.index') }}"><i class="ion-ios-people"></i> Categorías</a></li>
 							<li><a href="{{ route('familias.index') }}"><i class="ion-ios-people"></i> Familias</a></li>
 							<li><a href="{{ route('subfamilias.index') }}"><i class="ion-ios-people"></i> SubFamilias</a></li>
 							{{-- <li><a href="{{ route('tipocts.index') }}"><i class="ion-ios-people"></i> Tipo de Cliente</a></li> 

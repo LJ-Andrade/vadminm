@@ -73,7 +73,7 @@
 								</tr>
 								@endforeach 
 								<tr>
-									<td></td>
+									<td> Cantidad de items:</b> {{ count($pedido->pedidositems )}}</td>
 									<td></td>
 									<td></td>
 									<td></td>
@@ -99,15 +99,16 @@
 							
 							<div class="col-md-6">
 								<div class="col-md-6">
-									<div><b>Cantidad de items:</b> {{ count($pedido->pedidositems )}}</div> 
-									{!! Form::label('estado','Estado del Pedido') !!}
-									{!! Form::text('pedidoid', null, ['id' => 'PedidoId', 'class' => 'Hidden']) !!}
-									{!! Form::select('estado', ['1' => 'Pendiente', '2' => 'Preparado', '3' => 'Enviado'], $pedido->estado, ['id' => 'PedidoStatus', 'class' => 'form-control']) !!}
+									<div class="small-box-info"><b>Estado del Pedido:</b>
+										{!! Form::text('pedidoid', $pedido->id, ['id' => 'PedidoId', 'class' => 'Hidden']) !!}
+										{!! Form::select('estado', ['1' => 'Pendiente', '2' => 'Preparado', '3' => 'Enviado'], $pedido->estado, ['id' => 'PedidoStatus', 'class' => 'form-control']) !!}
+									</div> 
 								</div>
 							</div>
-							<div class="col-md-6 text-right">
-								{{-- <button id="MakeFcBtn" type="button" class="btn button buttonOk"><i class="ion-share"></i> Facturar</button> --}}
-								<a href="{{ URL::to('vadmin/exportPedidoPdf/'.$pedido->id) }}" target="_blank"><button class="btnSmall green-back"><i class="ion-android-exit"></i> Generar Pdf</button></a>
+							<div class="col-md-6 text-right" style="margin-top: 10px">
+								<a href="{{ URL::to('vadmin/exportPedidoPdf/'.$pedido->id) }}" target="_blank"><button type="button" class="btn btn-labeled btnRed">
+									<span class="btn-label"><i class="ion-android-download"></i></span>Generar PDF</button>
+								</a>
 							</div>
 						</div>
 					</div>

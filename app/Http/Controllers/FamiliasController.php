@@ -8,7 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Familia;
 use Illuminate\Http\Request;
 use Session;
-use App\Proveedor;
+// use App\Proveedor;
+use App\Categoria;
 
 class FamiliasController extends Controller
 {
@@ -49,22 +50,38 @@ class FamiliasController extends Controller
 
     public function create()
     {
-        $proveedores = Proveedor::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
+        $categorias = Categoria::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
 
-        return view('vadmin.familias.create')->with('proveedores', $proveedores);
+        return view('vadmin.familias.create')->with('categorias', $categorias);
     }
 
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'nombre'          => 'required|unique:familias,nombre',
-        ],[
-            'nombre.required' => 'Debe ingresar un nombre',
-            'nombre.unique'   => 'La familia ya existe',
-        ]);
+        // dd($request->all());
+        $watch = Familia::where('nombre','=', $request->nombre)->where('categoria_id', '=', $request->categoria_id)->get();
+        if($watch->isEmpty()){ 
+            $requestData = $request->all();
+            Familia::create($requestData);
+        } else {
         
-        $requestData = $request->all();
-        Familia::create($requestData);
+            $this->validate($request,[
+                'nombre'          => 'required|unique:familias,nombre',
+            ],[
+                'nombre.required' => 'Debe ingresar un nombre',
+                'nombre.unique'   => 'La familia ya existe',
+            ]);
+        }
+
+
+        // $this->validate($request,[
+        //     'nombre'          => 'required|unique:familias,nombre',
+        // ],[
+        //     'nombre.required' => 'Debe ingresar un nombre',
+        //     'nombre.unique'   => 'La familia ya existe',
+        // ]);
+        
+        // $requestData = $request->all();
+        // Familia::create($requestData);
 
         return redirect('vadmin/familias')->with('message', 'Familia creada correctamente');
     }

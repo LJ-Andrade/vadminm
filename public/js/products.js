@@ -152,3 +152,12 @@ function sumStock(route, id, value, action){
 
 }
 
+$('#OfferContainer').hide();
+
+$('.OfferCheckbox').change(function(){
+    $('#OfferContainer').toggle(100);
+});
+
+if ($('.OfferCheckbox').prop("checked") ) {
+    $('#OfferContainer').show();
+}

@@ -8,6 +8,19 @@
 	{{-- /// --}}
 	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div class="form-group">
+			{!! Form::label('nombre', 'Descripción') !!}
+			{!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Ingrese la descripción', 'required' => '']) !!}
+		</div>
+	</div>
+	<div class="col-md-3 col-sm-6 col-xs-12">
+		<div class="form-group">
+			{!! Form::label('categoria_id', 'Categoria') !!}
+			{!! Form::select('categoria_id', $categorias, null, ['id' => 'CategoriasSelect', 'class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opción', 'required' => '']) !!}
+		</div>
+	</div>
+	{{-- /// --}}
+	<div class="col-md-3 col-sm-6 col-xs-12">
+		<div class="form-group">
 			{!! Form::label('familia_id', 'Familia') !!}
 			{!! Form::select('familia_id', $familias, null, ['id' => 'FamiliasSelect', 'class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opción', 'required' => '']) !!}
 		</div>
@@ -21,6 +34,11 @@
 		{{-- 	{!! Form::select('subfamilia_id', $subfamilias, null, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opción']) !!} --}}
 		</div>
 	</div>
+
+	
+</div>
+<div class="row inner-row">
+	
 	{{-- /// --}}
 	@if($producto_id)
 	<div class="col-md-3 col-sm-6 col-xs-12">
@@ -31,15 +49,6 @@
 	</div>
 	@else
 	@endif
-	{{-- /// --}}
-	<div class="col-md-3 col-sm-6 col-xs-12">
-		<div class="form-group">
-			{!! Form::label('nombre', 'Descripción') !!}
-			{!! Form::text('nombre', null, ['class' => 'form-control', 'placeholder' => 'Ingrese la descripción', 'required' => '']) !!}
-		</div>
-	</div>
-</div>
-<div class="row inner-row">
 	{{-- /// --}}
 	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div class="form-group">
@@ -130,7 +139,7 @@
 		</div>
 	</div>
 	{{-- Precio Especial --}}
-	<div class="col-lg-4 col-sm-12 col-xs-12">
+	<div class="col-lg-4 col-sm-6 col-xs-12">
 		<div class="form-group">
 			<div class="horiz-double-input">
 				<div class="inner1">
@@ -146,8 +155,23 @@
 	</div>
 </div>
 <div class="row inner-row">
+	<br>
+	<div class="col-lg-12">
+	@if(isset($oferta))
+		@if($oferta == 'off')
+			<label for="primary" class="btn btn-primary">Ofertar <input name="oferta" type="checkbox" id="primary" class="OfferCheckbox badgebox"><span class="badge">&check;</span></label>
+		@elseif($oferta == 'on')
+			<label for="primary" class="btn btn-primary">Ofertar <input name="oferta" type="checkbox" id="primary" class="OfferCheckbox badgebox" checked><span class="badge">&check;</span></label>
+		@endif
+	@else
+		<label for="primary" class="btn btn-primary">Ofertar <input name="oferta" type="checkbox" id="primary" class="OfferCheckbox badgebox"><span class="badge">&check;</span></label>
+	@endif
+
+	</div>
+</div>
+<div id="OfferContainer" class="inner-row boxed-row">
 	{{-- Oferta --}}
-	<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+	<div class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
 		<div class="form-group">
 			<div class="horiz-double-input">
 				<div class="inner1">
@@ -167,42 +191,44 @@
 			{!! Form::text('cantoferta', null, ['class' => 'form-control']) !!}
 		</div>
 	</div>
-	</div>
+<div class="clearfix"></div>
+</div>
 <br>
 {{-- SubTitle --}}
 <div class="row sub-title"><div class="col-md-12">
 	<div class="inner-sub-title"><i class="ion-clipboard icon"></i><span> Stock</span></div>
 </div></div>
+{{-- STOCK AND STATUS --}}
 <div class="row inner-row">
 	{{-- /// --}}
-	<div class="col-md-4 col-sm-6 col-xs-6">
+	<div class="col-md-3 col-sm-4 col-xs-6">
 		<div class="form-group">
 			{!! Form::label('stockactual', 'Stock Actual') !!}
 			{!! Form::text('stockactual', null, ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
 		</div>
 	</div>
-		{{-- /// --}}
-	<div class="col-md-4 col-sm-6 col-xs-6">
+	{{-- /// --}}
+	<div class="col-md-3 col-sm-4 col-xs-6">
 		<div class="form-group">
 			{!! Form::label('stockmin', 'Stock Mínimo') !!}
 			{!! Form::text('stockmin', null, ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
 		</div>
 	</div>
-		{{-- /// --}}
-	<div class="col-md-4 col-sm-6 col-xs-6">
+	{{-- /// --}}
+	<div class="col-md-3 col-sm-4 col-xs-6">
 		<div class="form-group">
 			{!! Form::label('stockmax', 'Stock Máximo') !!}
 			{!! Form::text('stockmax', null, ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
 		</div>
 	</div>
-
-</div>
-<div class="row inner-row">
+	{{-- /// --}}
 	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div class="form-group">
-			{!! Form::label('estado', 'Listar o No listar en listas de precios') !!}
+			{!! Form::label('estado', 'Estado Inicial') !!}
 			{!! Form::select('estado', ['activo' => 'Listar', 'pausado' => 'No Listar'], null, ['class' => 'form-control Select-Chosen', 'required' => '']) !!}
 		</div>
 	</div>
+</div>
+<div class="row inner-row">
 </div>
 <hr class="softhr">

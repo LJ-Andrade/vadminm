@@ -20,64 +20,23 @@
 		<div class="row">
 			<span>Tu nivel de permisos es <b>{{ typeTrd(Auth::user()->type) }}</b></span>
 			<hr class="softhr">
-				{{-- Accesos Directos --}}
-				<a href="{{ route('clientes.create') }}"><button type="button" class="btn btn-labeled btnGreen">
-					<span class="btn-label"><i class="ion-android-add-circle"></i></span>Cliente</button>
-				</a>
-				<a href="{{ route('pedidos.create') }}"><button type="button" class="btn btn-labeled btnGreen">
-					<span class="btn-label"><i class="ion-android-add-circle"></i></span>Pedido</button>
-				</a>
-				<a href="{{ route('comprobantes.create') }}"><button type="button" class="btn btn-labeled btnGreen">
-					<span class="btn-label"><i class="ion-android-add-circle"></i></span>Comprobante</button>
-				</a>
-				<a href="{{ route('productos.create') }}"><button type="button" class="btn btn-labeled btnGreen">
-					<span class="btn-label"><i class="ion-android-add-circle"></i></span>Producto</button>
-				</a>
-		
-		
+			{{-- Accesos Directos --}}
+			<a href="{{ route('clientes.create') }}"><button type="button" class="mb btn btn-labeled btnGreen">
+				<span class="btn-label"><i class="ion-android-add-circle"></i></span>Cliente</button>
+			</a>
+			<a href="{{ route('pedidos.create') }}"><button type="button" class="mb btn btn-labeled btnGreen">
+				<span class="btn-label"><i class="ion-android-add-circle"></i></span>Pedido</button>
+			</a>
+			<a href="{{ route('comprobantes.create') }}"><button type="button" class="mb btn btn-labeled btnGreen">
+				<span class="btn-label"><i class="ion-android-add-circle"></i></span>Comprobante</button>
+			</a>
+			<a href="{{ route('productos.create') }}"><button type="button" class="mb btn btn-labeled btnGreen">
+				<span class="btn-label"><i class="ion-android-add-circle"></i></span>Producto</button>
+			</a>
 			<hr class="softhr">	
 		</div>
 		<div class="row">
-			<div class="col-md-6 medium-card">
-				<div class="inner light-grey-back">
-					<div class="col-md-12 title">
-						<span><b>Cuentas Corrientes</b></span>
-					</div>
 			
-					<div class="form-group col-md-7">
-						{{-- Search By Name --}}
-						{!! Form::label('cliente', 'Buscar por nombre') !!}
-						{!! Form::text('cliente', null, ['id' => 'ClientAutoComplete', 'class' => 'form-control']) !!}
-					</div>
-					<div class="form-group col-md-5">
-						{{-- Search By Code  --}}
-						{!! Form::label('codigo', 'Buscar por código') !!}
-						{!! Form::number('codigo', null, ['id' => 'ClientByCode', 'class' => 'form-control', 'min' => '2']) !!}
-					</div>
-					<div class="col-md-12">
-						<button id="ClientByCodeBtn" class="btnSm btnBlue"> Buscar</button>	
-					</div>
-					<div id="ClientOutPut" class="col-md-12 Hidden">
-						<div class="output-box inner-grey-back">
-							<h4><b>Cliente seleccionado:</b></h4>
-							<div id="ClientData"></div>
-							<div id="OutPutForm">
-								{!! Form::open(['url' => '', 'method' => 'POST', 'id' => 'GoToAccountForm']) !!}
-									<div class="col-md-12">
-										<input type="text" name="user_id" class="Hidden" value="{{ Auth::user()->id }}">
-									</div>
-									{!! Form::text('cliente_id', null, ['id' => 'ClienteIdOutput', 'class' => 'form-control Hidden', 'required' => '']) !!} 
-									
-									<button id="GoToAccount" class="button buttonOk"> Ver Cuenta</button>
-								{!! Form::close() !!}
-							</div>
-						</div>
-					</div>
-
-					<div class="clearfix"></div>
-					
-				</div>
-	 		</div> 	
 			{{-- Stock Update Component --}}
 			<div class="col-md-6 medium-card">
 				<div class="inner light-grey-back">
@@ -120,8 +79,6 @@
 		</div>
 		<br>
 		<div class="row">
-			
-
 			{{-- System Dolar Value--}}
 			<div class="col-md-3 card-filled ">
 				<div class="inner blue-back">
@@ -133,12 +90,17 @@
 			<div class="col-md-3 card-filled">
 				<div class="inner blue-back">
 					<span><b>Valor del Dolar en el sistema</b></span> <br>
-					<div class="bigtext">u$s  <span id="ValorDolarSistema"> {{ $dolarSistema->valor }}</span></div> <br>
+					<div class="bigtext">u$s <span id="ValorDolarSistema">{{ $dolarSistema->valor }}</span></div> <br>
 					<button class="btnSmSquare buttonOk right-bottom" data-toggle="modal" data-target="#UpdateDolar">Actualizar</button>
 				</div>
 			</div>
-
-
+			<div class="col-md-3 card-filled">
+				<div class="inner blue-back">
+					<span><b>Valor del Euro en el sistema</b></span> <br>
+					<div class="bigtext">u$s <span id="ValorEuroSistema">{{ $euroSistema->valor }}</span></div> <br>
+					<button class="btnSmSquare buttonOk right-bottom" data-toggle="modal" data-target="#UpdateEuro">Actualizar</button>
+				</div>
+			</div>
 		</div>
 	 </div>  
 
@@ -146,7 +108,7 @@
 
 	{{-- Dolar Update Modal --}}
 	@component('vadmin.components.modal')
-		@slot('id', 'UpdateDolar' )
+		@slot('id', 'UpdateDolar')
 
 		@slot('title')
 			<b>Actualizar el valor de moneda</b>
@@ -165,6 +127,31 @@
 		@endslot
 
 	@endcomponent
+
+	
+	{{-- Euro Update Modal --}}
+	@component('vadmin.components.modal')
+		@slot('id', 'UpdateEuro')
+
+		@slot('title')
+			<b>Actualizar el valor de moneda</b>
+		@endslot
+
+		@slot('content')
+			{!! Form::open(['id'=>'UpdateEuroForm']) !!}
+			{!! Form::text('moneda', $euroSistema->id, ['id' => 'euroId', 'class' => 'form-control Hidden', 'placeholder' => 'Seleccione una moneda...']) !!}
+			<br>
+			{!! Form::text('dolar', null, ['id' => 'nuevoValorEuro', 'class' => 'form-control', 'placeholder' => 'Nuevo valor...']) !!}
+		@endslot
+
+		@slot('ok_button')
+			<button id="ConfirmUpdateEuro" type="button" class="button buttonOk"><i class="ion-checkmark-round"></i> Confirmar</button>
+			{!! Form::close() !!}
+		@endslot
+
+	@endcomponent
+
+
 
 	<div id="Error"></div>
 @endsection
@@ -191,12 +178,24 @@
 			window.location.href = route;
 		});
 
+
+		// Update Dolar
 		$('#ConfirmUpdateDolar').click(function(){
 			var id       = $('#dolarId').val();
 			var newValue = $('#nuevoValorDolar').val();
-			var route = "{{ url('vadmin/ajax_update_dolar') }}/"+id+"";
-			
-			console.log(route);
+			updateCurrency(id, newValue);
+		});
+
+		// Update Euro
+		$('#ConfirmUpdateEuro').click(function(){
+			var id       = $('#euroId').val();
+			var newValue = $('#nuevoValorEuro').val();
+			updateCurrency(id, newValue);
+		});
+
+		function updateCurrency(id, newValue)
+		{	
+			var route = "{{ url('vadmin/update_currency_value') }}/"+id+"";
 			$.ajax({
 				url: route,
 				method: 'post',             
@@ -205,8 +204,9 @@
 				success: function(data){
 					if (data.Status == 1) {
 						$('.CloseModal').click();
-						$('#ValorDolarSistema').html('').html(data.Value);
+						// $('#ValorEuroSistema').html('').html(data.Value);
 						alert_ok('Ok!','Moneda actualizada');
+						location.reload();
 					} else {
 						$('.CloseModal').click();
 						alert_error('Ups!','Ha ocurrido un error');
@@ -214,12 +214,13 @@
 				},
 				error: function(data)
 				{
-					// $('#Error').html(data.responseText);
+					$('#Error').html(data.responseText);
 					console.log(data);	
 				},
 			});
 
-		});
+		}
+
 
 		// Search By Code
 		$("#UpdateStockByCode").on( "keydown", function(e) {

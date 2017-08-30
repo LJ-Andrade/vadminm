@@ -11,8 +11,8 @@ class CreateFamiliasTable extends Migration
         Schema::create('familias', function(Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
-            // $table->integer('proveedor_id')->unsigned();
-            // $table->foreign('proveedor_id')->references('id')->on('proveedores');
+            $table->integer('categoria_id')->unsigned();
+            $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('restrict')->onUpdate('cascade');
             $table->timestamps();
         });
     }

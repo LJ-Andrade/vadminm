@@ -198,6 +198,13 @@ class ClientesController extends Controller
     //                 ACCOUNTS                     //
     //////////////////////////////////////////////////
 
+    public function cuenta(){
+
+        return view('vadmin/clientes/cuentas');
+
+    }
+
+
     public function account($id)
     {       
      

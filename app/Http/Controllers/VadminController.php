@@ -30,6 +30,7 @@ class VadminController extends Controller
         
     
         $dolarSistema = Moneda::where('nombre', '=', 'dolar')->first();
+        $euroSistema  = Moneda::where('nombre', '=', 'euro')->first();
         $monedas      = Moneda::orderBy('id', 'ASC')->pluck('nombre','id');
 
         //---- Dolar Hoy API ----//
@@ -52,6 +53,7 @@ class VadminController extends Controller
         return view('vadmin')->with('users', $users)
             ->with('vendedores', $vendedores)
             ->with('monedas', $monedas)
+            ->with('euroSistema', $euroSistema)
             ->with('dolarSistema', $dolarSistema)
             ->with('dolarBlue', $dolarBlue)
             ->with('dolarLibre', $dolarLibre)

@@ -10,6 +10,7 @@ use Session;
 
 use App\Producto;
 use App\Proveedor;
+use App\Categoria;
 use App\Familia;
 use App\Subfamilia;
 use App\Moneda;
@@ -310,6 +311,7 @@ class ProductosController extends Controller
 
     public function listas(Request $request)
     {
+        $categorias  = Categoria::orderBy('id', 'DESC')->get();
         $familias    = Familia::orderBy('id', 'DESC')->get();
         $subfamilias = Subfamilia::orderBy('id', 'DESC')->get();
         $tiposcte    = Tipoct::orderBy('id', 'ASC')->get();
@@ -338,6 +340,7 @@ class ProductosController extends Controller
         }    
         return view('vadmin.productos.listas')
             ->with('products', $products)
+            ->with('categorias', $categorias)
             ->with('familias', $familias)
             ->with('subfamilias', $subfamilias)
             ->with('tiposcte', $tiposcte)
@@ -467,9 +470,10 @@ class ProductosController extends Controller
 
     public function create()
     {
-
+        
         $producto_id  = Producto::orderBy('id','DESC')->first();
         $proveedor    = Proveedor::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
+        $categorias   = Categoria::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $familias     = Familia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $subfamilias  = Subfamilia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $monedas      = Moneda::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
@@ -482,6 +486,7 @@ class ProductosController extends Controller
         return view('vadmin.productos.create')
             ->with('producto_id', $producto_id)
             ->with('proveedor', $proveedor)
+            ->with('categorias', $categorias)
             ->with('familias', $familias)
             ->with('subfamilias', $subfamilias)
             ->with('monedas', $monedas)
@@ -522,12 +527,17 @@ class ProductosController extends Controller
         $producto->proveedor_id  = $request->proveedor_id;
         $producto->familia_id    = $request->familia_id;
         $producto->subfamilia_id = $request->subfamilia_id;
+        $producto->moneda_id     = $request->monedacompra;
+        
+        if (is_null($request->oferta)){
+            $producto->oferta = 'off';
+        } else {
+        
+        };
         
         $producto->save();
 
-        Session::flash('flash_message', 'Producto ingresado correctamente');
-
-        return redirect('vadmin/productos');
+        return redirect('vadmin/productos')->with('message', 'Producto creado satisfactoriamente');
     }
 
     //////////////////////////////////////////////////
@@ -537,8 +547,10 @@ class ProductosController extends Controller
     public function edit($id)
     {
         $producto     = Producto::findOrFail($id);
+        $oferta       = $producto->oferta;
         $producto_id  = [];
         $proveedor    = Proveedor::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
+        $categorias  = Categoria::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $familias     = Familia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $subfamilias  = Subfamilia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $monedacompra = Moneda::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
@@ -561,12 +573,13 @@ class ProductosController extends Controller
                 $costo = $producto->costopesos;
                 break;
         }
-        $costoloco = '2323';
+        
         return view('vadmin.productos.edit')
-            ->with('costoloco', $costoloco)
             ->with('producto', $producto)
             ->with('producto_id', $producto_id)
+            ->with('oferta', $oferta)
             ->with('proveedor', $proveedor)
+            ->with('categorias', $categorias)
             ->with('familias', $familias)
             ->with('subfamilias', $subfamilias)
             ->with('subfamiliaId', $subfamiliaId)
@@ -580,45 +593,47 @@ class ProductosController extends Controller
 
     public function update($id, Request $request)
     {
-
         $requestData = $request->all();
         $producto    = Producto::findOrFail($id);
-
+        
         $this->validate($request,[
             'codproveedor'        => Rule::unique('productos')->ignore($producto->id, 'id')
         ],[
             'codproveedor.unique' => 'Ya existe un producto con ese código de proveedor',
-        ]);
-
-              // Store cost by money type
-        switch ($request->monedacompra) {
-            case 1:
+            ]);
+            
+            // Store cost by money type
+            switch ($request->monedacompra) {
+                case 1:
                 $producto->costopesos = formatNum($request->costo, 2);
                 $producto->costodolar = 0;
                 $producto->costoeuro  = 0;
                 break;
-            case 2:
+                case 2:
                 $producto->costodolar = formatNum($request->costo, 2);
                 $producto->costopesos = 0;
                 $producto->costoeuro  = 0;
                 break;
-            case 3:
+                case 3:
                 $producto->costoeuro  = formatNum($request->costo, 2);
                 $producto->costopesos = 0;
                 $producto->costodolar = 0;
                 break;
-            default:
+                default:
                 $producto->costopesos    = formatNum($request->costo, 2);
                 break;
-        }
-
-
-
+            }
+            
+        if (is_null($request->oferta)){
+            $producto->oferta = 'off';
+        } else {
+        
+        };
+        
+            
         $producto->update($requestData);
 
-        Session::flash('flash_message', 'Producto updated!');
-
-        return redirect('vadmin/productos');
+        return redirect('vadmin/productos')->with('message', 'Producto <b>"'.$producto->nombre.'"</b> actualizado');
     }
 
     //////////////////////////////////////////////////

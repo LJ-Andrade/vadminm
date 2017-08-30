@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Monedas;
+namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -143,6 +143,24 @@ class MonedasController extends Controller
             ]);
         }
         
+    }
+
+    public function updateCurrencyValue($id, Request $request)
+    {
+        $moneda = Moneda::find($id);
+        $moneda->valor = $request->value;
+        $moneda->update();
+
+        if($moneda->update()) {
+            return response()->json([
+                'Status' => 1,
+                'Value'  => $request->value
+            ]);
+        } else {
+            return response()->json([
+                'Status' => 0,
+            ]);
+        }
     }
 
     // ---------- Delete -------------- //

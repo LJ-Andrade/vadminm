@@ -16,16 +16,15 @@
 					@endif
 				</div>
 				<span><b>{{ $item->nombre }}</b></span><br>
-				@if($item->subfamilia)
-				<span class="small">Cód.: {{ $item->familia->id.'-'.$item->subfamilia->id.'-'.$item->id }}</span>
-				@else
-				<span class="small">Cód.: {{ $item->familia->id.'-X-'.$item->id }}</span>
-				@endif
+				
+				<span class="small">Cód.: {{ $item->id }}</span>
+				
 			</div>
 			{{-- Column --}}
 			<div class="col-xs-6 col-sm-3 col-md-4 mobile-hide inner-tags">
-				<span class="small-text">@if(is_null($item->familia)) @else Familia: {{  $item->familia->nombre }} @endif</span> <br>
-				<span class="small-text">@if(is_null($item->subfamilia)) @else Subfamilia: {{ $item->subfamilia->nombre }} @endif</span> <br>
+				<span class="small-text">{{ $item->categoria->nombre }} > {{ $item->familia->nombre }} > {{ $item->subfamilia->nombre }}</span>
+				{{-- <span class="small-text">@if(is_null($item->familia)) @else Familia: {{  $item->familia->nombre }} @endif</span> <br>
+				<span class="small-text">@if(is_null($item->subfamilia)) @else Subfamilia: {{ $item->subfamilia->nombre }} @endif</span> <br>--}}
 			</div>
             <div class="col-md-3">
 				@if($item->stockactual < $item->stockmin) <span class="small-text badge buttonCancel">Stock: {{ $item->stockactual }} </span><br>

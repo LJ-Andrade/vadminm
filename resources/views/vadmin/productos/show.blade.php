@@ -117,12 +117,17 @@
                                 <td><b>Especial: </b> {{ $producto->pjeespecial }} % </td>
                                 <td><b>$</b> {{ $finalespecial }} </b><br></td>
                             </tr>
-                            <tr>
-                                <td><b>Oferta: </b> {{ $producto->pjeoferta }} % </td>
-                                <td><b>$</b> {{ $finaloferta }} </b><br></td>
-                            </tr>
+                       
                         </table>
                     </div>
+                    @if($producto->oferta == 'on')
+                    <div class="col-md-6">
+                        <hr class="softhr">
+                        <b>Oferta</b> ({{ $producto->pjeoferta }} %): <b>$</b> {{ $finaloferta }} </b><br>
+                        Cantidad mínima: {{$producto->cantoferta }}
+                    </div>
+                    @else
+                    @endif
 
                 </div>
                 <hr class="softhr">

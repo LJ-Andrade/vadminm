@@ -223,6 +223,10 @@
 		&:hover
 			cursor: pointer
 
+.small-box-info
+	padding: 5px
+	background-color: #f9f9f9
+	margin-top: 10px
 //////////////////////////////////////
 //                                  //
 //            LISTS                 //
@@ -294,7 +298,10 @@ $phvFsize: 0.9rem
 			font-size: 1rem
 	.header-right
 		float: right
-	
+	.boxed-row
+		padding: 10px
+		border: 1px solid #ccc
+		margin-top: 15px
 
 	.box-container
 		position: relative
@@ -610,7 +617,7 @@ $phvFsize: 0.9rem
 //////////////////////////////////////
 
 .btn
-	margin-bottom: 15px
+	// margin-bottom: 15px
 	@include transition(0.2s)
 
 .button
@@ -911,6 +918,30 @@ $phvFsize: 0.9rem
 	&:hover
 		cursor: pointer
 		background-color: $greenH
+
+/* Hiding the checkbox, but allowing it to be focused */
+.badgebox
+	opacity: 0
+
+.badgebox + .badge
+	/* Move the check mark away when unchecked */
+	text-indent: -999999px
+	/* Makes the badge's width stay the same checked and unchecked */
+	width: 27px
+
+.badgebox:focus + .badge
+	/* Set something to make the badge looks focused */
+	/* This really depends on the application, in my case it was: */
+
+	/* Adding a light border */
+	box-shadow: inset 0px 0px 5px
+	/* Taking the difference out of the padding */
+
+.badgebox:checked + .badge
+	/* Move the check mark back when checked */
+	text-indent: 0
+	
+
 
 //////////////////////////////////////
 //                                  //

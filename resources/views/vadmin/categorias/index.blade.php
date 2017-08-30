@@ -1,15 +1,14 @@
-
 @extends('vadmin.layouts.main')
 
 {{-- PAGE TITLE--}}
-@section('title', 'Vadmin | Familias')
+@section('title', 'Vadmin | Categoria')
 
 {{-- HEAD--}}
 @section('header')
-	@section('header_title', 'Listado de Familias') 
+	@section('header_title', 'Listado de Categoria') 
 	@section('options')
 		<div class="actions">
-            <a href="{{ url('vadmin/familias/create') }}" class="btn btnSm buttonOther"><i class="ion-plus-round"></i> Nueva Familia</a>
+            <a id="ToNewItem" href="{{ url('vadmin/categorias/create') }}" class="btn btnSm buttonOther"><i class="ion-plus-round"></i> Nueva Categoria</a>
             <button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button>
 		</div>	
 	@endsection
@@ -20,35 +19,32 @@
 	{{-- Include Styles Here --}}
 @endsection
 
+
 {{-- CONTENT --}}
 @section('content')
     <div class="container">
 		<div class="row">		
-			@include('vadmin.familias.searcher')
+			@include('vadmin.categorias.searcher')
             @component('vadmin.components.tablelist')
 				@slot('tableTitles')
 					<th></th>
-					<th>Código</th>
 					<th>Nombre</th>
-					<th>Categoría</th>
 					<th></th>
 					<th></th>
 					<th></th>
 				@endslot
 				@slot('tableContent')
-					@foreach($familias as $item)
+					@foreach($categorias as $item)
 						<tr id="Id{{ $item->id }}" class="TableList-Row table-list-row">
 							<td class="list-checkbox">
 								<input type="checkbox" class="BatchDelete" data-id="{{ $item->id }}">
 							</td>
-							<td>{{ $item->id }}</td>
 							<td>{{ $item->nombre }}</td>
-							<td>{{ $item->categoria->nombre }}</td>
 							<td></td>
 							<td></td>
 							<td class="list-actions">
 								<div class="TableList-Actions inner Hidden">
-									<a href="{{ url('/vadmin/familias/' . $item->id . '/edit') }}" class="btn action-btn btnGreen" data-id="{{ $item->id }}">
+									<a href="{{ url('/vadmin/categorias/' . $item->id . '/edit') }}" class="btn action-btn btnGreen" data-id="{{ $item->id }}">
 										<i class="ion-edit"></i>
 									</a>
 									{{-- <a target="_blank" class="btn action-btn btnBlue">
@@ -66,14 +62,14 @@
 					@endforeach
 				@endslot
 				@slot('tableEmpty')
-					@if(! count($familias))
+					@if(! count($categorias))
 					<tr>
 						<td>No se han encontrado registros</td>
 					</tr>
 					@endif
 				@endslot
 				@slot('pagination')
-					{!! $familias->render(); !!}
+					{!! $categorias->render(); !!}
 				@endslot
 			@endcomponent
 
@@ -92,6 +88,7 @@
 
 	<script type="text/javascript">
 
+	
 	/////////////////////////////////////////////////
     //                  DELETE                     //
     /////////////////////////////////////////////////
@@ -101,8 +98,8 @@
 	$(document).on('click', '.Delete', function(e){
 		e.preventDefault();
 		var id    = $(this).data('id');
-		var route = "{{ url('vadmin/delete_familias') }}/"+id+"";
-		deleteRecord(id, route, 'Cuidado!','Si borra esta familia se van a eliminar los productos relacionados. Está seguro de proceder?');
+		var route = "{{ url('vadmin/delete_categorias') }}/"+id+"";
+		deleteRecord(id, route, 'Cuidado!','Desea eliminar esta categorias?');
 	});
 
 	// -------------- Batch Delete --------------- //
@@ -117,11 +114,11 @@
 		});
 
 		var id = rowsToDelete;
-		var route = "{{ url('vadmin/delete_familias') }}/"+id+"";
-		deleteRecord(id, route, 'Cuidado!','Si borra estas familias se van a eliminar los productos relacionados. Está seguro de proceder?');
+		var route = "{{ url('vadmin/delete_categorias') }}/"+id+"";
+		deleteRecord(id, route, 'Cuidado!','Desea eliminar estas categorias?');
 	});
-
 	</script>
 
 @endsection
+
 

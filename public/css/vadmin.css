@@ -5,6 +5,12 @@ html {
   font-size: 100%;
 }
 
+@media (max-width: 768px) {
+  html {
+    overflow-x: hidden;
+  }
+}
+
 body {
   height: 100%;
   overflow-x: hidden;
@@ -75,6 +81,10 @@ hr {
 
 .padTop0 {
   padding-top: 0 !important;
+}
+
+.mb {
+  margin-bottom: 10px;
 }
 
 @media (max-width: 900px) {
@@ -482,6 +492,12 @@ hr {
   cursor: pointer;
 }
 
+.small-box-info {
+  padding: 5px;
+  background-color: #f9f9f9;
+  margin-top: 10px;
+}
+
 .big-list {
   padding-right: 10px;
   margin-bottom: 10px;
@@ -562,6 +578,12 @@ hr {
 
 .big-form .header-right {
   float: right;
+}
+
+.big-form .boxed-row {
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-top: 15px;
 }
 
 .big-form .box-container {
@@ -1012,7 +1034,6 @@ hr {
 }
 
 .btn {
-  margin-bottom: 15px;
   -webkit-transition: all 0.2s ease 0s;
   transition: all 0.2s ease 0s;
 }
@@ -1390,6 +1411,31 @@ hr {
 .button-on-input:hover {
   cursor: pointer;
   background-color: #9FD56B;
+}
+
+/* Hiding the checkbox, but allowing it to be focused */
+.badgebox {
+  opacity: 0;
+}
+
+.badgebox + .badge {
+  /* Move the check mark away when unchecked */
+  text-indent: -999999px;
+  /* Makes the badge's width stay the same checked and unchecked */
+  width: 27px;
+}
+
+.badgebox:focus + .badge {
+  /* Set something to make the badge looks focused */
+  /* This really depends on the application, in my case it was: */
+  /* Adding a light border */
+  box-shadow: inset 0px 0px 5px;
+  /* Taking the difference out of the padding */
+}
+
+.badgebox:checked + .badge {
+  /* Move the check mark back when checked */
+  text-indent: 0;
 }
 
 .header {
@@ -2446,6 +2492,8 @@ hr {
   .brand-mobile li {
     height: 50px;
     padding: 0;
+    list-style: none;
+    text-decoration: none;
   }
   .brand-mobile li a {
     display: inline-block;
