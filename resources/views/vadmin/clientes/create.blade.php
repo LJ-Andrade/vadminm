@@ -15,7 +15,6 @@
 	{!! Html::style('plugins/texteditor/trumbowyg.min.css') !!}
 	{!! Html::style('plugins/jqueryfiler/themes/jquery.filer-dragdropbox-theme.css') !!}
 	{!! Html::style('plugins/jqueryfiler/jquery.filer.css') !!}
-	{!! Html::style('plugins/colorpicker/spectrum.css') !!}
 @endsection
 
 @section('content')
@@ -37,7 +36,6 @@
 	<script type="text/javascript" src="{{ asset('plugins/colorpicker/jquery.spectrum-es.js')}} "></script>
 	<script type="text/javascript" src="{{ asset('plugins/mask/mask.min.js') }}" ></script>
 	<script type="text/javascript" src="{{ asset('js/jslocal/forms.js') }}" ></script>
-	
 	@include('vadmin.components.ajaxscripts')
 @endsection
 

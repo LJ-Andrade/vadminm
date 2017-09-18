@@ -19,8 +19,10 @@ class CreateProductosTable extends Migration
             $table->string('codproveedor');
             $table->float('condiva');
             $table->integer('stockactual');
+            $table->integer('stockdeposito');
             $table->integer('stockmin');
             $table->integer('stockmax');
+            $table->integer('origen');
             $table->integer('monedacompra');
             $table->integer('costopesos');
             $table->integer('costodolar');

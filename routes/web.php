@@ -75,13 +75,36 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::get('ajax_list_search_clientes/{search?}', 'ClientesController@ajax_list_search');
 	
 	// ---------------- Cuenta Corriente Clientes ---------------------- //
+	Route::get('clientes/cuenta/id={id}/month={month}/year={year}/action={action}', 'ClientesController@accountByDate');
+	
 	Route::get('clientes/cuenta/{id}', 'ClientesController@account');
+
+	Route::get('cuentas', [
+		'as'   => 'cuentas',
+		'uses' => 'ClientesController@accountSearch',
+	]);
+
+	// ------------------- Tipos de Comprobantes --------------------- //
+	Route::resource('tiposcomprobantes', 'TiposComprobantesController');
+
 	
-	Route::get('/cuentas', function () {
-		return view('vadmin.clientes.cuentas');
-	});
+	// ------------------- Comprobantes ------------------------------ //
+	Route::resource('comprobantes', 'ComprobantesController');
+	Route::get('get_client_doc_data/{id}', 'ClientesController@get_client_doc_data');
+	Route::get('store_comp', 'ComprobantesController@store_comp');
+	Route::get('get_pending_orders/{id?}', 'ComprobantesController@get_pending_orders');
+	Route::post('generate_comp', 'ComprobantesController@generate_comp');
+
+	// ------------------- Facturación ------------------------------- //
+	// Route::resource('facturas', 'FacturasController');
+	// Route::post('get_fc_data', 'FacturasController@get_fc_data');
+	// Route::get('store_fc', 'FacturasController@store_fc');
 	
-	Route::get('buscarcuenta', 'ClientesController@buscarcuenta');
+	// ------------------- Movimientos -------------------------- //
+	Route::resource('movimientos', 'MovimientosController');
+	Route::resource('pagos', 'PagosController');
+
+
 
 	// ---------------- Provincias ------------------------------------- //
 	Route::resource('provincias', 'ProvinciasController');
@@ -177,41 +200,19 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	// ------------------- Reparaciones ------------------------------------ //
 	Route::resource('reparaciones', 'ReparacionesController');
 	// Route::post('ajax_store_reparacionesitems/{id}', 'ReparacionesController@ajax_store');
+	Route::post('ajax_store_reparacion/{id}', 'DesarrolloController@ajax_store');
 	Route::get('ajax_get_cliente/{id}', 'ClientesController@ajax_get');
-	Route::post('ajax_store_reparacionesitem', 'ReparacionesitemsController@ajax_store_item');
 	Route::post('update_repair_status/{id}', 'ReparacionesController@updateStatus');
 	
 	Route::post('ajax_delete_reparacion/{id}', 'ReparacionesController@destroy');
 	Route::post('ajax_batch_delete_reparaciones/{id}', 'ReparacionesController@ajax_batch_delete');
-
+	
 	// ------------------- Reparaciones Items------------------------- //
 	Route::resource('reparaciones-items', 'ReparacionesItemsController');
 	Route::post('ajax_delete_reparacionesitem/{id}', 'ReparacionesItemsController@destroy');
-
-	Route::post('ajax_store_reparacion/{id}', 'DesarrolloController@ajax_store');
-
-	// ------------------- Tipos de Comprobantes --------------------- //
-	Route::resource('tiposcomprobantes', 'TiposComprobantesController');
-
-	
-	// ------------------- Comprobantes ------------------------------ //
-	Route::resource('comprobantes', 'ComprobantesController');
-	Route::get('get_client_doc_data/{id}', 'ClientesController@get_client_doc_data');
-	Route::get('store_comp', 'ComprobantesController@store_comp');
-	Route::get('get_pending_orders/{id?}', 'ComprobantesController@get_pending_orders');
-	Route::post('generate_comp', 'ComprobantesController@generate_comp');
-
-	// ------------------- Facturación ------------------------------- //
-	// Route::resource('facturas', 'FacturasController');
-	// Route::post('get_fc_data', 'FacturasController@get_fc_data');
-	// Route::get('store_fc', 'FacturasController@store_fc');
-	
-	// ------------------- Movimientos -------------------------- //
-	Route::resource('movimientos', 'MovimientosController');
-	Route::resource('pagos', 'PagosController');
+	Route::post('ajax_store_reparacionesitem', 'ReparacionesItemsController@ajax_store_item');
 
 
-	
 	// ----------------------- Exports --------------------------------- //
 	// Client Account
 	Route::get('exportAccountExcel/{id}/{type}/{filename}', 'ClientesController@exportExcel');
@@ -220,6 +221,8 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::get('exportExcel/{model}/{filename}', 'FileExportController@exportExcel');
 
 	Route::get('exportPedidoPdf/{id}', 'PedidosController@exportPdf');
+	Route::get('exportReparacionPdf/{id}', 'ReparacionesController@exportPdf');
+	
 	
 	// ----------------------- DESTROY RECORDS ----------------------- //
 	Route::post('delete_provincias/{id}', 'ProvinciasController@destroy');
@@ -235,6 +238,8 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::post('delete_familias/{id}', 'FamiliasController@destroy');
 	Route::post('delete_subfamilias/{id}', 'SubfamiliasController@destroy');
 	Route::post('delete_categorias/{id}', 'CategoriasController@destroy');
+	Route::post('delete_movement/{id}', 'MovimientosController@destroy');
+	
 
 	// Developer Map
 	Route::resource('desarrollo', 'DesarrolloController');

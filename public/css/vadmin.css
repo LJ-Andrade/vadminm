@@ -87,6 +87,10 @@ hr {
   margin-bottom: 10px;
 }
 
+.short-input {
+  max-width: 100px;
+}
+
 @media (max-width: 900px) {
   .hideMobile900 {
     display: none !important;
@@ -576,8 +580,16 @@ hr {
   font-size: 1rem;
 }
 
-.big-form .header-right {
-  float: right;
+.big-form .inner-row .form-group {
+  margin-bottom: 0;
+}
+
+.big-form .inner-row .checkbox label, .big-form .inner-row .radio label {
+  padding-left: 0;
+}
+
+.big-form .header-right span.big-text {
+  font-size: 1.8rem;
 }
 
 .big-form .boxed-row {
@@ -2046,6 +2058,15 @@ hr {
   font-size: 0.8rem;
 }
 
+.small-text-table .title {
+  margin-left: 8px;
+  font-size: 1rem;
+}
+
+.small-text-table .title span {
+  font-size: 1rem;
+}
+
 .small-text-table .ingreso {
   background-color: #fafffb;
 }
@@ -2064,6 +2085,29 @@ hr {
   border-top: 2px solid #848484;
   padding: 20px 8px;
   background-color: #f9f9f9;
+}
+
+.small-text-table .delete {
+  text-align: right;
+}
+
+.small-text-table .delete i {
+  font-size: 0.5rem;
+  background-color: #D05C5C;
+  color: #fff;
+  padding: 3px 5px;
+  border-radius: 50px;
+  opacity: 0;
+}
+
+.small-text-table tr:hover {
+  cursor: pointer;
+  -webkit-filter: brightness(0.8);
+          filter: brightness(0.8);
+}
+
+.small-text-table tr:hover i {
+  opacity: 1;
 }
 
 .small-list-img {
@@ -2281,7 +2325,6 @@ hr {
 }
 
 .horiz-checkbox-input .inner2 {
-  float: left;
   width: 78%;
 }
 
@@ -2295,6 +2338,15 @@ hr {
   .horiz-checkbox-input .inner2 {
     width: auto;
   }
+}
+
+.horiz-double-input .input1 {
+  max-width: 100px;
+  float: left;
+}
+
+.horiz-double-input .input2 {
+  max-width: 100px;
 }
 
 .horiz-double-input .inner1 {
@@ -2562,4 +2614,25 @@ hr {
 
 .parsley-errors-list {
   min-width: 120px;
+}
+
+.month-picker .month-picker-header {
+  margin: 0;
+}
+
+.month-picker .month-picker-month-table .ui-button {
+  margin: 1px;
+}
+
+.month-picker .month-picker .month-picker-month-table .ui-button {
+  border-radius: 0 !important;
+}
+
+.month-picker .ui-state-highlight, .month-picker .ui-widget-content .ui-state-highlight, .month-picker .ui-widget-header .ui-state-highlight {
+  background: #9FD56B;
+  color: #fff;
+}
+
+.CurrencyDashboard table, .CurrencyDashboard tr, .CurrencyDashboard td {
+  border: 0 !important;
 }

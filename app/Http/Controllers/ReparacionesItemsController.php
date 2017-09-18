@@ -63,6 +63,7 @@ class ReparacionesItemsController extends Controller
 
     public function ajax_store_item(Request $request)
     {
+        // dd($request->all());
         $item     = new Reparacionesitem($request->all());
         $item->save();
         $newitem  = Reparacionesitem::findOrFail($item->id);

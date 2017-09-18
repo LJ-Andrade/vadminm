@@ -23,15 +23,13 @@ class VadminController extends Controller
 
     public function index(Request $request)
     {
-        $users        = User::orderBy('id', 'ASC')->where('type','member')->get();
-        $vendedores   = User::orderBy('id', 'ASC')->where('role','seller')->get();
-        $productos    = Producto::orderBy('nombre', 'DESC')->pluck('nombre','id');
-        $familias     = Familia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         
-    
+        // $productos    = Producto::orderBy('nombre', 'DESC')->pluck('nombre','id');
+        // $familias     = Familia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
+        
         $dolarSistema = Moneda::where('nombre', '=', 'dolar')->first();
         $euroSistema  = Moneda::where('nombre', '=', 'euro')->first();
-        $monedas      = Moneda::orderBy('id', 'ASC')->pluck('nombre','id');
+        // $monedas      = Moneda::orderBy('id', 'ASC')->pluck('nombre','id');
 
         //---- Dolar Hoy API ----//
         $data_in = "http://ws.geeklab.com.ar/dolar/get-dolar-json.php";
@@ -50,15 +48,14 @@ class VadminController extends Controller
             $dolarLibre = 'Sin Datos';
         }
        
-        return view('vadmin')->with('users', $users)
-            ->with('vendedores', $vendedores)
-            ->with('monedas', $monedas)
+        return view('vadmin')
+            // ->with('monedas', $monedas)
             ->with('euroSistema', $euroSistema)
             ->with('dolarSistema', $dolarSistema)
             ->with('dolarBlue', $dolarBlue)
-            ->with('dolarLibre', $dolarLibre)
-            ->with('productos', $productos)
-            ->with('familias', $familias);
+            ->with('dolarLibre', $dolarLibre);
+            // ->with('productos', $productos)
+            // ->with('familias', $familias);
     }
 
     public function vendedores(Request $request)

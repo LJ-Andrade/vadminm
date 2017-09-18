@@ -45,10 +45,13 @@ class ClientesController extends Controller
                 // Search by Name or Email
                 $clientes = Cliente::where('id', '=', "$code")->paginate($perPage);
             } else {
-                // Seatch All
-                $clientes = Cliente::paginate($perPage);
+                // Search All
+                // $clientes = Cliente::paginate($perPage);
+                $clientes = Cliente::with('provincia','provincia')->with('localidad','localidad')->with('iva','iva')->paginate($perPage);
         }
 
+
+        // $clientes = Cliente::paginate($perPage);
         return view('vadmin.clientes.index')->with('clientes', $clientes);
     }
 
@@ -157,6 +160,8 @@ class ClientesController extends Controller
             $client->direntregas = '';
         }
         
+        $client->taxcondition = $client->iva->name;
+        $client->condventa = $client->condicventas->name;
         return response()->json(['client' => $client]);
 
     }
@@ -198,38 +203,85 @@ class ClientesController extends Controller
     //                 ACCOUNTS                     //
     //////////////////////////////////////////////////
 
-    public function cuenta(){
-
-        return view('vadmin/clientes/cuentas');
-
+    public function accountSearch(Request $request){
+        $clientes = Cliente::orderBy('id', 'ASC')->get();
+        return view('vadmin/clientes/cuentas')->with('clientes', $clientes);
     }
-
 
     public function account($id)
-    {       
-     
-        $movimientos  = Movimiento::where('cliente_id', '=', $id)->paginate(40);
-        $comprobantes = Comprobante::where('cliente_id', '=', $id)->pluck('nro','id');
-        $client       = Cliente::where('id', '=', $id)->first();
-        $saldo        = Movimiento::where('cliente_id', '=', $id)->orderBy('created_at','desc')->first();
-        if($saldo){
-            $saldo    = $saldo->subtotal;
-        } else {
-            $saldo    = '0';
-        }
-        $fecha        = date('Y-m-d H:i:s');
-        
-        // $data  = $this->accountStract($id);
-        // $movements = $data[0];
-        // $totals    = $data[1];
-        
-        return view('vadmin.clientes.cuenta')
-            ->with('movimientos', $movimientos)
-            ->with('client', $client)
-            ->with('comprobantes', $comprobantes)
-            ->with('saldo', $saldo)
-            ->with('fecha', $fecha);
+    {
+        $goto = $this->accountByDate($id,'0','0','show');
+        return $goto;
     }
+
+    public function accountByDate($id, $month, $year, $action)
+    {       
+        
+        $currentMonth  = date('m');
+        $saldoAnterior = '';
+        $saldoDelMes   = '';
+        $mes           = '';
+
+        
+        // Default View (Last Month)
+        if($month == '0' || $month == $currentMonth){
+            $movimientos   = Movimiento::where('cliente_id', '=', $id)->whereRaw('MONTH(created_at) = ?',[$currentMonth])->orderBy('created_at', 'ASC')->get();
+            $saldoAnterior = Movimiento::where('cliente_id', '=', $id)->whereRaw('MONTH(created_at) != ?',[$currentMonth])->sum('importe');
+            $saldoDelMes   = $movimientos->sum('importe');
+            $saldo         = $saldoAnterior + $saldoDelMes;
+            $mes           = getMonthName($currentMonth);
+            
+        // Show All Movements
+        } else if($month == '*' && $year == '*' && $action) {
+            $movimientos   = Movimiento::where('cliente_id', '=', $id)->orderBy('created_at', 'ASC')->get();
+            $saldo         = $movimientos->sum('importe');
+            $mes           = 'Todos';
+        // Show Old Month
+        } else {
+            $movimientos   = Movimiento::where('cliente_id', '=', $id)->whereRaw('MONTH(created_at) = ?',[$month])->whereRaw('YEAR(created_at) = ?',[$year])->get();
+            $saldoDelMes   = $movimientos->sum('importe');
+            $saldo         = $saldoDelMes;
+            $mes           = getMonthName($month);
+        }
+        
+        $comprobantes    = Comprobante::where('cliente_id', '=', $id)->pluck('nro','id');
+        $client          = Cliente::where('id', '=', $id)->first();
+        
+        $fecha           = date('Y-m-d H:i:s');
+
+
+        switch ($action) {
+            case 'show':
+
+                return view('vadmin.clientes.cuenta')
+                    ->with('movimientos', $movimientos)
+                    ->with('client', $client)
+                    ->with('comprobantes', $comprobantes)
+                    ->with('saldoAnterior', $saldoAnterior)
+                    ->with('saldoDelMes', $saldoDelMes)
+                    ->with('saldo', $saldo)
+                    ->with('mes', $mes) 
+                    ->with('fecha', $fecha);
+                break;
+
+            case 'exportPdf':
+
+                $pdf = PDF::loadView('vadmin.clientes.cuentaList', compact ('movimientos', 'client', 'comprobantes', 'saldoAnterior', 'saldoDelMes',
+                'saldo', 'mes', 'fecha'));
+                $pdf->setPaper('A4', 'portrait');
+
+                return $pdf->stream('invoice.pdf');
+                break;
+            
+            default:
+                echo 'No Action';
+                break;
+        }
+
+        
+    }
+
+
     
     public function exportExcel($id, $type, $filename){
         Excel::create($filename, function($excel) use($id){
@@ -262,10 +314,6 @@ class ClientesController extends Controller
         
     }
 
-
-    public function buscarcuenta(){
-        return view('vadmin.clientes.buscarcuenta');
-    }
     //////////////////////////////////////////////////
     //                  CREATE                      //
     //////////////////////////////////////////////////

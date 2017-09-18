@@ -129,11 +129,21 @@
 			method: 'POST',             
 			dataType: 'JSON',
 			success: function(data){
-				$('#PrecioGremio').html('Precio al Gremio: <b>$' + data.gremio + '</b>');
-				$('#PrecioParticular').html('Precio a Particular: <b>$' + data.particular + '</b>');
-				$('#PrecioEspecial').html('Precio Especial: <b>$' + data.especial + '</b>');
-				$('#PrecioOferta').html('Precio de Oferta: <b>$' + data.preciooferta + '</b>');
-				$('#CantOferta').html('Cant. Min. Oferta: <b>$' + data.cantoferta + '</b>');
+				console.log(data.preciooferta);
+				var cantoferta   = 0;
+				var preciooferta = 0;
+				if(data.preciooferta == 0){
+					preciooferta = '-';
+					cantoferta   = '-';
+				} else {
+					preciooferta = '$ '+data.preciooferta;
+					cantoferta   = data.cantoferta;
+				}
+				$('#PrecioGremio').html('Gremio: <b>$' + data.gremio + '</b>');
+				$('#PrecioParticular').html('Particular: <b>$' + data.particular + '</b>');
+				$('#PrecioEspecial').html('Especial: <b>$' + data.especial + '</b>');
+				$('#PrecioOferta').html('Oferta: <b>' + preciooferta + '</b>');
+				$('#CantOferta').html('Cant. Min. Oferta: <b>' + cantoferta + '</b>');
 				$('#MonedaCompra').html('Moneda de compra: <b>' + data.monedacompra + '</b>');
 				$('#PrecioCostoOrig').html('Costo en ' + data.monedacompra + ': <b>' + data.costo + '</b>');
 				$('#PrecioCosto').html('Costo en Pesos: <b>$' + data.costopesos + '</b>');

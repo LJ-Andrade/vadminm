@@ -51,18 +51,16 @@ class MovimientosController extends Controller
 
     public function store(Request $request)
     {
-
+        // dd($request->all());
         $movement     = new Movimiento($request->all());
         $saldo        = Movimiento::sum('importe');
-        $saldo        = $saldo + $request->importe;
-        
+        // $saldo        = $saldo + $request->importe;
         
         $comprobante  = Comprobante::where('id','=',$request->comprobante_id)->first();
         if($comprobante){
             $movement->comprobante_nro = $comprobante->nro;
         }
-        
-        $movement->subtotal = $saldo;
+        // $movement->subtotal = $saldo;
 
         $movement->save();
 

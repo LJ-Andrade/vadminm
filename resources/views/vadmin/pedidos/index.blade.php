@@ -9,7 +9,7 @@
 	@section('header_title', 'Listado de Pedidos') 
 	@section('options')
 		<div class="actions">
-            <a href="{{ url('vadmin/pedidos/create') }}" class="btn btnSm buttonOther">Nuevo Pedido</a>
+            <a href="{{ url('vadmin/pedidos/create') }}" class="btn btnSm buttonOther"><i class="ion-plus-round"></i> Nuevo Pedido</a>
             <button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button>
 		</div>	
 	@endsection

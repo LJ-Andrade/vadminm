@@ -296,8 +296,14 @@ $phvFsize: 0.9rem
 	.inner-row
 		label
 			font-size: 1rem
+		.form-group
+			margin-bottom: 0
+		.checkbox label, .radio label
+			padding-left: 0
 	.header-right
-		float: right
+		// float: right
+		span.big-text
+			font-size: 1.8rem
 	.boxed-row
 		padding: 10px
 		border: 1px solid #ccc
@@ -346,8 +352,7 @@ $phvFsize: 0.9rem
 		max-width: 50px
 	input.mw100
 		max-width: 100px
-
-
+		
 
 .main-form
 	.form-container
@@ -1115,7 +1120,7 @@ $phvFsize: 0.9rem
 
 //////////////////////////////////////
 //                                  //
-//      ITEM CREATOR / Forms        //
+//              DECO                //
 //                                  //
 //////////////////////////////////////
 
@@ -1394,6 +1399,11 @@ $phvFsize: 0.9rem
 
 .small-text-table
 	font-size: 0.8rem
+	.title
+		margin-left: 8px
+		font-size: 1rem
+		span
+			font-size: 1rem
 	.ingreso
 		background-color: #fafffb
 	.egreso
@@ -1408,6 +1418,22 @@ $phvFsize: 0.9rem
 			padding: 20px 8px
 			background-color: #f9f9f9
 		td.background
+	.delete
+		text-align: right
+		i
+			font-size: 0.5rem
+			background-color: $red
+			color: #fff
+			padding: 3px 5px
+			border-radius: 50px
+			opacity: 0
+	tr
+		&:hover
+			cursor: pointer
+			filter: brightness(0.8)
+			i
+				opacity: 1
+
 
 .small-list-img
 	max-width: 100%
@@ -1600,7 +1626,7 @@ $phvFsize: 0.9rem
 		height: 34px
 		float: left
 	.inner2
-		float: left
+		// float: left
 		width: 78%
 		
 @media (max-width: 1200px)
@@ -1614,6 +1640,11 @@ $phvFsize: 0.9rem
 			width: auto
 			
 .horiz-double-input
+	.input1
+		max-width: 100px
+		float: left
+	.input2
+		max-width: 100px
 	.inner1
 		width: 70px
 		height: 34px

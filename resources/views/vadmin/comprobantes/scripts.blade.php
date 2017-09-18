@@ -54,14 +54,19 @@
             type: 'get',
             dataType: 'json',
             beforeSend: function(){
+				$('.Main-Loader').removeClass('Hidden');
             },
             success: function(data){
                 output(data.client['id'], data.client['razonsocial'], data.letter);
+
             },
             error: function(data){
                 console.log(data);
                 // $('#Error').html(data.responseText);
-            }
+            },
+			complete: function(){
+				$('.Main-Loader').addClass('Hidden');
+			}
         }); 
 	}
 
@@ -217,11 +222,14 @@
             success: function(data){
                 var clientdata  = $('#DisplayClientData');
                 clientdata.html('');
+				console.log(data.client['condicventas']['name']);
                 var content     = "<span><b>Razón Social:</b> " + data.client['razonsocial'] + "</span></br>"+
 							      "<span><b>Dir. Fiscal:</b> " + data.client['dirfiscal'] + "</span></br>"+
                                   "<span><b>Cuit:</b> " + data.client['cuit'] + "</span></br>"+
-							      "<span><b>Vendedor:</b> " + data.client['vendedor'] + "</span></br>"+
-							      "<span><b>Flete:</b> " + data.client['nombreflete'] + "</span></br>";
+								  "<span>" + data.client['iva']['name'] + "</span></br>"+
+								  "<span><b>Condición de Vta.:</b> " + data.client['condicventas']['name'] + "</span></br>";
+							    //   "<span><b>Vendedor:</b> " + data.client['vendedor'] + "</span></br>"+
+							    //   "<span><b>Flete:</b> " + data.client['nombreflete'] + "</span></br>";
 				
 				var dirsentrega = $('#DocDirsEntrega');
 				$.each(data.client['direntregas'], function( index, value ) {
@@ -331,7 +339,7 @@
 	$('#AddItemtBtn').click(function(){
 		// To prevent max 17 items fill
 		var itemsCount = countItems();
-		if (itemsCount <= 5 ) {
+		if (itemsCount <= 17 ) {
 
 			var description = $('#PfNameInput').val();
 			var code        = $('#PfCodeInput').val();
@@ -340,6 +348,8 @@
 			var iva         = $('#PfProductIva').val();
 			var erroroutput = $('#DisplayErrorOutPut');
 			var output      = $('#PfOutputPreview');
+			// Round Price
+			price = roundAndConvertDecimal(price);
 
 			if (description == '' || code == '' || quantity == '' || price == ''){
 				erroroutput.html('');
@@ -352,17 +362,17 @@
 				var subtotalItem = parseFloat(price) * parseFloat(quantity);
 				// Calc Iva
 				var itemIva      = parseFloat(subtotalItem) * parseFloat(iva) / 100;
-				var itemIva      = round2Fixed(itemIva);
-				// Make Row
+				itemIva = roundAndConvertDecimal(itemIva);
 				
+				// Make Row
 				var result = "<tr id='ItemId"+itemnum+"' class='fcItemRow'>"+
 								"<td style='display:none'><input name='items["+itemnum+"][type]' type='text'   value='?' class='ro mw100' readonly /></td>"+
 								"<td><input name='items["+itemnum+"][code]'                      type='number' value='"+ code +"' class='ro mw100' readonly /></td>"+
 								"<td><input name='items["+itemnum+"][description]'               type='text'   value='"+ description +"' class='ro' readonly /></td>"+
-								"<td><input name='items["+itemnum+"][price]'                     type='number' value='"+ parseFloat(price) +"' class='mw100 UnitPrice' /></td>"+							
 								"<td><input name='items["+itemnum+"][quantity]'                  type='number' value='"+ parseInt(quantity) +"' step='1' class='mw50 AmmountCorrection' /></td>"+
+								"<td><input name='items["+itemnum+"][price]'                     type='number' value='"+ parseFloat(price) +"' class='mw100 UnitPrice' /></td>"+							
 								"<td><input name='items["+itemnum+"][sum_price]'                 type='number' value='"+ parseFloat(subtotalItem) +"' class='ro mw100 SubTotals' readonly /></td>"+
-								"<td class='Hid'><input name='items["+itemnum+"][sum_tax]'       type='number' value='"+ parseFloat(itemIva) +"' class='ro ItemIva IvaSubtotals' data-ivapercent='" + parseFloat(iva) + "'  readonly />(" + parseFloat(iva) + "%)</td>"+
+								"<td class='Hidd'><input name='items["+itemnum+"][sum_tax]'       type='number' value='"+ parseFloat(itemIva) +"' class='ro ItemIva IvaSubtotals' data-ivapercent='" + parseFloat(iva) + "'  readonly />(" + parseFloat(iva) + "%)</td>"+
 								"<td class='Hidden'><input name='items["+itemnum+"][discount]'   type='number' value='0' /></td>"+
 								"<td><input name='items["+itemnum+"][total]'                     type='number' value='"+ (parseFloat(subtotalItem) + parseFloat(itemIva)) +"' class='ro mw100 SubTotalsTax' readonly /></td>"+
 								"<td class='DeleteRow deleteRow'><i class='ion-minus-circled'></i></td>"+
@@ -387,7 +397,7 @@
 
 	$(document).on("click", '.PendigOrderBtn', function(e){
 		var itemsCount = countItems();
-		if (itemsCount <= 5 ) {
+		if (itemsCount <= 17 ) {
 
 			var orderid      = $(this).data('orderid');
 			var code         = $(this).data('id');
@@ -396,17 +406,19 @@
 			var price        = $(this).data('price');
 			var subtotalItem = $(this).data('subtotal');
 			var iva          = $(this).data('iva');
+			price = roundAndConvertDecimal(price);
 			
 			var itemIva      = parseFloat(subtotalItem) * parseFloat(iva) / 100;
+			itemIva = roundAndConvertDecimal(itemIva);
 
 			var result = "<tr id='ItemId"+itemnum+"' class='fcItemRow fcItemRowPending'>"+
 								"<td style='display:none'><input name='items["+itemnum+"][type]' type='text'   value='?'                                  class='ro mw100' readonly /></td>"+
 								"<td><input name='items["+itemnum+"][code]'                      type='number' value='"+ code +"'                         class='ro mw100' readonly /></td>"+
 								"<td><input name='items["+itemnum+"][description]'               type='text'   value='"+ description +"'                  class='ro' readonly /></td>"+
-								"<td><input name='items["+itemnum+"][price]'                     type='number' value='"+ parseFloat(price) +"'            class='mw100 UnitPrice' /></td>"+							
 								"<td><input name='items["+itemnum+"][quantity]'                  type='number' value='"+ parseInt(quantity) +"'  step='1' class='mw50 AmmountCorrection' /></td>"+
+								"<td><input name='items["+itemnum+"][price]'                     type='number' value='"+ parseFloat(price) +"'            class='mw100 UnitPrice' /></td>"+							
 								"<td><input name='items["+itemnum+"][sum_price]'                 type='number' value='"+ parseFloat(subtotalItem) +"'     class='ro mw100 SubTotals' readonly /></td>"+
-								"<td class='Hid'><input name='items["+itemnum+"][sum_tax]'       type='number' value='"+ parseFloat(itemIva) +"'          class='ro ItemIva IvaSubtotals' data-ivapercent='" + parseFloat(iva) + "'  readonly />(" + parseFloat(iva) + "%)</td>"+
+								"<td class='Hidd'><input name='items["+itemnum+"][sum_tax]'       type='number' value='"+ parseFloat(itemIva) +"'          class='ro ItemIva IvaSubtotals' data-ivapercent='" + parseFloat(iva) + "'  readonly />(" + parseFloat(iva) + "%)</td>"+
 								"<td class='Hidden'><input name='items["+itemnum+"][discount]'   type='number' value='0' /></td>"+
 								"<td><input name='items["+itemnum+"][total]'                     type='number' value='"+ (parseFloat(subtotalItem) + parseFloat(itemIva)) +"' class='ro mw100 SubTotalsTax' readonly /></td>"+
 								"<td class='DeleteRow deleteRow' data-id="+ code +" data-orderid="+ orderid +"><i class='ion-minus-circled'></i></td>"+
@@ -420,7 +432,7 @@
 			ordersToDeletion.push(orderid);
 
 			recalcTotals();
-			console.log('Pedidos a eliminar ' + ordersToDeletion);
+			console.log('Items a facturar ' + ordersToDeletion);
 
 			// Show ammount of added items to FC
 			countItems();
@@ -454,11 +466,8 @@
 			
 			// Recalculate totals
 			recalcTotals();
-
 			countItems();
-	
 		}
-
 	});
 
 	// Price Correction
@@ -536,7 +545,9 @@
 		});
 	
 		var totals = ivas + subtots;
+		totals = roundAndConvertDecimal(totals);
 		$('#Total').html('<b>$' + totals + '</b>');
+		// Round Up and Two Decimals
 		$('#TotalInput').val(totals);
 
 	}
@@ -546,9 +557,10 @@
 		$('#IvaSubTotal').val('');
 		var sum = 0;
 		$('.IvaSubtotals').each(function(){
-			sum += parseFloat($(this).val());
-			$('#IvaSubTotal').html('<b>$' + sum +'</b>');
+			sum     += parseFloat($(this).val());
+			$('#IvaSubTotal').html('<b>$' + roundAndConvertDecimal(sum) +'</b>');
 		});
+		// Round Up and Two Decimals
 		$('#IvaSubtotalInput').val(sum);
 	
 	}
@@ -562,6 +574,8 @@
 			sum += parseFloat($(this).val());
 			$('#SubTotal').html('<b>$' + sum +'</b>');
 		});
+		// Round Up and Two Decimals
+		sum = roundAndConvertDecimal(sum);
 		$('#SubTotalInput').val(sum);
 	
 	}
@@ -670,7 +684,6 @@
 
 	}
 
-
 	// Get All Pending order Items
 	function get_pending_orders(id){
 		var route  = "{{ url('vadmin/get_pending_orders') }}/"+id+"";
@@ -694,6 +707,10 @@
 	// -------------------------------------------------------------------------- //
             // ** 4 ** - COLLECT DOC DATA //
 	// -------------------------------------------------------------------------- //
+	
+	$(document).on("click", '#DocForm', function(e){
+		e.preventDefault();
+	});
 	
 
 	$(document).on("click", '#EmitDocBtn', function(e){
@@ -737,52 +754,52 @@
 
 	function wsfeConnect(fcdata){
 		// For Test
-		// var cae = "67283492528894";
-		// var nro = 2082;
-		// var vto = "20170725";
-		// var pending = $('#MarkDone');
-		// $.each( ordersToDeletion, function( index, value ){
-		// 	pending.append("<input name='markdone["+ index +"]' value='"+ value +"' type='hidden' />");
-		// });
-		// store_comp(cae, nro, vto);
-
-		var data    = fcdata;
-		var route   = "{{ url('Feafip/wsfe-client.php') }}";
-		var message = $('#DocMessage');
+		var cae = "67283492528894";
+		var nro = 2082;
+		var vto = "20170725";
 		var pending = $('#MarkDone');
-		$.ajax({
-			type: 'POST',
-			url: route,
-			data: { fcdata: data },
-			dataType: 'json',
-			success: function(data){
-				console.log(data);
-				// If webservice connection succeded store comp and downloadpdf
-				if(data.sucess == true){
-					$.each( ordersToDeletion, function( index, value ){
-						pending.append("<input name='markdone["+ index +"]' value='"+ value +"' type='hidden' />");
-					});
-					message.removeClass('Hidden');
-					message.html(data);
-					var pdf =  "{{ url('public/Feafip/facturas') }}/"+data.nro+".pdf";
-					window.open(pdf,'_blank');
-					store_comp(data.cae, data.nro, data.vto);
-					// Redirect
-					window.location.replace("{{ url('vadmin/comprobantes') }}");
-					console.log(data);
-				} else {
-					message.removeClass('Hidden');
-					message.html(data.responseText);
-				}
-				$('#EmitDocBtn').html('Emitido');
-			},
-			error: function(data){
-				console.log('ERROR !');
-				console.log(data);
-				message.removeClass('Hidden');
-				message.html(data.responseText);
-			}
+		$.each( ordersToDeletion, function( index, value ){
+			pending.append("<input name='markdone["+ index +"]' value='"+ value +"' type='hidden' />");
 		});
+		store_comp(cae, nro, vto);
+
+		// var data    = fcdata;
+		// var route   = "{{ url('Feafip/wsfe-client.php') }}";
+		// var message = $('#DocMessage');
+		// var pending = $('#MarkDone');
+		// $.ajax({
+		// 	type: 'POST',
+		// 	url: route,
+		// 	data: { fcdata: data },
+		// 	dataType: 'json',
+		// 	success: function(data){
+		// 		console.log(data);
+		// 		// If webservice connection succeded store comp and downloadpdf
+		// 		if(data.sucess == true){
+		// 			$.each( ordersToDeletion, function( index, value ){
+		// 				pending.append("<input name='markdone["+ index +"]' value='"+ value +"' type='hidden' />");
+		// 			});
+		// 			message.removeClass('Hidden');
+		// 			message.html(data);
+		// 			var pdf =  "{{ url('public/Feafip/facturas') }}/"+data.nro+".pdf";
+		// 			window.open(pdf,'_blank');
+		// 			store_comp(data.cae, data.nro, data.vto);
+		// 			// Redirect
+		// 			window.location.replace("{{ url('vadmin/comprobantes') }}");
+		// 			console.log(data);
+		// 		} else {
+		// 			message.removeClass('Hidden');
+		// 			message.html(data.responseText);
+		// 		}
+		// 		$('#EmitDocBtn').html('Emitido');
+		// 	},
+		// 	error: function(data){
+		// 		console.log('ERROR !');
+		// 		console.log(data);
+		// 		message.removeClass('Hidden');
+		// 		message.html(data.responseText);
+		// 	}
+		// });
 	}
 
 	// Not working yet

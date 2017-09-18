@@ -13,6 +13,8 @@ use App\Familia;
 use App\Tipoct;
 use Illuminate\Http\Request;
 use Session;
+use Excel;
+use PDF;
 
 class ReparacionesController extends Controller
 {
@@ -124,6 +126,46 @@ class ReparacionesController extends Controller
             ->with('total', $total);
     }
 
+
+    //////////////////////////////////////////////////
+    //                  EXPORT                      //
+    //////////////////////////////////////////////////
+
+
+    public function exportPdf($id){
+        $reparacion = Reparacion::findOrFail($id);
+        $productos  = Producto::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
+        $cantidades = Reparacionesitem::where('reparacion_id', '=', $id)->pluck('cantidad');
+        $valores    = Reparacionesitem::where('reparacion_id', '=', $id)->pluck('valor');
+        $tipo       = Tipoct::where('id', '=', $reparacion->cliente->tipo_id)->first();
+        $filename   = 'reparacion-n-'.$reparacion->id.'.pdf';
+        
+        if($tipo == null){
+          $tipocte = '';
+        } else {
+          $tipocte    = $tipo->name;
+        }
+        $x     = count($cantidades);
+        $total = 0;
+        for ($i=0; $i < $x ; $i++) { 
+            $total += ($cantidades[$i] * $valores[$i]);
+        }
+
+        $pdf  = PDF::loadView('vadmin.reparaciones.export', compact('reparacion', 'tipocte', 'productos', 'valores', 'total'));
+
+        // For Test
+        //  return view('vadmin.pedidos.export')
+        //     ->with('productos', $productos)
+        //     ->with('tipocte', $tipocte)
+        //     ->with('pedido', $pedido)
+        //     ->with('total', $total);
+                
+        $pdf->setPaper('A4', 'portrait');
+        return $pdf->stream($filename);
+
+    }
+
+
     //////////////////////////////////////////////////
     //               UPDATE STATUS                  //
     //////////////////////////////////////////////////
@@ -141,6 +183,7 @@ class ReparacionesController extends Controller
         ]);
 
     }
+
 
     //////////////////////////////////////////////////
     //                 EDIT                         //
@@ -177,31 +220,42 @@ class ReparacionesController extends Controller
     }
 
     //////////////////////////////////////////////////
-    //                 DESTROY                      //
+    //                  DESTROY                     //
     //////////////////////////////////////////////////
 
-    // ---------- Delete -------------- //
-    public function destroy($id)
-    {
-        $item = Reparacion::find($id);
-        $item->delete();
-        return response()->json([
-            "result"   => 1
-        ]);
-    }
+    public function destroy(Request $request, $id)
+    {   
 
-
-    // ---------- Ajax Bach Delete -------------- //
-    public function ajax_batch_delete(Request $request, $id)
-    {
-        foreach ($request->id as $id) {
-        
-            $item  = Reparacion::find($id);
-            Reparacion::destroy($id);
+        if(is_array($request->id)) {
+            try {
+                foreach ($request->id as $id) {
+                    $record = Reparacion::find($id);
+                    $record->delete();
+                }
+                return response()->json([
+                    'success'   => true,
+                ]); 
+            }  catch (Exception $e) {
+                return response()->json([
+                    'success'   => false,
+                    'error'    => 'Error: '.$e
+                ]);    
+            }
+        } else {
+            try {
+                $record = Reparacion::find($id);
+                $record->delete();
+                    return response()->json([
+                        'success'   => true,
+                    ]);  
+                    
+                } catch (Exception $e) {
+                    return response()->json([
+                        'success'   => false,
+                        'error'    => 'Error: '.$e
+                    ]);    
+                }
         }
-        return response()->json([
-            "result"   => 1
-        ]);
     }
 
 

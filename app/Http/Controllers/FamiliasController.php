@@ -92,9 +92,12 @@ class FamiliasController extends Controller
 
     public function edit($id)
     {
-        $familia = Familia::findOrFail($id);
+        $categorias = Categoria::orderBy('id','ASC')->pluck('nombre','id');
+        $familia    = Familia::findOrFail($id);
 
-        return view('vadmin.familias.edit', compact('familia'));
+        return view('vadmin.familias.edit')
+            ->with('categorias', $categorias)
+            ->with('familia', $familia);
     }
 
     public function update($id, Request $request)

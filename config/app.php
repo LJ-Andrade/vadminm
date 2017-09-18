@@ -193,7 +193,9 @@ return [
         // Excel Export
         Maatwebsite\Excel\ExcelServiceProvider::class,
         // Pdf Export
-        Barryvdh\DomPDF\ServiceProvider::class
+        Barryvdh\DomPDF\ServiceProvider::class,
+        // Debug Bar
+        Barryvdh\Debugbar\ServiceProvider::class
         
 
     ],
@@ -252,7 +254,9 @@ return [
         // Excel Export
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         // Pdf Export
-        'PDF' => Barryvdh\DomPDF\Facade::class
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+        // Debug Bar
+        'Debugbar' => Barryvdh\Debugbar\Facade::class
         
 
     ],

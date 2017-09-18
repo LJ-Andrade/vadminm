@@ -74,7 +74,7 @@
 							<li><a href="{{ route('pedidos.index') }}"><i class="ion-paper-airplane"></i> Pedidos</a></li>
 							<li><a href="{{ route('reparaciones.index') }}"><i class="ion-wrench"></i> Reparaciones</a></li>
 							<li role="separator" class="divider"></li>
-							<li><a href="{{ url('clientes/cuentas') }}"><i class="ion-usd"></i> Cuentas Corrientes</a></li>
+							<li><a href="{{ url('vadmin/cuentas') }}"><i class="ion-social-usd"></i> Cuentas Corrientes</a></li>
 							<li><a href="{{ route('clientes.index') }}"><i class="ion-ios-briefcase"></i> Clientes</a></li>
 							<li><a href="{{ route('proveedores.index') }}"><i class="ion-ios-people"></i> Proveedores</a></li>
 							{{-- <li><a href="{{ url('vadmin/buscarcuenta') }}"><i class="ion-social-usd"></i> Cuentas Corrientes</a></li> --}}

@@ -24,7 +24,7 @@
 			<div id="Error"></div>
         </div>
 	    <div class="row">
-	    	{!! Form::open(['route' => 'productos.store', 'method' => 'POST', 'files' => true, 'id' => 'NewItemForm', 'class' => 'big-form', 'data-parsley-validate' => '']) !!}	
+	    	{!! Form::open(['route' => 'productos.store', 'method' => 'POST', 'files' => true, 'id' => '', 'class' => 'big-form', 'data-parsley-validate' => '']) !!}	
             	@include ('vadmin.productos.form')
 				{!! Form::submit('Ingresar Producto', ['class' => 'button buttonOk', 'id' => 'InsertItemBtn']) !!}
             {!! Form::close() !!}

@@ -83,11 +83,21 @@
 	});
 
     function setPriceOrOffer(ammount){
-        if (parseInt(ammount) >= parseInt(prodOfferMinAmmount.val())){
-            $('#PFPrice').val(prodOffer.val());
-        } else {
-            $('#PFPrice').val(prodPrice.val());
-        }
+		var minammount = parseInt(prodOfferMinAmmount.val());
+		var ammount    = parseInt(ammount);
+
+		if (minammount == 0 ){
+			console.log('No tiene oferta');
+			$('#PFPrice').val(prodPrice.val());
+		} else {
+			if (ammount >= minammount){
+				console.log('Es mayor');
+				$('#PFPrice').val(prodOffer.val());
+			} else {
+				console.log('Es menor');
+				$('#PFPrice').val(prodPrice.val());
+			}
+		}
     }
 
     // Display Product Info

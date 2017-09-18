@@ -62,6 +62,15 @@ class Cliente extends Model
     	return $this->hasMany('App\Pedidositem');
     }
 
+    public function reparaciones(){
+    	return $this->hasMany('App\Reparacion');
+    }
+
+    public function reparacionesitem(){
+    	return $this->hasMany('App\ReparacionesItem');
+    }
+
+
     public function facturas(){
     	return $this->hasMany('App\Factura');
     }

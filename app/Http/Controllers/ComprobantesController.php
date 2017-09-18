@@ -191,7 +191,7 @@ class ComprobantesController extends Controller
  
         $client = Cliente::findOrFail($request->clientid);
         try{
-            
+                        
             $comp                = new Comprobante();
             $comp->nro           = $request->nro;
             $comp->cae           = $request->cae;
@@ -217,18 +217,30 @@ class ComprobantesController extends Controller
             // Set pending orders to done
             if($request->markdone){    
                     
+                // Set Facturado
                 foreach ($request->markdone as $orderid){
                     $pedidoItem = Pedidositem::findOrFail($orderid);
                     $pedidoItem->facturado = 1;
                     $pedidoItem->save();
                 }
 
+                // Discount Stock
+                if($request->letter == 'A' || $request->letter == 'B'){
+                     
+                    foreach ($request->items as $item) {
+                        $id       = $item['producto_id'];
+                        $quantity = $item['quantity'];
+                        $ptovta   = $item['pto_vta'];
+                        discountStock($id, $ammount, $ptovta);
+                    }
+                }
+
                 $movement = 'Movimiento';
 
                 return response()->json(['success'  => true,
-                                        'message'  => 'Documento guardado',
-                                        'data'     => $comp,
-                                        'movement' => $movement]); 
+                                         'message'  => 'Documento guardado',
+                                         'data'     => $comp,
+                                         'movement' => $movement]); 
             }
 
         } catch(Exception $e) {
@@ -236,6 +248,12 @@ class ComprobantesController extends Controller
             return response()->json(['success' => false,
                                      'message' => 'Error: '.$e]); 
         }
+
+    }
+
+    public function discountStock($id, $ammount, $ptovta){
+
+        dd($id, $ammount, $ptovta);
 
     }
 

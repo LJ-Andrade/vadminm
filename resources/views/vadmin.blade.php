@@ -17,8 +17,10 @@
 @section('content')
 	@component('vadmin.components.mainloader')@endcomponent
 	 <div class="container dashboard">
+	 
 		<div class="row">
 			<span>Tu nivel de permisos es <b>{{ typeTrd(Auth::user()->type) }}</b></span>
+			<br>
 			<hr class="softhr">
 			{{-- Accesos Directos --}}
 			<a href="{{ route('clientes.create') }}"><button type="button" class="mb btn btn-labeled btnGreen">
@@ -35,6 +37,43 @@
 			</a>
 			<hr class="softhr">	
 		</div>
+		<div class="row">
+			{{-- System Dolar Value--}}
+			<div class="col-md-2">
+				<!-- COMIENZO codigo del DOLAR-EURO -->
+				<div id="CurrencyDashboard">
+					<table width=120 border=0 cellspacing=0 cellpadding=0><tr><td align=center>
+						<script language="JavaScript" type="text/JavaScript" src="{{ asset('plugins/currencyapi/currencyapi.js') }}"></script>
+						<script language="JavaScript" type="text/JavaScript">show(s);</script>
+						<noscript></noscript>
+						</td></tr>
+					</table>
+				</div>		
+				<!-- FIN codigo del DOLAR-EURO -->
+				{{-- <div class="inner blue-back">
+					<span><b>Valor del Dolar</b></span> <br>
+					<span>Dolar Libre: {{ $dolarLibre }}</span> <br>
+					<span>Dolar Blue: {{ $dolarBlue }}</span>
+				</div> --}}
+			</div>
+			<div class="col-md-3 card-filled">
+				<div class="inner blue-back">
+					<span><b>Valor del Dolar en el sistema</b></span> <br>
+					<div class="bigtext">u$s <span id="ValorDolarSistema">{{ $dolarSistema->valor }}</span></div> <br>
+					<button class="btnSmSquare buttonOk right-bottom" data-toggle="modal" data-target="#UpdateDolar">Actualizar</button>
+				</div>
+			</div>
+			<div class="col-md-3 card-filled">
+				<div class="inner blue-back">
+					<span><b>Valor del Euro en el sistema</b></span> <br>
+					<div class="bigtext">u$s <span id="ValorEuroSistema">{{ $euroSistema->valor }}</span></div> <br>
+					<button class="btnSmSquare buttonOk right-bottom" data-toggle="modal" data-target="#UpdateEuro">Actualizar</button>
+				</div>
+			</div>
+		</div>
+		<hr class="softhr">
+
+
 		<div class="row">
 			
 			{{-- Stock Update Component --}}
@@ -78,30 +117,7 @@
 			
 		</div>
 		<br>
-		<div class="row">
-			{{-- System Dolar Value--}}
-			<div class="col-md-3 card-filled ">
-				<div class="inner blue-back">
-					<span><b>Valor del Dolar</b></span> <br>
-					<span>Dolar Libre: {{ $dolarLibre }}</span> <br>
-					<span>Dolar Blue: {{ $dolarBlue }}</span>
-				</div>
-			</div>
-			<div class="col-md-3 card-filled">
-				<div class="inner blue-back">
-					<span><b>Valor del Dolar en el sistema</b></span> <br>
-					<div class="bigtext">u$s <span id="ValorDolarSistema">{{ $dolarSistema->valor }}</span></div> <br>
-					<button class="btnSmSquare buttonOk right-bottom" data-toggle="modal" data-target="#UpdateDolar">Actualizar</button>
-				</div>
-			</div>
-			<div class="col-md-3 card-filled">
-				<div class="inner blue-back">
-					<span><b>Valor del Euro en el sistema</b></span> <br>
-					<div class="bigtext">u$s <span id="ValorEuroSistema">{{ $euroSistema->valor }}</span></div> <br>
-					<button class="btnSmSquare buttonOk right-bottom" data-toggle="modal" data-target="#UpdateEuro">Actualizar</button>
-				</div>
-			</div>
-		</div>
+		
 	 </div>  
 
 
@@ -168,15 +184,6 @@
 @section('custom_js')
 
 	<script type="text/javascript">
-
-		// Search and Redirect to Client Account
-		$('#GoToAccount').click(function(e){
-			e.preventDefault();
-			var id = $('#ClienteIdOutput').val();
-
-			var route  = "{{ url('vadmin/clientes/cuenta') }}/"+id+"";
-			window.location.href = route;
-		});
 
 
 		// Update Dolar

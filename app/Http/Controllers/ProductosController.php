@@ -178,7 +178,7 @@ class ProductosController extends Controller
                 break;
             // Euro
             case 3:
-                $costo = $producto->costopesos * $eurosist->valor;
+                $costo = $producto->costoeuro * $eurosist->valor;
                 break;
             default:
                 $costo = $producto->costopesos;
@@ -229,7 +229,7 @@ class ProductosController extends Controller
                 break;
             // Euro
             case 3:
-                $costopesos   = $producto->costopesos * $eurosist->valor;
+                $costopesos   = $producto->costoeuro * $eurosist->valor;
                 $costo        = $producto->costoeuro;
                 $monedacompra = 'Euro';
                 break;
@@ -240,7 +240,11 @@ class ProductosController extends Controller
                 $preciogremio     = calcFinalPrice($costopesos, $producto->pjegremio);
                 $precioparticular = calcFinalPrice($costopesos, $producto->pjeparticular);
                 $precioespecial   = calcFinalPrice($costopesos, $producto->pjeespecial);
-                $preciooferta     = calcFinalPrice($costopesos, $producto->pjeoferta);
+                if($producto->pjeoferta != 0){
+                    $preciooferta = calcFinalPrice($costopesos, $producto->pjeoferta);
+                } else {
+                    $preciooferta = 0;
+                }
 
         
         return array('monedacompra' => $monedacompra,
@@ -404,7 +408,6 @@ class ProductosController extends Controller
         $eurosist     = Moneda::where('id', '=', '3')->first();
         $producto     = Producto::findOrFail($id);
         $monedas      = Moneda::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
-        $fullid       = $producto->familia_id.'-'.$producto->subfamilia_id.'-'.$id;
         $monedacompra = Moneda::where('id', '=', $producto->monedacompra)->first();
         switch ($producto->monedacompra) {
             case 1:
@@ -435,7 +438,6 @@ class ProductosController extends Controller
                   
         return view('vadmin.productos.show')
             ->with('producto', $producto)
-            ->with('fullid', $fullid)
             ->with('monedas', $monedas)
             ->with('monedacompra', $monedacompra)
             ->with('valorcompra', $valorcompra)
@@ -478,6 +480,8 @@ class ProductosController extends Controller
         $subfamilias  = Subfamilia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $monedas      = Moneda::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $currency     = '';
+        $origin       = null;
+
        
         if(is_null($producto_id)){
             $producto_id = 0;
@@ -490,6 +494,7 @@ class ProductosController extends Controller
             ->with('familias', $familias)
             ->with('subfamilias', $subfamilias)
             ->with('monedas', $monedas)
+            ->with('origin', $origin)
             ->with('currency', $currency);
 
     }
@@ -506,6 +511,8 @@ class ProductosController extends Controller
             'codproveedor.unique' => 'Ya existe un producto con el código de proveedor ingresado',
         ]);
         
+        // dd($request->all());
+            
         $producto  = new Producto($request->all());
         // Store cost by money type
         
@@ -531,9 +538,9 @@ class ProductosController extends Controller
         
         if (is_null($request->oferta)){
             $producto->oferta = 'off';
-        } else {
-        
-        };
+            $producto->pjeoferta  = 0;
+            $producto->cantoferta = 0;
+        }
         
         $producto->save();
 
@@ -558,6 +565,7 @@ class ProductosController extends Controller
         $monedas      = Moneda::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $currency     = Moneda::where('id','=', $producto->monedacompra)->first();
         $currency     = $currency->id;
+        $origin       = $producto->origen;
 
         switch ($producto->monedacompra) {
             case 1:
@@ -583,6 +591,7 @@ class ProductosController extends Controller
             ->with('familias', $familias)
             ->with('subfamilias', $subfamilias)
             ->with('subfamiliaId', $subfamiliaId)
+            ->with('origin', $origin)
             ->with('monedacompra', $monedacompra)
             ->with('monedas', $monedas)
             ->with('currency', $currency);
@@ -598,7 +607,7 @@ class ProductosController extends Controller
         
         $this->validate($request,[
             'codproveedor'        => Rule::unique('productos')->ignore($producto->id, 'id')
-        ],[
+            ],[
             'codproveedor.unique' => 'Ya existe un producto con ese código de proveedor',
             ]);
             
@@ -623,17 +632,26 @@ class ProductosController extends Controller
                 $producto->costopesos    = formatNum($request->costo, 2);
                 break;
             }
-            
+        
+        if($producto->oferta == 'off')
+        {
+            $producto->pjeoferta  = 0;
+            $producto->cantoferta = 0;
+        }
+
         if (is_null($request->oferta)){
-            $producto->oferta = 'off';
+            $producto->oferta     = 'off';
+            $producto->pjeoferta  = 0;
+            $producto->cantoferta = 0;
         } else {
         
         };
         
+        
             
-        $producto->update($requestData);
+        $producto->save();
 
-        return redirect('vadmin/productos')->with('message', 'Producto <b>"'.$producto->nombre.'"</b> actualizado');
+        return redirect('vadmin/productos')->with('message', 'Producto "'.$producto->nombre.'" actualizado');
     }
 
     //////////////////////////////////////////////////

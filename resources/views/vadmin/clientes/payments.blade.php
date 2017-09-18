@@ -22,12 +22,12 @@
             {!! Form::label('comprobante_id', 'Comprobante N°:') !!}
             {!! Form::select('comprobante_id', $comprobantes, null, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Corresponde a comprobante']) !!}    
         </div>
-        <button id="AddPaymentEBtn" type="submit" class="button btnSmall btnGreen">Ingresar E</button>
+        <button id="AddPaymentEBtn" type="submit" class="button btnSmall btnGreen">Ingresar</button>
         {{-- This handles redirect after store payment --}}
         {!! Form::text('redirect', 'vadmin/clientes/cuenta/'.$client->id, ['class' => 'form-control Hidden', 'id' => 'PaymentModo']) !!}
     {!! Form::close() !!}
 
-    {!! Form::open(['url' => 'vadmin/pagos', 'id' => 'AddPaymentBForm', 'class' => 'PaymentForms', 'data-parsley-validate' => '']) !!}
+    {!! Form::open(['route' => 'movimientos.store', 'method' => 'POST', 'id' => 'AddPaymentBForm', 'class' => 'PaymentForms', 'data-parsley-validate' => '']) !!}
         {{-- Banco --}}
         <div class="item-title">
             <b>BANCO</b>
@@ -35,52 +35,69 @@
         <div class="form-group">
             {{-- {!! Form::label('banco', 'Nombre del Banco:') !!}
             {!! Form::text('banco', null, ['class' => 'form-control']) !!} --}}
-            {!! Form::label('bco_movimiento', 'Operación:') !!}
-            {!! Form::select('bco_movimiento', ['Depósito' => 'Depósito', 'Transferencia' => 'Transferencia'], null,  ['class' => 'form-control Select-Chosen']) !!}
+            {!! Form::number('cliente_id', $client->id, ['class' => 'form-control Hidden', 'id' => 'ClientId' ]) !!}
+            {!! Form::text('modo', 'B', ['class' => 'form-control Hidden']) !!}
+            {!! Form::text('op', 'I', ['class' => 'form-control Hidden']) !!}
+            {!! Form::label('importe', 'Importe:') !!}
+            {!! Form::text('importe', null, ['class' => 'form-control', 'required' => '']) !!}
+            {!! Form::label('det1', 'Operación:') !!}
+            {!! Form::select('det1', ['Depósito' => 'Depósito', 'Transferencia' => 'Transferencia'], null,  ['class' => 'form-control Select-Chosen']) !!}
             {!! Form::label('comprobante_id', 'Comprobante N°:') !!}
             {!! Form::select('comprobante_id', $comprobantes, null, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Corresponde a comprobante']) !!}    
         </div>
-        <button id="AddPaymentBBtn" class="button btnSmall btnGreen">Ingresar B</button>
+        <button id="AddPaymentBBtn" type="submit"  class="button btnSmall btnGreen">Ingresar</button>
         {{-- This handles redirect after store payment --}}
         {!! Form::text('redirect', 'vadmin/clientes/cuenta/'.$client->id, ['class' => 'form-control Hidden', 'id' => 'PaymentModo']) !!}
     {!! Form::close() !!}
-    {!! Form::open(['url' => 'vadmin/pagos', 'id' => 'AddPaymentCForm', 'class' => 'PaymentForms', 'data-parsley-validate' => '']) !!}
+    {!! Form::open(['route' => 'movimientos.store', 'method' => 'POST', 'id' => 'AddPaymentCForm', 'class' => 'PaymentForms', 'data-parsley-validate' => '']) !!}
         {{-- Cheque --}}
         <div class="item-title">
             <b>CHEQUE</b>
         </div>
         <div class="form-group">
-            {!! Form::label('ch_banco', 'Nombre del Banco:') !!}
-            {!! Form::text('ch_banco', null, ['class' => 'form-control']) !!}
-            {!! Form::label('ch_banco_nro', 'Número:') !!}
-            {!! Form::text('ch_banco_nro', null, ['class' => 'form-control']) !!}
-            {!! Form::label('sucursal', 'Sucursal:') !!}
-            {!! Form::text('sucursal', null, ['class' => 'form-control']) !!}
-            {!! Form::label('ch_fechacobro', 'Fecha de Cobro:') !!}
-            {!! Form::text('ch_fechacobro', null, ['class' => 'form-control']) !!}
-            {!! Form::label('ch_cuit', 'Cuit:') !!}
-            {!! Form::text('ch_cuit', null, ['class' => 'form-control', 'maxlength' => '11', 'minlength' => '11', 'data-mask'=>'00-00000000-0']) !!}
+            {!! Form::number('cliente_id', $client->id, ['class' => 'form-control Hidden', 'id' => 'ClientId' ]) !!}
+            {!! Form::text('modo', 'C', ['class' => 'form-control Hidden']) !!}
+            {!! Form::text('op', 'I', ['class' => 'form-control Hidden']) !!}
+            {!! Form::label('importe', 'Importe:') !!}
+            {!! Form::text('importe', null, ['class' => 'form-control', 'required' => '']) !!}
+            {!! Form::label('det1', 'Nombre del Banco:') !!}
+            {!! Form::text('det1', null, ['class' => 'form-control']) !!}
+            {!! Form::label('det2', 'Número:') !!}
+            {!! Form::text('det2', null, ['class' => 'form-control']) !!}
+            {!! Form::label('det3', 'Sucursal:') !!}
+            {!! Form::text('det3', null, ['class' => 'form-control']) !!}
+            {!! Form::label('det4', 'Fecha de Cobro:') !!}
+            {!! Form::text('det4', null, ['class' => 'form-control']) !!}
+            {!! Form::label('det5', 'Cuit:') !!}
+            {!! Form::text('det5', null, ['class' => 'form-control', 'maxlength' => '11', 'minlength' => '11', 'data-mask'=>'00-00000000-0']) !!}
             {!! Form::label('comprobante_id', 'Comprobante N°:') !!}
             {!! Form::select('comprobante_id', $comprobantes, null, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Corresponde a comprobante']) !!}    
         </div>
-        <button id="AddPaymentCBtn" class="button btnSmall btnGreen">Ingresar C</button>
+        <button id="AddPaymentCBtn" type="submit" class="button btnSmall btnGreen">Ingresar</button>
+        {!! Form::text('redirect', 'vadmin/clientes/cuenta/'.$client->id, ['class' => 'form-control Hidden', 'id' => 'PaymentModo']) !!}
     {!! Form::close() !!}
-    {!! Form::open(['url' => 'vadmin/pagos', 'id' => 'AddPaymentRForm', 'class' => 'PaymentForms', 'data-parsley-validate' => '']) !!}
+    {!! Form::open(['route' => 'movimientos.store', 'method' => 'POST', 'id' => 'AddPaymentRForm', 'class' => 'PaymentForms', 'data-parsley-validate' => '']) !!}
         {{-- Retencion --}}
         <div class="item-title">
             <b>RETENCIÓN</b>
         </div>
         <div class="form-group">
-            {!! Form::label('ret_tipo', 'Tipo:') !!}
-            {!! Form::select('ret_tipo', ['Ganancias' => 'Ganancias', 'Iva' => 'Iva' , 'Ingresos Brutos' => 'Ingresos Brutos', 'SUSS' => 'SUSS', 'Retenciones Varias' => 'Retenciones Varias'], null, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione un tipo']) !!}
-            {!! Form::label('ret_nro', 'Número:') !!}
-            {!! Form::number('ret_nro', null, ['class' => 'form-control']) !!}
-            {!! Form::label('ret_jurisdicción', 'Jurisdicción:') !!}
-            {!! Form::text('ret_jurisdicción', null, ['class' => 'form-control']) !!}
+            {!! Form::number('cliente_id', $client->id, ['class' => 'form-control Hidden', 'id' => 'ClientId' ]) !!}
+            {!! Form::text('modo', 'R', ['class' => 'form-control Hidden']) !!}
+            {!! Form::text('op', 'I', ['class' => 'form-control Hidden']) !!}
+            {!! Form::label('importe', 'Importe:') !!}
+            {!! Form::text('importe', null, ['class' => 'form-control', 'required' => '']) !!}
+            {!! Form::label('det1', 'Tipo:') !!}
+            {!! Form::select('det1', ['Ganancias' => 'Ganancias', 'Iva' => 'Iva' , 'Ingresos Brutos' => 'Ingresos Brutos', 'SUSS' => 'SUSS', 'Retenciones Varias' => 'Retenciones Varias'], null, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione un tipo']) !!}
+            {!! Form::label('det2', 'Número:') !!}
+            {!! Form::number('det2', null, ['class' => 'form-control']) !!}
+            {!! Form::label('det3', 'Jurisdicción:') !!}
+            {!! Form::text('det3', null, ['class' => 'form-control']) !!}
             {!! Form::label('comprobante_id', 'Comprobante N°:') !!}
             {!! Form::select('comprobante_id', $comprobantes, null, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Corresponde a comprobante']) !!}    
         </div>
-        <button id="AddPaymentRBtn" class="button btnSmall btnGreen">Ingresar R</button>
+        <button id="AddPaymentRBtn" type="submit" class="button btnSmall btnGreen">Ingresar</button>
+        {!! Form::text('redirect', 'vadmin/clientes/cuenta/'.$client->id, ['class' => 'form-control Hidden', 'id' => 'PaymentModo']) !!}
     {!! Form::close() !!}
 </div>
 

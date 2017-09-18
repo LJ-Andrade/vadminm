@@ -1,5 +1,49 @@
 <?php
     
+//////////////////////////////////////////////
+//         Numbers, Calcs. & Converts       //
+//////////////////////////////////////////////
+
+function formatNum($number, $digits)
+{
+    $root       = 10;
+    $multiplier = pow($root, $digits);
+    $result     = ((int)($number * $multiplier)) / $multiplier;
+    return number_format($result, $digits, ',', '.');
+}
+    
+function convertAndRoundDecimal($number, $precision)
+{
+    $number = floatval($number);
+    $p      = pow(10, $precision);
+    return ceil(round($number * $p, 1)) / $p;
+    
+   
+}
+
+function round_sup($nb, $precision)
+{
+}
+    
+function calcFinalPrice($cost, $pje)
+{
+    $result = $cost * $pje / 100;
+    $result = $result + $cost;
+    return $result;
+}
+
+function calcFinalPriceConvert($cost, $percent, $currencyActualValue)
+{
+    $percent = $cost * $percent / 100;
+    $result  = $cost + $percent;
+    $result  = $result * $currencyActualValue;
+    return $result;
+}
+    
+//////////////////////////////////////////////
+//               Translations               //
+//////////////////////////////////////////////
+
 function typeTrd($type)
 {
     switch ($type) {
@@ -120,58 +164,99 @@ function compType($type){
     return $comprobante;
 }
 
+
+function getMonthName($month)
+{
+    switch ($month) {
+        case '01':
+        return 'Enero';
+            break;
+        case '02':
+        return 'Febrero';
+            break;
+        case '03':
+        return 'Marzo';
+            break;
+        case '04':
+        return 'Abril';
+            break;
+        case '05':
+        return 'Mayo';
+            break;
+        case '06':
+        return 'Junio';
+            break;
+        case '07':
+        return 'Julio';
+            break;
+        case '08':
+        return 'Agosto';
+            break;
+        case '09':
+        return 'Septiembre';
+            break;
+        case '10':
+        return 'Octubre';
+            break;
+        case '11':
+        return 'Noviembre';
+            break;
+        case '12':
+        return 'Diciembre';
+            break;
+        default:
+        return 'Sin Mes';
+        break;
+    }
+
+}
+
+//////////////////////////////////////////////
+//              Date Formats                //
+//////////////////////////////////////////////
+
+function transDateT($data){
+    if($data != null){
+        $a        = explode(' ', $data);
+        $b        = explode('-', $a[0]);
+        $date     = $b[2]."/".$b[1]."/".$b[0];
+        return $date;
+    } else {
+        return '';
+    }
+}
+
+function transDateTS($data){
+    if($data != null){
+        $a        = explode(' ', $data);
+        $b        = explode('-', $a[0]);
+        $pretime  = explode(':', $a[1]);
+        $time     = $pretime[0].':'.$pretime[1];
+        $date     = $b[2]."/".$b[1]."/".$b[0];
+        $datetime = $date.' '.$time;
+        return $datetime;
+    } else {
+        return '';
+    }
+}
+
+function transDateTO($data){
+    if($data != null){
+        $a        = explode('-', $data);
+        $date     = $a[2].'/'.$a[1].'/'.$a[0];
+        return $date;
+    } else {
+        return '';
+    }
+}
+
+//////////////////////////////////////////////
+//             Misc. Functions              //
+//////////////////////////////////////////////
+
 function getUrl(){
     $url = $_SERVER['REQUEST_URI'];
     return $url;
 }
 
 
-
-function calcFinalPrice($cost, $pje){
-    $result = $cost * $pje / 100;
-    $result = $result + $cost;
-    return $result;
-}
-
-function calcFinalPriceConvert($cost, $porcentage, $currencyActualValue){
-    // $cost                = floatval($cost);
-    // $porcentage          = floatval($porcentage);
-    // $currencyActualValue = floatval($currencyActualValue);
-
-    $porcentage = $cost * $porcentage / 100;
-    $result     = $cost + $porcentage;
-    $result     = $result * $currencyActualValue;
-    return $result;
-}
-
-
-function transDateT($data){
-    $a        = explode(' ', $data);
-    $b        = explode('-', $a[0]);
-    $date     = $b[2]."/".$b[1]."/".$b[0];
-    return $date;
-}
-
-function transDateTS($data){
-    $a        = explode(' ', $data);
-    $b        = explode('-', $a[0]);
-    $pretime  = explode(':', $a[1]);
-    $time     = $pretime[0].':'.$pretime[1];
-    $date     = $b[2]."/".$b[1]."/".$b[0];
-    $datetime = $date.' '.$time;
-    return $datetime;
-}
-
-function transDateTO($data){
-    $a        = explode('-', $data);
-    $date     = $a[2].'/'.$a[1].'/'.$a[0];
-    return $date;
-}
-
-function formatNum($number, $digitos)
-{
-    $raiz = 10;
-    $multiplicador = pow ($raiz,$digitos);
-    $resultado = ((int)($number * $multiplicador)) / $multiplicador;
-    return number_format($resultado, $digitos, ',', '.');
-}

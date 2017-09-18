@@ -30,7 +30,7 @@
             <div class="title">
                 <span class="medium-text">{{ $producto->familia->nombre }} > {{ $producto->subfamilia->nombre }}</span> <br>
 			    <span class="big-text">{{ $producto->nombre }}</span><br>
-                <span class="small-text">Cód. {{ $fullid }}</span>
+                <span class="small-text">Cód. {{ $producto->id }}</span>
             </div>
             <div class="content">
                 <div class="row">
@@ -54,17 +54,25 @@
                     </div>
                     <div class="col-md-6">
                         <div class="subtitle">Stock </div>
-                        <b>Stock actual:</b> 
+                        <b>Stock mínimo:</b> {{ $producto->stockmin }} |
+                        <b>Stock máximo:</b> {{ $producto->stockmax }} 
+                        <br>
+                        <b>Stock Depósito:</b> 
                         @if ( $producto->stockactual < $producto->stockmin )
                         <span class="badge buttonCancel"> {{ $producto->stockactual }} </span>
                         @else {{ $producto->stockactual }} @endif <br>
-                        <b>Stock mínimo:</b> {{ $producto->stockmin }} |
-                        <b>Stock máximo:</b> {{ $producto->stockmax }} <br>
-
+                    
+                        <b>Stock Local:</b> 
+                        @if ( $producto->stocklocal < $producto->stockmin )
+                        <span class="badge buttonCancel"> {{ $producto->stocklocal }} </span>
+                        @else {{ $producto->stocklocal }} @endif <br>
+                        
+                        <hr class="softhr">
                         {{-- Update Stock --}}
+                        <b>Modificar Stock</b>
                         <div class="form-group">
                             <div class="col-md-3">
-                                {!! Form::label('sumstock', 'Cantidad') !!}
+                                {!! Form::label('sumstock', 'Depósito') !!}
                                 {!! Form::number('sumstock', null, ['id' => 'SumStock', 'class' => 'form-control', 'data-productid' => $producto->id]) !!}
                             </div>
                             <br>

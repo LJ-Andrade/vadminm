@@ -63,9 +63,8 @@ class PedidositemsController extends Controller
 
     public function ajax_store_item(Request $request)
     {
-        $item     = new Pedidositem($request->all());
-        $item->valor = formatNum($item->valor, 2);
-        // dd($item->valor);
+        $item        = new Pedidositem($request->all());
+        $item->valor = convertAndRoundDecimal($item->valor, 2);
         $item->save();
         $newitem  = Pedidositem::findOrFail($item->id);
         $producto = $newitem->producto->nombre;

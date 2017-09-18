@@ -4,16 +4,18 @@
         <div class="export-table">
             <div class="exp-table-header">
                 <div class="right">
-                    {{ transDateT($pedido->created_at) }}<br> 
+                    {{ transDateT($reparacion->created_at) }}<br> 
                 </div>
                 <div class="left">
-                    <span class="title">PEDIDO </span>(N° {{ $pedido->id }})</span> <br>
-                    <b>Cliente:</b> {{ $pedido->cliente->razonsocial}} <br>
-                    @if($pedido->cliente->direntregas->count() > 0)
-                    <b>Direcciones de entrega:</b><br> @foreach($pedido->cliente->direntregas as $direntrega) {{ $direntrega->name }} | @endforeach  <br>
+                    <span class="title">REPARACIÓN </span>(N° {{ $reparacion->id }})</span> <br>
+                    <b>Cliente:</b> {{ $reparacion->cliente->razonsocial }} <br>
+                    
+                    @if($reparacion->cliente->direntregas->count() > 0)
+                    <b>Direcciones de entrega:</b><br> @foreach($reparacion->cliente->direntregas as $direntrega) {{ $direntrega->name }} | @endforeach  <br>
                     @endif
-                    @if($pedido->cliente->flete)
-                    <b>Flete:</b> {{ $pedido->cliente->flete->name }} ( {{ $pedido->cliente->flete->direccion }} )
+                    @if($reparacion->cliente->flete) <b>Flete:</b> 
+                    {{$reparacion->cliente->flete->name }} ( {{ $reparacion->cliente->flete->direccion }} )
+                    }} 
                     @endif
                 </div>
                 <div class="clearfix"></div>
@@ -30,7 +32,7 @@
                 </thead>
             
                 <tbody>
-                    @foreach($pedido->pedidositems as $item)
+                    @foreach($reparacion->reparacionesitems as $item)
                     <tr class="item-row">
                         <td>{{ $item->producto->id }}</td>
                         <td>{{ $item->producto->nombre }}</td>
