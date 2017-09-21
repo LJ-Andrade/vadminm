@@ -29,7 +29,7 @@ function calcFinalPrice($cost, $pje)
 {
     $result = floatval($cost) * floatval($pje) / 100;
     $result = floatval($result) + floatval($cost);
-    return $result;
+    return formatNum($result, 2);
 }
 
 function calcFinalPriceConvert($cost, $percent, $currencyActualValue)
@@ -38,7 +38,7 @@ function calcFinalPriceConvert($cost, $percent, $currencyActualValue)
     $percent = floatval($cost) * floatval($percent) / 100;
     $result  = floatval($cost) + floatval($percent);
     $result  = $result * floatval($currencyActualValue);
-    return $result;
+    return formatNum($result, 2);
 }
     
 //////////////////////////////////////////////

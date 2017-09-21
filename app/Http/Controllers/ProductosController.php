@@ -435,6 +435,8 @@ class ProductosController extends Controller
                 $valorcompra = formatNum($producto->costopesos, 2);
                 break;
         }
+        
+        // dd($finalgremio);
                   
         return view('vadmin.productos.show')
             ->with('producto', $producto)
