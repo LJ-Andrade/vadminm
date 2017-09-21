@@ -84,7 +84,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="subtitle">Proveedor</div>
-                        <b>Proveedor:</b> @if(is_null($producto->proveedor->nombre)) @else {{ $producto->proveedor->nombre }} @endif <br>
+                        <b>Proveedor:</b> @if(is_null($producto->proveedor)) @else {{ $producto->proveedor->nombre }} @endif <br>
                         <b>Código de proveedor:</b> @if(is_null($producto->codproveedor)) @else {{ $producto->codproveedor }} @endif  <br>
                         <b>Condición de iva:</b> @if(is_null($producto->condiva)) @else {{ $producto->condiva }} %@endif <br>
                     </div>

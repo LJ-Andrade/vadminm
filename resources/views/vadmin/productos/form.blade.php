@@ -53,14 +53,14 @@
 	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div class="form-group">
 			{!! Form::label('proveedor_id', 'Proveedor') !!}
-			{!! Form::select('proveedor_id', $proveedor, null, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion', 'required' => '']) !!}
+			{!! Form::select('proveedor_id', $proveedor, null, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
 		</div>
 	</div>
 	{{-- /// --}}
 	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div class="form-group">
 			{!! Form::label('codproveedor', 'Código de Proveedor') !!}
-			{!! Form::text('codproveedor', null, ['class' => 'form-control', 'placeholder' => '', 'required' => '']) !!}
+			{!! Form::text('codproveedor', null, ['class' => 'form-control', 'placeholder' => '']) !!}
 		</div>
 	</div>
 	{{-- /// --}}

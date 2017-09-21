@@ -33,7 +33,7 @@ class Proveedor extends Model
     }
 
     public function localidad(){
-    	return $this->belongsTo('App\Localidade');
+    	return $this->belongsTo('App\Localidad');
     }
 
     public function productos()

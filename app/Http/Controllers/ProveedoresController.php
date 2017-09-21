@@ -121,24 +121,43 @@ class ProveedoresController extends Controller
     //                  DESTROY                     //
     //////////////////////////////////////////////////
 
-    // ---------- Delete -------------- //
-    public function destroy($id)
-    {
-        $item = Proveedor::find($id);
-        $item->delete();
-        echo 1;
-    }
+       //////////////////////////////////////////////////
+    //                  DESTROY                     //
+    //////////////////////////////////////////////////
 
+    public function destroy(Request $request, $id)
+    {   
 
-    // ---------- Ajax Bach Delete -------------- //
-    public function ajax_batch_delete(Request $request, $id)
-    {
-        foreach ($request->id as $id) {
-        
-            $item  = Proveedor::find($id);
-            Proveedor::destroy($id);
+        if(is_array($request->id)) {
+            try {
+                foreach ($request->id as $id) {
+                    $record = Proveedor::find($id);
+                    $record->delete();
+                }
+                return response()->json([
+                    'success'   => true,
+                ]); 
+            }  catch (\Illuminate\Database\QueryException $e) {
+                return response()->json([
+                    'success'   => false,
+                    'error'    => 'Error: '.$e
+                ]);    
+            }
+        } else {
+            try {
+                $record = Proveedor::find($id);
+                $record->delete();
+                    return response()->json([
+                        'success'   => true,
+                    ]);  
+                    
+                } catch (\Illuminate\Database\QueryException $e) {
+                    return response()->json([
+                        'success'   => false,
+                        'error'    => 'Error: '.$e
+                    ]);    
+                }
         }
-        echo 1;
     }
 
 

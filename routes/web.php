@@ -118,6 +118,7 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::resource('categorias', 'CategoriasController');
 	Route::resource('familias', 'FamiliasController');
 	Route::resource('subfamilias', 'SubfamiliasController');
+	Route::resource('proveedores', 'ProveedoresController');
 
 	// ---------------- Condiciones de Venta --------------------------- //
 	Route::resource('condicventas', 'Condicventas\CondicventasController');
@@ -140,10 +141,6 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	});
 	Route::get('vendedores', 'VadminController@vendedores');
 
-	// ---------------- Listado de Proveedores -------------------------- //
-	Route::resource('proveedores', 'ProveedoresController');
-	Route::post('ajax_delete_proveedor/{id}', 'ProveedoresController@destroy');
-	Route::post('ajax_batch_delete_proveedores/{id}', 'ProveedoresController@ajax_batch_delete');
 
 	// ---------------- Listado de Monedas ------------------------------ //
 	Route::resource('monedas', 'MonedasController');
@@ -239,7 +236,7 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::post('delete_subfamilias/{id}', 'SubfamiliasController@destroy');
 	Route::post('delete_categorias/{id}', 'CategoriasController@destroy');
 	Route::post('delete_movement/{id}', 'MovimientosController@destroy');
-	
+	Route::post('delete_proveedores/{id}', 'ProveedoresController@destroy');
 
 	// Developer Map
 	Route::resource('desarrollo', 'DesarrolloController');

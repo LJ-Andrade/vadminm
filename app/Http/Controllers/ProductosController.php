@@ -506,17 +506,20 @@ class ProductosController extends Controller
         
         $this->validate($request,[
             'nombre'              => 'required|unique:productos,nombre',
-            'codproveedor'        => 'required|unique:productos,codproveedor',
         ],[
             'nombre.required'     => 'Debe ingresar un nombre',
             'nombre.unique'       => 'El producto ya existe',
-            'codproveedor.unique' => 'Ya existe un producto con el código de proveedor ingresado',
+            
         ]);
         
         // dd($request->all());
             
         $producto  = new Producto($request->all());
         // Store cost by money type
+        
+        if($request->codproveedor == null){
+            $producto->codproveedor = ' ';
+        }
         
         switch ($request->monedacompra) {
             case 1:
@@ -607,7 +610,10 @@ class ProductosController extends Controller
         $requestData = $request->all();
         $producto    = Producto::findOrFail($id);
 
-        // dd($request->all());
+        // dd($request->codproveedor);
+        if($request->codproveedor == null){
+            $producto->codproveedor = ' ';
+        }
         
         $this->validate($request,[
             'codproveedor'        => Rule::unique('productos')->ignore($producto->id, 'id')
@@ -653,8 +659,6 @@ class ProductosController extends Controller
         
         };
         
-        
-            
         $producto->save();
 
         return redirect('vadmin/productos')->with('message', 'Producto "'.$producto->nombre.'" actualizado');
