@@ -604,6 +604,8 @@ class ProductosController extends Controller
     {
         $requestData = $request->all();
         $producto    = Producto::findOrFail($id);
+
+        // dd($request->all());
         
         $this->validate($request,[
             'codproveedor'        => Rule::unique('productos')->ignore($producto->id, 'id')
@@ -614,24 +616,26 @@ class ProductosController extends Controller
             // Store cost by money type
             switch ($request->monedacompra) {
                 case 1:
-                $producto->costopesos = formatNum($request->costo, 2);
+                $producto->costopesos = formatNum($request->costopesos, 2);
                 $producto->costodolar = 0;
                 $producto->costoeuro  = 0;
                 break;
                 case 2:
-                $producto->costodolar = formatNum($request->costo, 2);
+                $producto->costodolar = formatNum($request->costodolar,2);
                 $producto->costopesos = 0;
                 $producto->costoeuro  = 0;
+                
                 break;
                 case 3:
-                $producto->costoeuro  = formatNum($request->costo, 2);
+                $producto->costoeuro  = formatNum($request->costoeuro, 2);
                 $producto->costopesos = 0;
                 $producto->costodolar = 0;
                 break;
                 default:
-                $producto->costopesos    = formatNum($request->costo, 2);
+                $producto->costopesos    = formatNum($request->costopesos, 2);
                 break;
             }
+        
         
         if($producto->oferta == 'off')
         {

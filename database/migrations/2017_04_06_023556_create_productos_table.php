@@ -16,7 +16,7 @@ class CreateProductosTable extends Migration
             $table->increments('id');
             $table->string('nombre');
             $table->enum('estado', ['activo','pausado'])->default('activo');
-            $table->string('codproveedor');
+            $table->string('codproveedor')->nullable();
             $table->float('condiva');
             $table->integer('stockactual');
             $table->integer('stockdeposito');

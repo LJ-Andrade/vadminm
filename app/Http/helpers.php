@@ -27,16 +27,17 @@ function round_sup($nb, $precision)
     
 function calcFinalPrice($cost, $pje)
 {
-    $result = $cost * $pje / 100;
-    $result = $result + $cost;
+    $result = floatval($cost) * floatval($pje) / 100;
+    $result = floatval($result) + floatval($cost);
     return $result;
 }
 
 function calcFinalPriceConvert($cost, $percent, $currencyActualValue)
 {
-    $percent = $cost * $percent / 100;
-    $result  = $cost + $percent;
-    $result  = $result * $currencyActualValue;
+
+    $percent = floatval($cost) * floatval($percent) / 100;
+    $result  = floatval($cost) + floatval($percent);
+    $result  = $result * floatval($currencyActualValue);
     return $result;
 }
     
