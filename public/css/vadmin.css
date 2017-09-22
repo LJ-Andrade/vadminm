@@ -15,7 +15,7 @@ body {
   height: 100%;
   overflow-x: hidden;
   font-size: 16.5px;
-  background-color: #fcfcfc;
+  background-color: #F3F3F3;
   color: #383838;
   font-family: "Lato", sans-serif;
   line-height: 25px;
@@ -212,7 +212,7 @@ hr {
 }
 
 .big-card .title {
-  background-color: #59596C;
+  background-color: #6c6c8a;
   color: #fff;
   padding: 10px;
   position: relative;
@@ -569,11 +569,10 @@ hr {
 
 .big-form {
   padding: 10px;
-  border: 1px solid #ccc;
-  border-top: 10px solid #ababc5;
+  border-top: 1px solid #ababc5;
   background-color: #fff;
   margin-bottom: 20px;
-  box-shadow: 5px 2px 8px -5px rgba(0, 0, 0, 0.55);
+  box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.05);
 }
 
 .big-form .inner-row label {
@@ -648,10 +647,6 @@ hr {
   padding: 10px;
   background-color: #fbfbfb;
   margin-bottom: 10px;
-}
-
-.big-form input {
-  padding-left: 10px;
 }
 
 .big-form input.ro {
@@ -732,19 +727,18 @@ hr {
 
 .narrow-form .inner {
   padding: 10px;
-  border: 1px solid #ccc;
-  border-top: 10px solid #ababc5;
+  border-top: 1px solid #ababc5;
   background-color: #fff;
   margin-bottom: 20px;
-  box-shadow: 5px 2px 8px -5px rgba(0, 0, 0, 0.55);
+  box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.05);
   width: 450px;
   max-width: 100%;
 }
 
 .narrow-form .inner .title {
-  padding: 7px 6px 3px;
+  padding: 5px 6px;
   padding-left: 6px;
-  background-color: #f5f5f5;
+  background-color: #fbfbfb;
 }
 
 .narrow-form .inner .title span {
@@ -779,7 +773,7 @@ hr {
 }
 
 .narrow-form .inner .output-box {
-  background: #f9f9f9;
+  background: #fbfbfb;
   padding: 10px;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -843,7 +837,7 @@ hr {
 }
 
 .login-back {
-  background-color: #212129;
+  background-color: #1D2B36;
 }
 
 .form-group form, .form-horizontal form {
@@ -1451,7 +1445,7 @@ hr {
 }
 
 .header {
-  background-color: #59596C;
+  background-color: #6c6c8a;
   padding-bottom: 15px;
   padding-top: 15px;
   color: #fff;
@@ -2175,7 +2169,7 @@ hr {
 }
 
 .sp-replacer {
-  background-color: #212129;
+  background-color: #1D2B36;
   border: 0;
   color: #fff;
 }
@@ -2190,7 +2184,7 @@ hr {
 
 .sp-container {
   border: 0;
-  background-color: #212129;
+  background-color: #1D2B36;
   color: #fff;
   box-shadow: 6px 10px 17px -4px rgba(0, 0, 0, 0.75) !important;
 }
@@ -2443,7 +2437,7 @@ hr {
 
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
   border: 0;
-  background-color: #212129;
+  background-color: #1D2B36;
 }
 
 .navbar-default.scrolled {

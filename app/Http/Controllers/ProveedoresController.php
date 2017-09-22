@@ -50,9 +50,9 @@ class ProveedoresController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'nombre'              => 'required|unique:proveedores,nombre',
+            'nombre'             => 'required|unique:proveedores,nombre',
         ],[
-            'nombre.required'     => 'Debe ingresar un nombre',
+            'nombre.required'    => 'Debe ingresar un nombre',
             'nombre.unique'      => 'El proveedor ya existe',
         ]);
         
@@ -82,15 +82,17 @@ class ProveedoresController extends Controller
     
     public function edit($id)
     {
-        $proveedor   = Proveedor::findOrFail($id);
-        $provincias  = Provincia::orderBy('name', 'ASC')->pluck('name', 'id');
-        $localidades = Localidad::orderBy('name', 'ASC')->pluck('name', 'id');
-        $iva         = Iva::orderBy('name', 'ASC')->pluck('name', 'id');
+        $ultproveedor_id = Proveedor::orderBy('id','DESC')->first();
+        $proveedor       = Proveedor::findOrFail($id);
+        $provincias      = Provincia::orderBy('name', 'ASC')->pluck('name', 'id');
+        $localidades     = Localidad::orderBy('name', 'ASC')->pluck('name', 'id');
+        $iva             = Iva::orderBy('name', 'ASC')->pluck('name', 'id');
 
         return view('vadmin.proveedores.edit')
             ->with('proveedor', $proveedor)
             ->with('provincias', $provincias)
             ->with('localidades', $localidades)
+            ->with('ultproveedor_id', $ultproveedor_id)
             ->with('iva', $iva);
     }
 
@@ -118,10 +120,6 @@ class ProveedoresController extends Controller
     }
 
     //////////////////////////////////////////////////
-    //                  DESTROY                     //
-    //////////////////////////////////////////////////
-
-       //////////////////////////////////////////////////
     //                  DESTROY                     //
     //////////////////////////////////////////////////
 

@@ -3,7 +3,7 @@
 @section('title', 'Vadmin | Proveedores')
 
 @section('header')
-	@section('header_title', 'Edición de Proveedores') 
+	@section('header_title', 'Editando: '.$proveedor->razonsocial) 
 	@section('options')
 		<div class="actions">
 			<a href="{{ url('vadmin/proveedores') }}"><button type="button" class="animated fadeIn btnSm buttonOther">Volver</button></a>
@@ -29,7 +29,7 @@
                 'files'  => true
             ]) !!}
 
-            @include ('vadmin.proveedores.editform', ['submitButtonText' => 'Update'])
+            @include ('vadmin.proveedores.form', ['submitButtonText' => 'Update'])
 
             {!! Form::close() !!}
         </div>

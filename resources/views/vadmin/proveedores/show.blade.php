@@ -42,7 +42,7 @@
                         <b>E-mail: </b>@if(is_null($proveedor->email)) @else {{ $proveedor->email}} @endif <br>
                     </div>
                     <div class="col-md-6">
-                    	<div class="subtitle">Direcciones</div>
+                    	<div class="subtitle">Ubicación</div>
                         <b>Dirección: </b>@if(is_null($proveedor->direccion)) @else {{ $proveedor->direccion}} @endif <br>
                         <b>País: </b>@if(is_null($proveedor->pais)) @else {{ $proveedor->pais}} @endif <br>
                         <b>Código Postal: </b>@if(is_null($proveedor->codpostal)) @else {{ $proveedor->codpostal}} @endif <br>

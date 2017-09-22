@@ -90,8 +90,6 @@
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Varios
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li><a href="{{ route('proveedores.index') }}"><i class="ion-ios-people"></i> Proveedores</a></li>
-							<li role="separator" class="divider"></li>
 							<li><a href="{{ route('categorias.index') }}"><i class="ion-ios-people"></i> Categorías</a></li>
 							<li><a href="{{ route('familias.index') }}"><i class="ion-ios-people"></i> Familias</a></li>
 							<li><a href="{{ route('subfamilias.index') }}"><i class="ion-ios-people"></i> SubFamilias</a></li>

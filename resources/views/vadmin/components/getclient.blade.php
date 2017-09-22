@@ -17,8 +17,12 @@
         {{-- /// --}}
         <div id="OutPut" class="Hidden">
             <div class="col-md-12 output-data">
-                <div id="ClientNameOutput" class="output-inner"></div>
-                <button id="ClientOk" class="btnSm buttonOk"> Ok</button>
+                <div class="col-md-6">
+                    <div id="ClientNameOutput" class="output-inner"></div>
+                </div>
+                <div class="col-md-6">
+                    <button id="ClientOk" class="btnSm buttonOk">Ok</button>
+                </div>
             </div>
         </div>
     </div>

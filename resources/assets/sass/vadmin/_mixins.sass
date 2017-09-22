@@ -24,6 +24,14 @@
 // BOX-SHADOW //
 // box-shadow: [horizontal offset] [vertical offset] [blur radius] [optional spread radius] [color]
 
+0px 2px 1px rgba(0, 0, 0, 0.05)
+
+@mixin container-shadow()
+  -webkit-box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.05)
+  -moz-box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.05)
+  box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.05)
+  
+
 @mixin box-shadow( $horiz : 5px , $vert : 2px , $blur : 8px , $spread : -5px , $color : rgba(0,0,0,0.55) )
   -webkit-box-shadow: $horiz $vert $blur $spread $color
   -moz-box-shadow: $horiz $vert $blur $spread $color

@@ -34,7 +34,6 @@ class CategoriasController extends Controller
     public function show($id)
     {
         $categoria = Categoria::findOrFail($id);
-
         return view('vadmin.categorias.show', compact('categoria'));
     }
 
