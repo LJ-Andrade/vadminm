@@ -19,11 +19,14 @@
 @section('content')
 
 	@component('vadmin.components.create')
-		@slot('title', 'Creación de nueva Categoria')
+		@slot('title')
+			<i class="ion-plus-circled"></i> Nueva Categoría
+		@endslot
 		@slot('form')
 			{!! Form::open(['url' => 'vadmin/categorias', 'data-parsley-validate' => '']) !!}
 				@include('vadmin.categorias.form')
-				{!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Crear', ['class' => 'animated fadeIn button buttonOk']) !!}
+				{!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Crear', ['class' => 'animated fadeIn button btnGreen']) !!}
+				
 			{!! Form::close() !!}
 		@endslot
 	@endcomponent

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Lato:300,300i,400,700");
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,500,700");
 html {
   min-height: 100%;
   position: relative;
@@ -15,9 +15,9 @@ body {
   height: 100%;
   overflow-x: hidden;
   font-size: 16.5px;
-  background-color: #F3F3F3;
+  background-color: #fff;
   color: #383838;
-  font-family: "Lato", sans-serif;
+  font-family: "Raleway", sans-serif;
   line-height: 25px;
   padding-top: 50px;
 }
@@ -33,7 +33,7 @@ a:hover {
 
 p {
   font-size: 1.2rem;
-  font-family: "Lato", sans-serif;
+  font-family: "Raleway", sans-serif;
   font-weight: 300;
 }
 
@@ -48,7 +48,7 @@ h2 {
 }
 
 hr {
-  border-top: 1px solid #343440;
+  border-top: 1px solid #042d41;
 }
 
 .brd {
@@ -212,7 +212,7 @@ hr {
 }
 
 .big-card .title {
-  background-color: #6c6c8a;
+  background-color: #00babd;
   color: #fff;
   padding: 10px;
   position: relative;
@@ -553,7 +553,7 @@ hr {
 }
 
 .input-back-blue {
-  background-color: #5D76C9;
+  background-color: #0091ca;
   color: #fff;
 }
 
@@ -568,15 +568,17 @@ hr {
 }
 
 .big-form {
-  padding: 10px;
-  border-top: 1px solid #ababc5;
+  padding: 5px 20px;
+  padding-bottom: 20px;
   background-color: #fff;
   margin-bottom: 20px;
-  box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.05);
+  border: 1px solid #cacaca;
+  border-radius: 5px;
 }
 
 .big-form .inner-row label {
   font-size: 1rem;
+  font-weight: 500;
 }
 
 .big-form .inner-row .form-group {
@@ -600,7 +602,6 @@ hr {
 .big-form .box-container {
   position: relative;
   padding: 10px 20px;
-  border: 1px solid #ccc;
   margin-top: 10px;
 }
 
@@ -608,11 +609,18 @@ hr {
   padding: 10px;
 }
 
+.big-form .title {
+  padding: 10px 20px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  border-bottom: 2px solid #f9f9f9;
+}
+
 .big-form .sub-title .inner-sub-title {
-  margin-top: 15px;
-  padding: 7px 6px 3px;
-  padding-left: 6px;
-  background-color: #f5f5f5;
+  color: #01354a;
+  margin-top: 30px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #01354a;
 }
 
 .big-form .sub-title .inner-sub-title span {
@@ -647,6 +655,15 @@ hr {
   padding: 10px;
   background-color: #fbfbfb;
   margin-bottom: 10px;
+}
+
+.big-form .form-control {
+  box-shadow: none;
+}
+
+.big-form input, .big-form .chosen-container-single .chosen-default, .big-form .chosen-container-single .chosen-single {
+  font-size: 0.9rem;
+  color: #383838;
 }
 
 .big-form input.ro {
@@ -723,27 +740,41 @@ hr {
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
+  padding: 0;
+  margin-top: 20px;
 }
 
 .narrow-form .inner {
-  padding: 10px;
-  border-top: 1px solid #ababc5;
+  border-radius: 4px;
   background-color: #fff;
   margin-bottom: 20px;
-  box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 0 1px #f1f1f1;
   width: 450px;
   max-width: 100%;
 }
 
 .narrow-form .inner .title {
-  padding: 5px 6px;
-  padding-left: 6px;
-  background-color: #fbfbfb;
+  padding: 5px 6px 5px 20px;
+  background-color: #fafafa;
+  min-height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -ms-grid-row-align: center;
+  align-items: center;
+  border-radius: 5px 5px 0 0;
 }
 
 .narrow-form .inner .title span {
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.narrow-form .inner .title span i {
+  font-size: 1.1rem;
+  color: #9f69ff;
 }
 
 .narrow-form .inner .title i.icon {
@@ -754,15 +785,12 @@ hr {
 }
 
 .narrow-form .inner .sub-title {
-  margin-top: 15px;
-  padding: 7px 6px 3px;
-  padding-left: 6px;
-  background-color: #f5f5f5;
+  margin-bottom: 5px;
 }
 
 .narrow-form .inner .sub-title span {
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: 1.1rem;
+  font-weight: 500;
 }
 
 .narrow-form .inner .sub-title i.icon {
@@ -772,11 +800,36 @@ hr {
   margin-left: 8px;
 }
 
+.narrow-form .inner .content {
+  padding: 20px;
+}
+
+.narrow-form .inner .content .form-group label {
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.narrow-form .inner .content .form-control {
+  height: 36px;
+  font-size: 1.1rem;
+}
+
 .narrow-form .inner .output-box {
-  background: #fbfbfb;
-  padding: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  padding: 20px;
+  padding-top: 0;
+  border-radius: 0 0 5px 5px;
+  text-align: left;
+}
+
+.narrow-form .inner .output-box select {
+  width: 100%;
+  height: 36px;
+  padding: 0 15px;
+}
+
+.narrow-form .inner .small-loader {
+  padding-left: 10px;
+  margin-bottom: 15px;
 }
 
 .centered-form {
@@ -837,45 +890,45 @@ hr {
 }
 
 .login-back {
-  background-color: #1D2B36;
+  background-color: #01354a;
 }
 
 .form-group form, .form-horizontal form {
   padding: 15px;
-  border: 1px solid red;
+  border: 1px solid #dcdcdc;
 }
 
 .form-group form, .form-group input, .form-group textarea, .form-horizontal form, .form-horizontal input, .form-horizontal textarea {
   width: 100%;
-  border: 1px solid #BABABA;
+  border: 1px solid #dcdcdc;
   border-radius: 0;
   box-shadow: none;
 }
 
 .form-group form ::-webkit-input-placeholder, .form-group input ::-webkit-input-placeholder, .form-group textarea ::-webkit-input-placeholder, .form-horizontal form ::-webkit-input-placeholder, .form-horizontal input ::-webkit-input-placeholder, .form-horizontal textarea ::-webkit-input-placeholder {
   color: #000;
-  font-family: "Lato", sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 0.9rem;
   font-weight: 300;
 }
 
 .form-group form ::-moz-placeholder, .form-group input ::-moz-placeholder, .form-group textarea ::-moz-placeholder, .form-horizontal form ::-moz-placeholder, .form-horizontal input ::-moz-placeholder, .form-horizontal textarea ::-moz-placeholder {
   color: #000;
-  font-family: "Lato", sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 0.9rem;
   font-weight: 300;
 }
 
 .form-group form ::-ms-input-placeholder, .form-group input ::-ms-input-placeholder, .form-group textarea ::-ms-input-placeholder, .form-horizontal form ::-ms-input-placeholder, .form-horizontal input ::-ms-input-placeholder, .form-horizontal textarea ::-ms-input-placeholder {
   color: #000;
-  font-family: "Lato", sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 0.9rem;
   font-weight: 300;
 }
 
 .form-group form ::-moz-placeholder, .form-group input ::-moz-placeholder, .form-group textarea ::-moz-placeholder, .form-horizontal form ::-moz-placeholder, .form-horizontal input ::-moz-placeholder, .form-horizontal textarea ::-moz-placeholder {
   color: #000;
-  font-family: "Lato", sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 0.9rem;
   font-weight: 300;
 }
@@ -885,7 +938,7 @@ hr {
 }
 
 .form-group label, .form-horizontal label {
-  font-family: "Lato", sans-serif;
+  font-family: "Raleway", sans-serif;
   font-weight: 400;
   margin-top: 10px;
 }
@@ -1025,7 +1078,7 @@ hr {
 }
 
 .small-card i {
-  color: #C47777;
+  color: #eb5254;
   font-size: 1.2rem;
 }
 
@@ -1046,8 +1099,9 @@ hr {
 
 .button {
   border: 0;
-  border-radius: 50px;
+  border-radius: 4px;
   padding: 7px 20px;
+  min-width: 120px;
   font-size: 1.2rem;
   white-space: nowrap;
   vertical-align: middle;
@@ -1068,7 +1122,7 @@ hr {
 
 .btnSm {
   border: 0;
-  border-radius: 50px;
+  border-radius: 4px;
   padding: 2px 15px;
   font-size: 1rem;
   white-space: nowrap;
@@ -1087,6 +1141,10 @@ hr {
 
 .btnSm:hover {
   cursor: pointer;
+}
+
+.btnBig {
+  font-size: 1.3rem !important;
 }
 
 .btnSmSquare {
@@ -1236,42 +1294,42 @@ hr {
 }
 
 .buttonOk, .btnGreen {
-  background-color: #8DBB61;
+  background-color: #95c97f;
   color: #fff;
 }
 
 .buttonOk:hover, .btnGreen:hover {
-  background-color: #9FD56B;
+  background-color: #95c97f;
   color: #fff;
 }
 
 .buttonCancel, .btnRed {
-  background-color: #D05C5C;
+  background-color: #f8756b;
   color: #fff;
 }
 
 .buttonCancel:hover, .btnRed:hover {
-  background-color: #C47777;
+  background-color: #eb5254;
   color: #fff;
 }
 
 .buttonEdit, .btnYellow {
-  background-color: #dc9f1d;
+  background-color: #febe64;
   color: #fff;
 }
 
 .buttonEdit:hover, .btnYellow:hover {
-  background-color: #ceaa5f;
+  background-color: #fea969;
   color: #fff;
 }
 
 .buttonOther, .btnBlue {
-  background-color: #5D76C9;
+  background-color: #0091ca;
   color: #fff;
 }
 
 .buttonOther:hover, .btnBlue:hover {
-  background-color: #7689C8;
+  background-color: #0091ca;
 }
 
 .buttonOther:active, .buttonOther:focus, .btnBlue:active, .btnBlue:focus {
@@ -1416,7 +1474,7 @@ hr {
 
 .button-on-input:hover {
   cursor: pointer;
-  background-color: #9FD56B;
+  background-color: #95c97f;
 }
 
 /* Hiding the checkbox, but allowing it to be focused */
@@ -1445,7 +1503,7 @@ hr {
 }
 
 .header {
-  background-color: #6c6c8a;
+  background-color: #00babd;
   padding-bottom: 15px;
   padding-top: 15px;
   color: #fff;
@@ -1533,13 +1591,13 @@ hr {
 
 .search-filters, .options {
   position: relative;
-  background-color: #f3f3f3;
-  box-shadow: -3px 19px 11px -14px rgba(0, 0, 0, 0.4);
+  background-color: #f7f7f7;
+  border: 1px solid #dedede;
+  border-radius: 5px;
   padding: 10px;
-  z-index: 999;
-  display: none;
   margin-bottom: 10px;
-  border: 1px solid #fbd0d0;
+  display: none;
+  z-index: 999;
 }
 
 .search-filters .navbar-form, .options .navbar-form {
@@ -1718,22 +1776,23 @@ hr {
 .small-form .inner .error-container .error-content {
   padding: 2px 2px 2px 10px;
   color: #fff;
-  background-color: #C47777;
+  background-color: #eb5254;
 }
 
 .main-list {
-  box-shadow: 5px 2px 8px -5px rgba(0, 0, 0, 0.55);
+  border-radius: 5px;
+  border: 1px solid #cacaca;
 }
 
 .main-list .item-row {
   position: relative;
   background-color: #fff;
   padding-left: 30px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  max-height: 80px;
-  border: 1px solid #d7d7d7;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  max-height: 74px;
   border-bottom: 0;
+  border-bottom: 1px solid #f7f7f7;
   -webkit-transition: all 0.2s ease 0s;
   transition: all 0.2s ease 0s;
 }
@@ -1743,7 +1802,7 @@ hr {
 }
 
 .main-list .item-row:nth-child(odd) {
-  background-color: #fbfbfb;
+  background-color: #f9f9f9;
 }
 
 .main-list .item-row:hover, .main-list .item-row .row-selected {
@@ -1834,7 +1893,7 @@ hr {
   -ms-flex-pack: center;
   justify-content: center;
   box-shadow: -11px 4px 9px -8px rgba(0, 0, 0, 0.55) !important;
-  background-color: #ececec;
+  background-color: #f8fff9;
   z-index: 5;
 }
 
@@ -1846,7 +1905,7 @@ hr {
   margin: 5px;
   padding: 0 10px;
   font-size: 1rem;
-  font-family: "Lato", sans-serif;
+  font-family: "Raleway", sans-serif;
   font-weight: 300;
 }
 
@@ -1936,7 +1995,8 @@ hr {
 .batchDeleteBtn {
   position: fixed;
   right: 15px;
-  bottom: 15px;
+  bottom: 25px;
+  height: 50px;
   z-index: 998;
 }
 
@@ -1951,13 +2011,23 @@ hr {
   padding-top: 0px;
 }
 
+.table-list {
+  border-radius: 5px;
+  border: 1px solid #dedede;
+}
+
 .table-list .table {
-  box-shadow: 5px 2px 8px -5px rgba(0, 0, 0, 0.55);
+  margin-bottom: 0;
+  border-radius: 5px;
+}
+
+.table-list .table tr {
+  height: 45px;
 }
 
 .table-list .table > thead {
   background-color: #fff;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #dedede;
 }
 
 .table-list .table > tbody {
@@ -1966,6 +2036,7 @@ hr {
 
 .table-list .table > tbody > tr > td, .table-list .table > tbody > tr > th, .table-list .table > tfoot > tr > td, .table-list .table > tfoot > tr > th, .table-list .table > thead > tr > td, .table-list .table > thead > tr > th {
   border: 0;
+  padding-top: 10px;
 }
 
 .table-list .list-checkbox {
@@ -2003,14 +2074,14 @@ hr {
 }
 
 .table-list .table-list-row .list-actions .inner {
-  background-color: #ececec;
+  background-color: #f8fff9;
   position: absolute;
   top: 0;
   right: 0;
-  min-width: 200px;
+  min-width: 160px;
   text-align: center;
-  min-height: 40px;
-  padding-top: 2px;
+  min-height: 45px;
+  padding-top: 5px;
 }
 
 .table-list .table-list-row .list-actions .inner .action-btn {
@@ -2020,7 +2091,7 @@ hr {
   padding: 4px 10px;
   width: 35px;
   font-size: 1rem;
-  font-family: "Lato", sans-serif;
+  font-family: "Raleway", sans-serif;
   font-weight: 300;
 }
 
@@ -2087,7 +2158,7 @@ hr {
 
 .small-text-table .delete i {
   font-size: 0.5rem;
-  background-color: #D05C5C;
+  background-color: #f8756b;
   color: #fff;
   padding: 3px 5px;
   border-radius: 50px;
@@ -2169,7 +2240,7 @@ hr {
 }
 
 .sp-replacer {
-  background-color: #1D2B36;
+  background-color: #01354a;
   border: 0;
   color: #fff;
 }
@@ -2184,7 +2255,7 @@ hr {
 
 .sp-container {
   border: 0;
-  background-color: #1D2B36;
+  background-color: #01354a;
   color: #fff;
   box-shadow: 6px 10px 17px -4px rgba(0, 0, 0, 0.75) !important;
 }
@@ -2202,12 +2273,16 @@ hr {
   background-color: #fff;
 }
 
+.pagination {
+  padding-left: 25px;
+}
+
 .pagination > li:first-child > a, .pagination > li:first-child > span {
   border-radius: 0 !important;
 }
 
 .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
-  background-color: #343440;
+  background-color: #042d41;
   border: 0;
   border-radius: 0 !important;
 }
@@ -2241,7 +2316,7 @@ hr {
 }
 
 .blue-back {
-  background-color: #8094d8;
+  background-color: #24a5d8;
   color: #fff;
 }
 
@@ -2437,11 +2512,11 @@ hr {
 
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
   border: 0;
-  background-color: #1D2B36;
+  background-color: #01354a;
 }
 
 .navbar-default.scrolled {
-  background-color: #343440;
+  background-color: #042d41;
   border: 0;
   box-shadow: 1px 10px 17px -4px rgba(0, 0, 0, 0.75) !important;
 }
@@ -2563,7 +2638,7 @@ hr {
 }
 
 .navbar .user-menu {
-  background-color: #343440;
+  background-color: #042d41;
 }
 
 .navbar .user-menu a {

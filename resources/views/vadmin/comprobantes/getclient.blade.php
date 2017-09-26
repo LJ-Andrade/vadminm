@@ -3,9 +3,9 @@
     <div class="inner">
         {{-- Title --}}
         <div class="title">
-            <span>Seleccionar cliente</span>
+            <span>Buscar Cliente</span>
         </div>
-        <div class="row">
+        <div class="row content">
             <div class="form-group col-md-7">
                 {{-- Search By Name --}}
                 {!! Form::label('cliente', 'Buscar por nombre') !!}
@@ -17,28 +17,28 @@
                 {!! Form::number('codigo', null, ['id' => 'CompClientByCode', 'class' => 'form-control']) !!}
             </div>
             <div class="col-md-12">
-                <button id="CompGetClientByBtn" class="btnSm btnBlue"> Buscar</button>
+                <button id="CompGetClientByBtn" class="button btnBlue"> Buscar</button>
             </div>
         </div>
     
         {{-- Output --}}
-        <div id="SmallLoader"></div>
+        <div id="SmallLoader" class="small-loader"></div>
         <div id="ClientOutPut" class="Hidden">
             <div class="output-box">
-                <h4><b>Cliente seleccionado:</b></h4>
-                <div id="ClientData"></div>
+                <div class="sub-title"><span>Cliente seleccionado:</span></div>
+                <div id="ClientData"></div><br>
                 <div id="OutPutForm">
                     <div class="col-md-12">
                         <input type="text" name="user_id" class="Hidden" value="{{ Auth::user()->id }}">
                     </div>
                     {!! Form::text('cliente_id', null, ['id' => 'ClienteIdOutput', 'class' => 'form-control Hidden', 'required' => '']) !!} 
                     <div class="form-group">
-                        <h4><b>Comprobante:</b></h4>
+                        <div class="sub-title"><span>Seleccione comprobante:</span></div>
                         <input id="CompLetter" class="Hidden" type="text" value="">
                         <select id="TiposComp" class"Select-Chosen">
                         </select>
                     </div>
-                    <button id="OpenCompBtn" class="button buttonOk">Ok</button>
+                    <button id="OpenCompBtn" class="button btnGreen">Ok</button>
                 </div>
             </div>
         </div>

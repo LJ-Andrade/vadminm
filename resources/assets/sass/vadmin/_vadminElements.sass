@@ -287,14 +287,16 @@ $phvColor: #000
 $phvFsize: 0.9rem
 
 .big-form
-	padding: 10px
-	border-top: 1px solid $dark4
+	padding: 5px 20px
+	padding-bottom: 20px
 	background-color: #fff
 	margin-bottom: 20px
-	@include container-shadow
+	border: 1px solid #cacaca
+	border-radius: 5px
 	.inner-row
 		label
 			font-size: 1rem
+			font-weight: 500
 		.form-group
 			margin-bottom: 0
 		.checkbox label, .radio label
@@ -311,16 +313,20 @@ $phvFsize: 0.9rem
 	.box-container
 		position: relative
 		padding: 10px 20px
-		border: 1px solid #ccc
 		margin-top: 10px
 		.box-inner
 			padding: 10px
+	.title
+		padding: 10px 20px
+		font-size: 1.3rem
+		font-weight: 700
+		border-bottom: 2px solid #f9f9f9
 	.sub-title
 		.inner-sub-title
-			margin-top: 15px
-			padding: 7px 6px 3px
-			padding-left: 6px
-			background-color: #f5f5f5
+			color: $dark
+			margin-top: 30px
+			margin-bottom: 8px
+			border-bottom: 1px solid $dark
 			span
 				font-size: 1rem
 				font-weight: 700
@@ -343,13 +349,19 @@ $phvFsize: 0.9rem
 			padding: 10px 
 			background-color: #fbfbfb
 			margin-bottom: 10px
+	.form-control
+		box-shadow: none
+	input,.chosen-container-single .chosen-default,.chosen-container-single .chosen-single
+		// border: 1px solid #e2e2e2 !important
+		font-size: 0.9rem
+		color: #383838
 	input.ro
 		border: 0
 	input.mw50
 		max-width: 50px
 	input.mw100
 		max-width: 100px
-		
+	
 
 .main-form
 	.form-container
@@ -380,46 +392,65 @@ $phvFsize: 0.9rem
 // --------- Narrow Form ------------ //
 .narrow-form
 	@include flex-column
+	padding: 0
+	margin-top: 20px
 	.inner
-		padding: 10px
-		border-top: 1px solid $dark4
+		border-radius: 4px
 		background-color: #fff
 		margin-bottom: 20px
-		@include container-shadow
+		@include border-shadow(1px)
 		width: 450px
 		max-width: 100%
 		hr
 			border
 		.title
-			padding: 5px 6px
-			padding-left: 6px
-			background-color: #fbfbfb
+			padding: 5px 6px 5px 20px
+			background-color: #fafafa
+			min-height: 50px
+			@include flex-center-left
+			border-radius: 5px 5px 0 0
 			span
-				font-size: 1rem
-				font-weight: 700
+				font-size: 1.2rem
+				font-weight: 500
+				i
+					font-size: 1.1rem
+					color: $icons
+
 			i.icon
 				padding-top: 4px
 				font-size: 1rem
 				margin-right: 8px
 				margin-left: 8px
 		.sub-title
-			margin-top: 15px
-			padding: 7px 6px 3px
-			padding-left: 6px
-			background-color: #f5f5f5
+			margin-bottom: 5px
 			span
-				font-size: 1rem
-				font-weight: 700
+				font-size: 1.1rem
+				font-weight: 500
 			i.icon
 				padding-top: 4px
 				font-size: 1rem
 				margin-right: 8px
 				margin-left: 8px
+		.content
+			padding: 20px
+			.form-group label
+				margin: 0
+				margin-bottom: 5px
+			.form-control
+				height: 36px
+				font-size: 1.1rem
 		.output-box
-			background: #fbfbfb
-			padding: 10px
-			margin-top: 10px
-			margin-bottom: 10px
+			padding: 20px
+			padding-top: 0
+			border-radius: 0 0 5px 5px
+			text-align: left
+			select
+				width: 100%
+				height: 36px
+				padding: 0 15px
+		.small-loader
+			padding-left: 10px
+			margin-bottom: 15px
 
 
 // --------- Centered Form ------------ //
@@ -460,10 +491,10 @@ $phvFsize: 0.9rem
 .form-group,.form-horizontal
 	form
 		padding: 15px
-		border: 1px solid red
+		border: 1px solid #dcdcdc
 	form,input,textarea
 		width: 100%
-		border: 1px solid #BABABA
+		border: 1px solid #dcdcdc
 		border-radius: 0
 		box-shadow: none
 		// Chrome/Opera/Safari
@@ -623,8 +654,9 @@ $phvFsize: 0.9rem
 
 .button
 	border: 0
-	border-radius: 50px
+	border-radius: 4px
 	padding: 7px 20px
+	min-width: 120px
 	font-size: 1.2rem
 	white-space: nowrap
 	vertical-align: middle
@@ -641,7 +673,7 @@ $phvFsize: 0.9rem
 
 .btnSm
 	border: 0
-	border-radius: 50px
+	border-radius: 4px
 	padding: 2px 15px
 	font-size: 1rem
 	white-space: nowrap
@@ -657,6 +689,9 @@ $phvFsize: 0.9rem
 	@include transition(0.2s)
 	&:hover
 		cursor: pointer
+
+.btnBig
+	font-size: 1.3rem !important
 
 .btnSmSquare
 	border: 0
@@ -1003,13 +1038,13 @@ $phvFsize: 0.9rem
 	
 .search-filters,.options
 	position: relative
-	background-color: #f3f3f3
-	@include box-shadow-floor-big
+	background-color: #f7f7f7
+	border: 1px solid #dedede
+	border-radius: 5px
 	padding: 10px
-	z-index: 999
-	display: none
 	margin-bottom: 10px
-	border: 1px solid #fbd0d0
+	display: none
+	z-index: 999
 	.navbar-form
 		padding: 0
 		margin: 0
@@ -1172,22 +1207,22 @@ $phvFsize: 0.9rem
 //////////////////////////////////////
 
 .main-list
-	@include box-shadow
+	border-radius: 5px
+	border: 1px solid #cacaca
 	.item-row
 		position: relative
 		background-color: #fff
 		padding-left: 30px
-		padding-top: 8px
-		padding-bottom: 8px
-		max-height: 80px
-		border: 1px solid #d7d7d7
+		padding-top: 5px
+		padding-bottom: 5px
+		max-height: 74px
 		border-bottom: 0
+		border-bottom: 1px solid #f7f7f7
 		@include transition(0.2s)
 		div:first-child
-			// padding-left: 0
 			float: left
 		&:nth-child(odd)
-			background-color: #fbfbfb
+			background-color: #f9f9f9
 		&:hover, .row-selected
 			cursor: pointer
 			background-color: #DDD
@@ -1198,7 +1233,6 @@ $phvFsize: 0.9rem
 			margin-right: 15px
 			img
 				width: 53px
-
 		.withimg
 			padding-left: 0
 		.content
@@ -1240,7 +1274,7 @@ $phvFsize: 0.9rem
 			padding: 0 20px
 			@include flex-center
 			@include box-shadow-left
-			background-color: #ececec
+			background-color: $cream
 			z-index: 5
 			.form-group
 				margin-right: 10px
@@ -1308,7 +1342,8 @@ $phvFsize: 0.9rem
 .batchDeleteBtn
 	position: fixed
 	right: 15px
-	bottom: 15px
+	bottom: 25px
+	height: 50px
 	z-index: 998
 
 
@@ -1323,16 +1358,21 @@ $phvFsize: 0.9rem
 	
 // ---------------- NEW ---------------- //
 .table-list
-	// position: relative
+	border-radius: 5px
+	border: 1px solid #dedede
 	.table
-		@include box-shadow
+		margin-bottom: 0
+		border-radius: 5px
+		tr
+			height: 45px
 	.table>thead
 		background-color: #fff
-		border-bottom: 1px solid #ccc
+		border-bottom: 1px solid #dedede
 	.table>tbody
 		background-color: #fff
 	.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th
 		border: 0
+		padding-top: 10px
 	.list-checkbox
 		background-color: #ececec
 		// max-width: 10px
@@ -1358,14 +1398,14 @@ $phvFsize: 0.9rem
 			padding: 0 10px
 			z-index: 5
 			.inner
-				background-color: #ececec
+				background-color: $cream
 				position: absolute
 				top: 0
 				right: 0
-				min-width: 200px
+				min-width: 160px
 				text-align: center
-				min-height: 40px
-				padding-top: 2px
+				min-height: 45px
+				padding-top: 5px
 				.action-btn
 					border: 0
 					border-radius: 5px
@@ -1515,6 +1555,8 @@ $phvFsize: 0.9rem
 //                                  //
 //////////////////////////////////////
 
+.pagination
+	padding-left: 25px
 .pagination>li:first-child>a, .pagination>li:first-child>span
 	border-radius: 0 !important
 .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover

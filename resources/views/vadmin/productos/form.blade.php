@@ -40,11 +40,11 @@
 <div class="row inner-row">
 	
 	{{-- /// --}}
-	@if($producto_id)
+	@if($ultCodigo)
 	<div class="col-md-3 col-sm-6 col-xs-12">
 		<div class="form-group">
-			{!! Form::label('id', 'Código:') !!}	
-			{!! Form::text('id', $producto_id->id+1, ['class' => 'form-control', 'disabled' => '', 'required' => '']) !!}
+			{!! Form::label('codigo', 'Código: (Últ. Cod.: '.$ultCodigo.')') !!}	
+			{!! Form::text('codigo', $ultCodigo+1, ['class' => 'form-control', 'required' => '']) !!}
 		</div>
 	</div>
 	@else
@@ -218,7 +218,5 @@
 			{!! Form::select('estado', ['activo' => 'Listar', 'pausado' => 'No Listar'], null, ['class' => 'form-control Select-Chosen', 'required' => '']) !!}
 		</div>
 	</div>
-</div>
-<div class="row inner-row">
 </div>
 <hr class="softhr">

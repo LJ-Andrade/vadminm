@@ -26,60 +26,60 @@
     <div class="container">
 		<div class="row">		
 			@include('vadmin.monedas.searcher')
-            <div class="col-md-12 animated fadeIn main-list">
-                @foreach($monedas as $item)
-                <div id="Id{{ $item->id }}" class="Item-Row Select-Row-Trigger row item-row simple-list">
-                    {{-- Column / Image --}}
-                    <div class=""></div>
+            @component('vadmin.components.tablelist')
+				@slot('tableTitles')
+					<th></th>
+					<th>Moneda</th>
+					<th>Valor</th>
+					<th></th>
+					<th></th>
+				@endslot
+				@slot('tableContent')
+					@foreach($monedas as $item)
+						<tr id="Id{{ $item->id }}" class="TableList-Row table-list-row">
+							<td class="list-checkbox">
+								<input type="checkbox" class="BatchDelete" data-id="{{ $item->id }}">
+							</td>
+							<td>{{ $item->nombre }}</td>
+							<td>$ {{ $item->valor }}</td>
+							<td></td>
+							<td class="list-actions">
+								<div class="TableList-Actions inner Hidden">
+									<a href="{{ url('/vadmin/monedas/' . $item->id . '/edit') }}" class="btn action-btn btnGreen" data-id="{{ $item->id }}">
+										<i class="ion-edit"></i>
+									</a>
+									{{-- <a target="_blank" class="btn action-btn btnBlue">
+										<i class="ion-ios-search"></i>
+									</a> --}}
+                                    @if($item->id == 1 || $item->id == 2 || $item->id == 3)
+                                    @else
+									<a class="Delete btn action-btn btnRed" data-id="{!! $item->id !!}">
+										<i class="ion-ios-trash-outline"></i>
+									</a>
+                                    @endif
+									<a class="Close-Actions-Btn btn btn-close btnGrey">
+										<i class="ion-ios-close-empty"></i>
+									</a>
+								</div>
+							</td>
+						</tr>
+					@endforeach
+				@endslot
+				@slot('tableEmpty')
+					@if(! count($monedas))
+					<tr>
+						<td>No se han encontrado registros</td>
+					</tr>
+					@endif
+				@endslot
+				@slot('pagination')
+					{!! $monedas->render(); !!}
+				@endslot
+			@endcomponent
 
-                    <div class="content">
-                        {{-- Column --}}
-                        <div class="col-xs-6 col-sm-4 col-md-4 inner">
-                            <span><b>{{ $item->nombre }}</b></span>
-                        </div>
-                        {{-- Column --}}
-                        <div class="col-xs-6 col-sm-3 col-md-4 mobile-hide inner-tags">
-							<span><b>{{ $item->valor }}</b></span>
-                        </div>                        
-                    </div>
-					{{-- Batch Delete --}} 
-					<div class="batch-delete-checkbox">
-						<input type="checkbox" class="BatchDelete" data-id="{{ $item->id }}">
-					</div>
-                    {{-- Hidden Action Buttons --}}
-                    <div class="List-Actions lists-actions Hidden">
-						<a href="{{ url('/vadmin/monedas/' . $item->id . '/edit') }}" class="btnSmall buttonOk" data-id="{{ $item->id }}">
-							<i class="ion-ios-compose-outline"></i>
-						</a>
-						<a target="_blank" class="btnSmall buttonOther">
-							<i class="ion-ios-search"></i>
-						</a>
-						<button class="Delete btnSmall buttonCancel" data-id="{!! $item->id !!}">
-							<i class="ion-ios-trash-outline"></i>
-						</button>
-						<a class="Close-Actions-Btn btn btn-danger btn-close">
-							<i class="ion-ios-close-empty"></i>
-						</a>
-                    </div>
-                </div>
-
-                @endforeach
-
-                {{-- If there is no articles published shows this --}}
-                @if(! count($monedas))
-                <div class="Item-Row item-row empty-row">
-                    No se han encontrado items
-                </div>
-                @endif
-            </div>
-            {!! $monedas->render(); !!}
-            <br>
-
-		</div>
-		<button id="BatchDeleteBtn" class="button buttonCancel batchDeleteBtn Hidden"><i class="ion-ios-trash-outline"></i> Eliminar seleccionados</button>
-	</div>  
-	<div id="Error"></div>
-	
+	    <div id="Error"></div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
@@ -94,42 +94,17 @@
     //                     DELETE                  //
     /////////////////////////////////////////////////
 
-
+    	
 	// -------------- Single Delete -------------- //
 	// --------------------------------------------//
 	$(document).on('click', '.Delete', function(e){
 		e.preventDefault();
-		var id = $(this).data('id');
-		confirm_delete(id, 'Cuidado!','Está seguro?');
+		var id    = $(this).data('id');
+		var route = "{{ url('vadmin/delete_monedas') }}/"+id+"";
+		deleteRecord(id, route, 'Cuidado!','Está seguro de borrar esta moneda?');
 	});
 
-	function delete_item(id, route) {	
-
-		var route = "{{ url('vadmin/ajax_delete_moneda') }}/"+id+"";
-
-		$.ajax({
-			url: route,
-			method: 'post',             
-			dataType: "json",
-			data: {id: id},
-			success: function(data){
-				console.log(data);
-				if (data == 1) {
-					$('#Id'+id).hide(200);
-					alert_ok('Ok!','Eliminación completa');
-				} else {
-					alert_error('Ups!','Ha ocurrido un error');
-				}
-			},
-			error: function(data)
-			{
-				$('#Error').html(data.responseText);
-				console.log(data);	
-			},
-		});
-	}
-
-	// -------------- Batch Deletex -------------- //
+	// -------------- Batch Delete --------------- //
 	// --------------------------------------------//
 
 	// ---- Batch Confirm Deletion ---- //
@@ -141,37 +116,9 @@
 		});
 
 		var id = rowsToDelete;
-		confirm_batch_delete(id,'Cuidado!','Está seguro que desea eliminar?');
-		
+		var route = "{{ url('vadmin/delete_localidades') }}/"+id+"";
+		deleteRecord(id, route, 'Cuidado!','Está seguro de borrar estas monedas?');
 	});
-
-	// ---- Delete ---- //
-	function batch_delete_item(id) {
-
-		var route = "{{ url('vadmin/ajax_batch_delete_monedas') }}/"+id+"";
-
-		$.ajax({
-			url: route,
-			method: 'post',             
-			dataType: "json",
-			data: {id: id},
-			success: function(data){
-				for(i=0; i < id.length ; i++){
-					$('#Id'+id[i]).hide(200);
-				}
-				$('#BatchDeleteBtn').addClass('Hidden');
-				ajax_list();
-				// $('#Error').html(data.responseText);
-				// console.log(data);
-			},
-			error: function(data)
-			{
-				console.log(data);
-				$('#Error').html(data.responseText);
-			},
-		});
-
-	}
 
 	</script>
 

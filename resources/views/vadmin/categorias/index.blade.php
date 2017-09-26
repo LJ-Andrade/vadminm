@@ -5,7 +5,7 @@
 
 {{-- HEAD--}}
 @section('header')
-	@section('header_title', 'Listado de Categoria') 
+	@section('header_title', 'Listado de Categorias') 
 	@section('options')
 		<div class="actions">
             <a id="ToNewItem" href="{{ url('vadmin/categorias/create') }}" class="btn btnSm buttonOther"><i class="ion-plus-round"></i> Nueva Categoria</a>
@@ -53,7 +53,7 @@
 									<a class="Delete btn action-btn btnRed" data-id="{!! $item->id !!}">
 										<i class="ion-ios-trash-outline"></i>
 									</a>
-									<a class="Close-Actions-Btn btn btn-close btnGrey">
+									<a class="Close-Actions-Btn btn btn-close">
 										<i class="ion-ios-close-empty"></i>
 									</a>
 								</div>

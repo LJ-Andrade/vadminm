@@ -17,7 +17,7 @@
 				</div>
 				<span><b>{{ $item->nombre }}</b></span><br>
 				
-				<span class="small">Cód.: {{ $item->id }}</span>
+				<span class="small">Cód.: {{ $item->codigo }}</span>
 				
 			</div>
 			{{-- Column --}}

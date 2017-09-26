@@ -8,7 +8,7 @@
 	@section('header_title', 'Listado de Productos') 
 	@section('options')
 		<div class="actions">
-            <a id="ToNewItem" href="{{ url('vadmin/productos/create') }}" class="btn btnSm buttonOther"><i class="ion-ios-briefcase-outline"></i> Nuevo Producto</a>
+            <a id="ToNewItem" href="{{ url('vadmin/productos/create') }}" class="btn btnSm buttonOther"><i class="ion-plus-round"></i> Nuevo Producto</a>
             <button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button>
 		</div>	
 	@endsection

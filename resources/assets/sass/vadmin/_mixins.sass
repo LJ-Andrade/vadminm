@@ -26,6 +26,11 @@
 
 0px 2px 1px rgba(0, 0, 0, 0.05)
 
+@mixin border-shadow($brd)
+  -webkit-box-shadow: 0 0 0 $brd #f1f1f1
+  -moz-box-shadow: 0 0 0 $brd #f1f1f1
+  box-shadow: 0 0 0 $brd #f1f1f1
+
 @mixin container-shadow()
   -webkit-box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.05)
   -moz-box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.05)
@@ -96,7 +101,6 @@
   -webkit-box-shadow: $horiz $vert $blur $spread $color !important
   -moz-box-shadow: $horiz $vert $blur $spread $color !important
   box-shadow: $horiz $vert $blur $spread $color !important
-
 
 @mixin obscure-back
   background: -moz-radial-gradient(center, ellipse cover, rgba(36,44,51,0) -1%, rgba(36,44,51,0.01) 0%, rgba(32,39,47,0.2) 22%, rgba(19,19,35,0.65) 100%)

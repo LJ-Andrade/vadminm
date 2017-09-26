@@ -84,7 +84,7 @@
 	<div class="col-md-4 col-sm-6 col-xs-12">
 		<div class="form-group">
 			{!! Form::label('condicventas', 'Condiciones de Vta.') !!}
-			{!! Form::select('condicventas', $condicventas, null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion']) !!}
+			{!! Form::select('condicventas', $condicventas, null, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opcion']) !!}
 		</div>
 	</div>
 	{{-- Lista de Precios --}}
@@ -177,7 +177,7 @@
 </div>
 <div class="row inner-row">
 	{{-- Dirección de Entrega --}}
-	<div class="col-md-12 col-sm-6 col-xs-12">							
+	<div class="col-md-12 col-sm-6 col-xs-12 pad0">							
 		<div class="DirsEntregaDiv box-container animated fadeIn clearfix Hidden">
 			<div class="CloseDirsEntregaBtn btnCloseDark"><i class="ion-close-round"></i></div>
 			<div class="col-md-6 form-group">
@@ -221,5 +221,5 @@
 </div>
 <hr class="softhr">
 <div class="row text-center">
-	{!! Form::submit('Ingresar Cliente', ['class' => 'button buttonOk']) !!}
+	{!! Form::submit('Ingresar Cliente', ['class' => 'button buttonOk btnBig']) !!}
 </div>

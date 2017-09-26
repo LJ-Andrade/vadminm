@@ -26,7 +26,9 @@
 	    <div class="row">
 	    	{!! Form::open(['route' => 'productos.store', 'method' => 'POST', 'files' => true, 'id' => '', 'class' => 'big-form', 'data-parsley-validate' => '']) !!}	
             	@include ('vadmin.productos.form')
-				{!! Form::submit('Ingresar Producto', ['class' => 'button buttonOk', 'id' => 'InsertItemBtn']) !!}
+				<div class="text-center">
+					{!! Form::submit('Ingresar Producto', ['class' => 'button buttonOk btnBig', 'id' => 'InsertItemBtn']) !!}
+				</div>
             {!! Form::close() !!}
         </div>
     </div>  

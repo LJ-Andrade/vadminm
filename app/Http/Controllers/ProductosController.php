@@ -475,7 +475,7 @@ class ProductosController extends Controller
     public function create()
     {
         
-        $producto_id  = Producto::orderBy('id','DESC')->first();
+        $ultCodigo    = Producto::orderBy('id','DESC')->first();
         $proveedor    = Proveedor::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $categorias   = Categoria::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $familias     = Familia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
@@ -484,13 +484,14 @@ class ProductosController extends Controller
         $currency     = '';
         $origin       = null;
 
-       
-        if(is_null($producto_id)){
-            $producto_id = 0;
+        if(is_null($ultCodigo)){
+            $ultCodigo = 0;
+        } else {
+            $ultCodigo = intVal($ultCodigo->codigo);
         }
 
         return view('vadmin.productos.create')
-            ->with('producto_id', $producto_id)
+            ->with('ultCodigo', $ultCodigo)
             ->with('proveedor', $proveedor)
             ->with('categorias', $categorias)
             ->with('familias', $familias)
@@ -560,9 +561,8 @@ class ProductosController extends Controller
     {
         $producto     = Producto::findOrFail($id);
         $oferta       = $producto->oferta;
-        $producto_id  = [];
         $proveedor    = Proveedor::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
-        $categorias  = Categoria::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
+        $categorias   = Categoria::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $familias     = Familia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $subfamilias  = Subfamilia::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
         $monedacompra = Moneda::orderBy('nombre', 'ASC')->pluck('nombre', 'id');
@@ -571,6 +571,13 @@ class ProductosController extends Controller
         $currency     = Moneda::where('id','=', $producto->monedacompra)->first();
         $currency     = $currency->id;
         $origin       = $producto->origen;
+
+        $ultCodigo    = Producto::orderBy('id','DESC')->first();
+        if(is_null($ultCodigo)){
+            $ultCodigo = 0;
+        } else {
+            $ultCodigo = intVal($ultCodigo->codigo);
+        }
 
         switch ($producto->monedacompra) {
             case 1:
@@ -589,7 +596,7 @@ class ProductosController extends Controller
         
         return view('vadmin.productos.edit')
             ->with('producto', $producto)
-            ->with('producto_id', $producto_id)
+            ->with('ultCodigo', $ultCodigo)
             ->with('oferta', $oferta)
             ->with('proveedor', $proveedor)
             ->with('categorias', $categorias)

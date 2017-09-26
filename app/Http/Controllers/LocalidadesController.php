@@ -71,12 +71,9 @@ class LocalidadesController extends Controller
 
         
         $requestData = $request->all();
-        
         Localidad::create($requestData);
 
-        Session::flash('flash_message', 'Localidade added!');
-
-        return redirect('vadmin/localidades');
+        return redirect('vadmin/localidades')->with('Message', 'Localidad creada');
     }
 
     //////////////////////////////////////////////////
@@ -101,7 +98,6 @@ class LocalidadesController extends Controller
         $this->validate($request,[
             'name'          => 'required|unique:localidades,name,'.$localidad->id,
             'province_id'   => 'required'
-
         ],[
             'name.required'        => 'Debe ingresar una localidad',
             'name.unique'          => 'La localidad ya existe',

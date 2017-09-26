@@ -116,5 +116,5 @@
     </div>
     <hr class="softhr">
     <div class="row text-center">
-        {!! Form::submit('Ingresar Proveedor', ['class' => 'button buttonOk']) !!}
+        {!! Form::submit('Ingresar Proveedor', ['class' => 'button buttonOk btnBig']) !!}
     </div>

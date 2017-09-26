@@ -26,12 +26,9 @@
 
 	@include('vadmin.clientes.searcher')
     <div class="container">
+		<div id="Error"></div>	
 		<div class="row">
-			<div id="Error"></div>	
-			<div class="row">
-				@include('vadmin.clientes.list')
-			</div>
-			<br>
+			@include('vadmin.clientes.list')
 		</div>
 		<button id="BatchDeleteBtn" class="button buttonCancel batchDeleteBtn Hidden"><i class="ion-ios-trash-outline"></i> Eliminar seleccionados</button>
 	</div>  

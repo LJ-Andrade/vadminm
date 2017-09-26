@@ -26,9 +26,9 @@
                 'files'  => true
             ]) !!}
             @include('vadmin.productos.form')
-            {!! Form::submit('Actualizar producto', ['class' => 'button btnGreen']) !!}
-            {{-- @include ('vadmin.productos.editform', ['submitButtonText' => 'Update']) --}}
-
+            <div class="text-center">
+                {!! Form::submit('Actualizar producto', ['class' => 'button btnGreen btnBig']) !!}
+            </div>
             {!! Form::close() !!}
         </div>
     </div>

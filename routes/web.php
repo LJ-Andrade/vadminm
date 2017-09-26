@@ -119,6 +119,7 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::resource('familias', 'FamiliasController');
 	Route::resource('subfamilias', 'SubfamiliasController');
 	Route::resource('proveedores', 'ProveedoresController');
+	Route::resource('monedas', 'MonedasController');
 
 	// ---------------- Condiciones de Venta --------------------------- //
 	Route::resource('condicventas', 'Condicventas\CondicventasController');
@@ -142,10 +143,8 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::get('vendedores', 'VadminController@vendedores');
 
 
-	// ---------------- Listado de Monedas ------------------------------ //
-	Route::resource('monedas', 'MonedasController');
-	Route::post('ajax_delete_moneda/{id}', 'MonedasController@destroy');
-	Route::post('ajax_batch_delete_monedas/{id}', 'MonedasController@ajax_batch_delete');
+
+
 
 	Route::post('update_currency_value/{id}', 'MonedasController@updateCurrencyValue');
 
@@ -237,6 +236,7 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::post('delete_categorias/{id}', 'CategoriasController@destroy');
 	Route::post('delete_movement/{id}', 'MovimientosController@destroy');
 	Route::post('delete_proveedores/{id}', 'ProveedoresController@destroy');
+	Route::post('delete_monedas/{id}', 'MonedasController@destroy');
 
 	// Developer Map
 	Route::resource('desarrollo', 'DesarrolloController');

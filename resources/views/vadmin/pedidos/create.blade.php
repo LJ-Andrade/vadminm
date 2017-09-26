@@ -32,7 +32,7 @@
 				<div class="title">
 					<span>Creación de pedido</span>
 				</div>
-				<div class="row">
+				<div class="row content">
                     <div class="form-group col-md-7">
                         {{-- Search By Name --}}
                         {!! Form::label('cliente', 'Buscar por nombre') !!}

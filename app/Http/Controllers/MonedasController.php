@@ -11,11 +11,11 @@ use Session;
 
 class MonedasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\View\View
-     */
+
+    //////////////////////////////////////////////////
+    //                  DISPLAY                     //
+    //////////////////////////////////////////////////
+
     public function index(Request $request)
     {
         $keyword = $request->get('search');
@@ -33,50 +33,6 @@ class MonedasController extends Controller
         return view('vadmin.monedas.index', compact('monedas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create()
-    {
-        return view('vadmin.monedas.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
-    public function store(Request $request)
-    {
-        $this->validate($request,[
-            'nombre'              => 'required|unique:monedas,nombre',
-        ],[
-            'nombre.required'     => 'Debe ingresar un nombre',
-            'nombre.unique'      => 'El item ya existe',
-        ]);
-
-
-        
-        $requestData = $request->all();
-        
-        Moneda::create($requestData);
-
-        Session::flash('flash_message', 'Moneda added!');
-
-        return redirect('vadmin/monedas');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\View\View
-     */
     public function show($id)
     {
         $moneda = Moneda::findOrFail($id);
@@ -84,13 +40,36 @@ class MonedasController extends Controller
         return view('vadmin.monedas.show', compact('moneda'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\View\View
-     */
+    //////////////////////////////////////////////////
+    //                  CREATE                      //
+    //////////////////////////////////////////////////
+
+    public function create()
+    {
+        return view('vadmin.monedas.create');
+    }
+
+    public function store(Request $request)
+    {
+        $this->validate($request,[
+            'nombre'          => 'required|unique:monedas,nombre',
+            'valor'           => 'required',
+        ],[
+            'valor'           => 'Un valor es requerido',
+            'nombre.required' => 'El nombre de la moneda es requerido',
+            'nombre.unique'   => 'Hay otra moneda con ese nombre',
+        ]);
+
+        $requestData = $request->all();
+        Moneda::create($requestData);
+
+        return redirect('vadmin/monedas')->with('message', 'Moneda creada');
+    }
+
+    //////////////////////////////////////////////////
+    //                 UPDATE                       //
+    //////////////////////////////////////////////////
+
     public function edit($id)
     {
         $moneda = Moneda::findOrFail($id);
@@ -98,32 +77,23 @@ class MonedasController extends Controller
         return view('vadmin.monedas.edit', compact('moneda'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  int  $id
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
     public function update($id, Request $request)
     {
+        $moneda = Moneda::findOrFail($id);
 
         $this->validate($request,[
-            'valor'              => 'required',
+            'nombre'          => 'required|unique:monedas,nombre,'.$moneda->id,
+            'valor'           => 'required',
         ],[
-            'valor.required'     => 'Debe ingresar un valor',
+            'valor'           => 'Un valor es requerido',
+            'nombre.required' => 'El nombre de la moneda es requerido',
+            'nombre.unique'   => 'Hay otra moneda con ese nombre',
         ]);
 
+        $moneda->fill($request->all());
+        $moneda = $moneda->save();
 
-        $requestData = $request->all();
-        
-        $moneda = Moneda::findOrFail($id);
-        $moneda->update($requestData);
-
-        Session::flash('flash_message', 'Moneda updated!');
-
-        return redirect('vadmin/monedas');
+        return redirect('vadmin/monedas')->with('Message', 'Moneda actualizada');
     }
 
     public function updateDolarValue($id, Request $request)
@@ -163,25 +133,43 @@ class MonedasController extends Controller
         }
     }
 
-    // ---------- Delete -------------- //
-    public function destroy($id)
-    {
-        $item = Moneda::find($id);
-        $item->delete();
-        echo 1;
-    }
+    //////////////////////////////////////////////////
+    //                  DESTROY                     //
+    //////////////////////////////////////////////////
 
+    public function destroy(Request $request, $id)
+    {   
 
-    // ---------- Ajax Bach Delete -------------- //
-    public function ajax_batch_delete(Request $request, $id)
-    {
-        foreach ($request->id as $id) {
-        
-            $item  = Moneda::find($id);
-            Moneda::destroy($id);
+        if(is_array($request->id)) {
+            try {
+                foreach ($request->id as $id) {
+                    $record = Moneda::find($id);
+                    $record->delete();
+                }
+                return response()->json([
+                    'success'   => true,
+                ]); 
+            }  catch (Exception $e) {
+                return response()->json([
+                    'success'   => false,
+                    'error'    => 'Error: '.$e
+                ]);    
+            }
+        } else {
+            try {
+                $record = Moneda::find($id);
+                $record->delete();
+                    return response()->json([
+                        'success'   => true,
+                    ]);  
+                    
+                } catch (Exception $e) {
+                    return response()->json([
+                        'success'   => false,
+                        'error'    => 'Error: '.$e
+                    ]);    
+                }
         }
-        echo 1;
     }
-
 
 }

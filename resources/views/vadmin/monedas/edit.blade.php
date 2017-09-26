@@ -16,30 +16,21 @@
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="small-form container animated fadeIn">
-            {!! Form::model($moneda, [
+
+
+    @component('vadmin.components.create')
+		@slot('title', 'Creación de Moneda')
+		@slot('form')
+			{!! Form::model($moneda, [
                 'method' => 'PATCH',
                 'url' => ['/vadmin/monedas', $moneda->id],
                 'files' => true
             ]) !!}
-
-            <div class="row inner">
-                <div class="col-md-12 title">
-                    <span><i class="ion-plus-round"></i> Edición de Item</span>
-                    <a href="{{ url('vadmin/monedas') }}"><div class="close-btn2"><i class="ion-close-round"></i></div></a>
-                </div>
-                <div class=" col-md-12 form-group">
-                    {!! Form::label('valor', 'Valor actual:') !!}
-                    {!! Form::text('valor', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el valor de la moneda', 'required' => '']) !!} 
-                </div>
-                <div class="col-md-12 actions">
-                    {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Modificar', ['class' => 'animated fadeIn button buttonOk pull-right']) !!}
-                </div>
-            </div>
+            @include('vadmin.monedas.form')
+            {!! Form::submit(isset($submitButtonText) ? $submitButtonText : 'Editar', ['class' => 'animated fadeIn button btnGreen']) !!}
             {!! Form::close() !!}
-        </div>
-    </div>
+		@endslot
+	@endcomponent
 
 
 @endsection

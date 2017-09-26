@@ -12,14 +12,15 @@
 @endsection
 
 @section('content')
-    <div class="container">
-        <div id="Error"></div>
-        <div class="narrow-form">
-            <div class="inner">
-                <div class="title">
-                    <span>Edición</span>
-                </div>
-                {!! Form::model($categoria, [
+
+	@component('vadmin.components.create')
+		@slot('title')
+			<i class="ion-edit"></i> Editando Categoría {{ $categoria->nombre }}
+		@endslot
+
+		
+		@slot('form')
+			{!! Form::model($categoria, [
                     'method' => 'PATCH',
                     'url' => ['vadmin/categorias', $categoria->id],
                     'files' => true
@@ -27,8 +28,7 @@
                 @include('vadmin.categorias.form')
                 {!! Form::submit('Editar', ['class' => 'button btnGreen']) !!}
                 {!! Form::close() !!}
-            </div>
-        </div>
-    </div>
+		@endslot
+	@endcomponent
 
 @endsection

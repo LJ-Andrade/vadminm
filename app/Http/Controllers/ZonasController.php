@@ -51,21 +51,16 @@ class ZonasController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'name'              => 'required|unique:zonas,name',
+            'name'             => 'required|unique:zonas,name',
         ],[
-            'name.required'     => 'Debe ingresar una localidad',
-            'name.unique'      => 'La localidad ya existe',
+            'name.required'    => 'Debe ingresar un nombre',
+            'name.unique'      => 'La zona ya existe',
         ]);
-
-
         
         $requestData = $request->all();
-        
         Zona::create($requestData);
 
-        Session::flash('flash_message', 'Zona added!');
-
-        return redirect('vadmin/zonas');
+        return redirect('vadmin/zonas')->with('message', 'Zona creada');
     }
 
     //////////////////////////////////////////////////
@@ -106,6 +101,7 @@ class ZonasController extends Controller
     {   
 
         if(is_array($request->id)) {
+
             try {
                 foreach ($request->id as $id) {
                     $record = Zona::find($id);
