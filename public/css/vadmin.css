@@ -15,7 +15,7 @@ body {
   height: 100%;
   overflow-x: hidden;
   font-size: 16.5px;
-  background-color: #fff;
+  background-color: #f9f9f9;
   color: #383838;
   font-family: "Raleway", sans-serif;
   line-height: 25px;
@@ -755,7 +755,7 @@ hr {
 
 .narrow-form .inner .title {
   padding: 5px 6px 5px 20px;
-  background-color: #fafafa;
+  background-color: #dedede;
   min-height: 50px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1802,7 +1802,7 @@ hr {
 }
 
 .main-list .item-row:nth-child(odd) {
-  background-color: #f9f9f9;
+  background-color: #fbfbfb;
 }
 
 .main-list .item-row:hover, .main-list .item-row .row-selected {
@@ -2013,7 +2013,8 @@ hr {
 
 .table-list {
   border-radius: 5px;
-  border: 1px solid #dedede;
+  border: 2px solid #dedede;
+  background-color: #fff;
 }
 
 .table-list .table {
