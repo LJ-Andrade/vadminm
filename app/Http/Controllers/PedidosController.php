@@ -46,7 +46,7 @@ class PedidosController extends Controller
         }
         
         $number  = $request->get('number');
-        $perPage = 5;
+        $perPage = 20;
         
             
         if (!empty($show)) {
