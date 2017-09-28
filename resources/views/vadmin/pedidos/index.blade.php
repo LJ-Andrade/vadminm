@@ -35,6 +35,7 @@
 
 @section('scripts')
 	@include('vadmin.pedidos.scripts')
+	@include('vadmin.components.ajaxscripts');
 @endsection
 
 @section('custom_js')

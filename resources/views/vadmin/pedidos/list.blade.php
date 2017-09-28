@@ -64,11 +64,22 @@
     @slot('tableEmpty')
         @if(! count($pedidos))
         <tr>
+            <td></td>
+            <td></td>
+            <td></td>
             <td>No se han encontrado registros</td>
+            <td></td>
+            <td></td>
         </tr>
         @endif
     @endslot
     @slot('pagination')
-        {!! $pedidos->render(); !!}
+        @if(isset($_GET['show']))
+			{!! $pedidos->appends(['show' => $show])->render(); !!}
+		@elseif(isset($_GET['id']))
+            {!! $pedidos->appends(['id' => $id])->render(); !!}
+        @else
+            {!! $pedidos->render(); !!}
+		@endif
     @endslot
 @endcomponent

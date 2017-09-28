@@ -27,41 +27,47 @@ class PedidosController extends Controller
     public function index(Request $request)
     {
                 
-        $key     = $request->get('show');
-        $name    = $request->get('name');
+        if ($request->get('show')) {
+           $show    = $request->get('show');
+        } else {
+           $show   = '';
+        }
+        
+        if($request->get('name')){
+            $name = $request->get('name');
+        } else {
+            $name = '';
+        }
+
+        if($request->get('id')){
+            $id = $request->get('id');
+        } else {
+            $id = '';
+        }
+        
         $number  = $request->get('number');
-        $perPage = 20;
-
-
-        if (!empty($key)) {
-            // Show All Orders (Sended too)
-            if ($key=='5') {
+        $perPage = 5;
+        
+            
+        if (!empty($show)) {
+            // Show All Orders (Sended too)   
+            if ($show=='5') {
                 $pedidos = Pedido::paginate($perPage);
             } else {
                 // Show all orders but sended
-                $pedidos = Pedido::where('estado', '!=', "3")->paginate($perPage);
+                $pedidos = Pedido::where('estado', '=', $show)->paginate($perPage);
             }   
-        } else {
-            if($number) {
-                $pedidos = Pedido::where('id', '=', "$number")->paginate($perPage);
-            } else {
-                $pedidos = Pedido::where('estado', '!=', "3")->paginate($perPage);
-            }
+        } else if(!empty($number) || !empty($name)){
+            $pedidos = Pedido::where('id', '=', $number)->orWhere('cliente_id', '=', $id)->paginate($perPage);
+        }  else {
+            $pedidos = Pedido::where('estado', '!=', '3')->paginate($perPage);
         }
-
         
-            // Show orders filtered by Id or Name 
-
-        //     elseif($name) {
-        //         $pedidos = Pedido::where('cliente', '=', "$name")->paginate($perPage);
-        //     } elseif ($number) {
-        //         $pedidos = Pedido::where('id', '=', "$number")->paginate($perPage);
-        //     } else {}
-        //         $pedidos = Pedido::where('estado', '=', "$key")->paginate($perPage);
-        // }  {
-        // }
-
-        return view('vadmin.pedidos.index', compact('pedidos'));
+        return view('vadmin.pedidos.index')
+            ->with('pedidos', $pedidos)
+            ->with('show', $show)
+            ->with('id', $id);
+            
     }
 
     public function ajax_get_pedidos($id)

@@ -170,12 +170,12 @@
 		{
 			var id    = data.item.id;
 			var route = "{{ url('vadmin/get_client') }}/"+id+"";
-
 			// Get Client Full Data
 			getClientData(route).done(function(data){
 				var id          = data.client['id'];
 				var razonsocial = data.client['razonsocial'];
-
+				$('#ClientIdInput').val(id);
+				
 				// Send Client Data to Output
 				output(id, razonsocial)
 			});
