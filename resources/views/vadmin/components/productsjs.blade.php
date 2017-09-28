@@ -103,9 +103,10 @@
     // Display Product Info
 	function setProductAndPrice(id, tipocte, operacion) {	
         console.log(id, tipocte, operacion);
-		var route   = "{{ url('vadmin/get_product_and_price') }}/"+id+"";
-		var display = $('#DisplayProductData');
-		var loader  = $('#PFLoader');
+		var route     = "{{ url('vadmin/get_product_and_price') }}/"+id+"";
+		var display   = $('#DisplayProductData');
+		var loader    = $('#PFLoader');
+		var productid = $('#ProductId');
 
 		$.ajax({
 			url: route,
@@ -120,8 +121,8 @@
 					if(data.operacion == 'pedido'){ 
 						display.html("<b>Producto: </b>" + data.producto + " | <b>Precio:</b> <span id='OriginalPrice'>" + data.precio + "</span><br> Precio de Oferta: <span id='PrecioOferta'>" + data.preciooferta + " </span> (Cantidad: <span id='CantOfertaMin'>" + data.cantoferta + "</span>)");
                         $('#PFByName').val(data.producto);
-
-                        // Inputs to calc offer price                       
+						productid.val(data.productoid);
+                        // Inputs to calc offer price            
                         prodPrice.val(data.precio);
                         prodOffer.val(data.preciooferta);
                         prodOfferMinAmmount.val(data.cantoferta);

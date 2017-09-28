@@ -39,12 +39,13 @@
 	.table-responsive
 		padding: 0 10px
 	.title
-		background-color: $dark3
-		color: #fff
+		background-color: #ececec
+		color: #383838
 		padding: 10px
 		position: relative
 		h2
 			margin: 0
+			margin-bottom: 4px
 		.ml15
 			margin-left: 15px
 		.small-text 
@@ -93,6 +94,12 @@
 						color: #ccc
 						&:hover
 							color: red
+		.content-foot
+			position: relative
+			.right
+				position: absolute
+				right: 15px
+				bottom: 0
 	.sect-footer
 		boder: 1px solid red
 		height: 50px
@@ -196,9 +203,9 @@
 
 .wd-container
 	background-color: #fff
-	padding: 20px 10px
+	@include border-shadow(2px)
+	padding: 10px 10px 20px 10px
 	margin-bottom: 20px
-	margin-top: 20px
 	position: relative
 	.title
 		padding: 4px 6px
@@ -208,6 +215,12 @@
 		span
 			font-size: 1rem
 			font-weight: 700
+	.sm-title
+		hr
+			margin: 0
+			margin-bottom: 15px
+	label
+		font-weight: 400
 	.closeButton
 		position: absolute
 		padding: 1px 8px
@@ -225,8 +238,11 @@
 
 .small-box-info
 	padding: 5px
-	background-color: #f9f9f9
 	margin-top: 10px
+
+
+.top-actions
+	margin-bottom: 10px
 //////////////////////////////////////
 //                                  //
 //            LISTS                 //
@@ -1038,7 +1054,7 @@ $phvFsize: 0.9rem
 	
 .search-filters,.options
 	position: relative
-	background-color: #f7f7f7
+	background-color: #fff
 	border: 1px solid #dedede
 	border-radius: 5px
 	padding: 10px
@@ -1384,26 +1400,49 @@ $phvFsize: 0.9rem
 			cursor: pointer
 			background-color: #dcdcdc
 		.special-input
-			padding: 2px 
-			select
-				border: 0
-				min-width: 115px
-				max-width: 115px
-				-webkit-appearance: none
-				-moz-appearance: none
-				appearance: none
-				option
-					border: 0
+			padding: 0
+			width: 150px
+			.select-container
+				padding: 2px
+				display: inline-block
+				.status
+					width: 22px
+					padding-top: 5px
+					padding-left: 5px
+					border-radius: 50%
+					float: left
+					i
+						font-size: 1.2rem
+				.status1
+					color: $red
+				.status2
+					color: $green
+				.status3
+					color: $blue
+				.status4
+					color: $grey
+				.select
+					float: right
+					select
+						border: 0
+						margin-top: 1px
+						max-width: 125px
+						-webkit-appearance: none
+						-moz-appearance: none
+						appearance: none
+						option
+							border: 0
+							font-size: 1rem
 		.list-actions
 			position: relative
 			padding: 0 10px
 			z-index: 5
 			.inner
-				background-color: $cream
+				background-color: $dark
 				position: absolute
 				top: 0
 				right: 0
-				min-width: 160px
+				min-width: 200px
 				text-align: center
 				min-height: 45px
 				padding-top: 5px
@@ -1419,9 +1458,10 @@ $phvFsize: 0.9rem
 					i
 						font-size: 1.2rem
 				.btn-close
-					border-radius: 40px
+					border-radius: 50px
 					margin-left: 10px
-					padding: 0px 12px
+					padding: 0px 10px
+					background-color: #fff
 					i
 						font-size: 1.2rem
 
@@ -1758,7 +1798,7 @@ $phvFsize: 0.9rem
 			padding-bottom: 20px
 			border-bottom: 1px solid #ccc
 			.title
-				font-size: 30px
+				font-size: 15px
 				font-weight: 600
 			.title-desc
 				font-size: 18px

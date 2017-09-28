@@ -27,103 +27,19 @@
     <div class="container">
 		<input type="text" id="Operacion" class="Hidden" value="pedido">{{-- This shows product data display--}}
         <div id="Error"></div>
-		<div class="row big-card">
-		 	<div class="title">
-			    <h2>Cliente: {{ $pedido->cliente->razonsocial}}</h2>
-				<div id="ClientData" data-pedidoid="{{ $pedido->id }}" data-clientid="{{ $pedido->cliente->id }}"></div>
-				<div id="TipoCte" class="small-text" data-tipocte="{{ $pedido->cliente->tipo_id }}"><b>Tipo de cliente: </b>{{ $tipocte }}</div>
-				<div class="small-text"><b>Pedido N°: </b> {{ $pedido->id }} </div>
-				<div class="right text-right"><b>Creado el</b> {{ transDateT($pedido->created_at) }} <br> <b>Autor:</b> {{ $pedido->user->name }}</div>
-            </div>		
-			<div class="content">
-				<div class="row">
-					<div class="table-responsive">
-						<table class="table">
-							<thead>
-								<tr>
-									<th>Cod.</th>
-									<th>Producto</th>
-									<th>Cantidad</th>
-									<th>P.Unit.</th>
-									<th class="txR">SubTotal</th>
-									<th class="txR">Facturado</th>
-									<th></th>
-								</tr>
-							</thead>
-							
-							<tbody>
-								@if ($pedido->pedidositems->isEmpty() )
-									<th>No hay items ingresados</th>
-								@else
-								@foreach($pedido->pedidositems as $item)
-								<tr id="Id{{ $item->id }}" class="item-row">
-									<td>{{ $item->producto->id }}</td>
-									<td>{{ $item->producto->nombre }}</td>
-									<td>{{ $item->cantidad }}</td>
-									<td>$ {{ $item->valor }}</td>
-									<td class="txR">$ {{ $item->cantidad * $item->valor }}</td>
-									<td class="txR">
-										@if( $item->facturado == 1)
-											<i class="ion-checkmark-round" style="color: #8DBB61"></i>
-										@else
-									
-										@endif
-									</td>
-									<td class="delete-item"><a class="Delete-Item" data-id="{{ $item->id }}"><i class="ion-trash-b"></i></a></td>
-								</tr>
-								@endforeach 
-								<tr>
-									<td> Cantidad de items:</b> {{ count($pedido->pedidositems )}}</td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td class="txR">TOTAL S/Iva : $ <b>{{ $total }} </b></td>
-									<td></td>
-									<td></td>
-								</tr>
-							</tbody>
-							
-							@endif
-						</table>
-					</div>
 
-					@component('vadmin.components.loaderRow')
-						@slot('text')
-							Agregando...
-						@endslot
-					@endcomponent
-					{{-- Totals --}} 
-					<div class="row">
-						<div class="col-md-12">
-							<hr class="softhr">
-							
-							<div class="col-md-6">
-								<div class="col-md-6">
-									<div class="small-box-info"><b>Estado del Pedido:</b>
-										{!! Form::text('pedidoid', $pedido->id, ['id' => 'PedidoId', 'class' => 'Hidden']) !!}
-										{!! Form::select('estado', ['1' => 'Pendiente', '2' => 'Preparado', '3' => 'Enviado'], $pedido->estado, ['id' => 'PedidoStatus', 'class' => 'form-control']) !!}
-									</div> 
-								</div>
-							</div>
-							<div class="col-md-6 text-right" style="margin-top: 10px">
-								<a href="{{ URL::to('vadmin/exportPedidoPdf/'.$pedido->id) }}" target="_blank"><button type="button" class="btn btn-labeled btnRed">
-									<span class="btn-label"><i class="ion-android-download"></i></span>Generar PDF</button>
-								</a>
-							</div>
-						</div>
-					</div>
-				</div>	
-			</div>					
-		</div> {{-- / big-card --}}
-		<br>
 		{{-- Product Finder --}}
-		<div class="row wd-container">
+		<div class="row top-actions">
+			<button id="AddProductBtn" class="btnSm btnBlue">Agregar Productos</button>
+		</div>
+		<div id="ProductFinder" class="row wd-container Hidden ptop0">
+			<div class="CloseBtn closeButton"><i class="ion-close-round"></i></div>
 			@if(count($pedido->pedidositems) >= 17)
 				<div class="col-md-12 horiz-container">
 					No se pueden agregar más items
 				</div>
 			@else
-			<div class="col-md-12">
+			<div class="col-md-12 sm-title">
 				<b>Agregar producto</b>
 				<hr class="softhr">
 			</div>
@@ -135,6 +51,7 @@
 				{!! Form::label('searchbycode','Código') !!}
 				<div class="input-group">
 					{!! Form::text('searchbycode', null, ['id' => 'PFByCode', 'class' => 'form-control']) !!} 
+					{!! Form::text('productid', null, ['id' => 'ProductId', 'class Hidden' => 'form-control']) !!} 
 					<span id="PFByCodeBtn" class="input-group-addon button-on-input"><i class="ion-android-add-circle"></i></span>
 				</div>
 			</div>
@@ -171,7 +88,94 @@
 			</div>
 			@endif
 		</div>
-	</>  
+
+
+		<div class="row big-card">
+		 	<div class="title">
+			    <h2>Cliente: {{ $pedido->cliente->razonsocial}}</h2>
+				<span>Dirección: {{ $pedido->cliente->dirfiscal}}</span>
+				<div id="ClientData" data-pedidoid="{{ $pedido->id }}" data-clientid="{{ $pedido->cliente->id }}"></div>
+				<span id="TipoCte" data-tipocte="{{ $pedido->cliente->tipo_id }}">{{ $tipocte }}</span>
+				<div class="right"><div class="small-text"><b>Pedido N°: </b> {{ $pedido->id }} </div>
+				<b>Creado el</b> {{ transDateT($pedido->created_at) }} <br> <b>Autor:</b> {{ $pedido->user->name }}</div>
+            </div>		
+			<div class="content">
+				<div class="row">
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Cod.</th>
+									<th>Producto</th>
+									<th>Cantidad</th>
+									<th>P.Unit.</th>
+									<th class="txR">SubTotal</th>
+									<th class="txR">Facturado</th>
+									<th></th>
+								</tr>
+							</thead>
+							
+							<tbody>
+								@if ($pedido->pedidositems->isEmpty() )
+									<th>No hay items ingresados</th>
+								@else
+								@foreach($pedido->pedidositems as $item)
+								<tr id="Id{{ $item->id }}" class="item-row">
+									<td>{{ $item->producto->codigo }}</td>
+									<td>{{ $item->producto->nombre }}</td>
+									<td>{{ $item->cantidad }}</td>
+									<td>$ {{ $item->valor }}</td>
+									<td class="txR">$ {{ $item->cantidad * $item->valor }}</td>
+									<td class="txR">
+										@if( $item->facturado == 1)
+											<i class="ion-checkmark-round" style="color: #8DBB61"></i>
+										@else
+									
+										@endif
+									</td>
+									<td class="delete-item"><a class="Delete-Item" data-id="{{ $item->id }}"><i class="ion-trash-b"></i></a></td>
+								</tr>
+								@endforeach 
+								<tr>
+									<td> Cantidad de items:</b> {{ count($pedido->pedidositems )}}</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td class="txR">TOTAL S/Iva : $ <b>{{ $total }} </b></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</tbody>
+							
+							@endif
+						</table>
+					</div>
+
+					@component('vadmin.components.loaderRow')
+						@slot('text')
+							Agregando...
+						@endslot
+					@endcomponent
+					{{-- Totals --}}
+					<div class="col-md-12 content-foot">
+						<hr class="softhr">
+						<div class="w250">
+							<div class="small-box-info"><b>Estado del Pedido:</b>
+								{!! Form::text('pedidoid', $pedido->id, ['id' => 'PedidoId', 'class' => 'Hidden']) !!}
+								{!! Form::select('estado', ['1' => 'Pendiente', '2' => 'Preparado', '3' => 'Enviado'], $pedido->estado, ['id' => 'PedidoStatus', 'class' => 'form-control']) !!}
+							</div>	
+						</div>
+						<div class="right">
+							<a href="{{ URL::to('vadmin/exportPedidoPdf/'.$pedido->id) }}" target="_blank"><button type="button" class="btn btn-labeled btnRed">
+								<span class="btn-label"><i class="ion-android-download"></i></span>Generar PDF</button>
+							</a>
+						</div>
+					</div>
+				</div>	
+			</div>					
+		</div> {{-- / big-card --}}
+		<br>
+		
 		
 @endsection
 
@@ -207,6 +211,7 @@
 		var cantidad          = $('#PFAmmount').val();
 		var precio            = $('#PFPrice').val();
 		var tipo              = $('#TipoCte').data('tipocte');
+		var productId         = $('#ProductId').val();
 
 		// Validations
 		if(productCode == ''){
@@ -223,7 +228,8 @@
 			var data = {};
 			data['cliente_id']      = clientid;
 			data[sectionColumnName] = itemId;
-			data['producto_id']     = productCode;
+			data['codigo']          = productCode;
+			data['producto_id']     = productId;
 			data['cantidad']        = cantidad;
 			data['valor']           = precio;
 			data['tipo']            = tipo;
@@ -233,6 +239,9 @@
 		}
 	});
 
+	$('.CloseBtn').click(function(){
+		$('#AddProductBtn').removeClass('Hidden');
+	});
 	/////////////////////////////////////////////////
     //                  DELETE                     //
     /////////////////////////////////////////////////

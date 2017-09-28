@@ -91,6 +91,34 @@ hr {
   max-width: 100px;
 }
 
+.w50 {
+  width: 50px;
+}
+
+.w100 {
+  width: 100px;
+}
+
+.w150 {
+  width: 150px;
+}
+
+.w200 {
+  width: 150px;
+}
+
+.w250 {
+  width: 250px;
+}
+
+.w300 {
+  width: 300px;
+}
+
+.ptop0 {
+  padding-top: 0;
+}
+
 @media (max-width: 900px) {
   .hideMobile900 {
     display: none !important;
@@ -212,14 +240,15 @@ hr {
 }
 
 .big-card .title {
-  background-color: #00babd;
-  color: #fff;
+  background-color: #ececec;
+  color: #383838;
   padding: 10px;
   position: relative;
 }
 
 .big-card .title h2 {
   margin: 0;
+  margin-bottom: 4px;
 }
 
 .big-card .title .ml15 {
@@ -302,6 +331,16 @@ hr {
 
 .big-card .content .item-row:hover .delete-item i:hover {
   color: red;
+}
+
+.big-card .content .content-foot {
+  position: relative;
+}
+
+.big-card .content .content-foot .right {
+  position: absolute;
+  right: 15px;
+  bottom: 0;
 }
 
 .big-card .sect-footer {
@@ -459,9 +498,9 @@ hr {
 
 .wd-container {
   background-color: #fff;
-  padding: 20px 10px;
+  box-shadow: 0 0 0 2px #f1f1f1;
+  padding: 10px 10px 20px 10px;
   margin-bottom: 20px;
-  margin-top: 20px;
   position: relative;
 }
 
@@ -475,6 +514,15 @@ hr {
 .wd-container .title span {
   font-size: 1rem;
   font-weight: 700;
+}
+
+.wd-container .sm-title hr {
+  margin: 0;
+  margin-bottom: 15px;
+}
+
+.wd-container label {
+  font-weight: 400;
 }
 
 .wd-container .closeButton {
@@ -498,8 +546,11 @@ hr {
 
 .small-box-info {
   padding: 5px;
-  background-color: #f9f9f9;
   margin-top: 10px;
+}
+
+.top-actions {
+  margin-bottom: 10px;
 }
 
 .big-list {
@@ -1591,7 +1642,7 @@ hr {
 
 .search-filters, .options {
   position: relative;
-  background-color: #f7f7f7;
+  background-color: #fff;
   border: 1px solid #dedede;
   border-radius: 5px;
   padding: 10px;
@@ -2052,20 +2103,59 @@ hr {
 }
 
 .table-list .table-list-row .special-input {
-  padding: 2px;
+  padding: 0;
+  width: 150px;
 }
 
-.table-list .table-list-row .special-input select {
+.table-list .table-list-row .special-input .select-container {
+  padding: 2px;
+  display: inline-block;
+}
+
+.table-list .table-list-row .special-input .select-container .status {
+  width: 22px;
+  padding-top: 5px;
+  padding-left: 5px;
+  border-radius: 50%;
+  float: left;
+}
+
+.table-list .table-list-row .special-input .select-container .status i {
+  font-size: 1.2rem;
+}
+
+.table-list .table-list-row .special-input .select-container .status1 {
+  color: #f8756b;
+}
+
+.table-list .table-list-row .special-input .select-container .status2 {
+  color: #95c97f;
+}
+
+.table-list .table-list-row .special-input .select-container .status3 {
+  color: #0091ca;
+}
+
+.table-list .table-list-row .special-input .select-container .status4 {
+  color: #ffd9d9;
+}
+
+.table-list .table-list-row .special-input .select-container .select {
+  float: right;
+}
+
+.table-list .table-list-row .special-input .select-container .select select {
   border: 0;
-  min-width: 115px;
-  max-width: 115px;
+  margin-top: 1px;
+  max-width: 125px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
 }
 
-.table-list .table-list-row .special-input select option {
+.table-list .table-list-row .special-input .select-container .select select option {
   border: 0;
+  font-size: 1rem;
 }
 
 .table-list .table-list-row .list-actions {
@@ -2075,11 +2165,11 @@ hr {
 }
 
 .table-list .table-list-row .list-actions .inner {
-  background-color: #f8fff9;
+  background-color: #01354a;
   position: absolute;
   top: 0;
   right: 0;
-  min-width: 160px;
+  min-width: 200px;
   text-align: center;
   min-height: 45px;
   padding-top: 5px;
@@ -2101,9 +2191,10 @@ hr {
 }
 
 .table-list .table-list-row .list-actions .inner .btn-close {
-  border-radius: 40px;
+  border-radius: 50px;
   margin-left: 10px;
-  padding: 0px 12px;
+  padding: 0px 10px;
+  background-color: #fff;
 }
 
 .table-list .table-list-row .list-actions .inner .btn-close i {
@@ -2494,7 +2585,7 @@ hr {
 }
 
 .export-container .export-table .exp-table-header .title {
-  font-size: 30px;
+  font-size: 15px;
   font-weight: 600;
 }
 

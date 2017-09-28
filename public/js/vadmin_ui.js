@@ -107,3 +107,13 @@ $('.CloseBtn').click(function(){
 });
 
 
+//--------------------- CARDS  ------------------------- //
+
+// Data Input
+
+$('#AddProductBtn').click(function(){
+	$(this).addClass('Hidden');
+	$('#ProductFinder').removeClass('Hidden');
+
+});
+

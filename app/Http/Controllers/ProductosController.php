@@ -79,7 +79,8 @@ class ProductosController extends Controller
         $tipocte      = $request->tipocte;
         $id           = $request->id;
         
-        $producto     = Producto::where('id', '=', $id)->first();
+        $producto     = Producto::where('codigo', '=', $id)->first();
+        
         if($producto == null){
             return response()->json(['exist'        => 0, 
                                      'producto'     => 'No existe',
@@ -97,6 +98,7 @@ class ProductosController extends Controller
             return response()->json(['exist'          => 1,
                                      'operacion'      => $request->operacion,
                                      'producto'       => $producto->nombre,
+                                     'productoid'     => $producto->id,
                                      'precio'         => $price,
                                      'preciooferta'   => $offer,
                                      'cantoferta'     => $producto->cantoferta
@@ -161,8 +163,7 @@ class ProductosController extends Controller
 
     public function calculatePrice($id, $tipocte)
     {
-
-        $producto  = Producto::where('id', '=', $id)->first();
+        $producto  = Producto::where('codigo', '=', $id)->first();
         $dolarsist = Moneda::where('nombre', '=', 'Dolar')->first();
         $eurosist  = Moneda::where('nombre', '=', 'Euro')->first();
         
@@ -484,10 +485,12 @@ class ProductosController extends Controller
         $currency     = '';
         $origin       = null;
 
+        
+
         if(is_null($ultCodigo)){
-            $ultCodigo = 0;
+            $ultCodigo = '-';
         } else {
-            $ultCodigo = intVal($ultCodigo->codigo);
+            $ultCodigo = $ultCodigo->codigo;
         }
 
         return view('vadmin.productos.create')

@@ -34,19 +34,16 @@
 		{{-- 	{!! Form::select('subfamilia_id', $subfamilias, null, ['class' => 'form-control Select-Chosen', 'placeholder' => 'Seleccione una opción']) !!} --}}
 		</div>
 	</div>
-
-	
 </div>
 <div class="row inner-row">
-	
 	{{-- /// --}}
 	@if($ultCodigo)
-	<div class="col-md-3 col-sm-6 col-xs-12">
-		<div class="form-group">
-			{!! Form::label('codigo', 'Código: (Últ. Cod.: '.$ultCodigo.')') !!}	
-			{!! Form::text('codigo', $ultCodigo+1, ['class' => 'form-control', 'required' => '']) !!}
+		<div class="col-md-3 col-sm-6 col-xs-12">
+			<div class="form-group">
+				{!! Form::label('codigo', 'Código') !!}	
+				{!! Form::text('codigo', null, ['class' => 'form-control', 'placeholder' => 'Último código: '.$ultCodigo,'required' => '']) !!}
+			</div>
 		</div>
-	</div>
 	@else
 	@endif
 	{{-- /// --}}
