@@ -22,17 +22,16 @@
 			<div class="developer-message">
 				<span class="title">Mensaje:</span><br>
 				<span class="content">
-					Estuve puliento los módulos <b>productos y pedidos</b> para que podamos definirlos definitivamente.<br>
-					Están completo pero tendrían que volver a testearlo. Sigo revisandolos.<br>
-					Una vez que definamos los tipos de campos a utilizar en cada uno no se van a poder volver a modificar.<br>
+					Estuve puliento los módulos <b>productos y pedidos</b> para que podamos cerrarlos definitivamente.<br>
+					Una vez que definamos los campos a llenar en cada uno no se van a poder volver a modificar.<br>
 					Esto va a hacer que avencemos más rápido con el desarrollo.<br>
 					---<br>
 					<b>Agregué al producto un código personalizado. </b> <br>
-					Ahora se le puede agregar a los productos el código a mano. <br>
+					Ahora se le puede agregar el código a mano<br>
 					Esto va a permitir que no queden códigos inutilizados si se elimina algún producto.<br>
-					Lo ideal sería que se respete la correlatividad, pero esta puede ser obviada.<br>
+					Lo ideal sería que se respete la correlatividad pero esta puede ser obviada.<br>
 					---<br>
-					Los demás módulos están sin actualizar. Una vez definamos lo anterior los voy a ir subiendo.
+					Los demás módulos están sin actualizar. Una vez definamos lo mencionado los voy a ir subiendo.
 				</span>
 			</div> <br>
 			
