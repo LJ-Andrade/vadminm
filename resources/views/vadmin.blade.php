@@ -22,8 +22,8 @@
 			<div class="developer-message">
 				<span class="title">Mensaje:</span><br>
 				<span class="content">
-					Estuve puliento los módulos <b>productos y pedidos</b> para que podamos cerrarlos definitivamente.<br>
-					Una vez que definamos los campos a llenar en cada uno no se van a poder volver a modificar.<br>
+					Estuve puliendo los módulos <b>productos y pedidos</b> para que podamos cerrarlos definitivamente.<br>
+					Una vez que definamos los campos de cada uno no se van a poder volver a modificar.<br>
 					Esto va a hacer que avencemos más rápido con el desarrollo.<br>
 					---<br>
 					<b>Agregué al producto un código personalizado. </b> <br>
