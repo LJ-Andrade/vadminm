@@ -45,6 +45,12 @@
 			</div>
 		</div>
 	@else
+		<div class="col-md-3 col-sm-6 col-xs-12">
+			<div class="form-group">
+				{!! Form::label('codigo', 'Código') !!}	
+				{!! Form::text('codigo', null, ['class' => 'form-control', 'placeholder' => 'Código', 'required' => '']) !!}
+			</div>
+		</div>
 	@endif
 	{{-- /// --}}
 	<div class="col-md-3 col-sm-6 col-xs-12">

@@ -52,15 +52,15 @@ class PedidosController extends Controller
         if (!empty($show)) {
             // Show All Orders (Sended too)   
             if ($show=='5') {
-                $pedidos = Pedido::paginate($perPage);
+                $pedidos = Pedido::orderBy('id', 'DESC')->paginate($perPage);
             } else {
                 // Show all orders but sended
-                $pedidos = Pedido::where('estado', '=', $show)->paginate($perPage);
-            }   
+                $pedidos = Pedido::where('estado', '=', $show)->orderBy('id', 'DESC')->paginate($perPage);
+            }
         } else if(!empty($number) || !empty($name)){
-            $pedidos = Pedido::where('id', '=', $number)->orWhere('cliente_id', '=', $id)->paginate($perPage);
+            $pedidos = Pedido::where('id', '=', $number)->orWhere('cliente_id', '=', $id)->orderBy('id', 'DESC')->paginate($perPage);
         }  else {
-            $pedidos = Pedido::where('estado', '!=', '3')->paginate($perPage);
+            $pedidos = Pedido::where('estado', '!=', '3')->orderBy('id', 'DESC')->paginate($perPage);
         }
         
         return view('vadmin.pedidos.index')

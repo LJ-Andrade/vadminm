@@ -8,8 +8,8 @@
 	@section('header_title', 'Listado de Productos') 
 	@section('options')
 		<div class="actions">
-            <a id="ToNewItem" href="{{ url('vadmin/productos/create') }}" class="btn btnSm buttonOther"><i class="ion-plus-round"></i> Nuevo Producto</a>
-            <button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button>
+            <a id="ToNewItem" href="{{ url('vadmin/productos/create') }}" class="btn btnSm btnWhite"><i class="ion-plus-round"></i> Nuevo Producto</a>
+            <button class="OpenFilters btnSm btnWhite pull-right"><i class="ion-ios-search"></i></button>
 		</div>	
 	@endsection
 @endsection
@@ -29,7 +29,7 @@
 		<div class="row">
 			@include('vadmin.productos.list')
 		</div>
-		<button id="BatchDeleteBtn" class="button buttonCancel batchDeleteBtn Hidden"><i class="ion-ios-trash-outline"></i> Eliminar seleccionados</button>
+		<button id="BatchDeleteBtn" class="button btnRed batchDeleteBtn Hidden"><i class="ion-ios-trash-outline"></i> Eliminar seleccionados</button>
 	</div>  
 	<div id="Error"></div>	
 

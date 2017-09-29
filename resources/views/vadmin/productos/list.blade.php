@@ -28,10 +28,9 @@
 			</div>
             <div class="col-md-3">
 				@if($item->stockactual < $item->stockmin) <span class="small-text badge buttonCancel">Stock Depósito: {{ $item->stockactual }} </span><br>
-				@else <span class="small-text">Stock Depósito: {{ $item->stockactual }} </span><br> @endif
+				@else <span class="small-text">Stock Depósito: {{ $item->stockactual }} </span> <br> @endif
 				@if($item->stocklocal < $item->stockmin) <span class="small-text badge buttonCancel">Stock Local: {{ $item->stocklocal }} </span><br>
-				@else <span class="small-text">Stock Local: {{ $item->stocklocal }} </span><br> @endif
-				<br>
+				@else <span class="small-text">Stock Local: {{ $item->stocklocal }} </span> @endif
             </div>
 		</div>
 		{{-- Batch Delete --}} 
@@ -41,21 +40,21 @@
 		{{-- Hidden Action Buttons --}}
 		<div class="List-Actions lists-actions Hidden">
 			@if ($item->estado == 'activo')
-				<a class="UpdateStatusBtn btnSmall buttonOther" data-action="pausar" data-id="{!! $item->id !!}"><i class="ion-ios-pause"></i></a>
+				<a class="UpdateStatusBtn btnSm btnBlue" data-action="pausar" data-id="{!! $item->id !!}"><i class="ion-ios-pause"></i></a>
 			@elseif ($item->estado == 'pausado')
-				<a class="UpdateStatusBtn btnSmall buttonOther" data-action="activar" data-id="{!! $item->id !!}"><i class="ion-ios-play"></i></a>
+				<a class="UpdateStatusBtn btnSm btnBlue" data-action="activar" data-id="{!! $item->id !!}"><i class="ion-ios-play"></i></a>
 			@endif
-			<a href="{{ url('vadmin/productos/' . $item->id . '/edit') }}" class="ShowEditBtn btnSmall buttonOk" data-id="{{ $item->id }}">
+			<a href="{{ url('vadmin/productos/' . $item->id . '/edit') }}" class="ShowEditBtn btnSm btnGreen" data-id="{{ $item->id }}">
 				<i class="ion-ios-compose-outline"></i>
 			</a>
-			<a href="{{ url('vadmin/productos/'. $item->id) }}" class="btnSmall buttonOther">
+			<a href="{{ url('vadmin/productos/'. $item->id) }}" class="btnSm btnBlue">
 				<i class="ion-ios-search"></i>
 			</a>
-			<a class="ShowPriceBtn btnSmall buttonOk" data-toggle="modal" data-target="#PriceModal" data-id="{!! $item->id !!}"><i class="ion-social-usd"></i></a>
-			<button class="Delete btnSmall buttonCancel" data-id="{!! $item->id !!}">
+			<a class="ShowPriceBtn btnSm btnGreen" data-toggle="modal" data-target="#PriceModal" data-id="{!! $item->id !!}"><i class="ion-social-usd"></i></a>
+			<button class="Delete btnSm btnRed" data-id="{!! $item->id !!}">
 				<i class="ion-ios-trash-outline"></i>
 			</button>
-			<a class="Close-Actions-Btn btn btn-danger btn-close">
+			<a class="Close-Actions-Btn btnSm btnRed">
 				<i class="ion-ios-close-empty"></i>
 			</a>
 		</div>

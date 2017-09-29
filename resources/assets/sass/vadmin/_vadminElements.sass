@@ -690,7 +690,7 @@ $phvFsize: 0.9rem
 .btnSm
 	border: 0
 	border-radius: 4px
-	padding: 2px 15px
+	padding: 3px 15px
 	font-size: 1rem
 	white-space: nowrap
 	vertical-align: middle
@@ -861,6 +861,15 @@ $phvFsize: 0.9rem
 	&:active,&:focus
 		color: #fff
 
+.btnWhite
+	background-color: #fff
+	color: #383838
+	font-size: 1rem
+	&:hover
+		background-color: #f9f9f9
+	&:active,&:focus
+		color: #383838
+
 
 .buttonGrey, .btnGrey
 	background-color: #ccc
@@ -883,6 +892,7 @@ $phvFsize: 0.9rem
 	@include transition(0.2s)
 	&:hover
 		cursor: pointer
+
 
 .btnCloseDark
 	background-color: #ccc
@@ -1055,12 +1065,12 @@ $phvFsize: 0.9rem
 .search-filters,.options
 	position: relative
 	background-color: #fff
-	border: 1px solid #dedede
+	border: 2px solid #dedede
 	border-radius: 5px
 	padding: 10px
 	margin-bottom: 10px
 	display: none
-	z-index: 999
+	z-index: 990
 	.navbar-form
 		padding: 0
 		margin: 0
@@ -1084,6 +1094,9 @@ $phvFsize: 0.9rem
 					width: 100%
 		.hide-desk
 			display: block
+
+.search-results
+	margin-bottom: 10px
 
 // VISIBLE SEARCHER
 .visible-searcher
@@ -1224,16 +1237,14 @@ $phvFsize: 0.9rem
 
 .main-list
 	border-radius: 5px
-	border: 1px solid #cacaca
+	border: 2px solid #cacaca
 	.item-row
 		position: relative
 		background-color: #fff
 		padding-left: 30px
-		padding-top: 5px
-		padding-bottom: 5px
-		max-height: 74px
-		border-bottom: 0
-		border-bottom: 1px solid #f7f7f7
+		padding-top: 10px
+		padding-bottom: 10px
+		max-height: 76px
 		@include transition(0.2s)
 		div:first-child
 			float: left
@@ -1289,8 +1300,7 @@ $phvFsize: 0.9rem
 			height: 100%
 			padding: 0 20px
 			@include flex-center
-			@include box-shadow-left
-			background-color: $cream
+			background-color: $dark
 			z-index: 5
 			.form-group
 				margin-right: 10px
@@ -1807,3 +1817,21 @@ $phvFsize: 0.9rem
 			.right
 				float: right
 				text-align: right
+
+
+//////////////////////////////////////
+//                                  //
+//             MISC.                //
+//                                  //
+//////////////////////////////////////
+
+
+.developer-message
+	position: relative
+	margin-top: 15px
+	border: 2px solid #f9f9f9
+	background-color: #fff
+	padding: 10px
+	border-radius: 10px
+	.title
+		font-weight: 700

@@ -11,7 +11,7 @@
     @endsection 
 	@section('options')
 		<div class="actions">
-            <a href="{{ url('vadmin/pedidos') }}" class="btn btnSm buttonOther">Volver</a>
+            <a href="{{ url('vadmin/pedidos') }}" class="btn btnSm btnWhite">Volver</a>
 		</div>	
 	@endsection
 @endsection
@@ -89,7 +89,6 @@
 			@endif
 		</div>
 
-
 		<div class="row big-card">
 		 	<div class="title">
 			    <h2>Cliente: {{ $pedido->cliente->razonsocial}}</h2>
@@ -107,6 +106,7 @@
 								<tr>
 									<th>Cod.</th>
 									<th>Producto</th>
+									<th>Tipo</th>
 									<th>Cantidad</th>
 									<th>P.Unit.</th>
 									<th class="txR">SubTotal</th>
@@ -123,6 +123,7 @@
 								<tr id="Id{{ $item->id }}" class="item-row">
 									<td>{{ $item->producto->codigo }}</td>
 									<td>{{ $item->producto->nombre }}</td>
+									<td>{{ $item->producto->origen }}</td>
 									<td>{{ $item->cantidad }}</td>
 									<td>$ {{ $item->valor }}</td>
 									<td class="txR">$ {{ $item->cantidad * $item->valor }}</td>

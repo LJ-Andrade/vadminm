@@ -510,10 +510,12 @@ class ProductosController extends Controller
         
         $this->validate($request,[
             'nombre'              => 'required|unique:productos,nombre',
+            'codigo'              => 'required|unique:productos,codigo',
         ],[
             'nombre.required'     => 'Debe ingresar un nombre',
             'nombre.unique'       => 'El producto ya existe',
-            
+            'codigo.required'     => 'Debe ingresar un código',
+            'codigo.unique'       => 'El código ya está utilizado',
         ]);
         
         // dd($request->all());
@@ -624,36 +626,43 @@ class ProductosController extends Controller
         if($request->codproveedor == null){
             $producto->codproveedor = ' ';
         }
-        
+
         $this->validate($request,[
+            'nombre'              => 'required|unique:productos,nombre,'.$producto->id,
+            'codigo'              => 'required|unique:productos,codigo,'.$producto->id,
             'codproveedor'        => Rule::unique('productos')->ignore($producto->id, 'id')
-            ],[
+        ],[
+            'nombre.required'     => 'Debe ingresar un nombre',
+            'nombre.unique'       => 'El producto ya existe',
+            'codigo.required'     => 'Debe ingresar un código',
+            'codigo.unique'       => 'El código ya está utilizado',
             'codproveedor.unique' => 'Ya existe un producto con ese código de proveedor',
-            ]);
-            
-            // Store cost by money type
-            switch ($request->monedacompra) {
-                case 1:
-                $producto->costopesos = formatNum($request->costopesos, 2);
-                $producto->costodolar = 0;
-                $producto->costoeuro  = 0;
-                break;
-                case 2:
-                $producto->costodolar = formatNum($request->costodolar,2);
-                $producto->costopesos = 0;
-                $producto->costoeuro  = 0;
-                
-                break;
-                case 3:
-                $producto->costoeuro  = formatNum($request->costoeuro, 2);
-                $producto->costopesos = 0;
-                $producto->costodolar = 0;
-                break;
-                default:
-                $producto->costopesos    = formatNum($request->costopesos, 2);
-                break;
-            }
+        ]);
+    
         
+        // Store cost by money type
+        switch ($request->monedacompra) {
+            case 1:
+            $producto->costopesos = formatNum($request->costopesos, 2);
+            $producto->costodolar = 0;
+            $producto->costoeuro  = 0;
+            break;
+            case 2:
+            $producto->costodolar = formatNum($request->costodolar,2);
+            $producto->costopesos = 0;
+            $producto->costoeuro  = 0;
+            
+            break;
+            case 3:
+            $producto->costoeuro  = formatNum($request->costoeuro, 2);
+            $producto->costopesos = 0;
+            $producto->costodolar = 0;
+            break;
+            default:
+            $producto->costopesos    = formatNum($request->costopesos, 2);
+            break;
+        }
+    
         
         if($producto->oferta == 'off')
         {
@@ -669,6 +678,7 @@ class ProductosController extends Controller
         
         };
         
+        $producto->fill($request->all());
         $producto->save();
 
         return redirect('vadmin/productos')->with('message', 'Producto "'.$producto->nombre.'" actualizado');

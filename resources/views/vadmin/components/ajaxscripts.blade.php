@@ -163,10 +163,13 @@
 		source: "{!!URL::route('client_autocomplete')!!}",
 		minlength: 1,
 		autoFocus: true,
+		options: function(){
+			minChars: 1;
+		},
 		search: function(){
 			$('#SmallLoader').html(loaderSm('Buscando...'));
 		},
-		select:function(e,data)
+		select: function(e,data)
 		{
 			var id    = data.item.id;
 			var route = "{{ url('vadmin/get_client') }}/"+id+"";

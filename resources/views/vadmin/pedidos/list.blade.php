@@ -47,13 +47,13 @@
                         <a href="{{ url('vadmin/pedidos/'. $item->id) }}" class="btn action-btn btnBlue">
 							<i class="ion-ios-search"></i>
 						</a>
-                        <a  href="{{ URL::to('vadmin/exportPedidoPdf/'.$item->id) }}" class="Delete btn action-btn btnGrey" target="_blank">
+                        <a  href="{{ URL::to('vadmin/exportPedidoPdf/'.$item->id) }}" class="btn action-btn btnGrey" target="_blank">
 							<i class="ion-ios-cloud-download-outline"></i>
 						</a>                     
                         <a class="Delete btn action-btn btnRed" data-id="{!! $item->id !!}">
                             <i class="ion-ios-trash-outline"></i>
                         </a>
-                        <a class="Close-Actions-Btn btn btn-close">
+                        <a class="Close-Actions-Btn btn action-btn btnWhite">
                             <i class="ion-ios-close-empty"></i>
                         </a>
                     </div>

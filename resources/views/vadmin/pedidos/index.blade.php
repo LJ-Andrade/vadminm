@@ -9,8 +9,8 @@
 	@section('header_title', 'Listado de Pedidos') 
 	@section('options')
 		<div class="actions">
-            <a href="{{ url('vadmin/pedidos/create') }}" class="btn btnSm buttonOther"><i class="ion-plus-round"></i> Nuevo Pedido</a>
-            <button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button>
+            <a href="{{ url('vadmin/pedidos/create') }}" class="btn btnSm btnWhite"><i class="ion-plus-round"></i> Nuevo Pedido</a>
+            <button class="OpenFilters btnSm btnWhite pull-right"><i class="ion-ios-search"></i></button>
 		</div>	
 	@endsection
 @endsection
@@ -23,9 +23,9 @@
 
 {{-- CONTENT --}}
 @section('content')
+	@include('vadmin.pedidos.searcher')
     <div class="container">
 		<div class="row">		
-			@include('vadmin.pedidos.searcher')
 			@include('vadmin.pedidos.list')
 		</div>
 		<button id="BatchDeleteBtn" class="button buttonCancel batchDeleteBtn Hidden"><i class="ion-ios-trash-outline"></i> Eliminar seleccionados</button>
@@ -41,6 +41,16 @@
 @section('custom_js')
 
 	<script type="text/javascript">
+
+	// Reset search field
+	
+	function resetSearch(){
+		var resetName = $('#ClientAutoComplete');
+		var resetId   = $('#ClientIdInput');
+		resetName.val('');
+		resetId.val(0);
+	}
+	resetSearch();
 
 	/////////////////////////////////////////////////
     //                  DELETE                     //
@@ -70,6 +80,7 @@
 		var route = "{{ url('vadmin/delete_pedidos') }}/"+id+"";
 		deleteRecord(id, route, 'Cuidado!','Desea eliminar estos pedidos?');
 	});
+
 
 	</script>
 
