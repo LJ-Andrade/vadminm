@@ -768,7 +768,8 @@
 		//store_comp(cae, nro, vto);
 
 		var data    = fcdata;
-		var route   = "{{ asset('Feafip/wsfe-client.php') }}";
+		// var route   = "{{ url('Feafip/wsfe-client.php') }}";
+		var route   = "{{ url('Feafip/test.php') }}";
 		var message = $('#DocMessage');
 		var pending = $('#MarkDone');
 		$.ajax({
@@ -794,6 +795,7 @@
 				} else {
 					message.removeClass('Hidden');
 					message.html(data.responseText);
+					console.log(data);
 				}
 				$('#EmitDocBtn').html('Emitido');
 			},
