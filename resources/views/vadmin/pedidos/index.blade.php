@@ -9,8 +9,8 @@
 	@section('header_title', 'Listado de Pedidos') 
 	@section('options')
 		<div class="actions">
-            <a href="{{ url('vadmin/pedidos/create') }}" class="btn btnSm btnWhite"><i class="ion-plus-round"></i> Nuevo Pedido</a>
-            <button class="OpenFilters btnSm btnWhite pull-right"><i class="ion-ios-search"></i></button>
+            <a href="{{ url('vadmin/pedidos/create') }}" class="btn btnSmall btnDark"><i class="ion-plus-round"></i> Nuevo Pedido</a>
+            <button class="OpenFilters btnSmall btnDark pull-right"><i class="ion-ios-search"></i></button>
 		</div>	
 	@endsection
 @endsection

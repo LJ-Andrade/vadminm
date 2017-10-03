@@ -8,8 +8,8 @@
 	@section('header_title', 'Listado de Comprobantes') 
 	@section('options')
 		<div class="actions">
-            <a id="ToNewItem" href="{{ url('vadmin/comprobantes/create') }}" class="btn btnSm buttonOther"><i class="ion-plus-round"></i> Nuevo Comprobante</a>
-            <button class="OpenFilters btnSm buttonOther pull-right"><i class="ion-ios-search"></i></button>
+            <a id="ToNewItem" href="{{ url('vadmin/comprobantes/create') }}" class="btn btnSmall btnDark"><i class="ion-plus-round"></i> Nuevo Comprobante</a>
+            <button class="OpenFilters btnSmall btnDark pull-right"><i class="ion-ios-search"></i></button>
 		</div>	
 	@endsection
 @endsection

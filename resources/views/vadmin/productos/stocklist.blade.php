@@ -3,7 +3,8 @@
         {{-- <th></th> --}}
         <th>Código</th>
         <th>Descripción</th>
-        <th>Stock Actual</th>
+        <th>Stock Depósito</th>
+        <th>Stock Local</th>
         <th>Stock Min.</th>
         <th>Stock Max.</th>
         <th></th>
@@ -14,13 +15,20 @@
                 {{-- <td class="list-checkbox">
                     <input type="checkbox" class="BatchDelete" data-id="{{ $item->id }}">
                 </td> --}}
-                <td>{{ $item->id }}</td>
+                <td>{{ $item->codigo }}</td>
                 <td>{{ $item->nombre }}</td>
                 <td>
                     @if( $item->stock1 < $item->stockmin)
                     <span class="badge">{{ $item->stock1 }}</span>
                     @else
                         {{ $item->stock1 }}
+                    @endif
+                </td>
+                <td>
+                    @if( $item->stock2 < $item->stockmin)
+                    <span class="badge">{{ $item->stock2 }}</span>
+                    @else
+                        {{ $item->stock2 }}
                     @endif
                 </td>
                 <td>{{ $item->stockmin }}</td>

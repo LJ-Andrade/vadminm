@@ -42,7 +42,7 @@ class ProductosController extends Controller
            
             } else if ($code !='') {
                 // Search by Name or Email
-                $productos = Producto::where('id', 'LIKE', "%$code%")->paginate($perPage);
+                $productos = Producto::where('codigo', 'LIKE', "%$code%")->paginate($perPage);
             } else {
                 // Seatch All
                 $productos = Producto::paginate($perPage);
@@ -145,7 +145,9 @@ class ProductosController extends Controller
             return response()->json(['exist'    => 0,
                                      'product'  => 'No existe',
                                      'id'       => '0',
-                                     'stock'    => '0',
+                                     'codigo'   => '0',
+                                     'stock1'   => '0',
+                                     'stock2'   => '0',
                                      'stockmin' => '0',
                                      'stockmax' => '0'
                                     ]);
@@ -153,7 +155,9 @@ class ProductosController extends Controller
             return response()->json(['exist'    => 1,
                                      'product'  => $product->nombre,
                                      'id'       => $product->id,
-                                     'stock'    => $product->stockactual,
+                                     'codigo'   => $product->codigo,
+                                     'stock1'   => $product->stock1,
+                                     'stock2'   => $product->stock2,
                                      'stockmin' => $product->stockmin,
                                      'stockmax' => $product->stockmax
                                     ]);
@@ -268,7 +272,7 @@ class ProductosController extends Controller
 
             foreach ($queries as $query)
             {
-                $results[] = ['id' => $query->id, 'value' => $query->nombre]; //you can take custom values as you want
+                $results[] = ['id' => $query->id, 'value' => $query->nombre, 'codigo' => $query->codigo]; //you can take custom values as you want
             }
             return response()->json($results);
     }
@@ -291,16 +295,16 @@ class ProductosController extends Controller
         $byname = $request->get('name');
         
         if($bycode && $byname) {
-            $products      = Producto::where('id', '=', "$bycode")->where('nombre', 'LIKE', "%$byname%")->orderBy('stockactual', "$order")->paginate(20);
+            $products      = Producto::where('id', '=', "$bycode")->where('nombre', 'LIKE', "%$byname%")->orderBy('stock1', "$order")->paginate(20);
             $searchMessage = 'Descripción con: "'.$byname.'" y código: "'. $bycode.'"';
         } elseif($bycode) {
-            $products      = Producto::where('id', '=', "$bycode")->orderBy('stockactual', "$order")->paginate(20);
+            $products      = Producto::where('id', '=', "$bycode")->orderBy('stock1', "$order")->paginate(20);
             $searchMessage = 'Con código: "'.$bycode.'"';
         } elseif($byname) {
-            $products      = Producto::where('nombre', 'LIKE', "%$byname%")->orderBy('stockactual', "$order")->paginate(20);
+            $products      = Producto::where('nombre', 'LIKE', "%$byname%")->orderBy('stock1', "$order")->paginate(20);
             $searchMessage = 'Descripción con: "'.$byname.'"';
         } else {
-            $products      = Producto::orderBy('stockactual', $order)->paginate(20);
+            $products      = Producto::orderBy('stock1', $order)->paginate(20);
             $searchMessage = 'Descripción con: "'.$byname.'"';
         }
 
@@ -485,8 +489,7 @@ class ProductosController extends Controller
         $currency     = '';
         $origin       = null;
 
-        
-
+    
         if(is_null($ultCodigo)){
             $ultCodigo = '-';
         } else {
@@ -719,12 +722,27 @@ class ProductosController extends Controller
     {
             $producto      = Producto::find($id);
             $newStockValue = $request->value;
-            $producto->stockactual = $producto->stockactual + $newStockValue;
+            $origin        = $request->origin;
+            
+            switch ($origin) {
+                case 'stock1':
+                    $producto->stock1 = $producto->stock1 + $newStockValue;
+                    break;
+                case 'stock2':
+                    $producto->stock2 = $producto->stock2 + $newStockValue;
+                    break;
+                default:
+                    echo 'No origin specified';
+                    break;
+            }
+
             $producto->save();
 
             return response()->json([
                 "response" => '1',
-                "newstock" => $producto->stockactual
+                "newstock" => $producto->stock1,
+                "stock1"   => $producto->stock1,
+                "stock2"   => $producto->stock2
             ]);
 
     }

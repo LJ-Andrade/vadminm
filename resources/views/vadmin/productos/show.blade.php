@@ -28,9 +28,9 @@
 		<input type="text" id="Operacion" class="Hidden" value="producto">{{-- This shows product data display--}}
 		<div class="row big-card">	
             <div class="title">
-                <span class="medium-text">{{ $producto->familia->nombre }} > {{ $producto->subfamilia->nombre }}</span> <br>
 			    <span class="big-text">{{ $producto->nombre }}</span><br>
-                <span class="small-text">Cód. {{ $producto->id }}</span>
+                <span class="medium-text">{{ $producto->familia->nombre }} > {{ $producto->subfamilia->nombre }}</span> <br>
+                <span class="small-text">Código: {{ $producto->codigo }}</span>
             </div>
             <div class="content">
                 <div class="row">
@@ -69,16 +69,17 @@
                         
                         <hr class="softhr">
                         {{-- Update Stock --}}
-                        <b>Modificar Stock</b>
-                        <div class="form-group">
-                            <div class="col-md-3">
-                                {!! Form::label('sumstock', 'Depósito') !!}
-                                {!! Form::number('sumstock', null, ['id' => 'SumStock', 'class' => 'form-control', 'data-productid' => $producto->id]) !!}
+                        <label>Modificar Stock</label>
+                        <div class="form-inline">
+                            <div class=" form-group">
+                                <div class="form-inline">
+                                    {!! Form::select('stockorigin', ['stock1' => 'Depósito', 'stock2' => 'Local'], null, ['id' => 'StockOrigin', 'class' => 'form-control Select-Chosen', 'required' => '']) !!}
+                                    {!! Form::number('sumstock', null, ['id' => 'SumStock', 'class' => 'form-control', 'data-productid' => $producto->id]) !!}
+                                    <button type="button" id="UpdateStockBtn" class="btn btnBlue">Actualizar</button>
+                                </div>
                             </div>
-                            <br>
                         </div>
                         <div class="col-md-3">
-                            <button type="button" id="UpdateStockBtn" class="btn btnBlue">Actualizar</button>
                         </div>
                         {{-- /Update Stock --}}
                     </div>
@@ -160,8 +161,6 @@
 
 @section('custom_js')
     <script>	
-
-
         /////////////////////////////////////////////////
 		//            UPDATE PRICE - AJAX              //
 		/////////////////////////////////////////////////

@@ -129,24 +129,24 @@ function updateCurrencyAndPrice(route, id, data, success){
     }); 
 }
 
-function sumStock(route, id, value, action){
-    var data = {route: route, id: id, value: value};
-    var output = '';
+function sumStock(route, id, value, origin, action){
+    var data   = {route: route, id: id, value: value, origin: origin};
+    var action = '';
+
     $.ajax({
         url: route,
         type: 'post',
-        dataType: 'json',
+        dataType: 'JSON',
         data: data,
         beforeSend: function(){
             $('#UpdateStockBtn').html('Actualizando...');
         },
         success: function(data){
             $('#UpdateStockBtn').html('Actualizar');
-            
-            // location.reload();
         },
         error: function(data){
             console.log(data);
+            $('#Error').html(data.responseText);
         }
     }); 
 

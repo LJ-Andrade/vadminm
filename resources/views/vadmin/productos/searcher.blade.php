@@ -21,7 +21,6 @@
                     </span>
                 </div>
             </div>
-            
         {!! Form::close() !!}
         {{-- /Search --}}
         <div class="btnClose2"><i class="ion-close-round"></i></div>		

@@ -6,7 +6,7 @@
 	@section('header_title', 'Ingreso de nuevo producto') 
 	@section('options')
 		<div class="actions">
-			<a href="{{ url('vadmin/productos') }}"><button type="button" class="animated fadeIn btnSm buttonOther">Volver</button></a>
+			<a href="{{ url('vadmin/productos') }}"><button type="button" class="animated fadeIn btnSmall btnDark">Volver</button></a>
 		</div>	
 	@endsection
 @endsection

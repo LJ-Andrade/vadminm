@@ -110,8 +110,13 @@
 						<div class="output-box inner-grey-back">
 							<div id="StockUpdateOutput"></div>
 							<div id="NewStockUpdate" class="Hidden">
-								<input type="text" value="">
-								<button id="UpdateStockBtnHome" class="btnSm btnBlue">Actualizar</button>
+								<div class="form-group">
+									<div class="form-inline">
+										{!! Form::select('stockorigin', ['stock1' => 'Depósito', 'stock2' => 'Local'], null, ['id' => 'UpdateStockOrigin', 'class' => 'form-control']) !!}
+										{!! Form::number('sumstock', null, ['id' => 'UpdateStockQuantity', 'class' => 'form-control', 'placeholder' => 'Cantidad']) !!}
+										<button id="UpdateStockBtnHome" class="btnSm btnBlue">Actualizar</button>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -231,13 +236,10 @@
 					console.log(data);	
 				},
 			});
-
 		}
-
 
 		// Search By Code
 		$("#UpdateStockByCode").on( "keydown", function(e) {
-			// var id     = $(this).val();
 			if(e.which == 13) {
 				$('#SearchStockBtn').click();
 			}
@@ -246,9 +248,7 @@
 		$('#SearchStockBtn').click(function(){
 			var id     = $("#UpdateStockByCode").val();
 			var route  = "{{ url('vadmin/get_product_stock') }}/"+id+"";
-			var output = $('#StockUpdateOutput');
-			// console.log(id);
-			getProductStock(route, output);
+			getProductStock(route);
 			$('#StockOutPutMessage').addClass('Hidden');
 		});
 
@@ -264,29 +264,53 @@
 			},
 			select: function(e,ui)
 			{
-				var id     = ui.item.id;
-				var route  = "{{ url('vadmin/get_product_stock') }}/"+id+"";
-				var output = $('#StockUpdateOutput');
-				getProductStock(route, output);
+				var id     = ui.item.codigo;
+				$('#UpdateStockByCode').val(id);
 			}
 		});
 
-		function getProductStock(route, output){
+		// Update Stock when press enter
+		//$("#NewStockUpdate input").on( "keydown", function(e) {
+		//	if(e.which == 13) {
+		//		$('#UpdateStockBtnHome').click();
+		//	}
+		//});
 
+		// Update Stock when click button
+		$("#UpdateStockBtnHome").on("click", function(e) {
+			// e.preventDefault();
+			var id       = $('#SelectedProdId').data('prodid');
+			var code     = $('#SelectedProdCode').val();
+			var origin   = $('#UpdateStockOrigin').val();
+			var route    = "{{ url('vadmin/update_prod_stock') }}/"+id+"";
+			var value    = $('#UpdateStockQuantity').val();
+			var oldstock = $('#PrevStock').val();
+			// Update Stock
+			sumStock(route, id, value, origin);
+
+			// Displays new stock
+			var routeResponse  = "{{ url('vadmin/get_product_stock') }}/"+code+"";
+			getProductStock(routeResponse);
+		
+		});
+
+			function getProductStock(route){
+				var output = $('#StockUpdateOutput');
 				$.get(route, function(data){
 				if(data.exist==1){
 					$('#StockOutPut').removeClass('Hidden');
 					output.html('');
-					stock = data.stock;
+					stock1 = data.stock1;
+					stock2 = data.stock2;
 					var html =  "<div id='SelectedProdId' data-prodid="+ data.id +"><b>Producto: "+ data.product +"</b></div>"+
-								"<div id='StockActual'>Stock Actual: "+ stock +"</div>"+
+								"<input id='SelectedProdCode' type='hidden' value="+ data.codigo +">"+
+								"<div id='StockActual'>Depósito: "+ stock1 +" | Local: " + stock2 +"</div>"+
 							    "<div>Stock Min.: "+ data.stockmin +" | Stock Max.: "+ data.stockmax +"</div>"+
-								"<input id='PrevStock' type='text' value='"+ stock +"' class='Hidden'/>";
+								"<input id='PrevStock' type='text' value='"+ stock1 +"' class='Hidden'/>";
 					$('#NewStockUpdate').removeClass('Hidden');
 					output.removeClass('Hidden');
 					output.html(html);
 				} else {
-					
 					var html = "<div>El producto no existe</div>";
 					$('#NewStockUpdate').addClass('Hidden');
 					output.removeClass('Hidden');
@@ -296,35 +320,6 @@
 			});
 		}
 	
-		// Update Stock when press enter
-		$("#NewStockUpdate input").on( "keydown", function(e) {
-			if(e.which == 13) {
-				$('#UpdateStockBtnHome').click();
-			}
-			
-		});
-
-		// Update Stock when click button
-		$("#UpdateStockBtnHome").on( "click", function(e) {
-			// e.preventDefault();
-			var id       = $('#SelectedProdId').data('prodid');
-			var route    = "{{ url('vadmin/update_prod_stock') }}/"+id+"";
-			var value    = $('#NewStockUpdate input').val();
-			var oldstock = $('#PrevStock').val();
-
-			// Update Stock
-			sumStock(route, id, value);
-
-			// Displays new stock
-			
-			$('#StockOutPut').addClass('Hidden');
-			$('#StockOutPutMessage').removeClass('Hidden');
-			// var newstock = (parseInt(oldstock) + parseInt(value));
-			// $('#StockActual').html("Stock Actual: " + newstock);
-			
-		});
-
-		
 
 	</script>
 

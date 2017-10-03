@@ -112,10 +112,10 @@
 	// Update when click on #UpdateStockBtn
 	$('#UpdateStockBtn').click(function(){
 		var id     = $("#SumStock").data('productid');
+		var origin = $("#StockOrigin").val();
 		var route  = "{{ url('vadmin/update_prod_stock') }}/"+id+"";
 		var value  =  $("#SumStock").val();
-		var action = location.reload();
-		sumStock(route, id, value, action);
+		sumStock(route, id, value, origin);
 	});
 
 	// Update when press ENTER on #SumStock
@@ -124,8 +124,7 @@
 			var id    = $(this).data('productid');
 			var route = "{{ url('vadmin/update_prod_stock') }}/"+id+"";
 			var value = $(this).val();
-			var action = location.reload();
-			sumStock(route, id, value, action);
+			sumStock(route, id, value, origin);
 		}
 	});
 
@@ -291,8 +290,7 @@
 
 
 	// Display Product Info
-	function setProductAndPrice(id, tipocte, operacion) {	
-		console.log('ok');
+	function setProductAndPrice(id, tipocte, operacion) {
 		var route         = "{{ url('vadmin/get_product_and_price') }}/"+id+"";
 		var nombre        = $('#CfNombreInput');
 		var precioInput   = $('#CfPrecioInput');
