@@ -115,16 +115,19 @@
 		var origin = $("#StockOrigin").val();
 		var route  = "{{ url('vadmin/update_prod_stock') }}/"+id+"";
 		var value  =  $("#SumStock").val();
-		sumStock(route, id, value, origin);
+		var action = 'reload';
+		sumStock(route, id, value, origin, action);
 	});
 
 	// Update when press ENTER on #SumStock
 	$("#SumStock").on("keypress", function(e) {
 		if(e.which == 13) {
-			var id    = $(this).data('productid');
-			var route = "{{ url('vadmin/update_prod_stock') }}/"+id+"";
-			var value = $(this).val();
-			sumStock(route, id, value, origin);
+			var id     = $(this).data('productid');
+			var route  = "{{ url('vadmin/update_prod_stock') }}/"+id+"";
+			var value  = $(this).val();
+			var action = 'reload';
+			sumStock(route, id, value, origin, action);
+			//location.reload();
 		}
 	});
 

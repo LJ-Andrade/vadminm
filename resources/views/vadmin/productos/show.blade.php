@@ -186,13 +186,11 @@
 		/////////////////////////////////////////////////
 
         $(document).on('click', '.UpdateStatusBtn', function(e) { 
-            
             var id     = $(this).data('id');
             var route  = "{{ url('/vadmin/update_prod_status') }}/"+id+"";
             var action = $(this).data('action');
             console.log(id);
             updateProductStatus(route, action);
-            
         });
 
     </script>

@@ -211,8 +211,7 @@
 			updateCurrency(id, newValue);
 		});
 
-		function updateCurrency(id, newValue)
-		{	
+		function updateCurrency(id, newValue){	
 			var route = "{{ url('vadmin/update_currency_value') }}/"+id+"";
 			$.ajax({
 				url: route,
@@ -253,7 +252,6 @@
 		});
 
 		// Search By Name Autocomplete Product Name Input
-	
 		$('#UpdateStockByName').autocomplete({
 			source: "{!!URL::route('autocomplete')!!}",
 			minlength: 1,

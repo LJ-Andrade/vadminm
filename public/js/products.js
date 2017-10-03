@@ -131,7 +131,6 @@ function updateCurrencyAndPrice(route, id, data, success){
 
 function sumStock(route, id, value, origin, action){
     var data   = {route: route, id: id, value: value, origin: origin};
-    var action = '';
 
     $.ajax({
         url: route,
@@ -143,6 +142,9 @@ function sumStock(route, id, value, origin, action){
         },
         success: function(data){
             $('#UpdateStockBtn').html('Actualizar');
+            if(action=='reload'){
+                location.reload();
+            }
         },
         error: function(data){
             console.log(data);

@@ -295,22 +295,21 @@ class ProductosController extends Controller
         $byname = $request->get('name');
         
         if($bycode && $byname) {
-            $products      = Producto::where('id', '=', "$bycode")->where('nombre', 'LIKE', "%$byname%")->orderBy('stock1', "$order")->paginate(20);
-            $searchMessage = 'Descripción con: "'.$byname.'" y código: "'. $bycode.'"';
+            $products      = Producto::where('codigo', '=', "$bycode")->where('nombre', 'LIKE', "%$byname%")->orderBy('stock1', "$order")->paginate(20);
+            
         } elseif($bycode) {
-            $products      = Producto::where('id', '=', "$bycode")->orderBy('stock1', "$order")->paginate(20);
-            $searchMessage = 'Con código: "'.$bycode.'"';
+            $products      = Producto::where('codigo', '=', "$bycode")->orderBy('stock1', "$order")->paginate(20);
+            
         } elseif($byname) {
             $products      = Producto::where('nombre', 'LIKE', "%$byname%")->orderBy('stock1', "$order")->paginate(20);
-            $searchMessage = 'Descripción con: "'.$byname.'"';
+            
         } else {
             $products      = Producto::orderBy('stock1', $order)->paginate(20);
-            $searchMessage = 'Descripción con: "'.$byname.'"';
         }
 
         return view('vadmin.productos.stock')
-            ->with('products', $products)
-            ->with('searchMessage', $searchMessage);
+            ->with('products', $products);
+            
 
     }
 
