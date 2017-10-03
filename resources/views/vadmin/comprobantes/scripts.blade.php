@@ -768,8 +768,7 @@
 		//store_comp(cae, nro, vto);
 
 		var data    = fcdata;
-		// var route   = "{{ url('Feafip/wsfe-client.php') }}";
-		var route   = "{{ url('Feafip/test.php') }}";
+		var route   = "{{ url('Feafip/wsfe-client.php') }}";
 		var message = $('#DocMessage');
 		var pending = $('#MarkDone');
 		$.ajax({
