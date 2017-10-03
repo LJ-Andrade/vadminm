@@ -12,6 +12,7 @@ use App\Cliente;
 use App\TiposComprobante;
 use App\Pedidositem;
 use App\Movimiento;
+use App\Producto;
 
 class ComprobantesController extends Controller
 {
@@ -212,49 +213,56 @@ class ComprobantesController extends Controller
             $comp->op            = $request->op;
             $comp->doc_filename  = $request->nro;
 
-            $comp->save();
-            $this->saveMovement($request->clientid, $request->total, $request->modo, $request->op, $request->nro);
+            // $comp->save();
+            // $this->saveMovement($request->clientid, $request->total, $request->modo, $request->op, $request->nro);
             // Set pending orders to done
-            if($request->markdone){    
-                    
-                // Set Facturado
-                foreach ($request->markdone as $orderid){
-                    $pedidoItem = Pedidositem::findOrFail($orderid);
-                    $pedidoItem->facturado = 1;
-                    $pedidoItem->save();
-                }
+            
+                // if($request->markdone){    
+                        
+                //     // Set Facturado
+                //     foreach ($request->markdone as $orderid){
+                //         $pedidoItem = Pedidositem::findOrFail($orderid);
+                //         $pedidoItem->facturado = 1;
+                //         $pedidoItem->save();
+                //     }
 
-                // Discount Stock
+                // Discount Stock from WHITE
                 if($request->letter == 'A' || $request->letter == 'B'){
-                     
+                    
                     foreach ($request->items as $item) {
-                        $id       = $item['producto_id'];
+                        $id       = $item['code'];
                         $quantity = $item['quantity'];
-                        $ptovta   = $item['pto_vta'];
-                        discountStock($id, $ammount, $ptovta);
-                    }
+                        $this->discountStock($id, $quantity, $request->pto_vta);
+                    }                    
                 }
+                
 
                 $movement = 'Movimiento';
-
                 return response()->json(['success'  => true,
                                          'message'  => 'Documento guardado',
                                          'data'     => $comp,
                                          'movement' => $movement]); 
-            }
-
-        } catch(Exception $e) {
-
+       
+            } catch(Exception $e) {
             return response()->json(['success' => false,
                                      'message' => 'Error: '.$e]); 
         }
 
     }
 
-    public function discountStock($id, $ammount, $ptovta){
-
-        dd($id, $ammount, $ptovta);
-
+    public function discountStock($code, $quantity, $ptovta)
+    {   
+        $product = Producto::where('codigo', $code)->first();
+        switch($ptovta){
+            case '140': 
+                $product->stock1 = $product->stock1 - $quantity; 
+            break;
+            case '150': 
+                $product->stock2 = $product->stock2 - $quantity; 
+                break;
+                default: '';
+            }
+        $product->save();        
     }
 
     public function saveMovement($clienteid, $total, $modo, $op, $nro){

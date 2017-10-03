@@ -136,14 +136,14 @@
 		{{-- /// --}}
 		<div class="col-md-6 mar0 pad0">
 			<div class="form-group form-inline">
-				{!! Form::label('stocklocal', 'Stock Local') !!}
-				{!! Form::text('stocklocal', null, ['class' => 'form-control  short-input', 'placeholder' => '', 'required' => '']) !!}
+				{!! Form::label('stock1', 'Stock Local') !!}
+				{!! Form::text('stock1', null, ['class' => 'form-control  short-input', 'placeholder' => '', 'required' => '']) !!}
 			</div>
 		</div>
 		<div class="col-md-6 mar0 pad0">
 			<div class="form-group form-inline">
-				{!! Form::label('stockactual', 'Stock Depósito') !!}
-				{!! Form::text('stockactual', null, ['class' => 'form-control  short-input', 'placeholder' => '', 'required' => '']) !!}
+				{!! Form::label('stock2', 'Stock Depósito') !!}
+				{!! Form::text('stock2', null, ['class' => 'form-control  short-input', 'placeholder' => '', 'required' => '']) !!}
 			</div>
 		</div>
 		{{-- /// --}}

@@ -16,7 +16,7 @@
             <tr id="Id{{ $item->id }}" class="TableList-Row table-list-row">
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->nombre }}</td>
-                <td>{{ $item->stockactual }}</td>
+                <td>{{ $item->stock1 }}</td>
                     {{-- PRECIOS GREMIO --}}
                     @if($_GET['tipocte'] == '1')
                         {{-- Pesos --}}

@@ -1,31 +1,28 @@
 <div id="CompBody" class="big-form Hidden">
 {!! Form::open(['method' => 'POST', 'id' => 'DocForm']) !!}
     <div class="row inner-row">
-        <div class="col-md-3 col-xs-12 header-right">
+        <div class="col-md-4 col-xs-12 header-left">
+            {{-- Left Head Data --}}
+            <div id="DisplayClientData"></div>
+        </div>
+        <div class="col-md-4 header-center">
+            <div class="text"><span id="DisplayDocType" class="display-doc-type"></span></div> <br>
+        </div>
+        <div class="col-md-4 col-xs-12 header-right">
             {{-- Right Head Data --}}
-            <b><span id="DisplayDocType" class="display-doc-type big-text"></span></b> <br>
             <b>Fecha:</b> {{ date("d/m/y") }} <br>
             <b>Punto de Venta: </b><br>
             {!! Form::select('pto_vta', ['150' => 'Depósito', '140' => 'Local'], Auth::user()->pto_vta, ['id' => 'DocPtoVta', 'class' => 'Select-Chosen form-control short-input']) !!}
-        </div>
-        <div class="col-md-9 col-xs-12 header-left">
-            {{-- Left Head Data --}}
-            <div id="DisplayClientData"></div>
-         {{--   <b>Dirección de Entrega:</b> <br>
-           
-            <select class="Select-Chosen form-control short-input" id="DocDirsEntrega" name='direntrega'></select>
-            --}}
         </div>
     </div>
     <hr>
 
     <div class="inner-row">
         <div id="SmallLoader"></div>
-        <div class="table-responsive">
-                            
+        <div class="table-responsive">          
             {{-- //// COLLECT DATA TO FC //// --}}
                 {{-- Operación --}}
-                <div>
+                <div class="Hidden">
                     Tipo de Operacion 
                     <input id="DocModo" name='modo' type='text'  /> <br>
                     Ingreso O Egreso
@@ -51,7 +48,7 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Cod.</th>
+                            <th class="mw50">Cod.</th>
                             <th>Descripción</th>
                             <th class="mw50">Cantidad</th>
                             <th class="mw100">P. Unitario</th>

@@ -19,21 +19,12 @@
 	 <div class="container dashboard">
 	 
 		<div class="row">
-			<div class="developer-message">
+			{{--  <div class="developer-message">
 				<span class="title">Mensaje:</span><br>
 				<span class="content">
-					Estuve puliendo los módulos <b>productos y pedidos</b> para que podamos cerrarlos definitivamente.<br>
-					Una vez que definamos los campos de cada uno no se van a poder volver a modificar.<br>
-					Esto va a hacer que avencemos más rápido con el desarrollo.<br>
-					---<br>
-					<b>Agregué al producto un código personalizado. </b> <br>
-					Ahora se le puede agregar el código a mano<br>
-					Esto va a permitir que no queden códigos inutilizados si se elimina algún producto.<br>
-					Lo ideal sería que se respete la correlatividad pero esta puede ser obviada.<br>
-					---<br>
-					Los demás módulos están sin actualizar. Una vez definamos lo mencionado los voy a ir subiendo.
+				
 				</span>
-			</div> <br>
+			</div> <br>  --}}
 			
 			<span>Tu nivel de permisos es <b>{{ typeTrd(Auth::user()->type) }}</b></span>
 			<hr class="softhr">
@@ -256,7 +247,7 @@
 			var id     = $("#UpdateStockByCode").val();
 			var route  = "{{ url('vadmin/get_product_stock') }}/"+id+"";
 			var output = $('#StockUpdateOutput');
-			
+			// console.log(id);
 			getProductStock(route, output);
 			$('#StockOutPutMessage').addClass('Hidden');
 		});

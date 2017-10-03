@@ -58,14 +58,14 @@
                         <b>Stock máximo:</b> {{ $producto->stockmax }} 
                         <br>
                         <b>Stock Depósito:</b> 
-                        @if ( $producto->stockactual < $producto->stockmin )
-                        <span class="badge buttonCancel"> {{ $producto->stockactual }} </span>
-                        @else {{ $producto->stockactual }} @endif <br>
+                        @if ( $producto->stock1 < $producto->stockmin )
+                        <span class="badge buttonCancel"> {{ $producto->stock1 }} </span>
+                        @else {{ $producto->stock1 }} @endif <br>
                     
                         <b>Stock Local:</b> 
-                        @if ( $producto->stocklocal < $producto->stockmin )
-                        <span class="badge buttonCancel"> {{ $producto->stocklocal }} </span>
-                        @else {{ $producto->stocklocal }} @endif <br>
+                        @if ( $producto->stock2 < $producto->stockmin )
+                        <span class="badge buttonCancel"> {{ $producto->stock2 }} </span>
+                        @else {{ $producto->stock2 }} @endif <br>
                         
                         <hr class="softhr">
                         {{-- Update Stock --}}

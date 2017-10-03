@@ -17,10 +17,10 @@
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->nombre }}</td>
                 <td>
-                    @if( $item->stockactual < $item->stockmin)
-                    <span class="badge">{{ $item->stockactual }}</span>
+                    @if( $item->stock1 < $item->stockmin)
+                    <span class="badge">{{ $item->stock1 }}</span>
                     @else
-                        {{ $item->stockactual }}
+                        {{ $item->stock1 }}
                     @endif
                 </td>
                 <td>{{ $item->stockmin }}</td>

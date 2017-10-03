@@ -112,7 +112,7 @@ class ProductosController extends Controller
         $tipocte  = $request->tipocte;
         $id       = $request->id;
         
-        $product = Producto::where('id', '=', $id)->first();
+        $product = Producto::where('codigo', '=', $id)->first();
         
         if($product == null)
         {
@@ -137,9 +137,9 @@ class ProductosController extends Controller
 
     }
 
-    public function get_product_stock($id)
+    public function get_product_stock($codigo)
     {
-        $product = Producto::where('id', '=', $id)->first();
+        $product = Producto::where('codigo', '=', $codigo)->first();
         if($product == null)
         {
             return response()->json(['exist'    => 0,

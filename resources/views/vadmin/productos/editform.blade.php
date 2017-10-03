@@ -166,8 +166,8 @@
 	{{-- /// --}}
 	<div class="col-md-4 col-sm-6 col-xs-6">
 		<div class="form-group">
-			{!! Form::label('stockactual', 'Stock Actual') !!}
-			{!! Form::text('stockactual', null, ['class' => 'form-control', 'placeholder' => '']) !!}
+			{!! Form::label('stock1', 'Stock Actual') !!}
+			{!! Form::text('stock1', null, ['class' => 'form-control', 'placeholder' => '']) !!}
 		</div>
 	</div>
 		{{-- /// --}}

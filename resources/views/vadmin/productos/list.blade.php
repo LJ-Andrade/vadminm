@@ -27,10 +27,10 @@
 				<span class="small-text">@if(is_null($item->subfamilia)) @else Subfamilia: {{ $item->subfamilia->nombre }} @endif</span> <br>--}}
 			</div>
             <div class="col-md-3">
-				@if($item->stockactual < $item->stockmin) <span class="small-text badge buttonCancel">Stock Depósito: {{ $item->stockactual }} </span><br>
-				@else <span class="small-text">Stock Depósito: {{ $item->stockactual }} </span> <br> @endif
-				@if($item->stocklocal < $item->stockmin) <span class="small-text badge buttonCancel">Stock Local: {{ $item->stocklocal }} </span><br>
-				@else <span class="small-text">Stock Local: {{ $item->stocklocal }} </span> @endif
+				@if($item->stock1 < $item->stockmin) <span class="small-text badge buttonCancel">Stock Depósito: {{ $item->stock1 }} </span><br>
+				@else <span class="small-text">Stock Depósito: {{ $item->stock1 }} </span> <br> @endif
+				@if($item->stock3 < $item->stockmin) <span class="small-text badge buttonCancel">Stock Local: {{ $item->stock2 }} </span><br>
+				@else <span class="small-text">Stock Local: {{ $item->stock2 }} </span> @endif
             </div>
 		</div>
 		{{-- Batch Delete --}} 

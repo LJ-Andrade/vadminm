@@ -176,6 +176,8 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::get('stock', 'ProductosController@stock')->name('productos.stock');
 	Route::get('get_product_stock/{id}', 'ProductosController@get_product_stock');
 	Route::post('update_prod_stock/{id}', 'ProductosController@updateStock');
+	
+	Route::get('discountStock/{id}/{quantity}/{ptovta}', 'ComprobantesController@discountStock');
 
 	// ------------------  Pedidos ----------------------------------------- //
 	Route::resource('pedidos', 'PedidosController');

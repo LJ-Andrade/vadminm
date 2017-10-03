@@ -14,7 +14,7 @@
         <tbody>
             @foreach($pedidositems as $item)
             <tr class="custom-tr PendingOrder" id="PoId{{ $item->id }}">
-			    <td class="PoId">{{ $item->producto->id }}</td>
+			    <td class="PoId">{{ $item->producto->codigo }}</td>
                 <td>{{ $item->producto->nombre }}</td>
                 <td class="mw50">{{ $item->cantidad }}</td>
                 <td>{{ $item->valor }}</td>
@@ -22,7 +22,7 @@
                 <td>{{ $item->valor * $item->cantidad }}</td>
                 <td><button class="PendigOrderBtn btn btnSquareHoriz buttonOk" 
                 data-orderid="{{ $item->id }}"
-                data-id="{{ $item->producto->id }}"
+                data-code="{{ $item->producto->codigo }}"
                 data-name="{{ $item->producto->nombre }}"
                 data-ammount="{{ $item->cantidad }}"
                 data-price="{{ $item->valor }}"

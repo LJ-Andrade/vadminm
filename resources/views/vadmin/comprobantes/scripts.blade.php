@@ -363,18 +363,20 @@
 				// Calc Iva
 				var itemIva      = parseFloat(subtotalItem) * parseFloat(iva) / 100;
 				itemIva = roundAndConvertDecimal(itemIva);
-				
+				var total = (parseFloat(subtotalItem) + parseFloat(itemIva));
+				total = roundAndConvertDecimal(total);
+				console.log(total);
 				// Make Row
 				var result = "<tr id='ItemId"+itemnum+"' class='fcItemRow'>"+
 								"<td style='display:none'><input name='items["+itemnum+"][type]' type='text'   value='?' class='ro mw100' readonly /></td>"+
 								"<td><input name='items["+itemnum+"][code]'                      type='number' value='"+ code +"' class='ro mw100' readonly /></td>"+
 								"<td><input name='items["+itemnum+"][description]'               type='text'   value='"+ description +"' class='ro' readonly /></td>"+
-								"<td><input name='items["+itemnum+"][quantity]'                  type='number' value='"+ parseInt(quantity) +"' step='1' class='mw50 AmmountCorrection' /></td>"+
-								"<td><input name='items["+itemnum+"][price]'                     type='number' value='"+ parseFloat(price) +"' class='mw100 UnitPrice' /></td>"+							
+								"<td><input name='items["+itemnum+"][quantity]'                  type='number' value='"+ parseInt(quantity) +"' step='1' class='mw50 AmmountCorrection vinput' /></td>"+
+								"<td><input name='items["+itemnum+"][price]'                     type='number' value='"+ parseFloat(price) +"' class='mw100 UnitPrice vinput' /></td>"+							
 								"<td><input name='items["+itemnum+"][sum_price]'                 type='number' value='"+ parseFloat(subtotalItem) +"' class='ro mw100 SubTotals' readonly /></td>"+
 								"<td class='Hidd'><input name='items["+itemnum+"][sum_tax]'       type='number' value='"+ parseFloat(itemIva) +"' class='ro ItemIva IvaSubtotals' data-ivapercent='" + parseFloat(iva) + "'  readonly />(" + parseFloat(iva) + "%)</td>"+
 								"<td class='Hidden'><input name='items["+itemnum+"][discount]'   type='number' value='0' /></td>"+
-								"<td><input name='items["+itemnum+"][total]'                     type='number' value='"+ (parseFloat(subtotalItem) + parseFloat(itemIva)) +"' class='ro mw100 SubTotalsTax' readonly /></td>"+
+								"<td><input name='items["+itemnum+"][total]'                     type='number' value='"+ total +"' class='ro mw100 SubTotalsTax' readonly /></td>"+
 								"<td class='DeleteRow deleteRow'><i class='ion-minus-circled'></i></td>"+
 							"</tr>";
 				itemnum += 1;
@@ -400,27 +402,28 @@
 		if (itemsCount <= 17 ) {
 
 			var orderid      = $(this).data('orderid');
-			var code         = $(this).data('id');
+			var code         = $(this).data('code');
 			var description  = $(this).data('name');
 			var quantity     = $(this).data('ammount');
 			var price        = $(this).data('price');
+			price            = roundAndConvertDecimal(price);
 			var subtotalItem = $(this).data('subtotal');
 			var iva          = $(this).data('iva');
-			price = roundAndConvertDecimal(price);
-			
 			var itemIva      = parseFloat(subtotalItem) * parseFloat(iva) / 100;
-			itemIva = roundAndConvertDecimal(itemIva);
+			itemIva          = roundAndConvertDecimal(itemIva);
+			var total        = (parseFloat(subtotalItem) + parseFloat(itemIva));
+			total            = roundAndConvertDecimal(total);
 
 			var result = "<tr id='ItemId"+itemnum+"' class='fcItemRow fcItemRowPending'>"+
 								"<td style='display:none'><input name='items["+itemnum+"][type]' type='text'   value='?'                                  class='ro mw100' readonly /></td>"+
 								"<td><input name='items["+itemnum+"][code]'                      type='number' value='"+ code +"'                         class='ro mw100' readonly /></td>"+
 								"<td><input name='items["+itemnum+"][description]'               type='text'   value='"+ description +"'                  class='ro' readonly /></td>"+
-								"<td><input name='items["+itemnum+"][quantity]'                  type='number' value='"+ parseInt(quantity) +"'  step='1' class='mw50 AmmountCorrection' /></td>"+
-								"<td><input name='items["+itemnum+"][price]'                     type='number' value='"+ parseFloat(price) +"'            class='mw100 UnitPrice' /></td>"+							
+								"<td><input name='items["+itemnum+"][quantity]'                  type='number' value='"+ parseInt(quantity) +"'  step='1' class='mw50 AmmountCorrection vinput' /></td>"+
+								"<td><input name='items["+itemnum+"][price]'                     type='number' value='"+ parseFloat(price) +"'            class='mw100 UnitPrice vinput' /></td>"+							
 								"<td><input name='items["+itemnum+"][sum_price]'                 type='number' value='"+ parseFloat(subtotalItem) +"'     class='ro mw100 SubTotals' readonly /></td>"+
-								"<td class='Hidd'><input name='items["+itemnum+"][sum_tax]'       type='number' value='"+ parseFloat(itemIva) +"'          class='ro ItemIva IvaSubtotals' data-ivapercent='" + parseFloat(iva) + "'  readonly />(" + parseFloat(iva) + "%)</td>"+
+								"<td class='Hidd'><input name='items["+itemnum+"][sum_tax]'      type='number' value='"+ parseFloat(itemIva) +"'          class='ro ItemIva IvaSubtotals' data-ivapercent='" + parseFloat(iva) + "'  readonly />(" + parseFloat(iva) + "%)</td>"+
 								"<td class='Hidden'><input name='items["+itemnum+"][discount]'   type='number' value='0' /></td>"+
-								"<td><input name='items["+itemnum+"][total]'                     type='number' value='"+ (parseFloat(subtotalItem) + parseFloat(itemIva)) +"' class='ro mw100 SubTotalsTax' readonly /></td>"+
+								"<td><input name='items["+itemnum+"][total]'                     type='number' value='"+ total +"' class='ro mw100 SubTotalsTax' readonly /></td>"+
 								"<td class='DeleteRow deleteRow' data-id="+ code +" data-orderid="+ orderid +"><i class='ion-minus-circled'></i></td>"+
 							"</tr>";
 
@@ -454,6 +457,7 @@
 			var subtotalOutput = $(this).closest('tr').find('td .SubTotals');
 			var ivaOutput      = $(this).closest('tr').find('td .IvaSubtotals');
 			var totalOutput    = $(this).closest('tr').find('td .SubTotalsTax');
+			roundAndConvertDecimal(totalOutput);
 			// Calculations
 			var newSubtotal    = parseFloat(newAmmount) * parseFloat(unitPrice);
 			var newIva         = (newSubtotal * parseFloat(ivaPercent) / 100);
@@ -481,7 +485,7 @@
 			var subtotalOutput = $(this).closest('tr').find('td .SubTotals');
 			var ivaOutput      = $(this).closest('tr').find('td .IvaSubtotals');
 			var totalOutput    = $(this).closest('tr').find('td .SubTotalsTax');
-
+			roundAndConvertDecimal(totalOutput);
 			// Calculations
 			var newSubtotal    = parseFloat(ammount) * parseFloat(unitPrice);
 			var newIva         = (newSubtotal * parseFloat(ivaPercent) / 100);
@@ -758,48 +762,48 @@
 		var nro = 2082;
 		var vto = "20170725";
 		var pending = $('#MarkDone');
-		$.each( ordersToDeletion, function( index, value ){
-			pending.append("<input name='markdone["+ index +"]' value='"+ value +"' type='hidden' />");
-		});
-		store_comp(cae, nro, vto);
+		//$.each( ordersToDeletion, function( index, value ){
+		//	pending.append("<input name='markdone["+ index +"]' value='"+ value +"' type='hidden' />");
+		//});
+		//store_comp(cae, nro, vto);
 
-		// var data    = fcdata;
-		// var route   = "{{ url('Feafip/wsfe-client.php') }}";
-		// var message = $('#DocMessage');
-		// var pending = $('#MarkDone');
-		// $.ajax({
-		// 	type: 'POST',
-		// 	url: route,
-		// 	data: { fcdata: data },
-		// 	dataType: 'json',
-		// 	success: function(data){
-		// 		console.log(data);
-		// 		// If webservice connection succeded store comp and downloadpdf
-		// 		if(data.sucess == true){
-		// 			$.each( ordersToDeletion, function( index, value ){
-		// 				pending.append("<input name='markdone["+ index +"]' value='"+ value +"' type='hidden' />");
-		// 			});
-		// 			message.removeClass('Hidden');
-		// 			message.html(data);
-		// 			var pdf =  "{{ url('public/Feafip/facturas') }}/"+data.nro+".pdf";
-		// 			window.open(pdf,'_blank');
-		// 			store_comp(data.cae, data.nro, data.vto);
-		// 			// Redirect
-		// 			window.location.replace("{{ url('vadmin/comprobantes') }}");
-		// 			console.log(data);
-		// 		} else {
-		// 			message.removeClass('Hidden');
-		// 			message.html(data.responseText);
-		// 		}
-		// 		$('#EmitDocBtn').html('Emitido');
-		// 	},
-		// 	error: function(data){
-		// 		console.log('ERROR !');
-		// 		console.log(data);
-		// 		message.removeClass('Hidden');
-		// 		message.html(data.responseText);
-		// 	}
-		// });
+		var data    = fcdata;
+		var route   = "{{ url('Feafip/wsfe-client.php') }}";
+		var message = $('#DocMessage');
+		var pending = $('#MarkDone');
+		$.ajax({
+			type: 'POST',
+			url: route,
+			data: { fcdata: data },
+			dataType: 'JSON',
+			success: function(data){
+				console.log(data);
+				// If webservice connection succeded store comp and downloadpdf
+				if(data.sucess == true){
+					$.each( ordersToDeletion, function( index, value ){
+						pending.append("<input name='markdone["+ index +"]' value='"+ value +"' type='hidden' />");
+					});
+					message.removeClass('Hidden');
+					message.html(data);
+					var pdf =  "{{ url('public/Feafip/facturas') }}/"+data.nro+".pdf";
+					window.open(pdf,'_blank');
+					store_comp(data.cae, data.nro, data.vto);
+					// Redirect
+					window.location.replace("{{ url('vadmin/comprobantes') }}");
+					console.log(data);
+				} else {
+					message.removeClass('Hidden');
+					message.html(data.responseText);
+				}
+				$('#EmitDocBtn').html('Emitido');
+			},
+			error: function(data){
+				console.log('ERROR !');
+				console.log(data);
+				message.removeClass('Hidden');
+				message.html(data.responseText);
+			}
+		});
 	}
 
 	// Not working yet
