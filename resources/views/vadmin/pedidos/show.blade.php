@@ -11,7 +11,7 @@
     @endsection 
 	@section('options')
 		<div class="actions">
-            <a href="{{ url('vadmin/pedidos') }}" class="btn btnSm btnWhite">Volver</a>
+            <a href="{{ url('vadmin/pedidos') }}" class="btn btnSmall btnDark">Volver</a>
 		</div>	
 	@endsection
 @endsection
