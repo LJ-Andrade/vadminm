@@ -185,7 +185,6 @@
 				// Send Client Data to Output
 				output(id, razonsocial)
 			});
-			
 		},
 		response: function(event, ui) {
 			$('#SmallLoader').html('');
@@ -216,7 +215,85 @@
 		return  $.get(route, function(data){});
 	}
 
+	/////////////////////////////////////////////////
+	//              PROVIDER Finder                //
+	/////////////////////////////////////////////////
 
+	// Get Client Data On Button Click
+	$('#ProviderByCodeBtn').click(function(){
+		// Get Client Full Data
+		var id    = $('#ProviderByCode').val();
+		var route = "{{ url('vadmin/get_provider') }}/"+id+"";
+		getProvider(route);
+	});
+
+	// Get Client Data OnKeydown
+	$("#ProviderByCode").on("keydown", function(e) {
+		if(e.which == 13) {
+			$('#ProviderByCodeBtn').click();
+		}
+	});
+	
+	// Get Client Data On Autocomplete Input
+	$('#ProviderAutoComplete').autocomplete({
+		source: "{!!URL::route('provider_autocomplete')!!}",
+		minlength: 1,
+		autoFocus: true,
+		options: function(){
+			minChars: 1;
+		},
+		search: function(){
+			$('#SmallLoader').html(loaderSm('Buscando...'));
+		},
+		select: function(e,data)
+		{
+			var id    = data.item.id;
+			var route = "{{ url('vadmin/get_provider') }}/"+id+"";
+			getProvider(route);
+		},
+		response: function(event, ui) {
+			$('#SmallLoader').html('');
+		},
+	});
+
+	function getProvider(route){
+		$.ajax({
+			url: route,
+			method: 'GET',             
+			dataType: 'JSON',
+			beforeSend: function(){
+				
+			},
+			success: function(data){
+				console.log(data.proveedor.nombre);
+				var id     = data.proveedor.id;
+				var nombre = data.proveedor.nombre;
+				outputProvider(id, nombre);
+			},
+			error: function(data){
+				console.log(data);
+				//$('#Error').html(data.responseText);
+			},
+		});
+	}
+
+	// Print Selected Data and Fill Inputs
+	function outputProvider(id, nombre){
+		var output      = $('#ProviderData');
+		var outputerror = $('#ProviderError');
+
+		if(id != null){
+			$('#ProviderIdOutput').val(id);
+			$('#ProviderOutPut').removeClass('Hidden');
+			output.html('Cód.:' + id + ' | ' + nombre);
+			outputerror.addClass('Hidden');
+			$('#UpdateProviderPriceForm').removeClass('Hidden');
+			
+		} else {
+			$('#ProviderOutPut').addClass('Hidden');
+			outputerror.removeClass('Hidden');
+		}
+	}
 
 	/////////////////////////////////////////////////
 	//              PRODUCT Finder                 //

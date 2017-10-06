@@ -12,9 +12,18 @@
                     </span>
                 </div>
 
-                 <div class="input-group">
+                <div class="input-group">
                     <span class="input-group-btn">
                     <input type="text" class="form-control" name="code" placeholder="Buscar por código...">
+                        <button class="btn btnGreen" type="submit">
+                            <i class="ion-ios-search"></i>
+                        </button>
+                    </span>
+                </div>
+
+                <div class="input-group">
+                    <span class="input-group-btn">
+                    <input type="text" class="form-control" name="provider" placeholder="Buscar por proveedor...">
                         <button class="btn btnGreen" type="submit">
                             <i class="ion-ios-search"></i>
                         </button>

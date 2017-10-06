@@ -16,6 +16,11 @@ use Session;
 class ProveedoresController extends Controller
 {
 
+    //////////////////////////////////////////////////
+    //                  VIEW                        //
+    //////////////////////////////////////////////////
+
+
     public function index(Request $request)
     {
         $keyword = $request->get('search');
@@ -32,6 +37,47 @@ class ProveedoresController extends Controller
         
     }
 
+
+    public function show($id)
+    {
+        $proveedor = Proveedor::findOrFail($id);
+
+        return view('vadmin.proveedores.show', compact('proveedor'));
+    }
+
+    //////////////////////////////////////////////////
+    //                 GET DATA                     //
+    //////////////////////////////////////////////////
+
+    public function get_provider($id)
+    {   
+        $provider = Proveedor::where('id', '=', $id)->first();
+        
+        if ($provider != null) {
+            return response()->json(['proveedor' => $provider]);
+        } else {
+            return response()->json(['proveedor' => '0']);
+        }      
+    }
+
+    public function provider_autocomplete(Request $request)
+    {
+
+        $input = $request->term;
+
+        $queries = Proveedor::where('nombre', 'LIKE', '%'.$input.'%' )->take(10)->get();
+
+        foreach ($queries as $query)
+        {
+            $results[] = ['id' => $query->id, 'value' => $query->nombre]; //you can take custom values as you want
+        }
+        return response()->json($results);
+    }
+    
+    //////////////////////////////////////////////////
+    //                   STORE                      //
+    //////////////////////////////////////////////////
+
     public function create()
     {
         $ultproveedor_id = Proveedor::orderBy('id','DESC')->first();
@@ -46,6 +92,7 @@ class ProveedoresController extends Controller
             ->with('iva', $iva);
         
     }
+
 
     public function store(Request $request)
     {
@@ -69,12 +116,6 @@ class ProveedoresController extends Controller
         return redirect('vadmin/proveedores');
     }
 
-    public function show($id)
-    {
-        $proveedor = Proveedor::findOrFail($id);
-
-        return view('vadmin.proveedores.show', compact('proveedor'));
-    }
 
     //////////////////////////////////////////////////
     //                  EDIT                        //

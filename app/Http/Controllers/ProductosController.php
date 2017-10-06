@@ -43,10 +43,16 @@ class ProductosController extends Controller
             } else if ($code !='') {
                 // Search by Name or Email
                 $productos = Producto::where('codigo', 'LIKE', "%$code%")->paginate($perPage);
+            } else if (isset($_GET['provider'])) {
+                $productos = Producto::where('proveedor_id', '=', $_GET['provider'])->paginate($perPage);
             } else {
-                // Seatch All
+                // Search All
                 $productos = Producto::paginate($perPage);
+
         }
+        
+
+        
 
         $dolarsist = Moneda::where('nombre', '=', 'Dolar')->first();
         return view('vadmin.productos.index')->with('productos', $productos)->with('dolarsist', $dolarsist);
@@ -466,11 +472,10 @@ class ProductosController extends Controller
 
     public function ajax_show_products($id)
     {
-
         $productos = Producto::where('subfamilia_id', '=', $id)->get();
         return response()->json($productos);
-        
     }
+
 
     //////////////////////////////////////////////////
     //                  CREATE                      //
@@ -617,8 +622,6 @@ class ProductosController extends Controller
 
     }
 
-
-
     public function update($id, Request $request)
     {
         $requestData = $request->all();
@@ -691,7 +694,6 @@ class ProductosController extends Controller
     //////////////////////////////////////////////////
     public function updateStatus(Request $request, $id)
     {
-
         $producto = Producto::find($id);
         
         switch ($request->action) {
@@ -747,11 +749,47 @@ class ProductosController extends Controller
     }
 
     //////////////////////////////////////////////////
-    //               UPDATE STOCK                   //
+    //               UPDATE PRICES                  //
     //////////////////////////////////////////////////
+
+    // MASS PRICE UPDATE                 
+   
+    public function providerPriceUpdate(Request $request, $id)
+    {
+        $productos = Producto::where('proveedor_id', '=', $id)->get();
+        $percent = $request->percent;
+
+        $results = array();
+
+        foreach($productos as $producto){
+
+            $producto->costopesos = $this->calcSumPricePercent($producto->costopesos, $percent);
+            $producto->costodolar = $this->calcSumPricePercent($producto->costodolar, $percent);
+            $producto->costoeuro  = $this->calcSumPricePercent($producto->costoeuro, $percent);
+            //dd('Costo dolar: '.$producto->costodolar.'| Costo pesos: '. $producto->costopesos.'| Costo euro: '.$producto->costoeuro);
+            //$producto->save();
+            $results[$producto->nombre]['costopesos'] = $producto->costopesos;
+            $results[$producto->nombre]['costodolar'] = $producto->costodolar;
+            $results[$producto->nombre]['costoeuro'] = $producto->costoeuro;
+            
+        }
+
+       return response()->json([
+           "results" => $results
+       ]);
+    }
+
+    public function calcSumPricePercent($price, $percent)
+    {
+        $extra = $price * $percent / 100;
+        $price = $price + $extra;
+        return $price;
+    }
+
+
+
     public function updateCostPrice(Request $request, $id)
     {
-
         $producto              = Producto::find($id);
         $producto->preciocosto = $request->value;
         $producto->save();
@@ -762,7 +800,6 @@ class ProductosController extends Controller
             "Moneda"      => $request->value2,
             "Estado"      => "Hecho"
         ]);
-    
     }
 
     public function updateCurrencyAndPrice(Request $request)

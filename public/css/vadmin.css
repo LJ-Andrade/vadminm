@@ -141,6 +141,12 @@ hr {
   text-align: center;
 }
 
+.horizontal-block .left {
+  width: 50%;
+  float: left;
+  clear: none;
+}
+
 .flexCentVert {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -886,6 +892,16 @@ hr {
 .narrow-form .inner .content .form-control {
   height: 36px;
   font-size: 1.1rem;
+}
+
+.narrow-form .inner .foot-info {
+  font-size: 0.8rem;
+  color: #808080;
+  margin-top: 15px;
+}
+
+.narrow-form .inner .foot-info i {
+  color: #f8756b;
 }
 
 .narrow-form .inner .output-box {

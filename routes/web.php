@@ -87,7 +87,6 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	// ------------------- Tipos de Comprobantes --------------------- //
 	Route::resource('tiposcomprobantes', 'TiposComprobantesController');
 
-	
 	// ------------------- Comprobantes ------------------------------ //
 	Route::resource('comprobantes', 'ComprobantesController');
 	Route::get('get_client_doc_data/{id}', 'ClientesController@get_client_doc_data');
@@ -103,8 +102,6 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	// ------------------- Movimientos -------------------------- //
 	Route::resource('movimientos', 'MovimientosController');
 	Route::resource('pagos', 'PagosController');
-
-
 
 	// ---------------- Provincias ------------------------------------- //
 	Route::resource('provincias', 'ProvinciasController');
@@ -143,9 +140,6 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::get('vendedores', 'VadminController@vendedores');
 
 
-
-
-
 	Route::post('update_currency_value/{id}', 'MonedasController@updateCurrencyValue');
 
 	// ---------------- Tipo de Cliente --------------------------------- //
@@ -166,6 +160,16 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 	Route::post('updateCurrencyAndPrice', 'ProductosController@updateCurrencyAndPrice');
 	Route::post('update_prod_costprice/{id}', 'ProductosController@updateCostPrice');
 	Route::post('update_prod_status/{id}', 'ProductosController@updateStatus');
+
+	// Mass price update
+	Route::post('providerPriceUpdate/{id}', 'ProductosController@providerPriceUpdate');
+
+	Route::get('/proveedor_updt', function () {
+		return view('vadmin.productos.massupdate');
+	});
+
+	Route::get('get_provider/{id}', 'ProveedoresController@get_provider');
+		
 
 	// Prices Lists
 	Route::get('listas', 'ProductosController@listas')->name('productos.listas');
@@ -249,6 +253,7 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['auth','admin']], function(
 // Autocomplete
 Route::get('/autocomplete', array('as' => 'autocomplete', 'uses'=>'ProductosController@product_autocomplete')); 
 Route::get('/client_autocomplete', array('as' => 'client_autocomplete', 'uses'=>'ClientesController@client_autocomplete')); 
+Route::get('/provider_autocomplete', array('as' => 'provider_autocomplete', 'uses'=>'ProveedoresController@provider_autocomplete'));
 
 
 

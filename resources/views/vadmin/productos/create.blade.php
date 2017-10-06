@@ -27,7 +27,7 @@
 	    	{!! Form::open(['route' => 'productos.store', 'method' => 'POST', 'files' => true, 'id' => '', 'class' => 'big-form', 'data-parsley-validate' => '']) !!}	
             	@include ('vadmin.productos.form')
 				<div class="text-center">
-					{!! Form::submit('Ingresar Producto', ['class' => 'button buttonOk btnBig', 'id' => 'InsertItemBtn']) !!}
+					<button id="InsertItemBtn" type="submit" class="button btnGreen btnBig">Ingresar Producto</button>
 				</div>
             {!! Form::close() !!}
         </div>
@@ -36,22 +36,14 @@
 
 @section('scripts')
 	<script type="text/javascript" src="{{ asset('plugins/jqueryfiler/jquery.filer.min.js')}} "></script>
-	<script type="text/javascript" src="{{ asset('plugins/colorpicker/spectrum.js')}} "></script>
-	<script type="text/javascript" src="{{ asset('plugins/colorpicker/jquery.spectrum-es.js')}} "></script>
 	<script type="text/javascript" src="{{ asset('js/jslocal/forms.js') }}" ></script>
 	<script type="text/javascript" src="{{ asset('js/products.js') }}" ></script>
 	@include('vadmin.components.ajaxscripts')
 @endsection
 
 @section('custom_js')
-	
 	<script>
-
-	
-
-
 	</script>
-
 @endsection
 
 

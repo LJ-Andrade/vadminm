@@ -41,6 +41,9 @@
 			<a href="{{ route('productos.create') }}"><button type="button" class="mb btn btn-labeled btnGreen">
 				<span class="btn-label"><i class="ion-android-add-circle"></i></span>Producto</button>
 			</a>
+			<a href="{{ url('vadmin/proveedor_updt') }}"><button type="button" class="mb btn btn-labeled btnGreen">
+				<span class="btn-label"><i class="ion-android-add-circle"></i></span>Actualizar Por Proveedor</button>
+			</a>
 			<hr class="softhr">	
 		</div>
 		<div class="row">
