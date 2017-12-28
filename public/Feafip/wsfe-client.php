@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 require_once("wsfe-class.php");
 
 // $data = json_decode(file_get_contents(getcwd() ."/".'data.json'), true);
-$data = $_POST['fcdata'];
+$data = $_POST['data'];
 
 $cust_cuit = floatval(str_replace('-', '', $data['customer_data']['ident']));
 $cust_doc_type = $data['customer_data']['doc_type'];

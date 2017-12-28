@@ -142,9 +142,9 @@ class ComprobantesController extends Controller
                         "pro_total" => "Total",
                         "sub_total" => "Subtotal",
                         "tax_rate" => "IVA %",
-                        "shipping" => "EnvÃ­o",
+                        "shipping" => "Enví­o",
                         "total" => "Total",
-                        "continued" => "Continua en pag ",
+                        "continued" => "Continua en pág ",
                         "simbol_left" => "  $    ",
                         "simbol_right" => ""
                     ),

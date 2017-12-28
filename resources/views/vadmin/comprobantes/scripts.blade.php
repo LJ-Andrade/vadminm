@@ -36,6 +36,7 @@
 		{
 			var id    = data.item.id;
 			var route = "{{ url('vadmin/get_client') }}/"+id+"";
+			$("#CompClientByCode").val(id);
             getClientDataForPreview(route);
 		},
 		response: function(event, ui) {
@@ -715,7 +716,6 @@
 	$(document).on("click", '#DocForm', function(e){
 		e.preventDefault();
 	});
-	
 
 	$(document).on("click", '#EmitDocBtn', function(e){
 		e.preventDefault();
@@ -726,58 +726,53 @@
 			alert_error('Alto','No se han ingresado items');
 		} else {
 
-		var formdata = $('#DocForm').serialize();
-		var data     = { formdata: formdata };
-		var route    = "{{ url('vadmin/generate_comp') }}";
-		var message  = $('#DocMessage');
-		$.ajax({
-			type: 'POST',
-			url: route,
-			data: formdata,
-			dataType: 'json',
-			beforeSend(){
-				$('#EmitDocBtn').html('Conectando...');
-			},
-			success: function(data){
-				// Send Data to Webservice
-				wsfeConnect(data);
-			},
-			error: function(data){
-				message.removeClass('Hidden');
-				message.html(data.responseText);
-				console.log(data);
-			},
-			complete: function(data){
-				$('#EmitDocBtn').html('Emitir');
-			}
-		});
+			var pending  = $('#MarkDone');
 
+			var data = $('#DocForm').serialize();
+			var route    = "{{ url('vadmin/generate_comp') }}";
+			var message  = $('#DocMessage');
+			$.ajax({
+				type: 'POST',
+				url: route,
+				data: data,
+				dataType: 'json',
+				beforeSend(){
+					$('#EmitDocBtn').html('Conectando...');
+				},
+				success: function(data){
+					// Send Data to Webservice
+					wsfeConnect(data);
+				},
+				error: function(data){
+					message.removeClass('Hidden');
+					message.html(data.responseText);
+					console.log(data);
+				},
+				complete: function(data){
+					$('#EmitDocBtn').html('Emitir');
+				}
+			});
 		}
 	});
 	
-
-	function wsfeConnect(fcdata){
+	function wsfeConnect(data){
 		// For Test
-		var cae = "67283492528894";
-		var nro = 2082;
-		var vto = "20170725";
-		var pending = $('#MarkDone');
 		//$.each( ordersToDeletion, function( index, value ){
 		//	pending.append("<input name='markdone["+ index +"]' value='"+ value +"' type='hidden' />");
 		//});
+				
 		//store_comp(cae, nro, vto);
-
-		var data    = fcdata;
-		var route   = "{{ url('Feafip/wsfe-client.php') }}";
+		var route   = "{{ url('Feafip/wsfe-client-test.php') }}";
 		var message = $('#DocMessage');
 		var pending = $('#MarkDone');
+
 		$.ajax({
 			type: 'POST',
 			url: route,
-			data: { fcdata: data },
+			data: { data: data, nro: nro, cae: cae, vto: vto },
+			//data: { data: data },
 			dataType: 'JSON',
 			success: function(data){
-				console.log(data);
 				// If webservice connection succeded store comp and downloadpdf
 				if(data.sucess == true){
 					$.each( ordersToDeletion, function( index, value ){
@@ -837,11 +832,9 @@
 
 	}
 
-
 	/////////////////////////////////////////////////
 	//                 UI EFECTS                   //
 	/////////////////////////////////////////////////
-
 
 	$('#ProductFinderBtn').click(function(){
 		$('#ProductFinder').removeClass('Hidden');
